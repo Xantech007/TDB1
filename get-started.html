@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TD Canada Trust - Get Started & Register for Online Banking</title>
+    <!-- Tailwind CSS for modern responsive layout and consistent styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for official TD brand and UI icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tdGreen: '#00853f',
+                        tdDarkGreen: '#005a28',
+                        tdHoverGreen: '#006b32',
+                        tdLightBg: '#f4f6f5',
+                        tdText: '#333333'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom TD Brand Aesthetic Overrides */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: #333333;
+            background-color: #f4f6f5;
+        }
+        .utility-nav {
+            background-color: #005a28;
+            color: white;
+            font-size: 0.85rem;
+        }
+        .main-header {
+            background-color: #00853f;
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .step-indicator.active {
+            background-color: #00853f;
+            color: white;
+            border-color: #00853f;
+        }
+        .step-indicator.completed {
+            background-color: #e6f4ed;
+            color: #00853f;
+            border-color: #00853f;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+    <div>
+        <!-- Utility Navigation -->
+        <div class="utility-nav py-2 px-4">
+            <div class="max-w-7xl mx-auto flex justify-between items-center">
+                <ul class="flex space-x-6 text-sm font-medium">
+                    <li class="border-b-2 border-white pb-0.5"><a href="#" class="hover:text-green-200">Personal</a></li>
+                    <li><a href="#" class="hover:text-green-200">Small Business</a></li>
+                    <li><a href="#" class="hover:text-green-200">Commercial</a></li>
+                    <li><a href="#" class="hover:text-green-200">Investing</a></li>
+                    <li><a href="#" class="hover:text-green-200">About TD</a></li>
+                </ul>
+                <div class="flex items-center space-x-2 text-xs">
+                    <span class="bg-green-800 px-2 py-1 rounded text-white font-semibold">CA - EN</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Navigation Header -->
+        <header class="main-header py-4 px-4 sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <a href="#" class="flex items-center text-white font-bold text-2xl tracking-wider">
+                        <span class="bg-white text-tdGreen px-3 py-1 rounded font-black italic shadow">TD</span>
+                        <span class="ml-2 font-light text-lg">Canada Trust</span>
+                    </a>
+                </div>
+                <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold">
+                    <a href="#" class="hover:text-green-200 flex items-center">Products <i class="fas fa-chevron-down ml-1 text-xs"></i></a>
+                    <a href="#" class="hover:text-green-200 flex items-center">Services <i class="fas fa-chevron-down ml-1 text-xs"></i></a>
+                    <a href="#" class="hover:text-green-200">Learning</a>
+                </nav>
+                <div class="flex items-center space-x-4">
+                    <a href="#" class="text-white hover:text-green-200" title="Find a Branch"><i class="fas fa-map-marker-alt text-lg"></i></a>
+                    <a href="#" class="text-white hover:text-green-200" title="Help"><i class="fas fa-question-circle text-lg"></i></a>
+                    <div class="h-6 w-px bg-green-600"></div>
+                    <a href="#" class="bg-white text-tdGreen px-4 py-2 rounded font-bold text-sm hover:bg-green-50 shadow transition flex items-center">
+                        <i class="fas fa-user mr-2"></i> Log In
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="py-10 px-4">
+            <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
+                <!-- Registration Header Banner -->
+                <div class="bg-gradient-to-r from-tdDarkGreen to-tdGreen p-6 md:p-8 text-white">
+                    <h1 class="text-2xl md:text-3xl font-bold">Register for EasyWeb Online Banking</h1>
+                    <p class="mt-2 text-green-100 text-sm md:text-base">Set up your secure online banking profile in a few quick steps. Have your TD Access Card or credit card ready.</p>
+                </div>
+
+                <!-- Multi-Step Progress Tracker Bar -->
+                <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
+                    <div class="flex justify-between items-center max-w-2xl mx-auto text-xs md:text-sm font-medium text-gray-500">
+                        <div id="step-ind-1" class="flex items-center space-x-2 step-indicator active px-3 py-1.5 rounded-full border border-gray-300 transition-all">
+                            <span class="w-6 h-6 flex items-center justify-center rounded-full bg-current text-white font-bold text-xs">1</span>
+                            <span class="hidden sm:inline">Card Info</span>
+                        </div>
+                        <div class="h-0.5 flex-1 bg-gray-300 mx-2"></div>
+                        <div id="step-ind-2" class="flex items-center space-x-2 px-3 py-1.5 rounded-full border border-gray-300 transition-all">
+                            <span class="w-6 h-6 flex items-center justify-center rounded-full bg-gray-300 text-gray-700 font-bold text-xs">2</span>
+                            <span class="hidden sm:inline">Verification</span>
+                        </div>
+                        <div class="h-0.5 flex-1 bg-gray-300 mx-2"></div>
+                        <div id="step-ind-3" class="flex items-center space-x-2 px-3 py-1.5 rounded-full border border-gray-300 transition-all">
+                            <span class="w-6 h-6 flex items-center justify-center rounded-full bg-gray-300 text-gray-700 font-bold text-xs">3</span>
+                            <span class="hidden sm:inline">Credentials</span>
+                        </div>
+                        <div class="h-0.5 flex-1 bg-gray-300 mx-2"></div>
+                        <div id="step-ind-4" class="flex items-center space-x-2 px-3 py-1.5 rounded-full border border-gray-300 transition-all">
+                            <span class="w-6 h-6 flex items-center justify-center rounded-full bg-gray-300 text-gray-700 font-bold text-xs">4</span>
+                            <span class="hidden sm:inline">Complete</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Wizard Body -->
+                <div class="p-6 md:p-10">
+                    <form id="registrationForm" onsubmit="return false;">
+                        
+                        <!-- STEP 1: Account / Card Information -->
+                        <div id="wizard-step-1" class="wizard-step space-y-6">
+                            <div class="border-l-4 border-tdGreen pl-4 py-1">
+                                <h2 class="text-xl font-bold text-gray-800">Step 1: Enter Your TD Card Number</h2>
+                                <p class="text-sm text-gray-600">Please provide your 16-digit TD Access Card or active TD Credit Card number.</p>
+                            </div>
+
+                            <div class="space-y-4 max-w-lg">
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1">TD Access Card or Credit Card Number</label>
+                                    <div class="relative">
+                                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+                                            <i class="fas fa-credit-card"></i>
+                                        </span>
+                                        <input type="text" id="cardNumber" placeholder="xxxx xxxx xxxx xxxx" maxlength="19" required
+                                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-tdGreen focus:outline-none text-gray-800 font-mono">
+                                    </div>
+                                    <p class="text-xs text-gray-500 mt-1">Found on the front of your TD card.</p>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1">Date of Birth (YYYY-MM-DD)</label>
+                                    <div class="grid grid-cols-3 gap-2">
+                                        <input type="text" id="dobYear" placeholder="YYYY" maxlength="4" required class="p-3 border border-gray-300 rounded-lg text-center focus:ring-2 focus:ring-tdGreen focus:outline-none">
+                                        <input type="text" id="dobMonth" placeholder="MM" maxlength="2" required class="p-3 border border-gray-300 rounded-lg text-center focus:ring-2 focus:ring-tdGreen focus:outline-none">
+                                        <input type="text" id="dobDay" placeholder="DD" maxlength="2" required class="p-3 border border-gray-300 rounded-lg text-center focus:ring-2 focus:ring-tdGreen focus:outline-none">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1">Phone Number Associated with Account</label>
+                                    <div class="relative">
+                                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+                                            <i class="fas fa-phone"></i>
+                                        </span>
+                                        <input type="tel" id="phoneNumber" placeholder="(555) 000-0000" required
+                                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-tdGreen focus:outline-none">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pt-6 border-t border-gray-200 flex justify-end">
+                                <button type="button" onclick="goToStep(2)" class="bg-tdGreen hover:bg-tdDarkGreen text-white px-8 py-3 rounded-lg font-bold shadow transition flex items-center">
+                                    Continue <i class="fas fa-arrow-right ml-2"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- STEP 2: Identity Verification & Contact -->
+                        <div id="wizard-step-2" class="wizard-step hidden space-y-6">
+                            <div class="border-l-4 border-tdGreen pl-4 py-1">
+                                <h2 class="text-xl font-bold text-gray-800">Step 2: Security & Contact Verification</h2>
+                                <p class="text-sm text-gray-600">We’ve sent a one-time verification code to your registered mobile phone and email.</p>
+                            </div>
+
+                            <div class="bg-green-50 border border-green-200 p-4 rounded-lg flex items-start space-x-3 max-w-lg">
+                                <i class="fas fa-shield-alt text-tdGreen text-xl mt-0.5"></i>
+                                <div class="text-sm text-green-900">
+                                    <p class="font-bold">Two-Step Verification Code Sent</p>
+                                    <p class="text-xs mt-0.5">Please check your phone ending in •••• <strong>4892</strong> and enter the 6-digit code below.</p>
+                                </div>
+                            </div>
+
+                            <div class="space-y-4 max-w-lg">
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1">Enter 6-Digit Verification Code</label>
+                                    <input type="text" id="verificationCode" placeholder="123456" maxlength="6" required
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-tdGreen focus:outline-none tracking-widest text-center text-xl font-mono">
+                                    <div class="flex justify-between text-xs text-gray-500 mt-2">
+                                        <span>Didn't receive code? <a href="#" class="text-tdGreen font-bold hover:underline">Resend Code</a></span>
+                                        <span>Code expires in 09:59</span>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1">Primary Email Address</label>
+                                    <input type="email" id="emailAddress" placeholder="name@example.com" required
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-tdGreen focus:outline-none">
+                                </div>
+                            </div>
+
+                            <div class="pt-6 border-t border-gray-200 flex justify-between">
+                                <button type="button" onclick="goToStep(1)" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-lg font-bold transition flex items-center">
+                                    <i class="fas fa-arrow-left mr-2"></i> Back
+                                </button>
+                                <button type="button" onclick="goToStep(3)" class="bg-tdGreen hover:bg-tdDarkGreen text-white px-8 py-3 rounded-lg font-bold shadow transition flex items-center">
+                                    Continue <i class="fas fa-arrow-right ml-2"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- STEP 3: Setup Username & Password -->
+                        <div id="wizard-step-3" class="wizard-step hidden space-y-6">
+                            <div class="border-l-4 border-tdGreen pl-4 py-1">
+                                <h2 class="text-xl font-bold text-gray-800">Step 3: Create Username & Password</h2>
+                                <p class="text-sm text-gray-600">Secure your EasyWeb banking access with login credentials.</p>
+                            </div>
+
+                            <div class="space-y-4 max-w-lg">
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1">Choose Username</label>
+                                    <input type="text" id="username" placeholder="e.g. john_doe99" required
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-tdGreen focus:outline-none">
+                                    <p class="text-xs text-gray-500 mt-1">Must be 6-20 characters long and unique.</p>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1">Password</label>
+                                    <input type="password" id="password" placeholder="••••••••" required
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-tdGreen focus:outline-none">
+                                    <p class="text-xs text-gray-500 mt-1">Use 8+ characters with a mix of letters, numbers & symbols.</p>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-1">Confirm Password</label>
+                                    <input type="password" id="confirmPassword" placeholder="••••••••" required
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-tdGreen focus:outline-none">
+                                </div>
+
+                                <div class="pt-2">
+                                    <label class="flex items-start space-x-3 cursor-pointer">
+                                        <input type="checkbox" required class="mt-1 h-4 w-4 text-tdGreen focus:ring-tdGreen border-gray-300 rounded">
+                                        <span class="text-xs text-gray-600">
+                                            I agree to the <a href="#" class="text-tdGreen underline">TD Electronic Services Agreement</a> and <a href="#" class="text-tdGreen underline">Online Security Guarantee terms</a>.
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="pt-6 border-t border-gray-200 flex justify-between">
+                                <button type="button" onclick="goToStep(2)" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-lg font-bold transition flex items-center">
+                                    <i class="fas fa-arrow-left mr-2"></i> Back
+                                </button>
+                                <button type="button" onclick="goToStep(4)" class="bg-tdGreen hover:bg-tdDarkGreen text-white px-8 py-3 rounded-lg font-bold shadow transition flex items-center">
+                                    Complete Setup <i class="fas fa-check ml-2"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- STEP 4: Success / Confirmation -->
+                        <div id="wizard-step-4" class="wizard-step hidden space-y-6 text-center py-6">
+                            <div class="w-20 h-20 bg-green-100 text-tdGreen rounded-full flex items-center justify-center mx-auto text-4xl shadow-inner">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+
+                            <div class="space-y-2 max-w-md mx-auto">
+                                <h2 class="text-2xl font-bold text-gray-800">Registration Complete!</h2>
+                                <p class="text-sm text-gray-600">You have successfully registered for TD EasyWeb Online Banking. You can now securely log in to manage your accounts, pay bills, and track your finances.</p>
+                            </div>
+
+                            <div class="bg-gray-50 border border-gray-200 p-4 rounded-lg max-w-sm mx-auto text-left text-sm space-y-1">
+                                <p class="text-gray-500 text-xs uppercase font-bold tracking-wider">Account Summary</p>
+                                <p class="text-gray-800"><span class="font-semibold">Username:</span> <span id="summaryUsername" class="font-mono text-tdGreen">john_doe99</span></p>
+                                <p class="text-gray-800"><span class="font-semibold">Status:</span> <span class="text-green-600 font-bold">Active & Secure</span></p>
+                            </div>
+
+                            <div class="pt-4 flex justify-center space-x-4">
+                                <a href="login.html" class="bg-tdGreen hover:bg-tdDarkGreen text-white px-8 py-3 rounded-lg font-bold shadow transition inline-flex items-center">
+                                    <i class="fas fa-lock mr-2"></i> Log In to EasyWeb Now
+                                </a>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer Template matching TD standards -->
+    <footer class="bg-gray-900 text-gray-400 text-xs py-10 px-4 mt-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto space-y-6">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
+                <div>
+                    <p class="text-white font-semibold">Need to talk to us directly? <a href="#" class="text-green-400 hover:underline">Contact us</a></p>
+                </div>
+                <div class="flex space-x-4 text-lg text-white">
+                    <a href="#" class="hover:text-green-400"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="hover:text-green-400"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="hover:text-green-400"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="hover:text-green-400"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="hover:text-green-400"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="flex flex-wrap gap-4 text-gray-300">
+                <a href="#" class="hover:underline">Privacy and Security</a>
+                <span>|</span>
+                <a href="#" class="hover:underline">Legal</a>
+                <span>|</span>
+                <a href="#" class="hover:underline">Accessibility</a>
+                <span>|</span>
+                <a href="#" class="hover:underline">CDIC Member</a>
+                <span>|</span>
+                <a href="#" class="hover:underline">Careers</a>
+            </div>
+            <div class="border-t border-gray-800 pt-4 text-gray-500">
+                <p>CDIC Member. Deposits insured up to applicable limits by the Canada Deposit Insurance Corporation.</p>
+                <p class="mt-2"><b>TD Bank Tower</b> 66 Wellington Street West, Toronto, ON M5K 1A2</p>
+                <p class="mt-1">©2026 The Toronto-Dominion Bank. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Wizard Script -->
+    <script>
+        function goToStep(stepNumber) {
+            // Hide all steps
+            const steps = document.querySelectorAll('.wizard-step');
+            steps.forEach(step => step.classList.add('hidden'));
+
+            // Show target step
+            const targetStep = document.getElementById(`wizard-step-${stepNumber}`);
+            if (targetStep) {
+                targetStep.classList.remove('hidden');
+            }
+
+            // Update top progress indicators
+            for (let i = 1; i <= 4; i++) {
+                const ind = document.getElementById(`step-ind-${i}`);
+                const spanNum = ind.querySelector('span');
+                if (i < stepNumber) {
+                    ind.className = "flex items-center space-x-2 px-3 py-1.5 rounded-full border border-tdGreen bg-green-50 text-tdGreen transition-all font-semibold";
+                    spanNum.className = "w-6 h-6 flex items-center justify-center rounded-full bg-tdGreen text-white font-bold text-xs";
+                } else if (i === stepNumber) {
+                    ind.className = "flex items-center space-x-2 px-3 py-1.5 rounded-full border border-tdGreen bg-tdGreen text-white transition-all font-bold shadow-sm";
+                    spanNum.className = "w-6 h-6 flex items-center justify-center rounded-full bg-white text-tdGreen font-bold text-xs";
+                } else {
+                    ind.className = "flex items-center space-x-2 px-3 py-1.5 rounded-full border border-gray-300 text-gray-400 transition-all";
+                    spanNum.className = "w-6 h-6 flex items-center justify-center rounded-full bg-gray-200 text-gray-600 font-bold text-xs";
+                }
+            }
+
+            // If entering step 4, capture username
+            if (stepNumber === 4) {
+                const usernameInput = document.getElementById('username').value;
+                if (usernameInput) {
+                    document.getElementById('summaryUsername').innerText = usernameInput;
+                }
+            }
+
+            window.scrollTo({ top: 100, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
