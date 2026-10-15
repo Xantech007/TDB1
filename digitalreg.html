@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Banking Registration: Personal Information - TD Canada Trust</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .register-container {
+            max-width: 650px;
+            margin: 40px auto;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 40px;
+            border-top: 5px solid #008a00;
+        }
+        .register-container h2 {
+            font-size: 1.6rem;
+            color: #111;
+            margin-bottom: 8px;
+        }
+        .register-subtitle {
+            color: #555;
+            font-size: 0.98rem;
+            margin-bottom: 25px;
+        }
+        .form-group {
+            margin-bottom: 22px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 6px;
+            color: #333;
+            font-size: 0.95rem;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        .form-group input:focus, .form-group select:focus {
+            border-color: #008a00;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 138, 0, 0.2);
+        }
+        .form-hint {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        .register-submit-btn {
+            width: 100%;
+            background-color: #008a00;
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 1.05rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 15px;
+        }
+        .register-submit-btn:hover {
+            background-color: #006600;
+        }
+        .help-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 0.95rem;
+            color: #333;
+        }
+        .help-section p {
+            margin-bottom: 8px;
+        }
+        .help-section a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        .help-section a:hover {
+            text-decoration: underline;
+        }
+        .error-message {
+            background-color: #ffe6e6;
+            color: #cc0000;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            display: none;
+            border-left: 4px solid #cc0000;
+        }
+    </style>
+</head>
+<body>
+    <!-- Utility Navigation -->
+    <div class="utility-nav">
+        <div class="container">
+            <ul class="utility-links">
+                <li class="active"><a href="personal-banking.html">Personal</a></li>
+                <li><a href="small-business.html">Small Business</a></li>
+                <li><a href="commercial-banking.html">Commercial</a></li>
+                <li><a href="investing">Investing</a></li>
+                <li><a href="asset-management.html">TD Asset Management</a></li>
+                <li><a href="about-td.html">About TD</a></li>
+            </ul>
+            <div class="country-selector">
+                <img src="images/country-ca-en.png" alt="Canada" style="height: 20px; width: auto; vertical-align: middle;">
+                <i class="fas fa-caret-down"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/cdic-logo-white-en.png" alt="TD Canada Trust">
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li class="dropdown">
+                        <a href="#">Products <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <ul>
+                                <li><a href="#">Accounts</a></li>
+                                <li><a href="#">Savings</a></li>
+                                <li><a href="#">GICs</a></li>
+                                <li><a href="#">Credit Cards</a></li>
+                                <li><a href="#">Mortgages</a></li>
+                                <li><a href="#">Personal Loans</a></li>
+                                <li><a href="#">RSPs / TFSAs</a></li>
+                                <li><a href="#">Debit Cards</a></li>
+                                <li><a href="#">Special Offers</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">Services <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <ul>
+                                <li><a href="#">EasyWeb Online Banking</a></li>
+                                <li><a href="#">TD app</a></li>
+                                <li><a href="#">Student Banking</a></li>
+                                <li><a href="#">Cross Border Banking</a></li>
+                                <li><a href="#">Travel Tips</a></li>
+                                <li><a href="#">Foreign Exchange Services</a></li>
+                                <li><a href="#">Overdraft Protection</a></li>
+                                <li><a href="#">New to Canada</a></li>
+                                <li><a href="#">Manage Your TD Credit Card</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a href="#">Learning</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="#" class="icon-link"><i class="fas fa-map-marker-alt"></i></a>
+                <a href="#" class="icon-link"><i class="fas fa-question-circle"></i></a>
+                <a href="#" class="icon-link"><i class="fas fa-search"></i></a>
+                <div class="divider"></div>
+                <a href="login.html" class="login-btn">
+                    <i class="fas fa-user"></i>
+                    Log In
+                    <i class="fas fa-caret-down"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <div class="register-container">
+                <h2>Digital Banking Registration: Personal Information</h2>
+                <p class="register-subtitle">Please enter your details below</p>
+
+                <div id="errorAlert" class="error-message"></div>
+
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label for="productSelection">Product Selection</label>
+                        <select id="productSelection" name="productSelection" required>
+                            <option value="">Please make a product selection</option>
+                            <option value="chequing">Chequing Account</option>
+                            <option value="savings">Savings Account</option>
+                            <option value="credit-card">Credit Card</option>
+                            <option value="loan">Personal Loan</option>
+                            <option value="easyweb">EasyWeb Online Banking Only</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="firstName">First name</label>
+                        <input type="text" id="firstName" name="firstName" required placeholder="Enter your first name">
+                        <div class="form-hint">Middle name or initial may also be required to match our records</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastName">Last name</label>
+                        <input type="text" id="lastName" name="lastName" required placeholder="Enter your last name">
+                        <div class="form-hint">Enter your last name only</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dob">Date of birth</label>
+                        <input type="date" id="dob" name="dob" required>
+                        <div class="form-hint">Select a date</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email address</label>
+                        <input type="email" id="email" name="email" required placeholder="abc@example.com">
+                        <div class="form-hint">Enter your valid email address in the format abc@example.com</div>
+                    </div>
+
+                    <button type="submit" class="register-submit-btn">Continue Registration</button>
+                </form>
+
+                <div class="help-section">
+                    <p>Need help? <a href="#">Click here for more information.</a></p>
+                    <p>You can also visit your <a href="#">nearest TD bank branch.</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Disclosures Section -->
+        <section class="disclosures" style="margin-top: 40px;">
+            <div class="container">
+                <details>
+                    <summary>Important Disclosures</summary>
+                    <div class="disclosure-content">
+                        <p><span class="legal-text">Personal information collected during registration is protected under TD Privacy and Security policies.</span></p>
+                    </div>
+                </details>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-heading">
+                    <p>Need to talk to us directly? <a href="#">Contact us</a></p>
+                </div>
+                <div class="social-links">
+                    <p>Follow TD Canada</p>
+                    <ul>
+                        <li><a href="https://twitter.com/td_canada"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="https://www.facebook.com/TDCanada/"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="https://www.instagram.com/TD_Canada/"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="https://www.youtube.com/user/TDCanada/TDCanadaTrust"><i class="fab fa-youtube"></i></a></li>
+                        <li><a href="https://www.linkedin.com/company/td/"><i class="fab fa-linkedin-in"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <ul class="footer-links">
+                <li><a href="privacy-and-security.html">Privacy and Security</a></li>
+                <li><a href="legal-notices-and-disclaimers.html">Legal</a></li>
+                <li><a href="accessibility.html">Accessibility</a></li>
+                <li><a href="cdic.html">CDIC Member</a></li>
+                <li><a href="careers.html">Careers</a></li>
+                <li><a href="#">Manage online experience</a></li>
+                <li><a href="site-index.html">Site Index</a></li>
+            </ul>
+            <hr>
+            <div class="footer-info">
+                <p><a href="#">CDIC Member. Deposits insured up to applicable limits by the Canada Deposit Insurance Corporation</a></p>
+            </div>
+            <hr>
+            <div class="securities-notice">
+                <p><b>INVESTMENT AND MUTUAL FUND PRODUCTS ARE: NOT A DEPOSIT; NOT CDIC INSURED; NOT INSURED BY ANY FEDERAL GOVERNMENT AGENCY; NOT GUARANTEED BY THE TORONTO-DOMINION BANK OR ANY OF ITS AFFILIATES.</b></p>
+            </div>
+            <hr>
+            <div class="copyright">
+                <p><b>TD Bank Tower</b> 66 Wellington Street West, Toronto, ON M5K 1A2<br>
+                ©2026 The Toronto-Dominion Bank. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Form Validation / Handler Script -->
+    <script>
+        const registerForm = document.getElementById('registerForm');
+        const errorAlert = document.getElementById('errorAlert');
+
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            errorAlert.style.display = 'none';
+
+            const emailInput = document.getElementById('email').value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailRegex.test(emailInput)) {
+                errorAlert.textContent = 'Please enter a valid email address in the format abc@example.com';
+                errorAlert.style.display = 'block';
+                return;
+            }
+
+            // Proceed to next step or handle registration workflow
+            alert('Personal information submitted successfully. Proceeding to verification...');
+        });
+    </script>
+</body>
+</html>
