@@ -3,12 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TD Canada Trust - Personal Banking, Credit Cards, Mortgages & Investments</title>
+    <title>TD Canada Trust - Online Banking, Loans, Credit Cards & Mortgages</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="images/favicon.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+    <!-- CDIC Banner -->
+    <div class="cdic-banner">
+        <div class="container">
+            <div class="">
+                <img src="images/cdic-logo-white-en.png" width="38" height="15" alt="CDIC logo">
+            </div>
+            <div class="cdic-text">
+                <p><i>&nbsp; CDIC Member – Depositories protected up to applicable limits by the Canada Deposit Insurance Corporation</i></p>
+            </div>
+        </div>
+    </div>
+
     <!-- Utility Navigation -->
     <div class="utility-nav">
         <div class="container">
@@ -16,13 +28,13 @@
                 <li class="active"><a href="personal-banking.html">Personal</a></li>
                 <li><a href="small-business.html">Small Business</a></li>
                 <li><a href="commercial-banking.html">Commercial</a></li>
-                <li><a href="investing.html">Investing</a></li>
-                <li><a href="wealth-management.html">TD Wealth</a></li>
+                <li><a href="investing">Investing</a></li>
+                <li><a href="asset-management.html">TD Asset Management</a></li>
                 <li><a href="about-td.html">About TD</a></li>
             </ul>
-            <div class="country-selector">
-                <a href="country-selection.html"><img src="images/country-ca-en.png" alt="Canada"></a>
-                <a href="language-selection.html" class="lang-switch">Français</a>
+            <div class="">
+                <img src="images/country-ca-en.png" alt="Canada">
+                <i class="fas fa-caret-down"></i>
             </div>
         </div>
     </div>
@@ -31,84 +43,55 @@
     <header class="main-header">
         <div class="container">
             <div class="logo">
-                <a href="personal-banking.html">
+                <a href="#">
                     <img src="images/td-logo.png" alt="TD Canada Trust">
                 </a>
             </div>
             <nav class="main-nav">
                 <ul>
                     <li class="dropdown">
-                        <a href="accounts.html">Accounts <i class="fas fa-chevron-down"></i></a>
+                        <a href="#">Products <i class="fas fa-chevron-down"></i></a>
                         <div class="dropdown-content">
                             <ul>
-                                <li><a href="chequing-accounts.html">Chequing Accounts</a></li>
-                                <li><a href="savings-accounts.html">Savings Accounts</a></li>
-                                <li><a href="youth-student-banking.html">Youth & Student Banking</a></li>
-                                <li><a href="us-dollar-accounts.html">U.S. Dollar Accounts</a></li>
-                                <li><a href="newcomers-banking.html">New to Canada Banking</a></li>
-                                <li><a href="overdraft-protection.html">Overdraft Protection</a></li>
+                                <li><a href="#">Accounts</a></li>
+                                <li><a href="#">Savings</a></li>
+                                <li><a href="#">GICs</a></li>
+                                <li><a href="#">Credit Cards</a></li>
+                                <li><a href="#">Mortgages</a></li>
+                                <li><a href="#">Personal Loans</a></li>
+                                <li><a href="#">RSPs / TFSAs</a></li>
+                                <li><a href="#">Debit Cards</a></li>
+                                <li><a href="#">Special Offers</a></li>
                             </ul>
                         </div>
                     </li>
                     <li class="dropdown">
-                        <a href="credit-cards.html">Credit Cards <i class="fas fa-chevron-down"></i></a>
+                        <a href="#">Services <i class="fas fa-chevron-down"></i></a>
                         <div class="dropdown-content">
                             <ul>
-                                <li><a href="all-credit-cards.html">Explore All Credit Cards</a></li>
-                                <li><a href="cash-back-cards.html">Cash Back Credit Cards</a></li>
-                                <li><a href="aeroplan-cards.html">TD Aeroplan Credit Cards</a></li>
-                                <li><a href="travel-rewards-cards.html">Travel Rewards Cards</a></li>
-                                <li><a href="no-annual-fee-cards.html">No Annual Fee Cards</a></li>
-                                <li><a href="student-credit-cards.html">Student Credit Cards</a></li>
+                                <li><a href="#">EasyWeb Online Banking</a></li>
+                                <li><a href="#">TD app</a></li>
+                                <li><a href="#">Student Banking</a></li>
+                                <li><a href="#">Cross Border Banking</a></li>
+                                <li><a href="#">Travel Tips</a></li>
+                                <li><a href="#">Foreign Exchange Services</a></li>
+                                <li><a href="#">Overdraft Protection</a></li>
+                                <li><a href="#">New to Canada</a></li>
+                                <li><a href="#">Manage Your TD Credit Card</a></li>
                             </ul>
                         </div>
                     </li>
-                    <li class="dropdown">
-                        <a href="mortgages.html">Mortgages <i class="fas fa-chevron-down"></i></a>
-                        <div class="dropdown-content">
-                            <ul>
-                                <li><a href="mortgage-rates.html">Mortgage Rates</a></li>
-                                <li><a href="first-time-home-buyer.html">First-Time Home Buyers</a></li>
-                                <li><a href="mortgage-refinance.html">Refinance Mortgage</a></li>
-                                <li><a href="heloc.html">Home Equity FlexLine (HELOC)</a></li>
-                                <li><a href="mortgage-calculator.html">Mortgage Calculator</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="dropdown">
-                        <a href="borrowing.html">Loans & Lines of Credit <i class="fas fa-chevron-down"></i></a>
-                        <div class="dropdown-content">
-                            <ul>
-                                <li><a href="personal-lines-of-credit.html">Personal Line of Credit</a></li>
-                                <li><a href="personal-loans.html">Personal Loans</a></li>
-                                <li><a href="student-lines-of-credit.html">Student Line of Credit</a></li>
-                                <li><a href="auto-financing.html">TD Auto Finance</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="dropdown">
-                        <a href="investments.html">Investing & Savings <i class="fas fa-chevron-down"></i></a>
-                        <div class="dropdown-content">
-                            <ul>
-                                <li><a href="gics.html">GICs & Term Deposits</a></li>
-                                <li><a href="tfsa.html">Tax-Free Savings Account (TFSA)</a></li>
-                                <li><a href="rrsp.html">Registered Retirement Savings Plan (RRSP)</a></li>
-                                <li><a href="fhsa.html">First Home Savings Account (FHSA)</a></li>
-                                <li><a href="mutual-funds.html">Mutual Funds</a></li>
-                                <li><a href="td-direct-investing.html">TD Direct Investing</a></li>
-                            </ul>
-                        </div>
-                    </li>
+                    <li><a href="#">Learning</a></li>
                 </ul>
             </nav>
             <div class="header-actions">
-                <a href="branch-locator.html" class="icon-link" title="Find Us"><i class="fas fa-map-marker-alt"></i></a>
-                <a href="help-centre.html" class="icon-link" title="Help"><i class="fas fa-question-circle"></i></a>
-                <a href="search.html" class="icon-link" title="Search"><i class="fas fa-search"></i></a>
+                <a href="#" class="icon-link"><i class="fas fa-map-marker-alt"></i></a>
+                <a href="#" class="icon-link"><i class="fas fa-question-circle"></i></a>
+                <a href="#" class="icon-link"><i class="fas fa-search"></i></a>
                 <div class="divider"></div>
-                <a href="easyweb-login.html" class="login-btn">
+                <a href="login.html" class="login-btn">
                     <i class="fas fa-user"></i>
-                    EasyWeb Log In
+                    Log In
                     <i class="fas fa-caret-down"></i>
                 </a>
             </div>
@@ -122,21 +105,21 @@
             <div class="container">
                 <div class="hero-content">
                     <div class="hero-message">
-                        <h1>Get up to $750 in value with a TD Chequing Account.</h1>
-                        <p>Open an eligible new TD Chequing Account and complete qualifying conditions. Conditions apply.</p>
-                        <a href="chequing-offer.html" class="btn btn-primary">View Offer Details</a>
+                        <h1>Banking that grows with you. Plus up to $300 in value.</h1>
+                        <p>All-new TD Unlimited Chequing is right for all life stages. And new customers earn cash offers with qualifying activities.</p>
+                        <a href="#" class="btn btn-primary">Get offer</a>
                     </div>
                     <div class="login-box">
                         <h2>EasyWeb Online Banking</h2>
-                        <a href="easyweb-login.html" class="secure-login-btn">
-                            <i class="fas fa-lock"></i> Login to EasyWeb
+                        <a href="login.html" class="secure-login-btn">
+                            <i class="fas fa-lock"></i> Login
                         </a>
-                        <p><a href="register-easyweb.html">Register for Online Banking</a></p>
-                        <p><a href="webbroker-login.html">Login to WebBroker</a></p>
-                        <p><a href="td-app.html">Learn more about the TD App</a></p>
+                        <p><a href="get-started.html">Register</a></p>
+                        <p><a href="about-td.html">Learn more about Personal Online Banking</a></p>
+                        <p><a href="about-td.html">Learn more about Small Business Online Banking</a></p>
                         <hr>
-                        <p><a href="security-hub.html">Protect yourself against fraud</a></p>
-                        <p><a href="td-global-transfer.html"><b>TD Global Transfer</b></a></p>
+                        <p><a href="about-td.html">Protect yourself against fraud</a></p>
+                        <p><a href="#"><b>Track International Payments</b></a></p>
                     </div>
                 </div>
             </div>
@@ -145,9 +128,9 @@
         <!-- Page Title -->
         <section class="page-title">
             <div class="container">
-                <h1>Banking & Financial Solutions for Canadians</h1>
+                <h1>Online Banking & Financial Services to Meet Your Goals</h1>
                 <div class="separator"></div>
-                <h2>What can we help you find today?</h2>
+                <h2>What can we help you find?</h2>
             </div>
         </section>
 
@@ -172,6 +155,14 @@
                         </a>
                     </div>
                     <div class="icon-item">
+                        <a href="gics.html">
+                            <div class="icon">
+                                <i class="fas fa-certificate"></i>
+                            </div>
+                            <p>GICs</p>
+                        </a>
+                    </div>
+                    <div class="icon-item">
                         <a href="credit-cards.html">
                             <div class="icon">
                                 <i class="fas fa-credit-card"></i>
@@ -180,19 +171,11 @@
                         </a>
                     </div>
                     <div class="icon-item">
-                        <a href="mortgages.html">
+                        <a href="personal-loans.html">
                             <div class="icon">
-                                <i class="fas fa-home"></i>
+                                <i class="fas fa-hand-holding-usd"></i>
                             </div>
-                            <p>Mortgages</p>
-                        </a>
-                    </div>
-                    <div class="icon-item">
-                        <a href="tfsa.html">
-                            <div class="icon">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                            <p>TFSAs & Investments</p>
+                            <p>Personal Loans</p>
                         </a>
                     </div>
                 </div>
@@ -202,15 +185,15 @@
         <!-- Banking Match Section -->
         <section class="banking-match">
             <div class="container">
-                <h2>Find the right chequing account</h2>
+                <h2>Meet your banking match</h2>
                 <div class="match-content">
                     <div class="match-image">
-                        <img src="images/meet-your-banking-match-3-3d-en.jpeg" alt="Banking match tool">
+                        <img src="images/meet-your-banking-match-3-3d-en.jpeg" alt="Banking match">
                     </div>
                     <div class="match-text">
-                        <h3>Our Account Selector Tool can help</h3>
-                        <p>Need help finding the right TD chequing or savings account for your everyday needs? Answer a few quick questions to find your match.</p>
-                        <a href="account-selector-tool.html" class="btn btn-primary">Help Me Choose</a>
+                        <h3>Our new tool can help</h3>
+                        <p>Need help selecting a TD product? We've made it easy for you. Our interactive product selector tool can guide you to the TD products that best meet your needs.</p>
+                        <a href="#" class="btn btn-primary">Help me choose</a>
                     </div>
                 </div>
             </div>
@@ -219,66 +202,97 @@
         <!-- Manage Accounts Section -->
         <section class="manage-accounts">
             <div class="container">
-                <h2>Manage your money with convenience</h2>
-                <p>Explore flexible ways to send money, make payments, and manage your day-to-day banking 24/7.</p>
+                <h2>Manage your bank accounts</h2>
+                <p>Explore unexpectedly human ways to manage your bank accounts 24/7—even when you're on the go.</p>
                 
                 <div class="account-features">
                     <div class="feature-card">
                         <div class="feature-image">
                             <img src="images/homepage-3.2d-200x90px-spot-one.jpeg" alt="Customer service">
                         </div>
-                        <h3>Customer support when you need it</h3>
-                        <p>Call 1-866-222-3456 or contact us via live support through the TD App anytime.</p>
+                        <h3>Live customer service when you need it</h3>
+                        <p>Call 1-866-567-8888 to talk to a real person any time of day, any day of the week</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-image">
-                            <img src="images/homepage-3.2d-200x90px-spot-two.jpeg" alt="TD Access Card">
+                            <img src="images/homepage-3.2d-200x90px-spot-two.jpeg" alt="Instant-issue cards">
                         </div>
-                        <h3>TD Access Card with Visa Debit</h3>
-                        <p>Shop online and in-store around the world directly from your bank account.</p>
+                        <h3>Quick and easy instant-issue cards</h3>
+                        <p>Order a new or replacement card at your nearest branch location and take it with you the same day</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-image">
-                            <img src="images/homepage-3.2d-200x90px-spot-three.jpeg" alt="Interac e-Transfer">
+                            <img src="images/homepage-3.2d-200x90px-spot-three.jpeg" alt="Pay bills">
                         </div>
-                        <h3>Interac e-Transfer® & Bill Pay</h3>
-                        <p>Send money fast to anyone in Canada with Interac e-Transfer® directly from EasyWeb or the TD app.</p>
+                        <h3>Pay your bills on the go</h3>
+                        <p>Make payments, view history and get e-bills. Reduce the hassle of paying bills with Bill Pay and the TD app</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-image">
-                            <img src="images/homepage-3.2d-200x90px-spot-four-en.jpeg" alt="TD Mobile Deposit">
+                            <img src="images/homepage-3.2d-200x90px-spot-four-en.jpeg" alt="Deposit checks">
                         </div>
-                        <h3>TD Mobile Deposit</h3>
-                        <p>Deposit cheques anywhere, anytime using your mobile phone or tablet camera.</p>
+                        <h3>Deposit cheques anytime</h3>
+                        <p>Deposit cheques using your smartphone or tablet camera with TD Mobile Deposit. Funds are usually available according to your hold policy</p>
                     </div>
                 </div>
             </div>
-        </div>
         </section>
 
-        <!-- Global Transfer Section -->
+        <!-- Fraud Protection Section -->
+        <section class="fraud-protection">
+            <div class="container">
+                <div class="protection-content">
+                    <div class="protection-text">
+                        <h2>Protect against fraud</h2>
+                        <p>Find out what to do if you suspect fraud, and learn how to keep your accounts and identity more secure</p>
+                        <a href="#" class="btn btn-primary">Learn more</a>
+                    </div>
+                    <div class="protection-image">
+                        <img src="images/onlinemobilesecurityguarantee-en.svg" alt="Security icon">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Overdraft Protection Section -->
         <section class="overdraft-relief">
             <div class="container">
-                <h2>Send money globally with TD Global Transfer™</h2>
-                <p>Enjoy convenient, fast, and flexible ways to send money to over 200 countries and territories directly from your TD account.</p>
+                <h2>Introducing TD Overdraft Protection<sup>1</sup></h2>
+                <p>With TD Overdraft Protection<sup>1</sup>, we offer you even more flexibility to manage unexpected transactions.</p>
                 
                 <div class="relief-features">
                     <div class="relief-card">
-                        <h3><b>Western Union® Money Transfer</b></h3>
-                        <p>Send money to cash pickup locations around the world or straight to participating bank accounts.</p>
+                        <h3><b>How TD Overdraft Protection helps</b></h3>
+                        <p>Cover transactions seamlessly when your account dips below zero, minimizing returned item hassles.</p>
                     </div>
                     <div class="relief-card">
-                        <h3><b>Transfers to Visa Debit or Credit Cards</b></h3>
-                        <p>Send money directly to eligible international Visa Debit or Visa Credit Cards in participating countries.</p>
+                        <h3><b>More time to manage balances</b></h3>
+                        <p>Our alert systems give you time to fund your account and prevent excessive fee accumulation.</p>
                     </div>
                     <div class="relief-card">
-                        <h3><b>Direct to International Bank Account</b></h3>
-                        <p>Wire money straight into an international bank account with transparent exchange rate options.</p>
+                        <h3><b>Additional overdraft options for you</b></h3>
+                        <p>You'll find options including <a href="#">chequing account overdraft protection</a><sup>1</sup> or <a href="#">overdraft plans for TD Small Business customers</a></p>
                     </div>
                 </div>
                 
                 <div class="center-button">
-                    <a href="td-global-transfer.html" class="btn btn-primary">Explore Global Transfers</a>
+                    <a href="#" class="btn btn-primary">Learn more</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Convenient Banking Section -->
+        <section class="convenient-banking">
+            <div class="container">
+                <div class="convenient-content">
+                    <div class="convenient-text">
+                        <h2>Canada's most convenient bank</h2>
+                        <p>Your local TD branch is here for you—visit us early, late or on weekends.</p>
+                        <a href="#" class="btn btn-primary">Find a TD Branch</a>
+                    </div>
+                    <div class="convenient-image">
+                        <img src="images/locateabranch-smp-en.svg" alt="Location icon">
+                    </div>
                 </div>
             </div>
         </section>
@@ -286,22 +300,22 @@
         <!-- Mobile App Section -->
         <section class="mobile-app">
             <div class="container">
-                <h2>Bank on the go with the TD App</h2>
+                <h2>New look for the TD app</h2>
                 <div class="app-content">
                     <div class="app-image">
-                        <img src="images/tdbank-mobileapp-homepage-3.3d-en.jpeg" alt="TD Mobile App">
+                        <img src="images/tdbank-mobileapp-homepage-3.3d-en.jpeg" alt="TD mobile app">
                     </div>
                     <div class="app-text">
-                        <p><b>Your bank at your fingertips</b></p>
-                        <p>Track your spending, transfer funds, view account balances, and stay on top of your financial health with TD MySpend.</p>
-                        <p>Features of the TD App include:</p>
+                        <p><b>"One of the best bank apps," you said—and we love to see it</b></p>
+                        <p>Your app store reviews are telling us how much you like the new and improved TD app. 4.8/5 stars! We're listening. And we'll keep rolling out changes to make the app even better.</p>
+                        <p>Our biggest app update ever gives you:</p>
                         <ul>
-                            <li>Real-time transaction alerts and spending insights with TD MySpend</li>
-                            <li>Send money instantly with Interac e-Transfer®</li>
-                            <li>Mobile cheque deposit with TD Mobile Deposit</li>
-                            <li>Manage your TD Credit Cards, Mortgages, and Loans</li>
+                            <li>Friendlier navigation</li>
+                            <li>Account balances at a glance</li>
+                            <li>One central location to make payments, transfer funds, send money via Interac e-Transfer® and more</li>
                         </ul>
-                        <a href="td-app.html" class="btn btn-primary">Learn More About the TD App</a>
+                        <p>We hope these changes make banking with us easier than ever.</p>
+                        <a href="#" class="btn btn-primary">Learn more</a>
                     </div>
                 </div>
             </div>
@@ -310,30 +324,42 @@
         <!-- Bank Anywhere Section -->
         <section class="bank-anywhere">
             <div class="container">
-                <h2>Financial Insights & Tools</h2>
+                <h2>Bank anywhere, anytime</h2>
                 <div class="anywhere-grid">
                     <div class="anywhere-card">
                         <div class="anywhere-image">
-                            <img src="images/tdbank-apply-td-fit-personal-loan-en.jpeg" alt="Newcomers banking">
+                            <img src="images/tdbank-apply-td-fit-personal-loan-en.jpeg" alt="Personal loan">
                         </div>
-                        <h3><a href="newcomers-banking.html">New to Canada?</a></h3>
-                        <p>Get up to $1,790 in value with the TD New to Canada Banking Package designed to help you settle into life in Canada.</p>
+                        <h3><a href="#">Get started</a></h3>
+                        <p>Apply for a TD Personal Loan<br><br>Secure your dream projects and unlock funds with a personal loan today.</p>
                     </div>
                     <div class="anywhere-card">
                         <div class="anywhere-image">
-                            <img src="images/4ddbc1e9-1fdf-4717-a003-07cd433a6e52-en.jpeg" alt="TD Ready Advice">
+                            <img src="images/4ddbc1e9-1fdf-4717-a003-07cd433a6e52-en.jpeg" alt="Mobile deposit">
                         </div>
-                        <h3><a href="td-ready-advice.html">TD Ready Advice Hub</a></h3>
-                        <p>Get expert advice on buying your first home, budgeting, saving, or managing personal debt.</p>
+                        <h3><a href="#">Click. Tap. Cha-Ching</a></h3>
+                        <p>Mobile Deposits are that easy.</p>
                     </div>
                     <div class="anywhere-card">
                         <div class="anywhere-image">
-                            <img src="images/70bf04a2-fee7-48f6-aa10-b66a94799192-en.jpeg" alt="Calculators and tools">
+                            <img src="images/70bf04a2-fee7-48f6-aa10-b66a94799192-en.jpeg" alt="Finance 101">
                         </div>
-                        <h3><a href="mortgage-calculator.html">Calculators & Tools</a></h3>
-                        <p>Calculate your mortgage payments, compare TFSA vs RRSP benefits, or build a personal budget.</p>
+                        <h3><a href="#">Bank smarter</a></h3>
+                        <p>Visit our learning centre to get tips and tools for managing your finances.</p>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <div class="container">
+                <h2>Have a question? Find answers here</h2>
+                <div class="search-container">
+                    <input type="text" placeholder="What's your question?">
+                    <button class="btn btn-primary">Ask Us</button>
+                </div>
+                <a href="#" class="popular-link">Popular Questions <i class="fas fa-caret-right"></i></a>
             </div>
         </section>
 
@@ -341,11 +367,9 @@
         <section class="disclosures">
             <div class="container">
                 <details>
-                    <summary>Important Terms and Disclosures</summary>
+                    <summary>Important Disclosures</summary>
                     <div class="disclosure-content">
-                        <p><span class="legal-text"><sup>1</sup>Offer available to eligible Canadian residents who have reached the age of majority. Chequing account terms, transaction fees, and monthly account maintenance conditions apply.</span></p>
-                        <p><span class="legal-text"><sup>2</sup>Interac e-Transfer® is a registered trademark of Interac Corp. Used under licence.</span></p>
-                        <p><span class="legal-text"><sup>3</sup>TD Global Transfer transactions may be subject to foreign exchange rates and service fees depending on destination country and payout method.</span></p>
+                        <p><span class="legal-text"><sup>1</sup>Overdraft Protection limits and fees vary by specific account tier. We may decline or return transactions that would result in an unauthorized overdraft. Preauthorized transactions and other debits may post to your account even when available balances are insufficient.</span></p>
                     </div>
                 </details>
             </div>
@@ -357,40 +381,40 @@
         <div class="container">
             <div class="footer-top">
                 <div class="footer-heading">
-                    <p>Need to talk to us directly? <a href="contact-us.html">Contact us</a></p>
+                    <p>Need to talk to us directly? <a href="#">Contact us</a></p>
                 </div>
                 <div class="social-links">
-                    <p>Follow TD Canada Trust</p>
+                    <p>Follow TD Canada</p>
                     <ul>
-                        <li><a href="https://facebook.com" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a></li>
-                        <li><a href="https://twitter.com" aria-label="Twitter"><i class="fab fa-twitter"></i></a></li>
-                        <li><a href="https://youtube.com" aria-label="YouTube"><i class="fab fa-youtube"></i></a></li>
-                        <li><a href="https://instagram.com" aria-label="Instagram"><i class="fab fa-instagram"></i></a></li>
-                        <li><a href="https://linkedin.com" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a></li>
+                        <li><a href="https://twitter.com/td_canada"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="https://www.facebook.com/TDCanada/"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="https://www.instagram.com/TD_Canada/"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="https://www.youtube.com/user/TDCanada/TDCanadaTrust"><i class="fab fa-youtube"></i></a></li>
+                        <li><a href="https://www.linkedin.com/company/td/"><i class="fab fa-linkedin-in"></i></a></li>
                     </ul>
                 </div>
             </div>
             <ul class="footer-links">
-                <li><a href="privacy-security.html">Privacy</a></li>
-                <li><a href="online-advertising-privacy.html">Online Advertising</a></li>
-                <li><a href="terms-of-use.html">Terms of Use</a></li>
-                <li><a href="security-hub.html">Security</a></li>
-                <li><a href="about-td.html">About Us</a></li>
+                <li><a href="privacy-and-security.html">Privacy and Security</a></li>
+                <li><a href="legal-notices-and-disclaimers.html">Legal</a></li>
                 <li><a href="accessibility.html">Accessibility</a></li>
+                <li><a href="cdic.html">CDIC Member</a></li>
                 <li><a href="careers.html">Careers</a></li>
-                <li><a href="site-map.html">Site Map</a></li>
+                <li><a href="#">Manage online experience</a></li>
+                <li><a href="#">Site Index</a></li>
             </ul>
             <hr>
             <div class="footer-info">
-                <p><a href="cdic-information.html">Member of CDIC - Canada Deposit Insurance Corporation</a></p>
+                <p><a href="#">CDIC Member. Deposits insured up to applicable limits by the Canada Deposit Insurance Corporation</a></p>
             </div>
             <hr>
             <div class="securities-notice">
-                <p><b>TD Wealth Management and TD Direct Investing are divisions of TD Waterhouse Canada Inc., a subsidiary of The Toronto-Dominion Bank. Member – Canadian Investor Protection Fund.</b></p>
+                <p><b>INVESTMENT AND MUTUAL FUND PRODUCTS ARE: NOT A DEPOSIT; NOT CDIC INSURED; NOT INSURED BY ANY FEDERAL GOVERNMENT AGENCY; NOT GUARANTEED BY THE TORONTO-DOMINION BANK OR ANY OF ITS AFFILIATES.</b></p>
             </div>
             <hr>
             <div class="copyright">
-                <p><b>The Toronto-Dominion Bank</b><br>©2026 The Toronto-Dominion Bank. All Rights Reserved.</p>
+                <p><b>TD Bank Tower</b> 66 Wellington Street West, Toronto, ON M5K 1A2<br>
+                ©2026 The Toronto-Dominion Bank. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
