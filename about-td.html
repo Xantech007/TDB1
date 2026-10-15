@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About TD - Top 10 North American Bank | TD Canada Trust</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Hero Section Styling */
+        .about-hero {
+            background: linear-gradient(135deg, #008a00 0%, #005600 100%);
+            color: #ffffff;
+            padding: 60px 0;
+            text-align: center;
+        }
+        .about-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+        .about-hero p {
+            font-size: 1.25rem;
+            max-width: 750px;
+            margin: 0 auto;
+            opacity: 0.95;
+            line-height: 1.5;
+        }
+
+        /* Pillars Section */
+        .pillars-section {
+            padding: 60px 0;
+            background-color: #ffffff;
+        }
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        .pillar-card {
+            background: #f9fbf9;
+            border: 1px solid #e2e8e2;
+            border-top: 4px solid #008a00;
+            border-radius: 6px;
+            padding: 25px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .pillar-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+        .pillar-icon {
+            font-size: 2rem;
+            color: #008a00;
+            margin-bottom: 15px;
+        }
+        .pillar-card h3 {
+            font-size: 1.25rem;
+            color: #111;
+            margin-bottom: 10px;
+        }
+        .pillar-card p {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Our Stories Section */
+        .stories-section {
+            padding: 60px 0;
+            background-color: #f4f6f8;
+        }
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        .story-card {
+            background: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+        }
+        .story-body {
+            padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .story-body h3 {
+            font-size: 1.2rem;
+            color: #111;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        .story-body p {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.6;
+            flex: 1;
+        }
+
+        /* TD Invent Section */
+        .invent-section {
+            padding: 60px 0;
+            background: #ffffff;
+        }
+        .invent-banner {
+            background: #003300;
+            color: #ffffff;
+            border-radius: 12px;
+            padding: 45px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        .invent-banner h2 {
+            font-size: 2rem;
+            color: #53d253;
+            margin-bottom: 15px;
+        }
+        .invent-banner h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+        .invent-banner p {
+            font-size: 1.05rem;
+            max-width: 800px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+        .invent-pillars {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .invent-item {
+            padding: 20px;
+            background: #f9fbf9;
+            border-left: 4px solid #008a00;
+            border-radius: 4px;
+        }
+        .invent-item h4 {
+            font-size: 1.15rem;
+            color: #111;
+            margin-bottom: 8px;
+        }
+        .invent-item p {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        /* Leadership Section */
+        .leadership-section {
+            padding: 60px 0;
+            background-color: #f4f6f8;
+            text-align: center;
+        }
+        .leadership-box {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 40px;
+            max-width: 800px;
+            margin: 20px auto 0 auto;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .leadership-box h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #111;
+        }
+        .leadership-box p {
+            font-size: 1.05rem;
+            color: #555;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        /* Awards Carousel / Section */
+        .awards-section {
+            padding: 60px 0;
+            background-color: #ffffff;
+            text-align: center;
+        }
+        .awards-carousel {
+            position: relative;
+            max-width: 750px;
+            margin: 30px auto 0 auto;
+            overflow: hidden;
+            background: #f9fbf9;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            padding: 40px 30px;
+        }
+        .slide {
+            display: none;
+        }
+        .slide.active {
+            display: block;
+        }
+        .slide-icon {
+            font-size: 2.5rem;
+            color: #008a00;
+            margin-bottom: 15px;
+        }
+        .slide h3 {
+            font-size: 1.3rem;
+            color: #111;
+            margin-bottom: 10px;
+        }
+        .slide p {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.6;
+        }
+        .carousel-controls {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+        .carousel-btn {
+            background: #008a00;
+            color: #ffffff;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .carousel-btn:hover {
+            background: #006600;
+        }
+        .carousel-indicator {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #666;
+        }
+        .all-awards-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: #0066cc;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .all-awards-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Utility Navigation -->
+    <div class="utility-nav">
+        <div class="container">
+            <ul class="utility-links">
+                <li class="active"><a href="personal-banking.html">Personal</a></li>
+                <li><a href="small-business.html">Small Business</a></li>
+                <li><a href="commercial-banking.html">Commercial</a></li>
+                <li><a href="investing">Investing</a></li>
+                <li><a href="asset-management.html">TD Asset Management</a></li>
+                <li class="active"><a href="about-td.html">About TD</a></li>
+            </ul>
+            <div class="country-selector">
+                <img src="images/country-ca-en.png" alt="Canada" style="height: 20px; width: auto; vertical-align: middle;">
+                <i class="fas fa-caret-down"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/cdic-logo-white-en.png" alt="TD Canada Trust">
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li class="dropdown">
+                        <a href="#">Products <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <ul>
+                                <li><a href="#">Accounts</a></li>
+                                <li><a href="#">Savings</a></li>
+                                <li><a href="#">GICs</a></li>
+                                <li><a href="#">Credit Cards</a></li>
+                                <li><a href="#">Mortgages</a></li>
+                                <li><a href="#">Personal Loans</a></li>
+                                <li><a href="#">RSPs / TFSAs</a></li>
+                                <li><a href="#">Debit Cards</a></li>
+                                <li><a href="#">Special Offers</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">Services <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <ul>
+                                <li><a href="#">EasyWeb Online Banking</a></li>
+                                <li><a href="#">TD app</a></li>
+                                <li><a href="#">Student Banking</a></li>
+                                <li><a href="#">Cross Border Banking</a></li>
+                                <li><a href="#">Travel Tips</a></li>
+                                <li><a href="#">Foreign Exchange Services</a></li>
+                                <li><a href="#">Overdraft Protection</a></li>
+                                <li><a href="#">New to Canada</a></li>
+                                <li><a href="#">Manage Your TD Credit Card</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a href="#">Learning</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="#" class="icon-link"><i class="fas fa-map-marker-alt"></i></a>
+                <a href="#" class="icon-link"><i class="fas fa-question-circle"></i></a>
+                <a href="#" class="icon-link"><i class="fas fa-search"></i></a>
+                <div class="divider"></div>
+                <a href="login.html" class="login-btn">
+                    <i class="fas fa-user"></i>
+                    Log In
+                    <i class="fas fa-caret-down"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Banner -->
+        <section class="about-hero">
+            <div class="container">
+                <h1>About TD</h1>
+                <p>Get to know TD, a top 10 North American bank.</p>
+            </div>
+        </section>
+
+        <!-- Get to know us / Pillars -->
+        <section class="pillars-section">
+            <div class="container">
+                <h2 style="font-size: 2rem; color: #111; text-align: center;">Get to know us</h2>
+                <div class="separator" style="margin: 15px auto 30px auto;"></div>
+                
+                <div class="pillars-grid">
+                    <!-- Who we are -->
+                    <div class="pillar-card">
+                        <div class="pillar-icon"><i class="fas fa-university"></i></div>
+                        <h3>Who we are</h3>
+                        <p>Find out how our proven business model, purpose-driven brand and forward focus sets TD apart.</p>
+                    </div>
+
+                    <!-- Our colleagues -->
+                    <div class="pillar-card">
+                        <div class="pillar-icon"><i class="fas fa-users"></i></div>
+                        <h3>Our colleagues</h3>
+                        <p>We create an environment for colleagues to thrive and unlock their full career potential.</p>
+                    </div>
+
+                    <!-- Corporate profile -->
+                    <div class="pillar-card">
+                        <div class="pillar-icon"><i class="fas fa-chart-line"></i></div>
+                        <h3>Corporate profile</h3>
+                        <p>TD Bank Group offers products and services to over 27.9 million customers worldwide.</p>
+                    </div>
+
+                    <!-- Corporate citizenship -->
+                    <div class="pillar-card">
+                        <div class="pillar-icon"><i class="fas fa-hands-helping"></i></div>
+                        <h3>Corporate citizenship</h3>
+                        <p>TD helps create the conditions for everyone to succeed in a changing world.</p>
+                    </div>
+
+                    <!-- Sustainability -->
+                    <div class="pillar-card">
+                        <div class="pillar-icon"><i class="fas fa-leaf"></i></div>
+                        <h3>Sustainability</h3>
+                        <p>Learn how we're embedding sustainability into our business.</p>
+                    </div>
+
+                    <!-- Investor Relations -->
+                    <div class="pillar-card">
+                        <div class="pillar-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+                        <h3>Investor Relations</h3>
+                        <p>Find reporting and disclosures on TD's strategy and financial performance.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Stories Section -->
+        <section class="stories-section">
+            <div class="container">
+                <h2 style="font-size: 2rem; color: #111;">Our stories</h2>
+                <div class="stories-grid">
+                    <!-- Story 1 -->
+                    <div class="story-card">
+                        <div class="story-body">
+                            <h3>Working together, toward an inclusive and sustainable future</h3>
+                            <p>Our Environmental, Social and Governance (ESG) strategy reflects the commitments we make and is represented by the actions we take together. Learn more about our approach to ESG.</p>
+                            <a href="#" class="btn btn-primary" style="margin-top: 15px; display: inline-block; align-self: flex-start;">Read ESG Strategy</a>
+                        </div>
+                    </div>
+
+                    <!-- Story 2 -->
+                    <div class="story-card">
+                        <div class="story-body">
+                            <h3>Reimagining the future of TD branches, one community at a time</h3>
+                            <p>Renovations like the one at this TD branch create a new banking experience, with a more welcoming atmosphere and in-person meeting spaces.</p>
+                            <a href="#" class="btn btn-primary" style="margin-top: 15px; display: inline-block; align-self: flex-start;">Discover Branch Design</a>
+                        </div>
+                    </div>
+
+                    <!-- Story 3 -->
+                    <div class="story-card">
+                        <div class="story-body">
+                            <h3>Protecting yourself from fraud and scams</h3>
+                            <p>Resources and advice to help keep you and your family safe and informed against evolving online security risks.</p>
+                            <a href="#" class="btn btn-primary" style="margin-top: 15px; display: inline-block; align-self: flex-start;">Learn Fraud Tips</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TD Invent Section -->
+        <section class="invent-section">
+            <div class="container">
+                <div class="invent-banner">
+                    <h2>TD Invent</h2>
+                    <h3>Proven innovator, new perspectives</h3>
+                    <p>TD Invent – It's how we bring innovation to life. TD Invent is our enterprise approach to innovation and supports our business strategy as a forward-focused bank. It's about using emerging technology to engage with our customers and exceeding their rapidly evolving expectations.</p>
+                    <a href="#" class="btn btn-primary" style="background: #ffffff; color: #003300; border: none; font-weight: bold;">Explore TD Invent</a>
+                </div>
+
+                <div class="invent-pillars">
+                    <div class="invent-item">
+                        <h4>Innovation accelerated</h4>
+                        <p>We’ve developed a proven, repeatable way to explore, test and get our ground-breaking ideas into your hands fast.</p>
+                    </div>
+                    <div class="invent-item">
+                        <h4>Empowered colleagues</h4>
+                        <p>We’ve made it easy for TD employees to harness their creativity, bring their ideas to life, and solve customer and colleague problems.</p>
+                    </div>
+                    <div class="invent-item">
+                        <h4>A human approach</h4>
+                        <p>We put you at the centre of everything we do. This ensures we’re designing things that you want, need and can use intuitively.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Leadership Team -->
+        <section class="leadership-section">
+            <div class="container">
+                <div class="leadership-box">
+                    <h2>Our Leadership Team</h2>
+                    <p>Meet our Chair and Senior Leadership, then familiarize yourself with our corporate profile, history and more.</p>
+                    <a href="#" class="btn btn-primary">See corporate information</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Awards Section with Carousel -->
+        <section class="awards-section">
+            <div class="container">
+                <h2 style="font-size: 2rem; color: #111;">Awards & Recognition</h2>
+
+                <div class="awards-carousel">
+                    <!-- Slide 1 -->
+                    <div class="slide active" id="slide-1">
+                        <div class="slide-icon"><i class="fas fa-award"></i></div>
+                        <h3>Recognized for sustainability efforts</h3>
+                        <p>TD was listed in the Dow Jones Sustainability North American Index for the 12th consecutive year in 2023.</p>
+                    </div>
+
+                    <!-- Slide 2 -->
+                    <div class="slide" id="slide-2">
+                        <div class="slide-icon"><i class="fas fa-medal"></i></div>
+                        <h3>One of the Best Workplaces™ in Canada</h3>
+                        <p>In 2024, TD was named one of the Best Workplaces™ in Canada by Great Place to Work for the 19th year in a row.</p>
+                    </div>
+
+                    <!-- Slide 3 -->
+                    <div class="slide" id="slide-3">
+                        <div class="slide-icon"><i class="fas fa-mobile-alt"></i></div>
+                        <h3>Award-winning mobile banking app</h3>
+                        <p>In 2026, TD was #1 in Customer Satisfaction with Mobile Banking Apps in Canada, as awarded by J.D. Power.</p>
+                    </div>
+
+                    <!-- Carousel Navigation -->
+                    <div class="carousel-controls">
+                        <button class="carousel-btn" id="prevBtn" onclick="changeSlide(-1)"><i class="fas fa-chevron-left"></i></button>
+                        <span class="carousel-indicator" id="slideIndicator">slide 1 of 3</span>
+                        <button class="carousel-btn" id="nextBtn" onclick="changeSlide(1)"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+
+                <a href="#" class="all-awards-link">View the entire list of our awards and recognition <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </section>
+
+        <!-- Disclosures Section -->
+        <section class="disclosures">
+            <div class="container">
+                <details>
+                    <summary>Important Corporate Information</summary>
+                    <div class="disclosure-content">
+                        <p><span class="legal-text">The Toronto-Dominion Bank and its subsidiaries are collectively known as TD Bank Group (TD). TD is the sixth largest bank in North America by assets and serves over 27.9 million customers.</span></p>
+                    </div>
+                </details>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-heading">
+                    <p>Need to talk to us directly? <a href="#">Contact us</a></p>
+                </div>
+                <div class="social-links">
+                    <p>Follow TD Canada</p>
+                    <ul>
+                        <li><a href="https://twitter.com/td_canada"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="https://www.facebook.com/TDCanada/"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="https://www.instagram.com/TD_Canada/"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="https://www.youtube.com/user/TDCanada/TDCanadaTrust"><i class="fab fa-youtube"></i></a></li>
+                        <li><a href="https://www.linkedin.com/company/td/"><i class="fab fa-linkedin-in"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <ul class="footer-links">
+                <li><a href="privacy-and-security.html">Privacy and Security</a></li>
+                <li><a href="legal-notices-and-disclaimers.html">Legal</a></li>
+                <li><a href="accessibility.html">Accessibility</a></li>
+                <li><a href="cdic.html">CDIC Member</a></li>
+                <li><a href="careers.html">Careers</a></li>
+                <li><a href="#">Manage online experience</a></li>
+                <li><a href="site-index.html">Site Index</a></li>
+            </ul>
+            <hr>
+            <div class="footer-info">
+                <p><a href="#">CDIC Member. Deposits insured up to applicable limits by the Canada Deposit Insurance Corporation</a></p>
+            </div>
+            <hr>
+            <div class="securities-notice">
+                <p><b>INVESTMENT AND MUTUAL FUND PRODUCTS ARE: NOT A DEPOSIT; NOT CDIC INSURED; NOT INSURED BY ANY FEDERAL GOVERNMENT AGENCY; NOT GUARANTEED BY THE TORONTO-DOMINION BANK OR ANY OF ITS AFFILIATES.</b></p>
+            </div>
+            <hr>
+            <div class="copyright">
+                <p><b>TD Bank Tower</b> 66 Wellington Street West, Toronto, ON M5K 1A2<br>
+                ©2026 The Toronto-Dominion Bank. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Carousel Script -->
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 3;
+
+        function changeSlide(direction) {
+            document.getElementById(`slide-${currentSlide}`).classList.remove('active');
+            
+            currentSlide += direction;
+            if (currentSlide > totalSlides) currentSlide = 1;
+            if (currentSlide < 1) currentSlide = totalSlides;
+
+            document.getElementById(`slide-${currentSlide}`).classList.add('active');
+            document.getElementById('slideIndicator').textContent = `slide ${currentSlide} of ${totalSlides}`;
+        }
+    </script>
+</body>
+</html>
