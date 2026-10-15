@@ -3,131 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get Started - EasyWeb Online Banking - TD Canada Trust</title>
+    <title>Log In to EasyWeb Online Banking - TD Canada Trust</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="images/favicon.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Custom styles for Get Started sections */
-        .get-started-hero {
-            background-color: #f4f6f8;
-            padding: 40px 0;
-            border-bottom: 1px solid #e0e0e0;
+        .login-layout {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            max-width: 1050px;
+            margin: 40px auto;
+            padding: 0 20px;
+            align-items: flex-start;
         }
-        .welcome-card {
+        .login-card-col {
+            flex: 1;
+            min-width: 320px;
+            max-width: 480px;
+        }
+        .info-col {
+            flex: 1.2;
+            min-width: 300px;
+        }
+        .login-card {
             background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 35px;
+            border-top: 5px solid #008a00;
+        }
+        .login-card h2 {
+            font-size: 1.5rem;
+            color: #111;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 0.95rem;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        .form-group input:focus {
+            border-color: #008a00;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 138, 0, 0.2);
+        }
+        .login-submit-btn {
+            width: 100%;
+            background-color: #008a00;
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 1.05rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 10px;
+        }
+        .login-submit-btn:hover {
+            background-color: #006600;
+        }
+        .login-links {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        .login-links a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        .login-links a:hover {
+            text-decoration: underline;
+        }
+        .error-message {
+            background-color: #ffe6e6;
+            color: #cc0000;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            display: none;
+            border-left: 4px solid #cc0000;
+        }
+        
+        /* Information Column Styling */
+        .info-box {
+            background: #f4f6f8;
             border-radius: 8px;
             padding: 30px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-            border-top: 4px solid #008a00;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
-        .welcome-card h2 {
-            color: #008a00;
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-        }
-        .welcome-card p {
-            font-size: 1.05rem;
-            color: #333333;
-            line-height: 1.6;
-        }
-
-        .help-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin: 30px 0;
-        }
-        .help-card {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 25px;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .help-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
-        }
-        .help-card h3 {
+        .info-box h3 {
             font-size: 1.25rem;
-            color: #111111;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .help-card h3 i {
-            color: #008a00;
-        }
-        .help-card ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .help-card ul li {
+            color: #111;
             margin-bottom: 12px;
         }
-        .help-card ul li a {
+        .info-box p {
+            color: #444;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 0.98rem;
+        }
+        .info-box ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin-top: 10px;
+        }
+        .info-box ul li {
+            margin-bottom: 8px;
+        }
+        .info-box ul li a {
             color: #0066cc;
             text-decoration: none;
             font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
-        .help-card ul li a:hover {
+        .info-box ul li a:hover {
             text-decoration: underline;
         }
-
-        .app-promo-banner {
-            background: linear-gradient(135deg, #008a00 0%, #005a00 100%);
-            color: #ffffff;
-            border-radius: 8px;
-            padding: 35px 30px;
-            margin: 40px 0;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-        .app-promo-text h3 {
-            font-size: 1.5rem;
-            margin-bottom: 8px;
-            color: #ffffff;
-        }
-        .app-promo-text p {
-            font-size: 1.1rem;
-            margin: 0;
-            opacity: 0.95;
-        }
-        .app-promo-btn {
-            background-color: #ffffff;
-            color: #008a00;
+        .info-list-title {
             font-weight: bold;
-            padding: 12px 24px;
-            border-radius: 4px;
-            text-decoration: none;
-            transition: background 0.2s;
-        }
-        .app-promo-btn:hover {
-            background-color: #f0f0f0;
+            color: #222;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-size: 0.95rem;
         }
 
-        .terms-notice {
-            background-color: #f8f9fa;
-            border: 1px solid #e9ecef;
-            border-radius: 6px;
-            padding: 20px 25px;
-            margin-top: 30px;
-            font-size: 0.9rem;
-            color: #555555;
+        .legal-agreement-text {
+            font-size: 0.82rem;
+            color: #666;
             line-height: 1.6;
+            margin-top: 30px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
         }
-        .terms-notice a {
+        .legal-agreement-text a {
             color: #0066cc;
+            text-decoration: none;
+        }
+        .legal-agreement-text a:hover {
             text-decoration: underline;
         }
     </style>
@@ -212,71 +241,73 @@
 
     <!-- Main Content -->
     <main>
-        <section class="get-started-hero">
-            <div class="container">
-                <!-- Welcome Section -->
-                <div class="welcome-card">
-                    <h2>Welcome to EasyWeb, let's get started.</h2>
-                    <p>If you've received your temporary password, use it to log in along with your Access Card number. You'll then be prompted to create a new Password.</p>
-                    <a href="login.html" class="btn btn-primary" style="margin-top: 15px; display: inline-block;">Log In to EasyWeb</a>
+        <div class="container">
+            <div class="login-layout">
+                <!-- Left Column: Login Form Card -->
+                <div class="login-card-col">
+                    <div class="login-card">
+                        <h2><i class="fas fa-lock" style="color: #008a00; margin-right: 8px;"></i> EasyWeb Sign In</h2>
+                        
+                        <div id="errorAlert" class="error-message"></div>
+
+                        <form id="loginForm">
+                            <div class="form-group">
+                                <label for="username">Username or Access Card</label>
+                                <input type="text" id="username" name="username" required placeholder="Enter username or email">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" id="password" name="password" required placeholder="Enter your password">
+                            </div>
+                            <button type="submit" id="loginBtn" class="login-submit-btn">Log In</button>
+                        </form>
+
+                        <div class="login-links">
+                            <p><a href="#">Forgot username or password?</a></p>
+                            <p style="margin-top: 10px;">New to EasyWeb? <a href="get-started.html">Register now</a></p>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Login Help & Enhanced Security Cards -->
-                <div class="help-grid">
-                    <!-- Login Help Card -->
-                    <div class="help-card">
-                        <h3><i class="fas fa-key"></i> Login Help</h3>
+                <!-- Right Column: Welcome & Information Details -->
+                <div class="info-col">
+                    <div class="info-box">
+                        <h3>Welcome to EasyWeb, let's get started.</h3>
+                        <p>If you've received your temporary password, use it to log in along with your Access Card number. You'll then be prompted to create a new Password.</p>
+                        
+                        <div class="info-list-title">Login Help</div>
                         <ul>
-                            <li><a href="#"><i class="fas fa-chevron-right"></i> Get Login Help</a></li>
-                            <li><a href="#"><i class="fas fa-chevron-right"></i> Reset Password</a></li>
+                            <li><a href="#"><i class="fas fa-angle-right" style="margin-right: 5px;"></i> Get Login Help</a></li>
+                            <li><a href="#"><i class="fas fa-angle-right" style="margin-right: 5px;"></i> Reset Password</a></li>
                         </ul>
-                    </div>
 
-                    <!-- Enhanced Security Card -->
-                    <div class="help-card">
-                        <h3><i class="fas fa-shield-alt"></i> Enhanced Security</h3>
+                        <div class="info-list-title">Enhanced Security</div>
                         <ul>
-                            <li><a href="#"><i class="fas fa-chevron-right"></i> Two-Step Verification FAQs</a></li>
-                            <li><a href="#"><i class="fas fa-chevron-right"></i> Improve Your Protection Against Online Fraud</a></li>
+                            <li><a href="#"><i class="fas fa-angle-right" style="margin-right: 5px;"></i> Two-Step Verification FAQs</a></li>
+                            <li><a href="#"><i class="fas fa-angle-right" style="margin-right: 5px;"></i> Improve Your Protection Against Online Fraud</a></li>
                         </ul>
-                    </div>
-                </div>
 
-                <!-- App Promo Banner -->
-                <div class="app-promo-banner">
-                    <div class="app-promo-text">
-                        <h3>Explore mobile banking with the TD app now</h3>
-                        <p>Take banking and investing almost anywhere.</p>
+                        <div class="info-list-title">Explore mobile banking with the TD app now</div>
+                        <p style="margin-top: 5px; margin-bottom: 0;">Take banking and investing almost anywhere.</p>
                     </div>
-                    <a href="#" class="app-promo-btn">Download TD App <i class="fas fa-download"></i></a>
-                </div>
-
-                <!-- Terms & Agreement Legal Block -->
-                <div class="terms-notice">
-                    <p>By using EasyWeb, our secured financial services site, offered by TD Canada Trust and its affiliates, you agree to the terms and services of the <a href="#">Financial Services Terms</a>, <a href="#">Access Agreement</a>, <a href="#">Digital Banking Agreement</a> and/or; the <a href="#">Business Access Services Schedule</a> and/or; the <a href="#">Terms and Agreement and Disclosure</a> for mutual funds accounts held with TD Investment Services Inc.</p>
                 </div>
             </div>
-        </section>
 
-        <!-- FAQ Section -->
-        <section class="faq-section">
-            <div class="container">
-                <h2>Have a question? Find answers here</h2>
-                <div class="search-container">
-                    <input type="text" placeholder="What's your question?">
-                    <button class="btn btn-primary">Ask Us</button>
+            <!-- Terms & Agreement Legal Notice Row -->
+            <div style="max-width: 1050px; margin: 0 auto 40px auto; padding: 0 20px;">
+                <div class="legal-agreement-text">
+                    By using EasyWeb, our secured financial services site, offered by TD Canada Trust and its affiliates, you agree to the terms and services of the <a href="#">Financial Services Terms</a>, <a href="#">Access Agreement</a>, <a href="#">Digital Banking Agreement</a> and/or; the <a href="#">Business Access Services Schedule</a> and/or; the <a href="#">Terms and Agreement and Disclosure for mutual funds accounts held with TD Investment Services Inc.</a>
                 </div>
-                <a href="#" class="popular-link">Popular Questions <i class="fas fa-caret-right"></i></a>
             </div>
-        </section>
+        </div>
 
         <!-- Disclosures Section -->
         <section class="disclosures">
             <div class="container">
                 <details>
-                    <summary>Important Disclosures</summary>
+                    <summary>Important Security Notice</summary>
                     <div class="disclosure-content">
-                        <p><span class="legal-text">Standard message and data rates may apply when accessing EasyWeb via mobile browsers or downloading the TD app. Online banking access is subject to successful verification of credentials.</span></p>
+                        <p><span class="legal-text">Always ensure you are visiting the official TD Canada Trust URL. TD will never ask you to disclose your online banking passwords, PINs, or verification codes over the phone or email.</span></p>
                     </div>
                 </details>
             </div>
@@ -325,5 +356,41 @@
             </div>
         </div>
     </footer>
+
+    <!-- Firebase Connection and Auth Script -->
+    <script type="module">
+        import { auth } from './firebase.js';
+        import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        const loginForm = document.getElementById('loginForm');
+        const errorAlert = document.getElementById('errorAlert');
+        const loginBtn = document.getElementById('loginBtn');
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            errorAlert.style.display = 'none';
+            
+            const usernameInput = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+
+            // If user entered a username instead of full email, append mock domain or use directly if email
+            const email = usernameInput.includes('@') ? usernameInput : `${usernameInput}@tdtrust.local`;
+
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Authenticating...';
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                // Redirect on success
+                window.location.href = 'users/dashboard.html';
+            } catch (error) {
+                console.error("Login error:", error.code, error.message);
+                errorAlert.textContent = 'Invalid username/card or password. Please try again.';
+                errorAlert.style.display = 'block';
+                loginBtn.disabled = false;
+                loginBtn.textContent = 'Log In';
+            }
+        });
+    </script>
 </body>
 </html>
