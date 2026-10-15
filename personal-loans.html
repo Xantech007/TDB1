@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TD Loans and Lines of Credit - Borrowing Solutions</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .loan-hero {
+            background: linear-gradient(135deg, #003300 0%, #005600 100%);
+            color: #ffffff;
+            padding: 70px 0;
+            text-align: center;
+        }
+        .loan-hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .loan-hero p {
+            font-size: 1.15rem;
+            max-width: 800px;
+            margin: 0 auto 25px auto;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+        .loan-section {
+            padding: 60px 0;
+            background-color: #f4f6f8;
+        }
+        .loan-section-white {
+            padding: 60px 0;
+            background-color: #ffffff;
+        }
+        .section-header-center {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+        }
+        .section-header-center h2 {
+            font-size: 2rem;
+            color: #111;
+            margin-bottom: 10px;
+        }
+        .section-header-center p {
+            font-size: 1.05rem;
+            color: #555;
+            line-height: 1.6;
+        }
+        .loan-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        .loan-card {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 35px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            border-top: 5px solid #008a00;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .loan-card h3 {
+            font-size: 1.35rem;
+            color: #111;
+            margin-bottom: 12px;
+        }
+        .loan-card p {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .loan-card ul {
+            padding-left: 20px;
+            margin-bottom: 20px;
+            color: #444;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .loan-card li {
+            margin-bottom: 8px;
+        }
+        .loan-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Utility Navigation -->
+    <div class="utility-nav">
+        <div class="container">
+            <ul class="utility-links">
+                <li class="active"><a href="personal-banking.html">Personal</a></li>
+                <li><a href="small-business.html">Small Business</a></li>
+                <li><a href="commercial-banking.html">Commercial</a></li>
+                <li><a href="investing.html">Investing</a></li>
+                <li><a href="asset-management.html">TD Asset Management</a></li>
+                <li><a href="about-td.html">About TD</a></li>
+            </ul>
+            <div class="country-selector">
+                <img src="images/country-ca-en.png" alt="Canada" style="height: 20px; width: auto; vertical-align: middle;">
+                <i class="fas fa-caret-down"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/cdic-logo-white-en.png" alt="TD Canada Trust">
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li class="dropdown">
+                        <a href="#">Products <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <ul>
+                                <li><a href="#">Accounts</a></li>
+                                <li><a href="#">Savings</a></li>
+                                <li><a href="#">GICs</a></li>
+                                <li><a href="#">Credit Cards</a></li>
+                                <li><a href="#">Mortgages</a></li>
+                                <li><a href="#">Personal Loans</a></li>
+                                <li><a href="#">RSPs / TFSAs</a></li>
+                                <li><a href="#">Debit Cards</a></li>
+                                <li><a href="#">Special Offers</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">Services <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <ul>
+                                <li><a href="#">EasyWeb Online Banking</a></li>
+                                <li><a href="#">TD app</a></li>
+                                <li><a href="#">Student Banking</a></li>
+                                <li><a href="#">Cross Border Banking</a></li>
+                                <li><a href="#">Travel Tips</a></li>
+                                <li><a href="#">Foreign Exchange Services</a></li>
+                                <li><a href="#">Overdraft Protection</a></li>
+                                <li><a href="#">New to Canada</a></li>
+                                <li><a href="#">Manage Your TD Credit Card</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a href="#">Learning</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="#" class="icon-link"><i class="fas fa-map-marker-alt"></i></a>
+                <a href="#" class="icon-link"><i class="fas fa-question-circle"></i></a>
+                <a href="#" class="icon-link"><i class="fas fa-search"></i></a>
+                <div class="divider"></div>
+                <a href="login.html" class="login-btn">
+                    <i class="fas fa-user"></i>
+                    Log In
+                    <i class="fas fa-caret-down"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="loan-hero">
+            <div class="container">
+                <h1>TD Loans and Lines of Credit</h1>
+                <p>TD offers a wide range of solutions and helpful advice, so you can borrow with confidence.</p>
+                <a href="#" class="btn btn-primary" style="background: #ffffff; color: #003300; border: none; font-weight: bold; padding: 12px 30px;">Book an appointment</a>
+            </div>
+        </section>
+
+        <!-- Here to Help Fund What Matters -->
+        <section class="loan-section-white">
+            <div class="container">
+                <div class="section-header-center">
+                    <h2>Here to help fund what matters</h2>
+                    <p>Borrowing doesn’t have to feel complicated. At TD, we make loans and lines of credit simple, flexible, and built around your needs.</p>
+                </div>
+                <div style="max-width: 850px; margin: 0 auto; background: #f9fbf9; padding: 35px; border-radius: 8px; border: 1px solid #e0e0e0; text-align: center;">
+                    <p style="color: #444; line-height: 1.7; margin: 0;">Whether you’re planning something big, covering unexpected costs, or just looking for peace of mind, we’re here to help you borrow with ease and confidence.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TD Loans Products Section -->
+        <section class="loan-section">
+            <div class="container">
+                <div class="section-header-center">
+                    <h2>TD Loans</h2>
+                    <p>A TD Loan gives you the credit you need for the things you want to do. Planning a big purchase? Clearing up higher-interest debts? Planning for your future? We offer fixed and variable interest rates, along with a repayment schedule that’s tailored to your budget.</p>
+                </div>
+
+                <div class="loan-grid">
+                    <!-- TD Personal Loan -->
+                    <div class="loan-card">
+                        <div>
+                            <h3>TD Personal Loan</h3>
+                            <p><strong>Borrow only what you need right now</strong></p>
+                            <ul>
+                                <li><strong>Available for:</strong> Making a large purchase or consolidating debt</li>
+                                <li><strong>You can borrow:</strong> as little as $2,000</li>
+                                <li><strong>Interest:</strong> Choose between a fixed or variable rate</li>
+                                <li><strong>Repayment:</strong> flexible repayment terms from 1 to 7 years</li>
+                            </ul>
+                        </div>
+                        <div class="loan-actions">
+                            <a href="#" class="btn btn-primary" style="flex: 1; text-align: center;">Apply now</a>
+                        </div>
+                    </div>
+
+                    <!-- TD RSP Loan -->
+                    <div class="loan-card">
+                        <div>
+                            <h3>TD RSP Loan</h3>
+                            <p><strong>Make the most of your RSP contribution room</strong></p>
+                            <ul>
+                                <li><strong>Available for:</strong> optimizing retirement savings</li>
+                                <li><strong>You can borrow:</strong> up to your annual contribution for the current year or available previous year’s RSP contribution space</li>
+                                <li><strong>Interest:</strong> choose between a fixed or variable rate</li>
+                                <li><strong>Repayment:</strong> flexible terms available</li>
+                            </ul>
+                        </div>
+                        <div class="loan-actions">
+                            <a href="#" class="btn btn-primary" style="flex: 1; text-align: center;">Book an appointment</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Student Line of Credit & Calculator -->
+        <section class="loan-section-white">
+            <div class="container">
+                <div class="loan-grid">
+                    <div class="loan-card" style="border-top-color: #003300;">
+                        <div>
+                            <h3>Are you a Student?</h3>
+                            <p>The TD Student Line of Credit is a borrowing option for students that offers flexible repayment schedules and competitive interest rates.</p>
+                        </div>
+                        <a href="#" class="btn btn-primary" style="margin-top: 15px;">Learn more</a>
+                    </div>
+
+                    <div class="loan-card" style="border-top-color: #003300;">
+                        <div>
+                            <h3>Loan vs Line of Credit calculator</h3>
+                            <p>Compare what you might be paying with a loan or a line of credit using our interactive calculation tools.</p>
+                        </div>
+                        <a href="#" class="btn btn-primary" style="margin-top: 15px;">Calculate now</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tools and Resources -->
+        <section class="loan-section">
+            <div class="container">
+                <div class="section-header-center">
+                    <h2>Tools and resources</h2>
+                    <p>Get helpful insights and tips on how to borrow wisely, manage your payments and make informed financial decisions.</p>
+                </div>
+
+                <div class="loan-grid">
+                    <div class="loan-card">
+                        <h3>Help me choose</h3>
+                        <p>Just answer a few simple questions. We'll suggest TD products to help you achieve your lending needs.</p>
+                    </div>
+                    <div class="loan-card">
+                        <h3>Check your credit score</h3>
+                        <p>You can check your credit score with the TransUnion CreditView® Dashboard in the TD app. Checking in the TD app will not affect your credit score in any way.</p>
+                    </div>
+                    <div class="loan-card">
+                        <h3>Credit application guide</h3>
+                        <p>This step-by-step guide will help you understand the credit application process from start to finish.</p>
+                    </div>
+                    <div class="loan-card">
+                        <h3>How to manage debt</h3>
+                        <p>Knowing how to manage your debt is key to paying it off. See our expert tips to manage debt effectively.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Us Section -->
+        <section class="loan-section-white">
+            <div class="container">
+                <div class="section-header-center">
+                    <h2>Contact Us</h2>
+                    <p>Ready to apply or have questions about your borrowing options?</p>
+                </div>
+
+                <div class="loan-grid" style="max-width: 900px; margin: 0 auto;">
+                    <div class="loan-card" style="text-align: center;">
+                        <h3>Ready to Apply?</h3>
+                        <p>Meet with an advisor in person at a branch, or over the phone to get started.</p>
+                        <a href="#" class="btn btn-primary" style="margin-top: 15px;">Book now</a>
+                    </div>
+                    <div class="loan-card" style="text-align: center;">
+                        <h3>Questions? Call us</h3>
+                        <p>Our banking specialists are ready to answer your questions and provide advice.</p>
+                        <p style="font-size: 1.2rem; font-weight: bold; color: #008a00; margin-top: 10px;">1-866-222-3456</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Disclosures Section -->
+        <section class="disclosures">
+            <div class="container">
+                <details>
+                    <summary>Loans & Lines of Credit Terms & Conditions</summary>
+                    <div class="disclosure-content">
+                        <p><span class="legal-text">All personal loans and lines of credit are subject to credit approval by The Toronto-Dominion Bank. Interest rates, terms, and conditions are subject to change.</span></p>
+                    </div>
+                </details>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-heading">
+                    <p>Need to talk to us directly? <a href="#">Contact us</a></p>
+                </div>
+                <div class="social-links">
+                    <p>Follow TD Canada</p>
+                    <ul>
+                        <li><a href="https://twitter.com/td_canada"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="https://www.facebook.com/TDCanada/"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="https://www.instagram.com/TD_Canada/"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="https://www.youtube.com/user/TDCanada/TDCanadaTrust"><i class="fab fa-youtube"></i></a></li>
+                        <li><a href="https://www.linkedin.com/company/td/"><i class="fab fa-linkedin-in"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <ul class="footer-links">
+                <li><a href="privacy-and-security.html">Privacy and Security</a></li>
+                <li><a href="legal-notices-and-disclaimers.html">Legal</a></li>
+                <li><a href="accessibility.html">Accessibility</a></li>
+                <li><a href="cdic.html">CDIC Member</a></li>
+                <li><a href="careers.html">Careers</a></li>
+                <li><a href="#">Manage online experience</a></li>
+                <li><a href="#">Site Index</a></li>
+            </ul>
+            <hr>
+            <div class="footer-info">
+                <p><a href="#">CDIC Member. Deposits insured up to applicable limits by the Canada Deposit Insurance Corporation</a></p>
+            </div>
+            <hr>
+            <div class="secirities-notice">
+                <p><b>INVESTMENT AND MUTUAL FUND PRODUCTS ARE: NOT A DEPOSIT; NOT CDIC INSURED; NOT INSURED BY ANY FEDERAL GOVERNMENT AGENCY; NOT GUARANTEED BY THE TORONTO-DOMINION BANK OR ANY OF ITS AFFILIATES.</b></p>
+            </div>
+            <hr>
+            <div class="copyright">
+                <p><b>TD Bank Tower</b> 66 Wellington Street West, Toronto, ON M5K 1A2<br>
+                ©2026 The Toronto-Dominion Bank. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TD Chequing Accounts - Everyday Banking & Special Offers</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .chequing-hero {
+            background: linear-gradient(135deg, #003300 0%, #005600 100%);
+            color: #ffffff;
+            padding: 70px 0;
+            text-align: center;
+        }
+        .chequing-hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .chequing-hero p {
+            font-size: 1.15rem;
+            max-width: 800px;
+            margin: 0 auto 25px auto;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+        .account-section {
+            padding: 60px 0;
+            background-color: #f4f6f8;
+        }
+        .account-section-white {
+            padding: 60px 0;
+            background-color: #ffffff;
+        }
+        .section-header-center {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+        }
+        .section-header-center h2 {
+            font-size: 2rem;
+            color: #111;
+            margin-bottom: 10px;
+        }
+        .section-header-center p {
+            font-size: 1.05rem;
+            color: #555;
+            line-height: 1.6;
+        }
+        .accounts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        .account-card {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 35px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            border-top: 5px solid #008a00;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .account-card.special {
+            border-top-color: #005600;
+            background: #fcfdfc;
+        }
+        .account-badge {
+            display: inline-block;
+            background: #e6f4e6;
+            color: #006600;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .account-card h3 {
+            font-size: 1.35rem;
+            color: #111;
+            margin-bottom: 12px;
+        }
+        .account-card p {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .account-card ul {
+            padding-left: 20px;
+            margin-bottom: 20px;
+            color: #444;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .account-card li {
+            margin-bottom: 8px;
+        }
+        .account-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .faq-box {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border-left: 4px solid #008a00;
+        }
+        .faq-box h3 {
+            font-size: 1.15rem;
+            color: #111;
+            margin-bottom: 10px;
+        }
+        .faq-box p {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Utility Navigation -->
+    <div class="utility-nav">
+        <div class="container">
+            <ul class="utility-links">
+                <li class="active"><a href="personal-banking.html">Personal</a></li>
+                <li><a href="small-business.html">Small Business</a></li>
+                <li><a href="commercial-banking.html">Commercial</a></li>
+                <li><a href="investing.html">Investing</a></li>
+                <li><a href="asset-management.html">TD Asset Management</a></li>
+                <li><a href="about-td.html">About TD</a></li>
+            </ul>
+            <div class="country-selector">
+                <img src="images/country-ca-en.png" alt="Canada" style="height: 20px; width: auto; vertical-align: middle;">
+                <i class="fas fa-caret-down"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/cdic-logo-white-en.png" alt="TD Canada Trust">
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li class="dropdown">
+                        <a href="#">Products <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <ul>
+                                <li><a href="#">Accounts</a></li>
+                                <li><a href="#">Savings</a></li>
+                                <li><a href="#">GICs</a></li>
+                                <li><a href="#">Credit Cards</a></li>
+                                <li><a href="#">Mortgages</a></li>
+                                <li><a href="#">Personal Loans</a></li>
+                                <li><a href="#">RSPs / TFSAs</a></li>
+                                <li><a href="#">Debit Cards</a></li>
+                                <li><a href="#">Special Offers</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">Services <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <ul>
+                                <li><a href="#">EasyWeb Online Banking</a></li>
+                                <li><a href="#">TD app</a></li>
+                                <li><a href="#">Student Banking</a></li>
+                                <li><a href="#">Cross Border Banking</a></li>
+                                <li><a href="#">Travel Tips</a></li>
+                                <li><a href="#">Foreign Exchange Services</a></li>
+                                <li><a href="#">Overdraft Protection</a></li>
+                                <li><a href="#">New to Canada</a></li>
+                                <li><a href="#">Manage Your TD Credit Card</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a href="#">Learning</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="#" class="icon-link"><i class="fas fa-map-marker-alt"></i></a>
+                <a href="#" class="icon-link"><i class="fas fa-question-circle"></i></a>
+                <a href="#" class="icon-link"><i class="fas fa-search"></i></a>
+                <div class="divider"></div>
+                <a href="login.html" class="login-btn">
+                    <i class="fas fa-user"></i>
+                    Log In
+                    <i class="fas fa-caret-down"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="chequing-hero">
+            <div class="container">
+                <h1>Get up to $750 in value.</h1>
+                <p>Start by opening a new eligible TD Chequing Account.</p>
+                <a href="#" class="btn btn-primary" style="background: #ffffff; color: #003300; border: none; font-weight: bold; padding: 12px 30px;">Open an account</a>
+                <p style="font-size: 0.85rem; margin-top: 10px; opacity: 0.8;">Conditions apply.</p>
+            </div>
+        </section>
+
+        <!-- What is a Chequing Account? -->
+        <section class="account-section-white">
+            <div class="container">
+                <div class="section-header-center">
+                    <h2>What is a Chequing Account?</h2>
+                    <p>A chequing account is the most basic transactional account you can have. It’s considered an account you can use every day.</p>
+                </div>
+                <div style="max-width: 850px; margin: 0 auto; background: #f9fbf9; padding: 35px; border-radius: 8px; border: 1px solid #e0e0e0;">
+                    <p style="color: #444; line-height: 1.7; margin-bottom: 20px;">Some of the things you can do with your chequing account includes: Deposits (cash and cheques), withdraw money (at ATMs, bank tellers, etc.), one-time purchases (groceries, gas, etc.), one-time or pre-authorized payments, transfers (between accounts of the same institution), and Interac e-Transfer® transactions.</p>
+                    <p style="color: #444; line-height: 1.7; margin: 0;">Your funds in this account can be easily accessed at an ATM, online, by phone, or in a branch.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Account Listings Section -->
+        <section class="account-section">
+            <div class="container">
+                <div class="section-header-center">
+                    <h2>Choose the Right Chequing Account</h2>
+                    <p>Explore our accounts designed to fit your everyday banking needs.</p>
+                </div>
+
+                <div class="accounts-grid">
+                    <!-- TD All-Inclusive Banking Plan -->
+                    <div class="account-card special">
+                        <div>
+                            <span class="account-badge">Special offer</span>
+                            <h3>TD All-Inclusive Banking Plan</h3>
+                            <p><strong>Limited Time Offer:</strong> Get up to $750 in value. Conditions apply.</p>
+                            <ul>
+                                <li>Unlimited banking transactions and premium banking benefits</li>
+                                <li>Annual fee rebate on select TD credit cards (up to $139)</li>
+                                <li>Free cheques, drafts & more</li>
+                                <li>Monthly account fee of $30.95 or $0 if you maintain a daily balance of $6,000 or more</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="account-actions">
+                                <a href="#" class="btn btn-primary" style="flex: 1; text-align: center;">Open account</a>
+                                <a href="#" style="color: #0066cc; font-weight: bold; text-decoration: none;">View details</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TD Unlimited Chequing Account -->
+                    <div class="account-card special">
+                        <div>
+                            <span class="account-badge">Special offer</span>
+                            <h3>TD Unlimited Chequing Account</h3>
+                            <p><strong>Limited Time Offer:</strong> Get up to $750 in value. Conditions apply.</p>
+                            <ul>
+                                <li>Unlimited transactions for your peace of mind</li>
+                                <li>Annual fee rebate for the first year on select TD credit cards (up to $139)</li>
+                                <li>No TD ATM fee at any ATM in Canada</li>
+                                <li>Free Interac e-Transfer® transactions</li>
+                                <li>Monthly account fee of $17.95 or $0 if you maintain a daily balance of $4,000 or more</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="account-actions">
+                                <a href="#" class="btn btn-primary" style="flex: 1; text-align: center;">Open account</a>
+                                <a href="#" style="color: #0066cc; font-weight: bold; text-decoration: none;">View details</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TD Every Day Chequing Account -->
+                    <div class="account-card">
+                        <div>
+                            <h3>TD Every Day Chequing Account</h3>
+                            <p>A budget-friendly account for everyday banking.</p>
+                            <ul>
+                                <li>25 transactions per month plus unlimited public transit transactions</li>
+                                <li>Free Interac e-Transfer® transactions</li>
+                                <li>Monthly account fee of $11.95 or $0 if you maintain a daily balance of $3,000 or more</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="account-actions">
+                                <a href="#" class="btn btn-primary" style="flex: 1; text-align: center;">Open account</a>
+                                <a href="#" style="color: #0066cc; font-weight: bold; text-decoration: none;">View details</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TD Minimum Chequing Account -->
+                    <div class="account-card">
+                        <div>
+                            <h3>TD Minimum Chequing Account</h3>
+                            <p>An account for those with minimal banking needs.</p>
+                            <ul>
+                                <li>$3.95 Monthly Fee</li>
+                                <li>12 transactions including up to 2 full serve transactions per month plus unlimited public transit transactions</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="account-actions">
+                                <a href="#" class="btn btn-primary" style="flex: 1; text-align: center;">Open account</a>
+                                <a href="#" style="color: #0066cc; font-weight: bold; text-decoration: none;">View details</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TD Student Chequing Account -->
+                    <div class="account-card special">
+                        <div>
+                            <span class="account-badge">Special offer</span>
+                            <h3>TD Student Chequing Account</h3>
+                            <p><strong>Limited Time Offer:</strong> Get up to $475 in value. Conditions apply.</p>
+                            <ul>
+                                <li>An account designed for both youths and students, with no monthly fee</li>
+                                <li>Unlimited transactions per month</li>
+                                <li>No Monthly Fee for Monthly Plan Overdraft Protection service</li>
+                                <li>Free Interac e-Transfer® transactions</li>
+                                <li>$0 Monthly Fee (until 23 years old or with proof of enrollment in full-time post-secondary education)</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="account-actions">
+                                <a href="#" class="btn btn-primary" style="flex: 1; text-align: center;">Open account</a>
+                                <a href="#" style="color: #0066cc; font-weight: bold; text-decoration: none;">View details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MagnusCards & Tools Section -->
+        <section class="account-section-white">
+            <div class="container">
+                <div class="accounts-grid">
+                    <div class="account-card" style="border-top-color: #003300;">
+                        <div>
+                            <h3>Browse all bank accounts</h3>
+                            <p>Explore our accounts to see which one is right for you.</p>
+                        </div>
+                        <a href="#" class="btn btn-primary" style="margin-top: 15px;">See all accounts</a>
+                    </div>
+                    <div class="account-card" style="border-top-color: #003300;">
+                        <div>
+                            <h3>Find the right TD products</h3>
+                            <p>Just answer a few simple questions. We’ll suggest TD products to help you achieve your banking goals.</p>
+                        </div>
+                        <a href="#" class="btn btn-primary" style="margin-top: 15px;">Help me choose</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Benefits of Banking with TD -->
+        <section class="account-section">
+            <div class="container">
+                <div class="section-header-center">
+                    <h2>Benefits of banking with TD</h2>
+                    <p>Manage your money easily with advanced digital tools and mobile convenience.</p>
+                </div>
+
+                <div class="accounts-grid">
+                    <div class="account-card">
+                        <h3>Online and Mobile Banking</h3>
+                        <p>Manage your money from wherever you are. Harness the power of mobile banking with the TD App or bank online through EasyWeb.</p>
+                    </div>
+                    <div class="account-card">
+                        <h3>TD MySpend</h3>
+                        <p>Paired with your TD App, instantly keep track of your monthly spending so you can manage your cashflow and expenses more efficiently.</p>
+                    </div>
+                    <div class="account-card">
+                        <h3>TD Mobile Deposit</h3>
+                        <p>Use your mobile device to take a photo of your cheque and deposit it directly into your account with the TD App without going into the branch.</p>
+                    </div>
+                    <div class="account-card">
+                        <h3>Direct Deposit</h3>
+                        <p>Set up direct deposit in the TD app in about a minute for easy, secure access to deposits from most employers and CRA.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Frequently Asked Questions -->
+        <section class="account-section-white">
+            <div class="container" style="max-width: 900px;">
+                <div class="section-header-center">
+                    <h2>Frequently Asked Questions</h2>
+                    <p>Chequing accounts</p>
+                </div>
+
+                <div class="faq-box">
+                    <h3>How can I close a TD Chequing Account?</h3>
+                    <p>To close your TD chequing account, simply visit the TD branch closest to you or call TD Easyline at 1-888-663-3279. Certain conditions may apply.</p>
+                </div>
+
+                <div class="faq-box">
+                    <h3>What is the difference between a chequing and savings account?</h3>
+                    <p>Chequing accounts are usually used for day-to-day banking needs while savings accounts can help you achieve your savings goals.</p>
+                </div>
+
+                <div class="faq-box">
+                    <h3>Are cheques free?</h3>
+                    <p>Depending on the chequing account type you open, your new chequing account may include free cheques. To view which accounts waive specified cheque fees, please visit the TD Public Site – Personal Bank Accounts page to view account features.</p>
+                </div>
+
+                <div class="faq-box">
+                    <h3>Does TD offer any monthly no fee bank accounts?</h3>
+                    <p>Yes, the Minimum Chequing Account has no monthly fee for recipients of the Guaranteed Income Supplement or beneficiaries of a Registered Disability Savings Plan or Indigenous Peoples from Canada or Newcomers to Canada (for 1st year in Canada). The TD Student Chequing Account has no monthly fee with unlimited transactions per month for Students and Youth.</p>
+                </div>
+
+                <div class="faq-box">
+                    <h3>Can I earn interest by keeping money in my chequing account?</h3>
+                    <p>Yes, you can earn interest on the TD Student Chequing Account and U.S. Daily Interest Chequing Account.</p>
+                </div>
+
+                <div class="faq-box">
+                    <h3>Do all chequing accounts come with a debit card?</h3>
+                    <p>Yes. All TD chequing accounts come with a debit card. You can also add your debit card to your digital wallet. Certain chequing accounts also allow you to make unlimited transactions with your debit card.</p>
+                </div>
+
+                <div class="faq-box">
+                    <h3>How can I keep my monthly fees low?</h3>
+                    <p>Understanding how often you’ll use your chequing account and for what will help determine the type of account and services you need. Some of our chequing accounts will waive the monthly fee if you keep the minimum balance at the end of each day of the month.</p>
+                </div>
+
+                <div class="faq-box">
+                    <h3>How can I open a chequing account?</h3>
+                    <p>Most of our accounts can be opened online in less than 5 minutes. Make sure you have a valid email address, employer information, and valid ID (either a valid passport or Canadian driver’s license) to verify your ID.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Disclosures Section -->
+        <section class="disclosures">
+            <div class="container">
+                <details>
+                    <summary>Chequing Accounts Terms & Conditions</summary>
+                    <div class="disclosure-content">
+                        <p><span class="legal-text">Offer conditions apply. Monthly account fees can be waived by maintaining the required minimum daily closing balance. Interac e-Transfer® is a registered trademark of Interac Corp. used under license.</span></p>
+                    </div>
+                </details>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-heading">
+                    <p>Need to talk to us directly? <a href="#">Contact us</a></p>
+                </div>
+                <div class="social-links">
+                    <p>Follow TD Canada</p>
+                    <ul>
+                        <li><a href="https://twitter.com/td_canada"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="https://www.facebook.com/TDCanada/"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="https://www.instagram.com/TD_Canada/"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="https://www.youtube.com/user/TDCanada/TDCanadaTrust"><i class="fab fa-youtube"></i></a></li>
+                        <li><a href="https://www.linkedin.com/company/td/"><i class="fab fa-linkedin-in"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <ul class="footer-links">
+                <li><a href="privacy-and-security.html">Privacy and Security</a></li>
+                <li><a href="legal-notices-and-disclaimers.html">Legal</a></li>
+                <li><a href="accessibility.html">Accessibility</a></li>
+                <li><a href="cdic.html">CDIC Member</a></li>
+                <li><a href="careers.html">Careers</a></li>
+                <li><a href="#">Manage online experience</a></li>
+                <li><a href="#">Site Index</a></li>
+            </ul>
+            <hr>
+            <div class="footer-info">
+                <p><a href="#">CDIC Member. Deposits insured up to applicable limits by the Canada Deposit Insurance Corporation</a></p>
+            </div>
+            <hr>
+            <div class="securities-notice">
+                <p><b>INVESTMENT AND MUTUAL FUND PRODUCTS ARE: NOT A DEPOSIT; NOT CDIC INSURED; NOT INSURED BY ANY FEDERAL GOVERNMENT AGENCY; NOT GUARANTEED BY THE TORONTO-DOMINION BANK OR ANY OF ITS AFFILIATES.</b></p>
+            </div>
+            <hr>
+            <div class="copyright">
+                <p><b>TD Bank Tower</b> 66 Wellington Street West, Toronto, ON M5K 1A2<br>
+                ©2026 The Toronto-Dominion Bank. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

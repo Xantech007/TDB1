@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TD Guaranteed Investment Certificates (GICs) - Protect Your Principal</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .gic-hero {
+            background: linear-gradient(135deg, #003300 0%, #005600 100%);
+            color: #ffffff;
+            padding: 70px 0;
+            text-align: center;
+        }
+        .gic-hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .gic-hero p {
+            font-size: 1.15rem;
+            max-width: 800px;
+            margin: 0 auto 25px auto;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+        .gic-section {
+            padding: 60px 0;
+            background-color: #f4f6f8;
+        }
+        .gic-section-white {
+            padding: 60px 0;
+            background-color: #ffffff;
+        }
+        .section-header-center {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+        }
+        .section-header-center h2 {
+            font-size: 2rem;
+            color: #111;
+            margin-bottom: 10px;
+        }
+        .section-header-center p {
+            font-size: 1.05rem;
+            color: #555;
+            line-height: 1.6;
+        }
+        .gic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        .gic-card {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 35px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            border-top: 5px solid #008a00;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .gic-card.special {
+            border-top-color: #005600;
+            background: #fcfdfc;
+        }
+        .gic-badge {
+            display: inline-block;
+            background: #e6f4e6;
+            color: #006600;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .gic-card h3 {
+            font-size: 1.35rem;
+            color: #111;
+            margin-bottom: 12px;
+        }
+        .gic-card p {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .gic-card ul {
+            padding-left: 20px;
+            margin-bottom: 20px;
+            color: #444;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .gic-card li {
+            margin-bottom: 8px;
+        }
+        .gic-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .rates-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .rates-table th, .rates-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .rates-table th {
+            background-color: #003300;
+            color: white;
+            font-size: 1rem;
+        }
+        .rates-table td {
+            color: #444;
+            font-size: 0.95rem;
+        }
+        .faq-box {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border-left: 4px solid #008a00;
+        }
+        .faq-box h3 {
+            font-size: 1.15rem;
+            color: #111;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Utility Navigation -->
+    <div class="utility-nav">
+        <div class="container">
+            <ul class="utility-links">
+                <li class="active"><a href="personal-banking.html">Personal</a></li>
+                <li><a href="small-business.html">Small Business</a></li>
+                <li><a href="commercial-banking.html">Commercial</a></li>
+                <li><a href="investing.html">Investing</a></li>
+                <li><a href="asset-management.html">TD Asset Management</a></li>
+                <li><a href="about-td.html">About TD</a></li>
+            </ul>
+            <div class="country-selector">
+                <img src="images/country-ca-en.png" alt="Canada" style="height: 20px; width: auto; vertical-align: middle;">
+                <i class="fas fa-caret-down"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/cdic-logo-white-en.png" alt="TD Canada Trust">
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li class="dropdown">
+                        <a href="#">Products <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <ul>
+                                <li><a href="#">Accounts</a></li>
+                                <li><a href="#">Savings</a></li>
+                                <li><a href="#">GICs</a></li>
+                                <li><a href="#">Credit Cards</a></li>
+                                <li><a href="#">Mortgages</a></li>
+                                <li><a href="#">Personal Loans</a></li>
+                                <li><a href="#">RSPs / TFSAs</a></li>
+                                <li><a href="#">Debit Cards</a></li>
+                                <li><a href="#">Special Offers</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">Services <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <ul>
+                                <li><a href="#">EasyWeb Online Banking</a></li>
+                                <li><a href="#">TD app</a></li>
+                                <li><a href="#">Student Banking</a></li>
+                                <li><a href="#">Cross Border Banking</a></li>
+                                <li><a href="#">Travel Tips</a></li>
+                                <li><a href="#">Foreign Exchange Services</a></li>
+                                <li><a href="#">Overdraft Protection</a></li>
+                                <li><a href="#">New to Canada</a></li>
+                                <li><a href="#">Manage Your TD Credit Card</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a href="#">Learning</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="#" class="icon-link"><i class="fas fa-map-marker-alt"></i></a>
+                <a href="#" class="icon-link"><i class="fas fa-question-circle"></i></a>
+                <a href="#" class="icon-link"><i class="fas fa-search"></i></a>
+                <div class="divider"></div>
+                <a href="login.html" class="login-btn">
+                    <i class="fas fa-user"></i>
+                    Log In
+                    <i class="fas fa-caret-down"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="gic-hero">
+            <div class="container">
+                <h1>GICs protect 100% of your principal investment</h1>
+                <p>Grow your money safely with guaranteed returns and flexible terms.</p>
+                <a href="#" class="btn btn-primary" style="background: #ffffff; color: #003300; border: none; font-weight: bold; padding: 12px 30px;">Invest in a GIC</a>
+            </div>
+        </section>
+
+        <!-- What is a GIC? -->
+        <section class="gic-section-white">
+            <div class="container">
+                <div class="section-header-center">
+                    <h2>Guaranteed Investment Certificates (GICs)</h2>
+                    <p>Guaranteed Investment Certificates (GICs) are a trusted way to grow your savings with confidence.</p>
+                </div>
+                <div style="max-width: 850px; margin: 0 auto; background: #f9fbf9; padding: 35px; border-radius: 8px; border: 1px solid #e0e0e0;">
+                    <p style="color: #444; line-height: 1.7; margin-bottom: 20px;">Offering security, flexible terms, and predictable returns on fixed rate GICs, they are ideal for Canadians seeking stability in their financial plans. Whether you're saving for short-term financial goals or building long-term wealth, GICs can help you work toward achieving your financial goals.</p>
+                    <p style="color: #444; line-height: 1.7; margin: 0;"><strong>What is a GIC?</strong> A GIC is a secure way to grow your money since it offers 100% principal protection with the potential for a return on your GIC investment. You can choose how long you want to invest your money and at the end of the term, you get your principal GIC investment back plus any potential interest earned.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Benefits of GIC -->
+        <section class="gic-section">
+            <div class="container">
+                <div class="section-header-center">
+                    <h2>Benefits of GIC</h2>
+                    <p>Discover why GICs are a cornerstone of secure financial planning.</p>
+                </div>
+
+                <div class="gic-grid">
+                    <div class="gic-card">
+                        <h3>Safe and Secure</h3>
+                        <p>Investing in a GIC can be a safe and secure way to invest your money, as you’re guaranteed not to lose your principal investment amount.</p>
+                    </div>
+                    <div class="gic-card">
+                        <h3>Competitive Rates</h3>
+                        <p>You’ll enjoy our competitive interest rates that come with a potential interest return on your investment.</p>
+                    </div>
+                    <div class="gic-card">
+                        <h3>Flexibility</h3>
+                        <p>We have a range of flexible terms, interest payment frequencies and product features to better suit your ever-changing needs.</p>
+                    </div>
+                    <div class="gic-card">
+                        <h3>CDIC Insured</h3>
+                        <p>GICs are eligible for CDIC insurance coverage of up to $100,000 CAD per CDIC member for each CDIC insured category.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TD's Featured GIC Rates in Canada -->
+        <section class="gic-section-white">
+            <div class="container" style="max-width: 900px;">
+                <div class="section-header-center">
+                    <h2>TD's Featured GIC Rates in Canada</h2>
+                    <p>Explore current promotional and featured GIC offerings.</p>
+                </div>
+
+                <table class="rates-table">
+                    <thead>
+                        <tr>
+                            <th>GIC Type</th>
+                            <th>Term</th>
+                            <th>Rate</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>TD Special Offer GICs</td>
+                            <td>100 days</td>
+                            <td>Earn up to 1.80% per annum</td>
+                        </tr>
+                        <tr>
+                            <td>TD Special Offer GICs</td>
+                            <td>14-month</td>
+                            <td>Earn up to 3.05% per annum</td>
+                        </tr>
+                        <tr>
+                            <td>TD Canadian Banking & Utilities GIC</td>
+                            <td>5 years</td>
+                            <td>Earn up to 32%* over the entire term of the GIC</td>
+                        </tr>
+                        <tr>
+                            <td>TD 1-Year Cashable GIC</td>
+                            <td>1 year</td>
+                            <td>Earn up to 1.75% per annum</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div style="text-align: center; margin-top: 20px;">
+                    <a href="#" style="color: #0066cc; font-weight: bold; text-decoration: none;">See all GIC rates <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Types of GICs -->
+        <section class="gic-section">
+            <div class="container">
+                <div class="section-header-center">
+                    <h2>Types of GICs</h2>
+                    <p>Discover which TD GIC is right for your unique investment goals.</p>
+                </div>
+
+                <div class="gic-grid">
+                    <!-- Market Growth GICs -->
+                    <div class="gic-card">
+                        <div>
+                            <span class="gic-badge">Equity-Linked</span>
+                            <h3>Market Growth GICs</h3>
+                            <p>Capitalize on the growth potential of stock markets without risking your principal investment while receiving a guaranteed minimum interest return.</p>
+                            <ul>
+                                <li><strong>Rate:</strong> Up to 32% on a 5 year term over the investment*</li>
+                                <li><strong>Terms:</strong> 3 or 5 years</li>
+                                <li><strong>Minimum investment:</strong> $500</li>
+                                <li><strong>Cashability:</strong> Non-redeemable</li>
+                                <li><strong>Plan:</strong> Registered or non-registered</li>
+                            </ul>
+                        </div>
+                        <div class="gic-actions">
+                            <a href="#" class="btn btn-primary" style="flex: 1; text-align: center;">Invest in a GIC</a>
+                        </div>
+                    </div>
+
+                    <!-- TD Special Offer GICs -->
+                    <div class="gic-card special">
+                        <div>
+                            <span class="gic-badge">Special Offer</span>
+                            <h3>TD Special Offer GICs</h3>
+                            <p>Take advantage of these TD GICs which feature competitive interest rates and convenient automatic renewals.</p>
+                            <ul>
+                                <li><strong>Rate:</strong> Up to 3.05% per annum on a 14 month term</li>
+                                <li><strong>Terms:</strong> 100 days, 14 months and 18 months</li>
+                                <li><strong>Minimum investment:</strong> $500</li>
+                                <li><strong>Cashability:</strong> Cashable or Non-cashable</li>
+                                <li><strong>Plan:</strong> Registered or non-registered</li>
+                            </ul>
+                        </div>
+                        <div class="gic-actions">
+                            <a href="#" class="btn btn-primary" style="flex: 1; text-align: center;">Invest in a GIC</a>
+                        </div>
+                    </div>
+
+                    <!-- Cashable GICs -->
+                    <div class="gic-card">
+                        <div>
+                            <span class="gic-badge">Cashable</span>
+                            <h3>Cashable GICs</h3>
+                            <p>Get flexible access to your money when you need it, while earning a guaranteed return.</p>
+                            <ul>
+                                <li><strong>Rate:</strong> 1.75% per annum on a 1 year term</li>
+                                <li><strong>Terms:</strong> 100 days, 1 year and 3 years</li>
+                                <li><strong>Minimum investment:</strong> $500</li>
+                                <li><strong>Cashability:</strong> Cashable at prescribed early cashing rates</li>
+                                <li><strong>Plan:</strong> Registered or non-registered</li>
+                            </ul>
+                        </div>
+                        <div class="gic-actions">
+                            <a href="#" class="btn btn-primary" style="flex: 1; text-align: center;">Invest in a GIC</a>
+                        </div>
+                    </div>
+
+                    <!-- Non-Cashable GICs -->
+                    <div class="gic-card">
+                        <div>
+                            <span class="gic-badge">Fixed-Rate</span>
+                            <h3>Non-Cashable GICs</h3>
+                            <p>Enjoy a guaranteed rate of interest return that is generally higher than a cashable GIC, by locking in your money for a set period of time.</p>
+                            <ul>
+                                <li><strong>Rate:</strong> 3% per annum on a 1 year term</li>
+                                <li><strong>Terms:</strong> 30 days to 5 years</li>
+                                <li><strong>Minimum investment:</strong> $500</li>
+                                <li><strong>Cashability:</strong> Non-redeemable</li>
+                                <li><strong>Plan:</strong> Registered or non-registered</li>
+                            </ul>
+                        </div>
+                        <div class="gic-actions">
+                            <a href="#" class="btn btn-primary" style="flex: 1; text-align: center;">Invest in a GIC</a>
+                        </div>
+                    </div>
+
+                    <!-- TD U.S. Dollar GICs -->
+                    <div class="gic-card">
+                        <div>
+                            <span class="gic-badge">U.S. Dollar</span>
+                            <h3>TD U.S. Dollar GICs & Term Deposits</h3>
+                            <p>Earn interest on your U.S. Dollar funds at a guaranteed rate.</p>
+                            <ul>
+                                <li><strong>Rate:</strong> 4.10% per annum on a 5 year term</li>
+                                <li><strong>Terms:</strong> 1 day to 5 years</li>
+                                <li><strong>Minimum investment:</strong> $1,000 USD</li>
+                                <li><strong>Cashability:</strong> Cashable or Non-cashable</li>
+                                <li><strong>Plan:</strong> Non-registered only</li>
+                            </ul>
+                        </div>
+                        <div class="gic-actions">
+                            <a href="#" class="btn btn-primary" style="flex: 1; text-align: center;">Invest in a GIC</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Frequently Asked Questions -->
+        <section class="gic-section-white">
+            <div class="container" style="max-width: 900px;">
+                <div class="section-header-center">
+                    <h2>Frequently Asked Questions</h2>
+                    <p>Everything you need to know about investing in GICs with TD</p>
+                </div>
+
+                <div class="faq-box">
+                    <h3>How are GIC returns taxed?</h3>
+                    <p>Interest earned on GICs held in non-registered accounts is generally taxed as income at your marginal tax rate in the year it is earned. GICs held in registered plans like a TFSA or RRSP offer tax-sheltered or tax-free growth.</p>
+                </div>
+
+                <div class="faq-box">
+                    <h3>What’s the difference between cashable and non-cashable GICs?</h3>
+                    <p>Cashable GICs allow you to withdraw your money before the maturity date without losing accrued interest (subject to prescribed early cashing terms). Non-cashable GICs offer higher guaranteed rates but require you to lock in your funds until maturity.</p>
+                </div>
+
+                <div class="faq-box">
+                    <h3>Why invest in a GIC?</h3>
+                    <p>GICs provide 100% principal protection, predictable returns, and flexible term options, making them ideal for risk-averse investors or those saving for specific short-to-medium-term goals.</p>
+                </div>
+
+                <div class="faq-box">
+                    <h3>Are GICs safe?</h3>
+                    <p>Yes. TD GICs offer guaranteed principal protection and are eligible for CDIC deposit insurance up to $100,000 CAD per insured category.</p>
+                </div>
+
+                <div class="faq-box">
+                    <h3>Can I hold a GIC in a TFSA or RRSP?</h3>
+                    <p>Yes, you can hold eligible TD GICs within registered accounts like a Tax-Free Savings Account (TFSA) or Registered Retirement Savings Plan (RRSP) to maximize your tax advantages.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Get GICs Online Section -->
+        <section class="gic-section">
+            <div class="container" style="max-width: 900px;">
+                <div class="section-header-center">
+                    <h2>Get GICs Online – it's fast & easy</h2>
+                    <p>Choose the option that works best for you to get started.</p>
+                </div>
+
+                <div class="gic-grid">
+                    <div class="gic-card" style="text-align: center;">
+                        <h3>Get GICs online</h3>
+                        <p>Already a TD customer? You can login now to buy GICs securely online.</p>
+                        <a href="login.html" class="btn btn-primary" style="margin-top: 15px;">Apply online Secure</a>
+                    </div>
+                    <div class="gic-card" style="text-align: center;">
+                        <h3>Book an appointment</h3>
+                        <p>If you’re not a TD customer, book an appointment with an advisor to get started.</p>
+                        <a href="#" class="btn btn-primary" style="margin-top: 15px;">Book my GIC appointment</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Disclosures Section -->
+        <section class="disclosures">
+            <div class="container">
+                <details>
+                    <summary>GICs Terms & Conditions & Deposit Insurance</summary>
+                    <div class="disclosure-content">
+                        <p><span class="legal-text">Your deposits may be insurable by the Canada Deposit Insurance Corporation (CDIC) up to $100,000 per depositor per insured category. Certain conditions and minimum investment amounts apply to all promotional GIC rates.</span></p>
+                    </div>
+                </details>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-heading">
+                    <p>Need to talk to us directly? <a href="#">Contact us</a></p>
+                </div>
+                <div class="social-links">
+                    <p>Follow TD Canada</p>
+                    <ul>
+                        <li><a href="https://twitter.com/td_canada"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="https://www.facebook.com/TDCanada/"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="https://www.instagram.com/TD_Canada/"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="https://www.youtube.com/user/TDCanada/TDCanadaTrust"><i class="fab fa-youtube"></i></a></li>
+                        <li><a href="https://www.linkedin.com/company/td/"><i class="fab fa-linkedin-in"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <ul class="footer-links">
+                <li><a href="privacy-and-security.html">Privacy and Security</a></li>
+                <li><a href="legal-notices-and-disclaimers.html">Legal</a></li>
+                <li><a href="accessibility.html">Accessibility</a></li>
+                <li><a href="cdic.html">CDIC Member</a></li>
+                <li><a href="careers.html">Careers</a></li>
+                <li><a href="#">Manage online experience</a></li>
+                <li><a href="#">Site Index</a></li>
+            </ul>
+            <hr>
+            <div class="footer-info">
+                <p><a href="cdic.html">CDIC Member. Deposits insured up to applicable limits by the Canada Deposit Insurance Corporation</a></p>
+            </div>
+            <hr>
+            <div class="securities-notice">
+                <p><b>INVESTMENT AND MUTUAL FUND PRODUCTS ARE: NOT A DEPOSIT; NOT CDIC INSURED; NOT INSURED BY ANY FEDERAL GOVERNMENT AGENCY; NOT GUARANTEED BY THE TORONTO-DOMINION BANK OR ANY OF ITS AFFILIATES.</b></p>
+            </div>
+            <hr>
+            <div class="copyright">
+                <p><b>TD Bank Tower</b> 66 Wellington Street West, Toronto, ON M5K 1A2<br>
+                ©2026 The Toronto-Dominion Bank. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

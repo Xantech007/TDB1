@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessibility at TD - Creating an Inclusive Banking Experience</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Accessibility Hero Section */
+        .access-hero {
+            background: linear-gradient(135deg, #003300 0%, #005600 100%);
+            color: #ffffff;
+            padding: 60px 0;
+            text-align: center;
+        }
+        .access-hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .access-hero p {
+            font-size: 1.2rem;
+            max-width: 750px;
+            margin: 0 auto;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+
+        /* Carousel Sections */
+        .access-section {
+            padding: 60px 0;
+            background-color: #ffffff;
+        }
+        .access-section-alt {
+            padding: 60px 0;
+            background-color: #f4f6f8;
+        }
+        .section-header-center {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+        }
+        .section-header-center h2 {
+            font-size: 2rem;
+            color: #111;
+            margin-bottom: 10px;
+        }
+        .section-header-center p {
+            font-size: 1.05rem;
+            color: #555;
+            line-height: 1.6;
+        }
+        .carousel-box {
+            background: #f9fbf9;
+            border: 1px solid #e0e0e0;
+            border-top: 4px solid #008a00;
+            border-radius: 8px;
+            padding: 40px 30px;
+            max-width: 850px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .carousel-slide-item {
+            display: none;
+        }
+        .carousel-slide-item.active {
+            display: block;
+        }
+        .slide-icon-lg {
+            font-size: 2.2rem;
+            color: #008a00;
+            margin-bottom: 15px;
+        }
+        .carousel-slide-item h3 {
+            font-size: 1.4rem;
+            color: #111;
+            margin-bottom: 12px;
+        }
+        .carousel-slide-item p {
+            font-size: 1.05rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        .carousel-nav-btn {
+            background: #008a00;
+            color: #ffffff;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .carousel-nav-btn:hover {
+            background: #006600;
+        }
+
+        /* Branch Features Checklist */
+        .branch-features-card {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 40px;
+            max-width: 850px;
+            margin: 0 auto;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-left: 5px solid #008a00;
+        }
+        .branch-features-card h3 {
+            font-size: 1.3rem;
+            color: #111;
+            margin-bottom: 15px;
+        }
+        .branch-features-list {
+            list-style-type: none;
+            padding-left: 0;
+            margin-bottom: 20px;
+        }
+        .branch-features-list li {
+            position: relative;
+            padding-left: 28px;
+            margin-bottom: 12px;
+            font-size: 1.02rem;
+            color: #444;
+            line-height: 1.5;
+        }
+        .branch-features-list li i {
+            position: absolute;
+            left: 0;
+            top: 4px;
+            color: #008a00;
+        }
+
+        /* Stories Grid */
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        .story-card {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-top: 4px solid #008a00;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .story-card h3 {
+            font-size: 1.2rem;
+            color: #111;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        .story-card p {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* Career Banner */
+        .career-banner {
+            background: #003300;
+            color: #ffffff;
+            border-radius: 12px;
+            padding: 50px;
+            text-align: center;
+            margin: 50px 0;
+        }
+        .career-banner h2 {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+        .career-banner p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 25px auto;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <!-- Utility Navigation -->
+    <div class="utility-nav">
+        <div class="container">
+            <ul class="utility-links">
+                <li><a href="personal-banking.html">Personal</a></li>
+                <li><a href="small-business.html">Small Business</a></li>
+                <li><a href="commercial-banking.html">Commercial</a></li>
+                <li><a href="investing.html">Investing</a></li>
+                <li><a href="asset-management.html">TD Asset Management</a></li>
+                <li><a href="about-td.html">About TD</a></li>
+            </ul>
+            <div class="country-selector">
+                <img src="images/country-ca-en.png" alt="Canada" style="height: 20px; width: auto; vertical-align: middle;">
+                <i class="fas fa-caret-down"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/cdic-logo-white-en.png" alt="TD Canada Trust">
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li class="dropdown">
+                        <a href="#">Products <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <ul>
+                                <li><a href="#">Accounts</a></li>
+                                <li><a href="#">Savings</a></li>
+                                <li><a href="#">GICs</a></li>
+                                <li><a href="#">Credit Cards</a></li>
+                                <li><a href="#">Mortgages</a></li>
+                                <li><a href="#">Personal Loans</a></li>
+                                <li><a href="#">RSPs / TFSAs</a></li>
+                                <li><a href="#">Debit Cards</a></li>
+                                <li><a href="#">Special Offers</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">Services <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <ul>
+                                <li><a href="#">EasyWeb Online Banking</a></li>
+                                <li><a href="#">TD app</a></li>
+                                <li><a href="#">Student Banking</a></li>
+                                <li><a href="#">Cross Border Banking</a></li>
+                                <li><a href="#">Travel Tips</a></li>
+                                <li><a href="#">Foreign Exchange Services</a></li>
+                                <li><a href="#">Overdraft Protection</a></li>
+                                <li><a href="#">New to Canada</a></li>
+                                <li><a href="#">Manage Your TD Credit Card</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a href="#">Learning</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="#" class="icon-link"><i class="fas fa-map-marker-alt"></i></a>
+                <a href="#" class="icon-link"><i class="fas fa-question-circle"></i></a>
+                <a href="#" class="icon-link"><i class="fas fa-search"></i></a>
+                <div class="divider"></div>
+                <a href="login.html" class="login-btn">
+                    <i class="fas fa-user"></i>
+                    Log In
+                    <i class="fas fa-caret-down"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="access-hero">
+            <div class="container">
+                <h1>Accessibility is at the heart of everything we do</h1>
+                <p>It’s part of what drives us—creating an accessible experience that empowers all.</p>
+            </div>
+        </section>
+
+        <!-- Accessibility at TD Carousel Overview -->
+        <section class="access-section">
+            <div class="container">
+                <div class="section-header-center">
+                    <h2>Accessibility at TD</h2>
+                    <p>We're dedicated to creating an inclusive banking experience. Discover how we're making our products and services more accessible.</p>
+                </div>
+
+                <div class="carousel-box">
+                    <div class="carousel-slide-item active" id="acc-slide-1">
+                        <div class="slide-icon-lg"><i class="fas fa-university"></i></div>
+                        <h3>Ways to bank</h3>
+                        <p>Explore our accessible branch features, ATM options, phone assistance, and online tools designed for seamless banking.</p>
+                    </div>
+
+                    <div class="carousel-slide-item" id="acc-slide-2">
+                        <div class="slide-icon-lg"><i class="fas fa-clipboard-list"></i></div>
+                        <h3>Plan and progress</h3>
+                        <p>Review our Accessibility Plan and Progress Reports detailing how we find and remove barriers across our services.</p>
+                    </div>
+
+                    <div class="carousel-slide-item" id="acc-slide-3">
+                        <div class="slide-icon-lg"><i class="fas fa-comments"></i></div>
+                        <h3>Our stories</h3>
+                        <p>Read inspirational stories about inclusive workplaces, digital accessibility innovations, and empowered colleagues.</p>
+                    </div>
+
+                    <div class="carousel-slide-item" id="acc-slide-4">
+                        <div class="slide-icon-lg"><i class="fas fa-bullhorn"></i></div>
+                        <h3>Share feedback</h3>
+                        <p>Your voice matters. Let us know how we're doing and help us make TD inclusive for all.</p>
+                    </div>
+
+                    <div class="carousel-controls">
+                        <button class="carousel-nav-btn" onclick="moveAccSlide(-1)"><i class="fas fa-chevron-left"></i></button>
+                        <span id="accIndicator" style="font-weight: bold; color: #555;">slide 1 of 4</span>
+                        <button class="carousel-nav-btn" onclick="moveAccSlide(1)"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ways to Bank Section -->
+        <section class="access-section-alt">
+            <div class="container">
+                <div class="section-header-center">
+                    <h2>Ways to bank</h2>
+                    <p>From the branch, ATM, on the phone or online, we want your experience to be seamless.</p>
+                </div>
+
+                <!-- Branch & ATM Features -->
+                <div class="branch-features-card" style="margin-bottom: 30px;">
+                    <h3>At a branch or ATM</h3>
+                    <p style="margin-bottom: 15px; color: #555;">Our retrofitted branches give you access to these accessibility features:</p>
+                    <ul class="branch-features-list">
+                        <li><i class="fas fa-check-circle"></i> Dedicated parking spaces</li>
+                        <li><i class="fas fa-check-circle"></i> Automatic doors</li>
+                        <li><i class="fas fa-check-circle"></i> Wheelchair access teller stations and vaults</li>
+                        <li><i class="fas fa-check-circle"></i> Tablets with real-time, Video Remote Interpreting (VRI) in American Sign Language (ASL)</li>
+                        <li><i class="fas fa-check-circle"></i> Adjustable touchscreen and audible instructions at ATMs</li>
+                    </ul>
+                    <p style="font-size: 0.9rem; color: #666; font-style: italic; margin-bottom: 20px;">We're adding these features in all branches where possible. Check with your local branch for availability.</p>
+                    <a href="#" class="btn btn-primary">Find a TD branch or ATM / Book appointment</a>
+                </div>
+
+                <!-- MagnusCards & RDSP Grid -->
+                <div class="stories-grid">
+                    <div class="story-card">
+                        <div>
+                            <h3>Explore MagnusCards® and grow confidence</h3>
+                            <p>MagnusCards is a free mobile app designed to support you with step-by-step digital guides through common ATM transactions using easy-to-follow visuals, text, and audio guidance.</p>
+                        </div>
+                        <a href="#" class="btn btn-primary" style="margin-top: 15px; display: inline-block;">Go to MagnusCards</a>
+                    </div>
+
+                    <div class="story-card">
+                        <div>
+                            <h3>Registered Disability Savings Plan (RDSP)</h3>
+                            <p>Open an RDSP to help individuals who are eligible for the disability tax credit to save for the future with government grants and bonds.</p>
+                        </div>
+                        <a href="#" class="btn btn-primary" style="margin-top: 15px; display: inline-block;">Learn how an RDSP works</a>
+                    </div>
+
+                    <div class="story-card">
+                        <div>
+                            <h3>Request alternate formats</h3>
+                            <p>Alternate formats like Braille, large print, or accessible digital documents are available upon request.</p>
+                            <p style="font-weight: bold; color: #008a00; margin-top: 10px;">Call us: 1-800-831-1158</p>
+                        </div>
+                        <a href="#" class="btn btn-primary" style="margin-top: 15px; display: inline-block;">Contact Branch</a>
+                    </div>
+                </div>
+
+                <!-- TD Accessibility Adapter Banner -->
+                <div style="background: #ffffff; border-radius: 8px; padding: 35px; margin-top: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); text-align: center;">
+                    <h3 style="font-size: 1.4rem; color: #111; margin-bottom: 10px;">Enhance your online experience</h3>
+                    <p style="max-width: 750px; margin: 0 auto 20px auto; color: #555; line-height: 1.6;">For a more personalized accessibility experience on any website, use the TD Accessibility Adapter developed through the TD Invent approach and available at no cost via the Chrome Web Store.</p>
+                    <a href="#" class="btn btn-primary">Get the Accessibility Adapter</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Plan and Progress Section -->
+        <section class="access-section">
+            <div class="container">
+                <div class="section-header-center">
+                    <h2>Plan and progress</h2>
+                    <p>Our Accessibility Plan reflects our ongoing commitment to finding and removing barriers so everyone can use our products and services with ease. Our Progress Report highlights our achievements.</p>
+                </div>
+
+                <div class="carousel-box">
+                    <h3 style="margin-bottom: 15px; color: #111;">2026 Accessibility Plan Formats</h3>
+                    <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 20px;">
+                        <a href="#" class="btn btn-primary">Standard print</a>
+                        <a href="#" class="btn btn-primary">Large print</a>
+                        <a href="#" class="btn btn-primary">Audio</a>
+                        <a href="#" class="btn btn-primary">Executive Summary in ASL</a>
+                    </div>
+                    <div style="margin-top: 25px;">
+                        <a href="#" style="color: #0066cc; font-weight: bold; text-decoration: none;">View Past Accessibility Reports <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Stories Section -->
+        <section class="access-section-alt">
+            <div class="container">
+                <div class="section-header-center">
+                    <h2>Our stories</h2>
+                    <p>Inspirational stories on how an inclusive workplace sparks innovation and community.</p>
+                </div>
+
+                <div class="stories-grid">
+                    <div class="story-card">
+                        <div>
+                            <h3>How the TD Accessibility Adapter works</h3>
+                            <p>The TD Accessibility Adapter personalizes the browsing experience for people with a wide range of accessibility preferences. Explore how TD is innovating with purpose.</p>
+                        </div>
+                        <a href="#" class="all-awards-link" style="margin-top: 15px; display: inline-block;">Read the full story <i class="fas fa-arrow-right"></i></a>
+                    </div>
+
+                    <div class="story-card">
+                        <div>
+                            <h3>How experiences shape digital products</h3>
+                            <p>Meet Brian Moore, our go-to expert in digital accessibility! Get ready to be inspired by his dedication about making the digital world accessible for everyone.</p>
+                        </div>
+                        <a href="#" class="all-awards-link" style="margin-top: 15px; display: inline-block;">Read the full story <i class="fas fa-arrow-right"></i></a>
+                    </div>
+
+                    <div class="story-card">
+                        <div>
+                            <h3>How Lovepreet managed mental health at work</h3>
+                            <p>Growing up, seeking help for mental health wasn’t normalized in Lovepreet Singh's family or community. Discover how a supportive work environment changed a life.</p>
+                        </div>
+                        <a href="#" class="all-awards-link" style="margin-top: 15px; display: inline-block;">Read the full story <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Career Banner -->
+                <div class="career-banner">
+                    <h2>Together, we are stronger</h2>
+                    <p>At TD, colleagues with disabilities bring their unique perspectives and talents to a space where they feel valued, included, and free to be themselves. Make a difference every day.</p>
+                    <a href="#" class="btn btn-primary" style="background: #ffffff; color: #003300; border: none; font-weight: bold;">Explore opportunities</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Share Feedback Section -->
+        <section class="access-section">
+            <div class="container">
+                <div class="section-header-center">
+                    <h2>Share feedback</h2>
+                    <p>We’d love to hear about your experience with us. Let us know if there is something we’re doing well or need to improve about accessibility. Your voice matters. Help us make TD inclusive for all.</p>
+                </div>
+
+                <div class="carousel-box" style="background: #ffffff; text-align: left;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
+                        <div>
+                            <h3 style="color: #008a00; font-size: 1.15rem; margin-bottom: 8px;"><i class="fas fa-envelope" style="margin-right: 8px;"></i> Send an email</h3>
+                            <p style="color: #555; font-size: 0.95rem; line-height: 1.5;">Email us at <a href="mailto:accessibility@td.com" style="color: #0066cc;">accessibility@td.com</a>. Don't include personal data like account details or screenshots.</p>
+                        </div>
+
+                        <div>
+                            <h3 style="color: #008a00; font-size: 1.15rem; margin-bottom: 8px;"><i class="fas fa-phone-alt" style="margin-right: 8px;"></i> Call us</h3>
+                            <p style="color: #555; font-size: 0.95rem; line-height: 1.6;">
+                                Relay calls and VRS: 1-844-229-0787<br>
+                                TTY: 1-800-361-1180<br>
+                                Voice message: 1-833-316-3554
+                            </p>
+                        </div>
+
+                        <div>
+                            <h3 style="color: #008a00; font-size: 1.15rem; margin-bottom: 8px;"><i class="fas fa-comment-dots" style="margin-right: 8px;"></i> Message via EasyWeb</h3>
+                            <p style="color: #555; font-size: 0.95rem; line-height: 1.5;">Log in to EasyWeb and use the messaging icon on either your Chequing, Savings or Credit Card pages.</p>
+                        </div>
+
+                        <div>
+                            <h3 style="color: #008a00; font-size: 1.15rem; margin-bottom: 8px;"><i class="fas fa-map-marker-alt" style="margin-right: 8px;"></i> Send a letter</h3>
+                            <p style="color: #555; font-size: 0.95rem; line-height: 1.5;">
+                                Accessibility at TD<br>
+                                Accessibility Office<br>
+                                P.O. Box 1, Toronto-Dominion Centre<br>
+                                Toronto, Ontario, M5K 1A2
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Disclosures Section -->
+        <section class="disclosures">
+            <div class="container">
+                <details>
+                    <summary>Accessibility Commitments & Standards</summary>
+                    <div class="disclosure-content">
+                        <p><span class="legal-text">TD is committed to fulfilling the requirements of the Accessible Canada Act and provincial accessibility standards by identifying, removing, and preventing barriers to accessibility.</span></p>
+                    </div>
+                </details>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-heading">
+                    <p>Need to talk to us directly? <a href="#">Contact us</a></p>
+                </div>
+                <div class="social-links">
+                    <p>Follow TD Canada</p>
+                    <ul>
+                        <li><a href="https://twitter.com/td_canada"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="https://www.facebook.com/TDCanada/"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="https://www.instagram.com/TD_Canada/"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="https://www.youtube.com/user/TDCanada/TDCanadaTrust"><i class="fab fa-youtube"></i></a></li>
+                        <li><a href="https://www.linkedin.com/company/td/"><i class="fab fa-linkedin-in"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <ul class="footer-links">
+                <li><a href="privacy-and-security.html">Privacy and Security</a></li>
+                <li><a href="legal-notices-and-disclaimers.html">Legal</a></li>
+                <li class="active"><a href="accessibility.html">Accessibility</a></li>
+                <li><a href="cdic.html">CDIC Member</a></li>
+                <li><a href="careers.html">Careers</a></li>
+                <li><a href="#">Manage online experience</a></li>
+                <li><a href="#">Site Index</a></li>
+            </ul>
+            <hr>
+            <div class="footer-info">
+                <p><a href="#">CDIC Member. Deposits insured up to applicable limits by the Canada Deposit Insurance Corporation</a></p>
+            </div>
+            <hr>
+            <div class="securities-notice">
+                <p><b>INVESTMENT AND MUTUAL FUND PRODUCTS ARE: NOT A DEPOSIT; NOT CDIC INSURED; NOT INSURED BY ANY FEDERAL GOVERNMENT AGENCY; NOT GUARANTEED BY THE TORONTO-DOMINION BANK OR ANY OF ITS AFFILIATES.</b></p>
+            </div>
+            <hr>
+            <div class="copyright">
+                <p><b>TD Bank Tower</b> 66 Wellington Street West, Toronto, ON M5K 1A2<br>
+                ©2026 The Toronto-Dominion Bank. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Carousel Script -->
+    <script>
+        let currentAccSlide = 1;
+        const totalAccSlides = 4;
+
+        function moveAccSlide(direction) {
+            document.getElementById(`acc-slide-${currentAccSlide}`).classList.remove('active');
+            
+            currentAccSlide += direction;
+            if (currentAccSlide > totalAccSlides) currentAccSlide = 1;
+            if (currentAccSlide < 1) currentAccSlide = totalAccSlides;
+
+            document.getElementById(`acc-slide-${currentAccSlide}`).classList.add('active');
+            document.getElementById('accIndicator').textContent = `slide ${currentAccSlide} of ${totalAccSlides}`;
+        }
+    </script>
+</body>
+</html>

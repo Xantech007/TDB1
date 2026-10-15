@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investing at TD - Solutions for Every Investor | TD Canada Trust</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Hero Banner */
+        .investing-hero {
+            background: linear-gradient(135deg, #005600 0%, #002200 100%);
+            color: #ffffff;
+            padding: 60px 0;
+            text-align: center;
+        }
+        .investing-hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .investing-hero p {
+            font-size: 1.2rem;
+            max-width: 750px;
+            margin: 0 auto;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+
+        /* Carousel Section */
+        .investing-carousel-section {
+            padding: 60px 0;
+            background-color: #f4f6f8;
+        }
+        .carousel-card-container {
+            max-width: 800px;
+            margin: 30px auto 0 auto;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-top: 5px solid #008a00;
+            padding: 45px 35px;
+            text-align: center;
+            position: relative;
+        }
+        .investing-slide {
+            display: none;
+        }
+        .investing-slide.active {
+            display: block;
+        }
+        .slide-icon-circle {
+            width: 70px;
+            height: 70px;
+            background: #e6f4e6;
+            color: #008a00;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 20px auto;
+        }
+        .investing-slide h2 {
+            font-size: 1.6rem;
+            color: #111;
+            margin-bottom: 15px;
+        }
+        .investing-slide p {
+            font-size: 1.05rem;
+            color: #555;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto 25px auto;
+        }
+
+        .carousel-controls-bar {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+        .carousel-arrow {
+            background: #008a00;
+            color: #ffffff;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: background 0.2s;
+        }
+        .carousel-arrow:hover {
+            background: #006600;
+        }
+        .slide-indicator-text {
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: #555;
+        }
+
+        /* Quick Links / Legal & Accessibility */
+        .investing-quick-links {
+            padding: 40px 0;
+            background: #ffffff;
+            border-top: 1px solid #e0e0e0;
+        }
+        .quick-links-grid {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .quick-link-item a {
+            color: #0066cc;
+            font-size: 1.05rem;
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .quick-link-item a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Utility Navigation -->
+    <div class="utility-nav">
+        <div class="container">
+            <ul class="utility-links">
+                <li><a href="personal-banking.html">Personal</a></li>
+                <li><a href="small-business.html">Small Business</a></li>
+                <li><a href="commercial-banking.html">Commercial</a></li>
+                <li class="active"><a href="investing.html">Investing</a></li>
+                <li><a href="asset-management.html">TD Asset Management</a></li>
+                <li><a href="about-td.html">About TD</a></li>
+            </ul>
+            <div class="country-selector">
+                <img src="images/country-ca-en.png" alt="Canada" style="height: 20px; width: auto; vertical-align: middle;">
+                <i class="fas fa-caret-down"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/cdic-logo-white-en.png" alt="TD Canada Trust">
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li class="dropdown">
+                        <a href="#">Products <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <ul>
+                                <li><a href="#">Accounts</a></li>
+                                <li><a href="#">Savings</a></li>
+                                <li><a href="#">GICs</a></li>
+                                <li><a href="#">Credit Cards</a></li>
+                                <li><a href="#">Mortgages</a></li>
+                                <li><a href="#">Personal Loans</a></li>
+                                <li><a href="#">RSPs / TFSAs</a></li>
+                                <li><a href="#">Debit Cards</a></li>
+                                <li><a href="#">Special Offers</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">Services <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <ul>
+                                <li><a href="#">EasyWeb Online Banking</a></li>
+                                <li><a href="#">TD app</a></li>
+                                <li><a href="#">Student Banking</a></li>
+                                <li><a href="#">Cross Border Banking</a></li>
+                                <li><a href="#">Travel Tips</a></li>
+                                <li><a href="#">Foreign Exchange Services</a></li>
+                                <li><a href="#">Overdraft Protection</a></li>
+                                <li><a href="#">New to Canada</a></li>
+                                <li><a href="#">Manage Your TD Credit Card</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a href="#">Learning</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="#" class="icon-link"><i class="fas fa-map-marker-alt"></i></a>
+                <a href="#" class="icon-link"><i class="fas fa-question-circle"></i></a>
+                <a href="#" class="icon-link"><i class="fas fa-search"></i></a>
+                <div class="divider"></div>
+                <a href="login.html" class="login-btn">
+                    <i class="fas fa-user"></i>
+                    Log In
+                    <i class="fas fa-caret-down"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Banner -->
+        <section class="investing-hero">
+            <div class="container">
+                <h1>Investing at TD</h1>
+                <p>Whether you're new to investing, looking to work with an experienced professional or need personalized investing advice, we've got you covered.</p>
+            </div>
+        </section>
+
+        <!-- Slide Carousel Section -->
+        <section class="investing-carousel-section">
+            <div class="container">
+                <div class="carousel-card-container">
+                    <!-- Slide 1 -->
+                    <div class="investing-slide active" id="inv-slide-1">
+                        <div class="slide-icon-circle">
+                            <i class="fas fa-laptop-house"></i>
+                        </div>
+                        <h2>Invest on your own</h2>
+                        <p>You're in control with easy-to-use tools to manage your investing. From anywhere, anytime.</p>
+                        <a href="#" class="btn btn-primary">Learn about WebBroker & Direct Investing</a>
+                    </div>
+
+                    <!-- Slide 2 -->
+                    <div class="investing-slide" id="inv-slide-2">
+                        <div class="slide-icon-circle">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h2>Invest with a TD Wealth advisor</h2>
+                        <p>Offers personalized wealth strategies and solutions if you have a minimum investment of CDN \$100,000.</p>
+                        <a href="#" class="btn btn-primary">Connect with an Advisor</a>
+                    </div>
+
+                    <!-- Slide 3 -->
+                    <div class="investing-slide" id="inv-slide-3">
+                        <div class="slide-icon-circle">
+                            <i class="fas fa-piggy-bank"></i>
+                        </div>
+                        <h2>Invest with a TD Personal Banker</h2>
+                        <p>We can help you select investments that suit your investing goals, including TD Mutual Funds and Guaranteed Investment Certificates (GICs).</p>
+                        <a href="#" class="btn btn-primary">Book an Appointment</a>
+                    </div>
+
+                    <!-- Controls -->
+                    <div class="carousel-controls-bar">
+                        <button class="carousel-arrow" id="invPrev" onclick="navigateInvestingSlide(-1)">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <span class="slide-indicator-text" id="invSlideIndicator">slide 1 of 3</span>
+                        <button class="carousel-arrow" id="invNext" onclick="navigateInvestingSlide(1)">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Links: Legal & Accessibility -->
+        <section class="investing-quick-links">
+            <div class="container">
+                <div class="quick-links-grid">
+                    <div class="quick-link-item">
+                        <a href="legal-notices-and-disclaimers.html"><i class="fas fa-gavel"></i> Legal</a>
+                    </div>
+                    <div class="quick-link-item">
+                        <a href="accessibility.html"><i class="fas fa-universal-access"></i> Accessibility Commitment</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <div class="container">
+                <h2>Have a question? Find answers here</h2>
+                <div class="search-container">
+                    <input type="text" placeholder="What's your question?">
+                    <button class="btn btn-primary">Ask Us</button>
+                </div>
+                <a href="#" class="popular-link">Popular Questions <i class="fas fa-caret-right"></i></a>
+            </div>
+        </section>
+
+        <!-- Disclosures Section -->
+        <section class="disclosures">
+            <div class="container">
+                <details>
+                    <summary>Important Investment Disclosures</summary>
+                    <div class="disclosure-content">
+                        <p><span class="legal-text">Mutual Fund and Wealth Advice solutions are provided through TD Waterhouse Canada Inc., TD Wealth Private Investment Counsel Inc., and TD Investment Services Inc. Investment values fluctuate and past performance is not indicative of future returns.</span></p>
+                    </div>
+                </details>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-heading">
+                    <p>Need to talk to us directly? <a href="#">Contact us</a></p>
+                </div>
+                <div class="social-links">
+                    <p>Follow TD Canada</p>
+                    <ul>
+                        <li><a href="https://twitter.com/td_canada"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="https://www.facebook.com/TDCanada/"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="https://www.instagram.com/TD_Canada/"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="https://www.youtube.com/user/TDCanada/TDCanadaTrust"><i class="fab fa-youtube"></i></a></li>
+                        <li><a href="https://www.linkedin.com/company/td/"><i class="fab fa-linkedin-in"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <ul class="footer-links">
+                <li><a href="privacy-and-security.html">Privacy and Security</a></li>
+                <li><a href="legal-notices-and-disclaimers.html">Legal</a></li>
+                <li><a href="accessibility.html">Accessibility</a></li>
+                <li><a href="cdic.html">CDIC Member</a></li>
+                <li><a href="careers.html">Careers</a></li>
+                <li><a href="#">Manage online experience</a></li>
+                <li><a href="site-index.html">Site Index</a></li>
+            </ul>
+            <hr>
+            <div class="footer-info">
+                <p><a href="#">CDIC Member. Deposits insured up to applicable limits by the Canada Deposit Insurance Corporation</a></p>
+            </div>
+            <hr>
+            <div class="securities-notice">
+                <p><b>INVESTMENT AND MUTUAL FUND PRODUCTS ARE: NOT A DEPOSIT; NOT CDIC INSURED; NOT INSURED BY ANY FEDERAL GOVERNMENT AGENCY; NOT GUARANTEED BY THE TORONTO-DOMINION BANK OR ANY OF ITS AFFILIATES.</b></p>
+            </div>
+            <hr>
+            <div class="copyright">
+                <p><b>TD Bank Tower</b> 66 Wellington Street West, Toronto, ON M5K 1A2<br>
+                ©2026 The Toronto-Dominion Bank. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Carousel Script -->
+    <script>
+        let currentInvSlide = 1;
+        const totalInvSlides = 3;
+
+        function navigateInvestingSlide(direction) {
+            document.getElementById(`inv-slide-${currentInvSlide}`).classList.remove('active');
+            
+            currentInvSlide += direction;
+            if (currentInvSlide > totalInvSlides) currentInvSlide = 1;
+            if (currentInvSlide < 1) currentInvSlide = totalInvSlides;
+
+            document.getElementById(`inv-slide-${currentInvSlide}`).classList.add('active');
+            document.getElementById('invSlideIndicator').textContent = `slide ${currentInvSlide} of ${totalInvSlides}`;
+        }
+    </script>
+</body>
+</html>

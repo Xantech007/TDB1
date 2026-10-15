@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy & Security - Protecting Your Data & Banking Online | TD Canada Trust</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Hero Section */
+        .security-hero {
+            background: linear-gradient(135deg, #003300 0%, #005600 100%);
+            color: #ffffff;
+            padding: 60px 0;
+            text-align: center;
+        }
+        .security-hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .security-hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 25px auto;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+
+        /* Common Frauds & Report Section Carousel */
+        .fraud-awareness-section {
+            padding: 60px 0;
+            background-color: #f4f6f8;
+        }
+        .carousel-card-container {
+            max-width: 800px;
+            margin: 30px auto 0 auto;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-top: 5px solid #008a00;
+            padding: 45px 35px;
+            text-align: center;
+        }
+        .fraud-slide {
+            display: none;
+        }
+        .fraud-slide.active {
+            display: block;
+        }
+        .slide-icon-circle {
+            width: 70px;
+            height: 70px;
+            background: #e6f4e6;
+            color: #008a00;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 20px auto;
+        }
+        .fraud-slide h2 {
+            font-size: 1.6rem;
+            color: #111;
+            margin-bottom: 15px;
+        }
+        .fraud-slide p {
+            font-size: 1.05rem;
+            color: #555;
+            line-height: 1.6;
+            max-width: 650px;
+            margin: 0 auto 25px auto;
+        }
+        .carousel-controls-bar {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+        .carousel-arrow {
+            background: #008a00;
+            color: #ffffff;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: background 0.2s;
+        }
+        .carousel-arrow:hover {
+            background: #006600;
+        }
+        .slide-indicator-text {
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: #555;
+        }
+
+        /* Disputing Charges Callout */
+        .dispute-section {
+            padding: 60px 0;
+            background-color: #ffffff;
+        }
+        .dispute-card {
+            background: #f9fbf9;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            border-left: 5px solid #008a00;
+            padding: 40px;
+            max-width: 850px;
+            margin: 0 auto;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .dispute-card h2 {
+            font-size: 1.8rem;
+            color: #111;
+            margin-bottom: 15px;
+        }
+        .dispute-card p {
+            font-size: 1.05rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        /* Protection Commitment Pillars */
+        .pillars-section {
+            padding: 60px 0;
+            background-color: #f4f6f8;
+        }
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        .pillar-card {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 30px 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-top: 4px solid #008a00;
+            transition: transform 0.2s;
+        }
+        .pillar-card:hover {
+            transform: translateY(-4px);
+        }
+        .pillar-icon {
+            font-size: 2rem;
+            color: #008a00;
+            margin-bottom: 15px;
+        }
+        .pillar-card h3 {
+            font-size: 1.2rem;
+            color: #111;
+            margin-bottom: 10px;
+        }
+        .pillar-card p {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Safety Tips & Best Practices Carousel */
+        .safety-tips-section {
+            padding: 60px 0;
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <!-- Utility Navigation -->
+    <div class="utility-nav">
+        <div class="container">
+            <ul class="utility-links">
+                <li class="active"><a href="personal-banking.html">Personal</a></li>
+                <li><a href="small-business.html">Small Business</a></li>
+                <li><a href="commercial-banking.html">Commercial</a></li>
+                <li><a href="investing.html">Investing</a></li>
+                <li><a href="asset-management.html">TD Asset Management</a></li>
+                <li><a href="about-td.html">About TD</a></li>
+            </ul>
+            <div class="country-selector">
+                <img src="images/country-ca-en.png" alt="Canada" style="height: 20px; width: auto; vertical-align: middle;">
+                <i class="fas fa-caret-down"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/cdic-logo-white-en.png" alt="TD Canada Trust">
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li class="dropdown">
+                        <a href="#">Products <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <ul>
+                                <li><a href="#">Accounts</a></li>
+                                <li><a href="#">Savings</a></li>
+                                <li><a href="#">GICs</a></li>
+                                <li><a href="#">Credit Cards</a></li>
+                                <li><a href="#">Mortgages</a></li>
+                                <li><a href="#">Personal Loans</a></li>
+                                <li><a href="#">RSPs / TFSAs</a></li>
+                                <li><a href="#">Debit Cards</a></li>
+                                <li><a href="#">Special Offers</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">Services <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <ul>
+                                <li><a href="#">EasyWeb Online Banking</a></li>
+                                <li><a href="#">TD app</a></li>
+                                <li><a href="#">Student Banking</a></li>
+                                <li><a href="#">Cross Border Banking</a></li>
+                                <li><a href="#">Travel Tips</a></li>
+                                <li><a href="#">Foreign Exchange Services</a></li>
+                                <li><a href="#">Overdraft Protection</a></li>
+                                <li><a href="#">New to Canada</a></li>
+                                <li><a href="#">Manage Your TD Credit Card</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a href="#">Learning</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="#" class="icon-link"><i class="fas fa-map-marker-alt"></i></a>
+                <a href="#" class="icon-link"><i class="fas fa-question-circle"></i></a>
+                <a href="#" class="icon-link"><i class="fas fa-search"></i></a>
+                <div class="divider"></div>
+                <a href="login.html" class="login-btn">
+                    <i class="fas fa-user"></i>
+                    Log In
+                    <i class="fas fa-caret-down"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="security-hero">
+            <div class="container">
+                <h1>Privacy and Security</h1>
+                <p>At TD, our commitment to protecting the integrity and security of your online transactions and banking data remains our top priority however you choose to invest.</p>
+                <a href="#" class="btn btn-primary" style="background: #ffffff; color: #003300; border: none; font-weight: bold;">Learn More</a>
+            </div>
+        </section>
+
+        <!-- Fraud Awareness Carousel -->
+        <section class="fraud-awareness-section">
+            <div class="container">
+                <div style="text-align: center; max-width: 800px; margin: 0 auto 10px auto;">
+                    <h2 style="font-size: 2rem; color: #111;">Ways to protect yourself from common frauds and scams</h2>
+                    <p style="color: #555; margin-top: 10px; font-size: 1.05rem;">While we make every effort to secure your personal information, there's plenty you can do to avoid falling prey to fraud and scams. Through awareness and good online habits, you can significantly reduce your risk of fraud and identity theft.</p>
+                </div>
+
+                <div class="carousel-card-container">
+                    <!-- Slide 1 -->
+                    <div class="fraud-slide active" id="fraud-slide-1">
+                        <div class="slide-icon-circle">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <h2>Common Frauds & Scams</h2>
+                        <p>Some scams are common to everyone, while others are designed to specifically target youth, seniors and newcomers to Canada. We can help you learn how to spot various fraud and scams aimed both at you and your loved ones.</p>
+                        <a href="#" class="btn btn-primary">Explore More</a>
+                    </div>
+
+                    <!-- Slide 2 -->
+                    <div class="fraud-slide" id="fraud-slide-2">
+                        <div class="slide-icon-circle">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <h2>Report Suspicious Activity</h2>
+                        <p>If you believe you’ve been impacted by phishing or another type of fraud, like unrecognized transactions, immediately report any suspicious activity.</p>
+                        <a href="#" class="btn btn-primary">Get Help</a>
+                    </div>
+
+                    <div class="carousel-controls-bar">
+                        <button class="carousel-arrow" onclick="navigateFraudSlide(-1)"><i class="fas fa-chevron-left"></i></button>
+                        <span class="slide-indicator-text" id="fraudIndicator">slide 1 of 2</span>
+                        <button class="carousel-arrow" onclick="navigateFraudSlide(1)"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Disputing Charges Section -->
+        <section class="dispute-section">
+            <div class="container">
+                <div class="dispute-card">
+                    <h2>Disputing Debit and Credit Card Charges</h2>
+                    <p>Do you think your card has been incorrectly charged or do you see an unfamiliar transaction? Learn how to submit a fraud claim or non-fraud dispute on your debit or credit card.</p>
+                    <a href="#" class="btn btn-primary">Dispute Debit Card Charges & Learn More</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Protection Commitment Pillars -->
+        <section class="pillars-section">
+            <div class="container">
+                <div style="text-align: center;">
+                    <h2 style="font-size: 2rem; color: #111;">Protection you need to bank safely with confidence</h2>
+                </div>
+
+                <div class="pillars-grid">
+                    <div class="pillar-card">
+                        <div class="pillar-icon"><i class="fas fa-user-lock"></i></div>
+                        <h3>Our privacy commitment</h3>
+                        <p>Collection, use and disclosure of your online information handled under strict security standards.</p>
+                    </div>
+
+                    <div class="pillar-card">
+                        <div class="pillar-icon"><i class="fas fa-shield-alt"></i></div>
+                        <h3>How we protect your online data</h3>
+                        <p>Secure technology and continuous monitoring to safeguard your online transactions 24/7.</p>
+                    </div>
+
+                    <div class="pillar-card">
+                        <div class="pillar-icon"><i class="fas fa-bug"></i></div>
+                        <h3>Reporting a vulnerability</h3>
+                        <p>Recommended guidance on reporting identified vulnerabilities to our dedicated security teams.</p>
+                    </div>
+
+                    <div class="pillar-card">
+                        <div class="pillar-icon"><i class="fas fa-envelope-open-text"></i></div>
+                        <h3>Options for electronic communications</h3>
+                        <p>Update how TD communicates electronic messages and security notifications to you.</p>
+                    </div>
+
+                    <div class="pillar-card">
+                        <div class="pillar-icon"><i class="fas fa-mobile-alt"></i></div>
+                        <h3>Your security and financial technology (fintech) apps</h3>
+                        <p>Explore how third-party fintechs use your data and learn how you can keep your credentials safe.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Online Safety Tips Carousel -->
+        <section class="safety-tips-section">
+            <div class="container">
+                <div style="text-align: center; max-width: 750px; margin: 0 auto 20px auto;">
+                    <h2 style="font-size: 2rem; color: #111;">Online safety tips & best practices</h2>
+                    <p style="color: #555; margin-top: 10px; font-size: 1.05rem;">Enhance your online safety to better protect your data and privacy.</p>
+                </div>
+
+                <div class="carousel-card-container" style="background: #f9fbf9;">
+                    <!-- Tip Slide 1 -->
+                    <div class="tip-slide active" id="tip-slide-1">
+                        <div class="slide-icon-circle"><i class="fas fa-key"></i></div>
+                        <h2>Choose unique passwords</h2>
+                        <p>Use a passphrase combining letters, numbers and special characters that are easy to remember but hard to guess. Change passphrases periodically.</p>
+                    </div>
+
+                    <!-- Tip Slide 2 -->
+                    <div class="tip-slide" id="tip-slide-2">
+                        <div class="slide-icon-circle"><i class="fas fa-user-secret"></i></div>
+                        <h2>Do not share passwords and PINs</h2>
+                        <p>TD Bank Group will never send you unsolicited emails asking you to reply with passwords, account numbers or PINs.</p>
+                    </div>
+
+                    <!-- Tip Slide 3 -->
+                    <div class="tip-slide" id="tip-slide-3">
+                        <div class="slide-icon-circle"><i class="fas fa-network-wired"></i></div>
+                        <h2>Use a firewall</h2>
+                        <p>Firewalls guard your personal network from potential online threats and offensive websites. Learn about other ways to protect your computer and mobile devices.</p>
+                    </div>
+
+                    <!-- Tip Slide 4 -->
+                    <div class="tip-slide" id="tip-slide-4">
+                        <div class="slide-icon-circle"><i class="fas fa-laptop-medical"></i></div>
+                        <h2>Use anti-virus and anti-malware software</h2>
+                        <p>Maintaining updates of your anti-virus and anti-malware software along with the latest patches of your mobile devices can protect your computer from threats and cyber attacks.</p>
+                    </div>
+
+                    <!-- Tip Slide 5 -->
+                    <div class="tip-slide" id="tip-slide-5">
+                        <div class="slide-icon-circle"><i class="fas fa-lock"></i></div>
+                        <h2>Guard your mobile devices</h2>
+                        <p>Avoid leaving your devices unattended when using and be sure to make use of your phone's built-in lock and password-protect function when starting up and timing out.</p>
+                    </div>
+
+                    <div class="carousel-controls-bar">
+                        <button class="carousel-arrow" onclick="navigateTipSlide(-1)"><i class="fas fa-chevron-left"></i></button>
+                        <span class="slide-indicator-text" id="tipIndicator">slide 1 of 5</span>
+                        <button class="carousel-arrow" onclick="navigateTipSlide(1)"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Disclosures Section -->
+        <section class="disclosures">
+            <div class="container">
+                <details>
+                    <summary>Security Guarantees & Legal Disclaimers</summary>
+                    <div class="disclosure-content">
+                        <p><span class="legal-text">You are fully protected against unauthorized transactions conducted through EasyWeb Online Banking and the TD app provided you fulfill your responsibilities as outlined in the Digital Banking Agreement.</span></p>
+                    </div>
+                </details>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-heading">
+                    <p>Need to talk to us directly? <a href="#">Contact us</a></p>
+                </div>
+                <div class="social-links">
+                    <p>Follow TD Canada</p>
+                    <ul>
+                        <li><a href="https://twitter.com/td_canada"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="https://www.facebook.com/TDCanada/"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="https://www.instagram.com/TD_Canada/"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="https://www.youtube.com/user/TDCanada/TDCanadaTrust"><i class="fab fa-youtube"></i></a></li>
+                        <li><a href="https://www.linkedin.com/company/td/"><i class="fab fa-linkedin-in"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <ul class="footer-links">
+                <li class="active"><a href="privacy-and-security.html">Privacy and Security</a></li>
+                <li><a href="legal-notices-and-disclaimers.html">Legal</a></li>
+                <li><a href="accessibility.html">Accessibility</a></li>
+                <li><a href="cdic.html">CDIC Member</a></li>
+                <li><a href="careers.html">Careers</a></li>
+                <li><a href="#">Manage online experience</a></li>
+                <li><a href="site-index.html">Site Index</a></li>
+            </ul>
+            <hr>
+            <div class="footer-info">
+                <p><a href="#">CDIC Member. Deposits insured up to applicable limits by the Canada Deposit Insurance Corporation</a></p>
+            </div>
+            <hr>
+            <div class="securities-notice">
+                <p><b>INVESTMENT AND MUTUAL FUND PRODUCTS ARE: NOT A DEPOSIT; NOT CDIC INSURED; NOT INSURED BY ANY FEDERAL GOVERNMENT AGENCY; NOT GUARANTEED BY THE TORONTO-DOMINION BANK OR ANY OF ITS AFFILIATES.</b></p>
+            </div>
+            <hr>
+            <div class="copyright">
+                <p><b>TD Bank Tower</b> 66 Wellington Street West, Toronto, ON M5K 1A2<br>
+                ©2026 The Toronto-Dominion Bank. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Carousel Controller Scripts -->
+    <script>
+        function createCarousel(prefix, total) {
+            let curr = 1;
+            return function(dir) {
+                document.getElementById(`${prefix}-slide-${curr}`).classList.remove('active');
+                curr += dir;
+                if (curr > total) curr = 1;
+                if (curr < 1) curr = total;
+                document.getElementById(`${prefix}-slide-${curr}`).classList.add('active');
+                document.getElementById(`${prefix}Indicator`).textContent = `slide ${curr} of ${total}`;
+            };
+        }
+
+        const navigateFraudSlide = createCarousel('fraud', 2);
+        const navigateTipSlide = createCarousel('tip', 5);
+    </script>
+</body>
+</html>

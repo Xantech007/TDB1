@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TD Small Business Banking - Accounts, Credit Cards & Solutions</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Hero Banner & Offers Slider */
+        .sb-hero {
+            background: linear-gradient(135deg, #005600 0%, #002e00 100%);
+            color: #ffffff;
+            padding: 50px 0;
+        }
+        .sb-offers-carousel {
+            background: #ffffff;
+            color: #333333;
+            border-radius: 8px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            border-top: 5px solid #008a00;
+            padding: 40px 30px;
+            max-width: 850px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .sb-offer-slide {
+            display: none;
+        }
+        .sb-offer-slide.active {
+            display: block;
+        }
+        .sb-offer-tag {
+            background: #e6f4e6;
+            color: #008a00;
+            font-weight: bold;
+            font-size: 0.85rem;
+            padding: 4px 12px;
+            border-radius: 12px;
+            display: inline-block;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+        .sb-offer-slide h2 {
+            font-size: 2rem;
+            color: #111;
+            margin-bottom: 10px;
+        }
+        .sb-offer-slide p {
+            font-size: 1.05rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .sb-conditions-text {
+            font-size: 0.8rem;
+            color: #777;
+            margin-top: 10px;
+        }
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        .carousel-btn {
+            background: #008a00;
+            color: #ffffff;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .carousel-btn:hover {
+            background: #006600;
+        }
+
+        /* Products Grid */
+        .sb-products-section {
+            padding: 60px 0;
+            background-color: #ffffff;
+        }
+        .sb-products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        .sb-product-card {
+            background: #f9fbf9;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 30px 20px;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .sb-product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+            border-color: #008a00;
+        }
+        .sb-product-icon {
+            font-size: 2.2rem;
+            color: #008a00;
+            margin-bottom: 15px;
+        }
+        .sb-product-card h3 {
+            font-size: 1.15rem;
+            color: #111;
+        }
+
+        /* Advice Hub & Stage Carousel */
+        .sb-advice-section {
+            padding: 60px 0;
+            background-color: #f4f6f8;
+        }
+        .sb-advice-box {
+            background: #ffffff;
+            border-radius: 8px;
+            border-left: 5px solid #008a00;
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .sb-stage-slide {
+            display: none;
+        }
+        .sb-stage-slide.active {
+            display: block;
+        }
+        .sb-stage-slide h3 {
+            font-size: 1.5rem;
+            color: #111;
+            margin-bottom: 12px;
+        }
+        .sb-stage-slide p {
+            font-size: 1.05rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* Business Resources & Industry Expertise */
+        .sb-resources-section {
+            padding: 60px 0;
+            background-color: #ffffff;
+        }
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        .resource-card {
+            background: #f9fbf9;
+            border-radius: 8px;
+            padding: 30px;
+            border: 1px solid #e0e0e0;
+            border-top: 4px solid #008a00;
+        }
+        .resource-card h3 {
+            font-size: 1.25rem;
+            color: #111;
+            margin-bottom: 10px;
+        }
+        .resource-card p {
+            font-size: 0.98rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        /* Diversity & Inclusion Section */
+        .diversity-section {
+            padding: 60px 0;
+            background-color: #f4f6f8;
+        }
+        .diversity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        .diversity-card {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-top: 4px solid #008a00;
+        }
+        .diversity-card h3 {
+            font-size: 1.2rem;
+            color: #111;
+            margin-bottom: 10px;
+        }
+        .diversity-card p {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Fundica Government Funding Banner */
+        .funding-banner {
+            background: #003300;
+            color: #ffffff;
+            border-radius: 12px;
+            padding: 40px;
+            margin: 40px 0;
+            text-align: center;
+        }
+        .funding-banner h2 {
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+        }
+        .funding-banner p {
+            font-size: 1.05rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto 20px auto;
+        }
+
+        /* Ready to Help / Contact Options */
+        .help-options-section {
+            padding: 60px 0;
+            background-color: #ffffff;
+        }
+        .help-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        .help-card {
+            background: #f9fbf9;
+            border-radius: 8px;
+            padding: 30px;
+            border: 1px solid #e0e0e0;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .help-card-icon {
+            font-size: 2rem;
+            color: #008a00;
+            margin-bottom: 15px;
+        }
+        .help-card h3 {
+            font-size: 1.2rem;
+            color: #111;
+            margin-bottom: 10px;
+        }
+        .help-card p {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Utility Navigation -->
+    <div class="utility-nav">
+        <div class="container">
+            <ul class="utility-links">
+                <li><a href="personal-banking.html">Personal</a></li>
+                <li class="active"><a href="small-business.html">Small Business</a></li>
+                <li><a href="commercial-banking.html">Commercial</a></li>
+                <li><a href="investing.html">Investing</a></li>
+                <li><a href="asset-management.html">TD Asset Management</a></li>
+                <li><a href="about-td.html">About TD</a></li>
+            </ul>
+            <div class="country-selector">
+                <img src="images/country-ca-en.png" alt="Canada" style="height: 20px; width: auto; vertical-align: middle;">
+                <i class="fas fa-caret-down"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/cdic-logo-white-en.png" alt="TD Canada Trust">
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li class="dropdown">
+                        <a href="#">Products <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <ul>
+                                <li><a href="#">Accounts</a></li>
+                                <li><a href="#">Savings</a></li>
+                                <li><a href="#">GICs</a></li>
+                                <li><a href="#">Credit Cards</a></li>
+                                <li><a href="#">Mortgages</a></li>
+                                <li><a href="#">Personal Loans</a></li>
+                                <li><a href="#">RSPs / TFSAs</a></li>
+                                <li><a href="#">Debit Cards</a></li>
+                                <li><a href="#">Special Offers</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">Services <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <ul>
+                                <li><a href="#">EasyWeb Online Banking</a></li>
+                                <li><a href="#">TD app</a></li>
+                                <li><a href="#">Student Banking</a></li>
+                                <li><a href="#">Cross Border Banking</a></li>
+                                <li><a href="#">Travel Tips</a></li>
+                                <li><a href="#">Foreign Exchange Services</a></li>
+                                <li><a href="#">Overdraft Protection</a></li>
+                                <li><a href="#">New to Canada</a></li>
+                                <li><a href="#">Manage Your TD Credit Card</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a href="#">Learning</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="#" class="icon-link"><i class="fas fa-map-marker-alt"></i></a>
+                <a href="#" class="icon-link"><i class="fas fa-question-circle"></i></a>
+                <a href="#" class="icon-link"><i class="fas fa-search"></i></a>
+                <div class="divider"></div>
+                <a href="login.html" class="login-btn">
+                    <i class="fas fa-user"></i>
+                    Log In
+                    <i class="fas fa-caret-down"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Banner & Special Promotional Offers Carousel -->
+        <section class="sb-hero">
+            <div class="container">
+                <div class="sb-offers-carousel">
+                    <!-- Offer 1 -->
+                    <div class="sb-offer-slide active" id="offer-slide-1">
+                        <span class="sb-offer-tag">Chequing Account Offer</span>
+                        <h2>Earn up to \$2,400*</h2>
+                        <p>Start by opening a new eligible TD Small Business Chequing Account and complete qualifying activities.</p>
+                        <a href="#" class="btn btn-primary">View Offer</a>
+                        <div class="sb-conditions-text">*Conditions apply. Limited time offer for new small business accounts.</div>
+                    </div>
+
+                    <!-- Offer 2 -->
+                    <div class="sb-offer-slide" id="offer-slide-2">
+                        <span class="sb-offer-tag">Savings Offer</span>
+                        <h2>Earn up to \$1,000* in cash</h2>
+                        <p>Start by opening a TD Business Savings Account on new deposits. Plus get competitive interest rates.</p>
+                        <a href="#" class="btn btn-primary">View Offer</a>
+                        <div class="sb-conditions-text">*Conditions apply. Interest rates subject to change without notice.</div>
+                    </div>
+
+                    <!-- Offer 3 -->
+                    <div class="sb-offer-slide" id="offer-slide-3">
+                        <span class="sb-offer-tag">Business Credit Card</span>
+                        <h2>TD® Aeroplan® Visa* Business Card</h2>
+                        <p>Earn up to 60,000 Aeroplan points with the TD® Aeroplan® Visa* Business Card and earn points on every purchase.</p>
+                        <a href="#" class="btn btn-primary">Apply Online</a>
+                        <div class="sb-conditions-text">Conditions Apply. Welcome bonus subject to terms.</div>
+                    </div>
+
+                    <div class="carousel-controls">
+                        <button class="carousel-btn" onclick="navigateOffer(-1)"><i class="fas fa-chevron-left"></i></button>
+                        <span id="offerIndicator" style="font-weight: bold; color: #555; font-size: 0.9rem;">slide 1 of 3</span>
+                        <button class="carousel-btn" onclick="navigateOffer(1)"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Welcome & Products Overview -->
+        <section class="sb-products-section">
+            <div class="container">
+                <div style="text-align: center; max-width: 750px; margin: 0 auto;">
+                    <h1 style="font-size: 2.2rem; color: #111;">Welcome to TD Small Business Banking</h1>
+                    <p style="font-size: 1.1rem; color: #555; margin-top: 10px;">Here’s how we can help your business thrive with tailored accounts, credit, and payment solutions.</p>
+                </div>
+
+                <div class="sb-products-grid">
+                    <div class="sb-product-card">
+                        <div class="sb-product-icon"><i class="fas fa-university"></i></div>
+                        <h3>Bank Accounts</h3>
+                    </div>
+                    <div class="sb-product-card">
+                        <div class="sb-product-icon"><i class="fas fa-credit-card"></i></div>
+                        <h3>Credit Cards</h3>
+                    </div>
+                    <div class="sb-product-card">
+                        <div class="sb-product-icon"><i class="fas fa-hand-holding-usd"></i></div>
+                        <h3>Credit Solutions</h3>
+                    </div>
+                    <div class="sb-product-card">
+                        <div class="sb-product-icon"><i class="fas fa-cash-register"></i></div>
+                        <h3>TD Merchant Solutions</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Banking Advice at Every Stage -->
+        <section class="sb-advice-section">
+            <div class="container">
+                <div style="text-align: center; margin-bottom: 35px;">
+                    <h2 style="font-size: 2rem; color: #111;">Banking advice at every stage of your business</h2>
+                </div>
+
+                <div class="sb-advice-box">
+                    <!-- Stage 1 -->
+                    <div class="sb-stage-slide active" id="stage-slide-1">
+                        <h3>Starting Your Business</h3>
+                        <p>Make the most of our resources and learn how to clarify your business idea. Assemble a business plan. Manage your cashflow, plus more.</p>
+                    </div>
+
+                    <!-- Stage 2 -->
+                    <div class="sb-stage-slide" id="stage-slide-2">
+                        <h3>Growing Your Business</h3>
+                        <p>Take advantage of our resources and tips on how to build customer loyalty, keep customers engaged, attract new customers and more.</p>
+                    </div>
+
+                    <!-- Stage 3 -->
+                    <div class="sb-stage-slide" id="stage-slide-3">
+                        <h3>Managing Your Business</h3>
+                        <p>We can help with tools—like TD’s Cashflow Calculator—to manage your business more efficiently, streamline operations, and generate more accurate forecasting.</p>
+                    </div>
+
+                    <!-- Stage 4 -->
+                    <div class="sb-stage-slide" id="stage-slide-4">
+                        <h3>Business Succession</h3>
+                        <p>Preparing for retirement? Passing your business to family? Selling to a partner, employee, or third party? We're here to help.</p>
+                    </div>
+
+                    <div class="carousel-controls">
+                        <button class="carousel-btn" onclick="navigateStage(-1)"><i class="fas fa-chevron-left"></i></button>
+                        <span id="stageIndicator" style="font-weight: bold; color: #555; font-size: 0.9rem;">slide 1 of 4</span>
+                        <button class="carousel-btn" onclick="navigateStage(1)"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 30px;">
+                    <p style="color: #555; margin-bottom: 12px;">Explore our repository of stories that inspire. Small business owners across Canada share the challenges and opportunities they face.</p>
+                    <a href="#" class="btn btn-primary">Go to Advice Hub</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Business Banking Resources & Industry Expertise -->
+        <section class="sb-resources-section">
+            <div class="container">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <h2 style="font-size: 2rem; color: #111;">Business banking resources</h2>
+                </div>
+
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <h3>Small Business Resource Centre</h3>
+                        <p>TD can help you see the big picture when it comes to running your business with step-by-step guides and tools.</p>
+                        <a href="#" style="color: #0066cc; font-weight: bold; text-decoration: none;">Visit Resource Centre <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="resource-card">
+                        <h3>TD Merchant Solutions Resource Centre</h3>
+                        <p>We're here with practical payment processing information, POS security, and advice to help your business accept payments seamlessly.</p>
+                        <a href="#" style="color: #0066cc; font-weight: bold; text-decoration: none;">Explore Payment Tools <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <div style="background: #f4f6f8; border-radius: 8px; padding: 35px; margin-top: 40px; text-align: center;">
+                    <h2 style="font-size: 1.8rem; color: #111; margin-bottom: 10px;">Industry expertise</h2>
+                    <p style="color: #555; max-width: 700px; margin: 0 auto 20px auto;">See how we’re ready to help you with banking advice—designed to help navigate within specific business industries.</p>
+                    <a href="#" class="btn btn-primary">Explore Industry Expertise</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Diversity & Inclusion -->
+        <section class="diversity-section">
+            <div class="container">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <h2 style="font-size: 2rem; color: #111;">Uplifting people through diversity and inclusion</h2>
+                </div>
+
+                <div class="diversity-grid">
+                    <div class="diversity-card">
+                        <h3>Black Entrepreneurs</h3>
+                        <p>Helping Black entrepreneurs and businesses with access to capital, resources and expert advice.</p>
+                    </div>
+                    <div class="diversity-card">
+                        <h3>2SLGBTQ+</h3>
+                        <p>Supporting 2SLGBTQ+ individuals through a variety of inclusive policies, programs and initiatives.</p>
+                    </div>
+                    <div class="diversity-card">
+                        <h3>Women in Business</h3>
+                        <p>The TD Women in Enterprise team proudly supports women-led and owned businesses across North America.</p>
+                    </div>
+                </div>
+
+                <!-- Fundica Government Funding Callout -->
+                <div class="funding-banner">
+                    <h2>Looking for government funding?</h2>
+                    <p>TD connects you with Fundica to help you find relevant government funding, grants, and tax credits in Canada.</p>
+                    <a href="#" class="btn btn-primary" style="background: #ffffff; color: #003300; border: none; font-weight: bold;">Find Funding</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- We're Ready to Help You / Contact Options -->
+        <section class="help-options-section">
+            <div class="container">
+                <div style="text-align: center;">
+                    <h2 style="font-size: 2rem; color: #111;">We're ready to help you</h2>
+                </div>
+
+                <div class="help-grid">
+                    <!-- Option 1 -->
+                    <div class="help-card">
+                        <div>
+                            <div class="help-card-icon"><i class="far fa-calendar-check"></i></div>
+                            <h3>Book an appointment</h3>
+                            <p>Fill in your information to have a TD Small Business Banking Specialist contact you at your preferred time.</p>
+                        </div>
+                        <a href="#" class="btn btn-primary">Book Now</a>
+                    </div>
+
+                    <!-- Option 2 -->
+                    <div class="help-card">
+                        <div>
+                            <div class="help-card-icon"><i class="fas fa-user-tie"></i></div>
+                            <h3>Find an Account Manager</h3>
+                            <p>Meet an Account Manager Small Business (AMSB) in person at your nearest TD branch.</p>
+                        </div>
+                        <a href="#" class="btn btn-primary">Find Now</a>
+                    </div>
+
+                    <!-- Option 3 -->
+                    <div class="help-card">
+                        <div>
+                            <div class="help-card-icon"><i class="fas fa-phone-alt"></i></div>
+                            <h3>Have us call you</h3>
+                            <p>Answer a few quick questions through TD Business Direct and we'll have a specialist call you back.</p>
+                        </div>
+                        <a href="#" class="btn btn-primary">Request a Call</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Disclosures Section -->
+        <section class="disclosures">
+            <div class="container">
+                <details>
+                    <summary>Legal Notes & Disclaimers</summary>
+                    <div class="disclosure-content">
+                        <p><span class="legal-text">All offers subject to terms, account qualification, and credit approval. Aeroplan is a registered trademark of Aeroplan Inc., used under license. Visa is a registered trademark of Visa International Service Association and used under license.</span></p>
+                    </div>
+                </details>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-heading">
+                    <p>Need to talk to us directly? <a href="#">Contact us</a></p>
+                </div>
+                <div class="social-links">
+                    <p>Follow TD Canada</p>
+                    <ul>
+                        <li><a href="https://twitter.com/td_canada"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="https://www.facebook.com/TDCanada/"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="https://www.instagram.com/TD_Canada/"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="https://www.youtube.com/user/TDCanada/TDCanadaTrust"><i class="fab fa-youtube"></i></a></li>
+                        <li><a href="https://www.linkedin.com/company/td/"><i class="fab fa-linkedin-in"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <ul class="footer-links">
+                <li><a href="privacy-and-security.html">Privacy and Security</a></li>
+                <li><a href="legal-notices-and-disclaimers.html">Legal</a></li>
+                <li><a href="accessibility.html">Accessibility</a></li>
+                <li><a href="cdic.html">CDIC Member</a></li>
+                <li><a href="careers.html">Careers</a></li>
+                <li><a href="#">Manage online experience</a></li>
+                <li><a href="site-index.html">Site Index</a></li>
+            </ul>
+            <hr>
+            <div class="footer-info">
+                <p><a href="#">CDIC Member. Deposits insured up to applicable limits by the Canada Deposit Insurance Corporation</a></p>
+            </div>
+            <hr>
+            <div class="securities-notice">
+                <p><b>INVESTMENT AND MUTUAL FUND PRODUCTS ARE: NOT A DEPOSIT; NOT CDIC INSURED; NOT INSURED BY ANY FEDERAL GOVERNMENT AGENCY; NOT GUARANTEED BY THE TORONTO-DOMINION BANK OR ANY OF ITS AFFILIATES.</b></p>
+            </div>
+            <hr>
+            <div class="copyright">
+                <p><b>TD Bank Tower</b> 66 Wellington Street West, Toronto, ON M5K 1A2<br>
+                ©2026 The Toronto-Dominion Bank. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Carousel Controller Script -->
+    <script>
+        function createCarousel(prefix, total) {
+            let curr = 1;
+            return function(dir) {
+                document.getElementById(`${prefix}-slide-${curr}`).classList.remove('active');
+                curr += dir;
+                if (curr > total) curr = 1;
+                if (curr < 1) curr = total;
+                document.getElementById(`${prefix}-slide-${curr}`).classList.add('active');
+                document.getElementById(`${prefix}Indicator`).textContent = `slide ${curr} of ${total}`;
+            };
+        }
+
+        const navigateOffer = createCarousel('offer', 3);
+        const navigateStage = createCarousel('stage', 4);
+    </script>
+</body>
+</html>

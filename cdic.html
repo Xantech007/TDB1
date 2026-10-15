@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canada Deposit Insurance Corporation (CDIC) - TD Bank Group</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .cdic-hero {
+            background: linear-gradient(135deg, #003300 0%, #005600 100%);
+            color: #ffffff;
+            padding: 60px 0;
+            text-align: center;
+        }
+        .cdic-hero h1 {
+            font-size: 2.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .cdic-hero p {
+            font-size: 1.15rem;
+            max-width: 750px;
+            margin: 0 auto;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+        .cdic-section {
+            padding: 60px 0;
+            background-color: #ffffff;
+        }
+        .cdic-section-alt {
+            padding: 60px 0;
+            background-color: #f4f6f8;
+        }
+        .section-header-center {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+        }
+        .section-header-center h2 {
+            font-size: 2rem;
+            color: #111;
+            margin-bottom: 10px;
+        }
+        .section-header-center p {
+            font-size: 1.05rem;
+            color: #555;
+            line-height: 1.6;
+        }
+        .cdic-card {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 40px;
+            max-width: 850px;
+            margin: 0 auto;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-left: 5px solid #008a00;
+        }
+        .carousel-box {
+            background: #f9fbf9;
+            border: 1px solid #e0e0e0;
+            border-top: 4px solid #008a00;
+            border-radius: 8px;
+            padding: 40px 30px;
+            max-width: 850px;
+            margin: 0 auto;
+        }
+        .carousel-slide-item {
+            display: none;
+        }
+        .carousel-slide-item.active {
+            display: block;
+        }
+        .slide-icon-lg {
+            font-size: 2.2rem;
+            color: #008a00;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .carousel-slide-item h3 {
+            font-size: 1.3rem;
+            color: #111;
+            margin-bottom: 15px;
+        }
+        .carousel-slide-item ul {
+            padding-left: 20px;
+            color: #444;
+            line-height: 1.7;
+        }
+        .carousel-slide-item li {
+            margin-bottom: 10px;
+        }
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        .carousel-nav-btn {
+            background: #008a00;
+            color: #ffffff;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .carousel-nav-btn:hover {
+            background: #006600;
+        }
+        .pdf-download-box {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 30px;
+            max-width: 850px;
+            margin: 40px auto 0 auto;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Utility Navigation -->
+    <div class="utility-nav">
+        <div class="container">
+            <ul class="utility-links">
+                <li><a href="personal-banking.html">Personal</a></li>
+                <li><a href="small-business.html">Small Business</a></li>
+                <li><a href="commercial-banking.html">Commercial</a></li>
+                <li><a href="investing.html">Investing</a></li>
+                <li><a href="asset-management.html">TD Asset Management</a></li>
+                <li><a href="about-td.html">About TD</a></li>
+            </ul>
+            <div class="country-selector">
+                <img src="images/country-ca-en.png" alt="Canada" style="height: 20px; width: auto; vertical-align: middle;">
+                <i class="fas fa-caret-down"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/cdic-logo-white-en.png" alt="TD Canada Trust">
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li class="dropdown">
+                        <a href="#">Products <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <ul>
+                                <li><a href="#">Accounts</a></li>
+                                <li><a href="#">Savings</a></li>
+                                <li><a href="#">GICs</a></li>
+                                <li><a href="#">Credit Cards</a></li>
+                                <li><a href="#">Mortgages</a></li>
+                                <li><a href="#">Personal Loans</a></li>
+                                <li><a href="#">RSPs / TFSAs</a></li>
+                                <li><a href="#">Debit Cards</a></li>
+                                <li><a href="#">Special Offers</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">Services <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <ul>
+                                <li><a href="#">EasyWeb Online Banking</a></li>
+                                <li><a href="#">TD app</a></li>
+                                <li><a href="#">Student Banking</a></li>
+                                <li><a href="#">Cross Border Banking</a></li>
+                                <li><a href="#">Travel Tips</a></li>
+                                <li><a href="#">Foreign Exchange Services</a></li>
+                                <li><a href="#">Overdraft Protection</a></li>
+                                <li><a href="#">New to Canada</a></li>
+                                <li><a href="#">Manage Your TD Credit Card</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a href="#">Learning</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="#" class="icon-link"><i class="fas fa-map-marker-alt"></i></a>
+                <a href="#" class="icon-link"><i class="fas fa-question-circle"></i></a>
+                <a href="#" class="icon-link"><i class="fas fa-search"></i></a>
+                <div class="divider"></div>
+                <a href="login.html" class="login-btn">
+                    <i class="fas fa-user"></i>
+                    Log In
+                    <i class="fas fa-caret-down"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="cdic-hero">
+            <div class="container">
+                <h1>Canada Deposit Insurance Corporation (CDIC)</h1>
+                <p>Protecting Your Deposits – Learn how TD Bank Group members safeguard your hard-earned money.</p>
+            </div>
+        </section>
+
+        <!-- What is the CDIC Section -->
+        <section class="cdic-section">
+            <div class="container">
+                <div class="section-header-center">
+                    <h2>What is the CDIC?</h2>
+                    <p>TD Bank and its Canadian deposit-issuing subsidiaries are proud members of the Canada Deposit Insurance Corporation (CDIC).</p>
+                </div>
+
+                <div class="cdic-card">
+                    <p style="font-size: 1.05rem; color: #444; line-height: 1.7; margin-bottom: 20px;">CDIC is a federal crown corporation – a part of the government of Canada – created by Parliament in 1967 to protect money on deposit in the event a member institution becomes insolvent. CDIC protects eligible deposits to a maximum of \$100,000 per depositor and per insured category.</p>
+                    <p style="font-size: 1.05rem; color: #444; line-height: 1.7;">Coverage is free and automatic; customers do not have to apply for it. If a member institution failed, CDIC would reimburse insured deposits (including interest) up to \$100,000 per insured category.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Eligibility and Member Entities Carousel -->
+        <section class="cdic-section-alt">
+            <div class="container">
+                <div class="carousel-box">
+                    <div class="carousel-slide-item active" id="cdic-slide-1">
+                        <div class="slide-icon-lg"><i class="fas fa-check-circle"></i></div>
+                        <h3>Eligibility for Deposit Insurance</h3>
+                        <p style="color: #555; margin-bottom: 10px;">To be eligible for deposit insurance, a deposit must be:</p>
+                        <ul>
+                            <li>payable in Canada</li>
+                            <li>in Canadian, US, or foreign currency</li>
+                        </ul>
+                    </div>
+
+                    <div class="carousel-slide-item" id="cdic-slide-2">
+                        <div class="slide-icon-lg"><i class="fas fa-wallet"></i></div>
+                        <h3>Eligible Deposits Include:</h3>
+                        <ul>
+                            <li>Chequing & Savings Accounts</li>
+                            <li>Term deposits / Guaranteed Investment Certificates (GICs)</li>
+                            <li>Money orders, Certified Cheques & Bank Drafts issued by a CDIC member institution</li>
+                            <li>Certain In-transit Payments from a CDIC member institution such as payroll and Interac e-Transfers</li>
+                        </ul>
+                    </div>
+
+                    <div class="carousel-slide-item" id="cdic-slide-3">
+                        <div class="slide-icon-lg"><i class="fas fa-university"></i></div>
+                        <h3>TD Bank Group CDIC Member Institutions:</h3>
+                        <p style="color: #555; margin-bottom: 10px;">The following entities are CDIC member institutions (operating under the trade name TD Canada Trust):</p>
+                        <ul>
+                            <li>The Toronto-Dominion Bank</li>
+                            <li>TD Mortgage Corporation</li>
+                            <li>TD Pacific Mortgage Corporation</li>
+                            <li>The Canada Trust Company</li>
+                        </ul>
+                    </div>
+
+                    <div class="carousel-controls">
+                        <button class="carousel-nav-btn" onclick="moveCdicSlide(-1)"><i class="fas fa-chevron-left"></i></button>
+                        <span id="cdicIndicator" style="font-weight: bold; color: #555;">slide 1 of 3</span>
+                        <button class="carousel-nav-btn" onclick="moveCdicSlide(1)"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- PDF Download Box -->
+                <div class="pdf-download-box">
+                    <div>
+                        <h3 style="font-size: 1.2rem; color: #111; margin-bottom: 5px;">Deposit Insurance Information Guide</h3>
+                        <p style="color: #555; font-size: 0.95rem;">Your deposits may be insurable by the Canada Deposit Insurance Corporation.</p>
+                    </div>
+                    <a href="#" class="btn btn-primary"><i class="fas fa-file-pdf" style="margin-right: 8px;"></i> Learn more (PDF, 96 KB)</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Further Information about CDIC -->
+        <section class="cdic-section">
+            <div class="container">
+                <div class="section-header-center">
+                    <h2>Further Information about CDIC</h2>
+                    <p>Have questions about your coverage? Reach out directly through the official channels below.</p>
+                </div>
+
+                <div class="carousel-box" style="text-align: center;">
+                    <div class="carousel-slide-item active" id="info-slide-1">
+                        <div class="slide-icon-lg"><i class="fas fa-phone-alt"></i></div>
+                        <h3>Call CDIC</h3>
+                        <p style="font-size: 1.3rem; font-weight: bold; color: #008a00;"><a href="tel:18004612342" style="color: #008a00; text-decoration: none;">1-800-461-CDIC (2342)</a></p>
+                    </div>
+
+                    <div class="carousel-slide-item" id="info-slide-2">
+                        <div class="slide-icon-lg"><i class="fas fa-globe"></i></div>
+                        <h3>Visit the CDIC Website</h3>
+                        <p style="margin-bottom: 15px; color: #555;">Explore comprehensive coverage calculators, FAQs, and official regulatory tools.</p>
+                        <a href="https://www.cdic.ca" target="_blank" class="btn btn-primary">Visit CDIC Website</a>
+                    </div>
+
+                    <div class="carousel-controls">
+                        <button class="carousel-nav-btn" onclick="moveInfoSlide(-1)"><i class="fas fa-chevron-left"></i></button>
+                        <span id="infoIndicator" style="font-weight: bold; color: #555;">slide 1 of 2</span>
+                        <button class="carousel-nav-btn" onclick="moveInfoSlide(1)"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Disclosures Section -->
+        <section class="disclosures">
+            <div class="container">
+                <details>
+                    <summary>CDIC Insurance Protection Summary</summary>
+                    <div class="disclosure-content">
+                        <p><span class="legal-text">CDIC deposit insurance covers eligible deposits held in eligible accounts at member financial institutions up to \$100,000 per depositor per insured category.</span></p>
+                    </div>
+                </details>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-heading">
+                    <p>Need to talk to us directly? <a href="#">Contact us</a></p>
+                </div>
+                <div class="social-links">
+                    <p>Follow TD Canada</p>
+                    <ul>
+                        <li><a href="https://twitter.com/td_canada"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="https://www.facebook.com/TDCanada/"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="https://www.instagram.com/TD_Canada/"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="https://www.youtube.com/user/TDCanada/TDCanadaTrust"><i class="fab fa-youtube"></i></a></li>
+                        <li><a href="https://www.linkedin.com/company/td/"><i class="fab fa-linkedin-in"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <ul class="footer-links">
+                <li><a href="privacy-and-security.html">Privacy and Security</a></li>
+                <li><a href="legal-notices-and-disclaimers.html">Legal</a></li>
+                <li><a href="accessibility.html">Accessibility</a></li>
+                <li class="active"><a href="cdic.html">CDIC Member</a></li>
+                <li><a href="careers.html">Careers</a></li>
+                <li><a href="#">Manage online experience</a></li>
+                <li><a href="#">Site Index</a></li>
+            </ul>
+            <hr>
+            <div class="footer-info">
+                <p><a href="#">CDIC Member. Deposits insured up to applicable limits by the Canada Deposit Insurance Corporation</a></p>
+            </div>
+            <hr>
+            <div class="securities-notice">
+                <p><b>INVESTMENT AND MUTUAL FUND PRODUCTS ARE: NOT A DEPOSIT; NOT CDIC INSURED; NOT INSURED BY ANY FEDERAL GOVERNMENT AGENCY; NOT GUARANTEED BY THE TORONTO-DOMINION BANK OR ANY OF ITS AFFILIATES.</b></p>
+            </div>
+            <hr>
+            <div class="copyright">
+                <p><b>TD Bank Tower</b> 66 Wellington Street West, Toronto, ON M5K 1A2<br>
+                ©2026 The Toronto-Dominion Bank. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Carousel Scripts -->
+    <script>
+        let currentCdicSlide = 1;
+        const totalCdicSlides = 3;
+
+        function moveCdicSlide(direction) {
+            document.getElementById(`cdic-slide-${currentCdicSlide}`).classList.remove('active');
+            
+            currentCdicSlide += direction;
+            if (currentCdicSlide > totalCdicSlides) currentCdicSlide = 1;
+            if (currentCdicSlide < 1) currentCdicSlide = totalCdicSlides;
+
+            document.getElementById(`cdic-slide-${currentCdicSlide}`).classList.add('active');
+            document.getElementById('cdicIndicator').textContent = `slide ${currentCdicSlide} of ${totalCdicSlides}`;
+        }
+
+        let currentInfoSlide = 1;
+        const totalInfoSlides = 2;
+
+        function moveInfoSlide(direction) {
+            document.getElementById(`info-slide-${currentInfoSlide}`).classList.remove('active');
+            
+            currentInfoSlide += direction;
+            if (currentInfoSlide > totalInfoSlides) currentInfoSlide = 1;
+            if (currentInfoSlide < 1) currentInfoSlide = totalInfoSlides;
+
+            document.getElementById(`info-slide-${currentInfoSlide}`).classList.add('active');
+            document.getElementById('infoIndicator').textContent = `slide ${currentInfoSlide} of ${totalInfoSlides}`;
+        }
+    </script>
+</body>
+</html>
