@@ -62,6 +62,54 @@
     <p class="text-xs font-semibold text-gray-600">Loading secure session...</p>
   </div>
 
+  <!-- PAYMENT PIN MODAL -->
+  <div id="paymentPinModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+    <div class="bg-white rounded-3xl max-w-sm w-full shadow-2xl overflow-hidden flex flex-col">
+      <div class="bg-tdGreen text-white p-4 flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <i class="fa-solid fa-lock"></i>
+          <h3 class="font-bold text-base">Enter Payment PIN</h3>
+        </div>
+        <button onclick="closeModal('paymentPinModal')" class="text-white hover:text-green-200">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      <form id="paymentPinForm" class="p-5 space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">4-Digit Payment PIN</label>
+          <input type="password" id="modal-payment-pin" maxlength="6" required placeholder="••••" class="w-full p-3 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-mono text-center tracking-widest text-lg">
+        </div>
+        <button type="submit" class="w-full bg-tdGreen text-white font-bold py-3.5 rounded-xl hover:bg-tdGreen-dark transition-colors shadow-md">
+          Continue
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- SECURITY OTP MODAL -->
+  <div id="securityOtpModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+    <div class="bg-white rounded-3xl max-w-sm w-full shadow-2xl overflow-hidden flex flex-col">
+      <div class="bg-tdGreen text-white p-4 flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <i class="fa-solid fa-shield-halved"></i>
+          <h3 class="font-bold text-base">Security Verification (OTP)</h3>
+        </div>
+        <button onclick="closeModal('securityOtpModal')" class="text-white hover:text-green-200">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      <form id="securityOtpForm" class="p-5 space-y-4">
+        <p class="text-xs text-gray-500">Please enter the 6-digit one-time passcode sent to your registered mobile device.</p>
+        <div>
+          <input type="text" id="modal-security-otp" maxlength="6" required placeholder="123456" class="w-full p-3 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-mono text-center tracking-widest text-lg">
+        </div>
+        <button type="submit" class="w-full bg-tdGreen text-white font-bold py-3.5 rounded-xl hover:bg-tdGreen-dark transition-colors shadow-md">
+          Verify & Complete
+        </button>
+      </form>
+    </div>
+  </div>
+
   <!-- BANK PROCESSING ANIMATION MODAL -->
   <div id="processingModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-md p-4">
     <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl flex flex-col items-center text-center space-y-4">
@@ -70,10 +118,10 @@
       </div>
       <div>
         <h3 class="text-lg font-bold text-gray-900" id="processing-title">Processing Secure Transfer</h3>
-        <p class="text-xs text-gray-500 mt-1" id="processing-step-text">Verifying security PIN & OTP...</p>
+        <p class="text-xs text-gray-500 mt-1" id="processing-step-text">Verifying security credentials...</p>
       </div>
       <div class="w-full bg-gray-100 h-2 rounded-full overflow-hidden">
-        <div id="processing-progress-bar" class="bg-tdGreen h-full transition-all duration-700" style="width: 20%;"></div>
+        <div id="processing-progress-bar" class="bg-tdGreen h-full transition-all duration-1000" style="width: 20%;"></div>
       </div>
       <div class="text-[11px] text-gray-400 font-mono">TD Bank 256-Bit Encryption</div>
     </div>
@@ -257,8 +305,6 @@
       <span id="toast-message" class="font-medium">Action requested</span>
     </div>
 
-<<<<<<< HEAD
-=======
     <!-- SECTION: TD MYSPEND -->
     <section class="space-y-3">
       <div class="flex items-center justify-between">
@@ -273,7 +319,7 @@
         <div>
           <p class="text-xs text-gray-500 font-medium">This month, you've spent</p>
           <div class="flex items-center justify-between mt-1">
-            <h3 class="text-2xl font-extrabold text-gray-900">\$676</h3>
+            <h3 class="text-2xl font-extrabold text-gray-900">$676</h3>
             <div class="w-8 h-8 rounded-full bg-tdGreen/10 flex items-center justify-center text-tdGreen text-sm">
               <i class="fa-solid fa-thumbs-up"></i>
             </div>
@@ -291,11 +337,11 @@
         <div class="grid grid-cols-2 gap-3 pt-3 border-t border-gray-100">
           <div class="bg-gray-50 p-3 rounded-xl border border-gray-100">
             <p class="text-[11px] text-gray-500 font-medium">Typical spent</p>
-            <p class="text-sm font-extrabold text-gray-900 mt-0.5">\$812</p>
+            <p class="text-sm font-extrabold text-gray-900 mt-0.5">$812</p>
           </div>
           <div class="bg-green-50/60 p-3 rounded-xl border border-green-100">
             <p class="text-[11px] text-gray-500 font-medium">Status</p>
-            <p class="text-sm font-extrabold text-tdGreen mt-0.5">\$136 Below</p>
+            <p class="text-sm font-extrabold text-tdGreen mt-0.5">$136 Below</p>
           </div>
         </div>
 
@@ -308,14 +354,14 @@
                 <i class="fa-solid fa-utensils text-amber-500 w-4"></i>
                 <span>Dining & Food</span>
               </span>
-              <span class="font-bold text-gray-900">\$284.50</span>
+              <span class="font-bold text-gray-900">$284.50</span>
             </div>
             <div class="flex items-center justify-between text-xs">
               <span class="flex items-center space-x-2 text-gray-700">
                 <i class="fa-solid fa-cart-shopping text-blue-500 w-4"></i>
                 <span>Groceries</span>
               </span>
-              <span class="font-bold text-gray-900">\$215.10</span>
+              <span class="font-bold text-gray-900">$215.10</span>
             </div>
           </div>
         </div>
@@ -346,7 +392,7 @@
             <div class="pr-3">
               <span class="text-[10px] font-bold text-tdGreen uppercase">Investing</span>
               <p class="text-xs text-gray-900 font-bold leading-tight mt-0.5">
-                Get up to \$100 cash back
+                Get up to $100 cash back
               </p>
             </div>
           </div>
@@ -384,7 +430,7 @@
             <div class="pr-3">
               <span class="text-[10px] font-bold text-blue-600 uppercase">Student</span>
               <p class="text-xs text-gray-900 font-bold leading-tight mt-0.5">
-                \$100 Student Bonus
+                $100 Student Bonus
               </p>
             </div>
           </div>
@@ -393,14 +439,6 @@
 
       </div>
     </section>
-
-    <!-- ACTION TOAST -->
-    <div id="action-toast" class="hidden fixed bottom-20 left-1/2 -translate-x-1/2 p-3 px-4 bg-gray-900/95 text-white text-xs rounded-xl shadow-2xl flex items-center space-x-2.5 z-50 backdrop-blur-md transition-all">
-      <i class="fa-solid fa-circle-info text-tdGreen text-sm"></i>
-      <span id="toast-message" class="font-medium">Action requested</span>
-    </div>
->>>>>>> refs/remotes/origin/main
-
 
   </main>
 
@@ -502,18 +540,8 @@
             <input type="number" id="send-amount" step="0.01" min="1" required placeholder="0.00" class="w-full p-3 pl-8 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-bold text-gray-900">
           </div>
         </div>
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-bold text-gray-700 mb-1">Payment PIN</label>
-            <input type="password" id="send-pin" maxlength="6" required placeholder="••••" class="w-full p-3 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-mono">
-          </div>
-          <div>
-            <label class="block text-xs font-bold text-gray-700 mb-1">Security OTP</label>
-            <input type="text" id="send-otp" maxlength="6" required placeholder="123456" class="w-full p-3 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-mono">
-          </div>
-        </div>
         <button type="submit" class="w-full bg-tdGreen text-white font-bold py-3.5 rounded-xl hover:bg-tdGreen-dark transition-colors shadow-md mt-2">
-          Send e-Transfer
+          Next: Security Verification
         </button>
       </form>
     </div>
@@ -547,18 +575,8 @@
             <input type="number" id="transfer-amount" step="0.01" min="1" required placeholder="0.00" class="w-full p-3 pl-8 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-bold text-gray-900">
           </div>
         </div>
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-bold text-gray-700 mb-1">Payment PIN</label>
-            <input type="password" id="transfer-pin" maxlength="6" required placeholder="••••" class="w-full p-3 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-mono">
-          </div>
-          <div>
-            <label class="block text-xs font-bold text-gray-700 mb-1">Security OTP</label>
-            <input type="text" id="transfer-otp" maxlength="6" required placeholder="123456" class="w-full p-3 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-mono">
-          </div>
-        </div>
         <button type="submit" class="w-full bg-tdGreen text-white font-bold py-3.5 rounded-xl hover:bg-tdGreen-dark transition-colors shadow-md mt-2">
-          Complete Transfer
+          Next: Security Verification
         </button>
       </form>
     </div>
@@ -596,18 +614,8 @@
             <input type="number" id="paybill-amount" step="0.01" min="1" required placeholder="0.00" class="w-full p-3 pl-8 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-bold text-gray-900">
           </div>
         </div>
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-bold text-gray-700 mb-1">Payment PIN</label>
-            <input type="password" id="paybill-pin" maxlength="6" required placeholder="••••" class="w-full p-3 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-mono">
-          </div>
-          <div>
-            <label class="block text-xs font-bold text-gray-700 mb-1">Security OTP</label>
-            <input type="text" id="paybill-otp" maxlength="6" required placeholder="123456" class="w-full p-3 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-mono">
-          </div>
-        </div>
         <button type="submit" class="w-full bg-tdGreen text-white font-bold py-3.5 rounded-xl hover:bg-tdGreen-dark transition-colors shadow-md mt-2">
-          Pay Bill Now
+          Next: Security Verification
         </button>
       </form>
     </div>
@@ -690,18 +698,8 @@
             <input type="number" id="global-amount" step="0.01" min="1" required placeholder="0.00" class="w-full p-3 pl-8 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-bold text-gray-900">
           </div>
         </div>
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-bold text-gray-700 mb-1">Payment PIN</label>
-            <input type="password" id="global-pin" maxlength="6" required placeholder="••••" class="w-full p-3 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-mono">
-          </div>
-          <div>
-            <label class="block text-xs font-bold text-gray-700 mb-1">Security OTP</label>
-            <input type="text" id="global-otp" maxlength="6" required placeholder="123456" class="w-full p-3 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-mono">
-          </div>
-        </div>
         <button type="submit" class="w-full bg-tdGreen text-white font-bold py-3.5 rounded-xl hover:bg-tdGreen-dark transition-colors shadow-md mt-2">
-          Send International Wire
+          Next: Security Verification
         </button>
       </form>
     </div>
@@ -727,6 +725,7 @@
     let currentUserData = null;
     let currentAuthUser = null;
     let verifiedRecipientUser = null;
+    let pendingTransactionCallback = null;
 
     function hideLoadingOverlay() {
       const overlay = document.getElementById('loading-overlay');
@@ -950,8 +949,67 @@
       }
     }
 
-    // --- PIN & OTP VALIDATION + PROCESSING ANIMATION ---
-    async function processSecureTransaction(enteredPin, enteredOtp, transactionLogic) {
+    // --- STAGED SECURITY VERIFICATION & SEQUENTIAL PROCESSING WORKFLOW ---
+    function initiateSecurityVerification(callback) {
+      pendingTransactionCallback = callback;
+      document.getElementById('modal-payment-pin').value = '';
+      openModal('paymentPinModal');
+    }
+
+    // 1. PIN Form Submit Handler
+    document.getElementById('paymentPinForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const enteredPin = document.getElementById('modal-payment-pin').value;
+      const expectedPin = currentUserData.paymentPin || "1234";
+
+      if (enteredPin !== expectedPin) {
+        alert("Invalid Payment PIN. Please try again.");
+        return;
+      }
+
+      closeModal('paymentPinModal');
+
+      // Processing Animation between PIN and OTP (3 to 7 seconds)
+      await runProcessingAnimation(
+        "Verifying Payment PIN...", 
+        "Authenticating security credentials..."
+      );
+
+      document.getElementById('modal-security-otp').value = '';
+      openModal('securityOtpModal');
+    });
+
+    // 2. OTP Form Submit Handler
+    document.getElementById('securityOtpForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const enteredOtp = document.getElementById('modal-security-otp').value;
+      const expectedOtp = currentUserData.paymentOTP || "654321";
+
+      if (enteredOtp !== expectedOtp) {
+        alert("Invalid Security OTP token. Please try again.");
+        return;
+      }
+
+      closeModal('securityOtpModal');
+
+      // Processing Animation between OTP and Finalization (3 to 7 seconds)
+      await runProcessingAnimation(
+        "Verifying Security OTP Token...", 
+        "Authorizing transaction with TD Ledger..."
+      );
+
+      if (pendingTransactionCallback) {
+        await pendingTransactionCallback();
+        pendingTransactionCallback = null;
+      }
+    });
+
+    // Helper: Random duration generator between 3000ms (3s) and 7000ms (7s)
+    function getRandomDuration() {
+      return Math.floor(Math.random() * (7000 - 3000 + 1)) + 3000;
+    }
+
+    async function runProcessingAnimation(titleText, stepTextContent) {
       const modal = document.getElementById('processingModal');
       const stepText = document.getElementById('processing-step-text');
       const progressBar = document.getElementById('processing-progress-bar');
@@ -962,44 +1020,27 @@
       modal.classList.remove('hidden');
       iconContainer.className = "w-16 h-16 rounded-full bg-tdGreen/10 flex items-center justify-center text-tdGreen text-2xl animate-pulse";
       icon.className = "fa-solid fa-shield-halved";
-      title.innerText = "Processing Secure Transfer";
+      title.innerText = titleText;
       progressBar.style.width = '30%';
-      stepText.innerText = "Verifying security PIN & OTP...";
+      stepText.innerText = stepTextContent;
 
-      await new Promise(r => setTimeout(r, 900));
+      const totalDuration = getRandomDuration();
+      const stepInterval = totalDuration / 3;
+
+      await new Promise(r => setTimeout(r, stepInterval));
       progressBar.style.width = '70%';
-      stepText.innerText = "Validating cryptographic credentials...";
+      stepText.innerText = "Encrypting packet with 256-Bit SSL...";
 
-      await new Promise(r => setTimeout(r, 800));
+      await new Promise(r => setTimeout(r, stepInterval));
+      progressBar.style.width = '95%';
+      stepText.innerText = "Finalizing secure handshake...";
 
-      const expectedPin = currentUserData.paymentPin || "1234";
-      const expectedOtp = currentUserData.paymentOTP || "654321";
-
-      if (enteredPin !== expectedPin || enteredOtp !== expectedOtp) {
-        // Validation Failed
-        progressBar.style.width = '100%';
-        progressBar.className = "bg-red-500 h-full transition-all duration-300";
-        iconContainer.className = "w-16 h-16 rounded-full bg-red-100 flex items-center justify-center text-red-600 text-2xl";
-        icon.className = "fa-solid fa-triangle-exclamation";
-        title.innerText = "Authentication Failed";
-        stepText.innerText = "Invalid Payment PIN or Security OTP.";
-
-        await new Promise(r => setTimeout(r, 2200));
-        modal.classList.add('hidden');
-        progressBar.className = "bg-tdGreen h-full transition-all duration-700";
-        showToast("Transaction aborted: Incorrect PIN or OTP.");
-        return;
-      }
-
-      // Validation Success
+      await new Promise(r => setTimeout(r, stepInterval));
       progressBar.style.width = '100%';
-      stepText.innerText = "Authorization Approved. Updating ledger...";
-
-      await new Promise(r => setTimeout(r, 700));
+      
+      await new Promise(r => setTimeout(r, 400));
       modal.classList.add('hidden');
-      progressBar.style.width = '30%';
-
-      if (transactionLogic) await transactionLogic();
+      progressBar.style.width = '20%';
     }
 
     // --- SHOW TRANSACTION RECEIPT ---
@@ -1021,12 +1062,10 @@
     // --- FORM SUBMISSION HANDLERS ---
     
     // 1. Send Money Form Handler
-    document.getElementById('sendMoneyForm').addEventListener('submit', async function(e) {
+    document.getElementById('sendMoneyForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const selectVal = document.getElementById('send-from-account').value;
       const amount = parseFloat(document.getElementById('send-amount').value);
-      const pin = document.getElementById('send-pin').value;
-      const otp = document.getElementById('send-otp').value;
       const [category, idxStr] = selectVal.split(':');
       const idx = parseInt(idxStr);
 
@@ -1039,7 +1078,7 @@
 
       closeModal('sendMoneyModal');
 
-      processSecureTransaction(pin, otp, async () => {
+      initiateSecurityVerification(async () => {
         // 1. Deduct sender balance
         currentUserData[category][idx].balance -= amount;
         await updateDoc(doc(db, "users", currentAuthUser.uid), {
@@ -1086,13 +1125,11 @@
     });
 
     // 2. Transfer Form Handler
-    document.getElementById('transferForm').addEventListener('submit', async function(e) {
+    document.getElementById('transferForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const fromVal = document.getElementById('transfer-from-account').value;
       const toVal = document.getElementById('transfer-to-account').value;
       const amount = parseFloat(document.getElementById('transfer-amount').value);
-      const pin = document.getElementById('transfer-pin').value;
-      const otp = document.getElementById('transfer-otp').value;
 
       if (fromVal === toVal) {
         alert("Cannot transfer to the same account.");
@@ -1111,7 +1148,7 @@
 
       closeModal('transferModal');
 
-      processSecureTransaction(pin, otp, async () => {
+      initiateSecurityVerification(async () => {
         currentUserData[fromCat][fromIdx].balance -= amount;
         currentUserData[toCat][toIdx].balance += amount;
 
@@ -1144,13 +1181,11 @@
     });
 
     // 3. Pay Bill Form Handler
-    document.getElementById('payBillForm').addEventListener('submit', async function(e) {
+    document.getElementById('payBillForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const fromVal = document.getElementById('paybill-from-account').value;
       const payee = document.getElementById('paybill-payee').value;
       const amount = parseFloat(document.getElementById('paybill-amount').value);
-      const pin = document.getElementById('paybill-pin').value;
-      const otp = document.getElementById('paybill-otp').value;
       const [category, idxStr] = fromVal.split(':');
       const idx = parseInt(idxStr);
 
@@ -1161,7 +1196,7 @@
 
       closeModal('payBillModal');
 
-      processSecureTransaction(pin, otp, async () => {
+      initiateSecurityVerification(async () => {
         currentUserData[category][idx].balance -= amount;
         await updateDoc(doc(db, "users", currentAuthUser.uid), {
           [category]: currentUserData[category]
@@ -1197,15 +1232,13 @@
     });
 
     // 5. TD Global Transfer Form Handler
-    document.getElementById('globalTransferForm').addEventListener('submit', async function(e) {
+    document.getElementById('globalTransferForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const fromVal = document.getElementById('global-from-account').value;
       const beneficiary = document.getElementById('global-beneficiary').value;
       const destination = document.getElementById('global-destination').value;
       const swift = document.getElementById('global-swift').value;
       const amount = parseFloat(document.getElementById('global-amount').value);
-      const pin = document.getElementById('global-pin').value;
-      const otp = document.getElementById('global-otp').value;
       const [category, idxStr] = fromVal.split(':');
       const idx = parseInt(idxStr);
 
@@ -1216,7 +1249,7 @@
 
       closeModal('tdGlobalTransferModal');
 
-      processSecureTransaction(pin, otp, async () => {
+      initiateSecurityVerification(async () => {
         currentUserData[category][idx].balance -= amount;
         await updateDoc(doc(db, "users", currentAuthUser.uid), {
           [category]: currentUserData[category]
