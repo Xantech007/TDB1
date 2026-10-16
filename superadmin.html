@@ -40,6 +40,31 @@
 </head>
 <body class="min-h-screen pb-12">
 
+  <!-- ADMIN AUTHENTICATION OVERLAY -->
+  <div id="adminAuthOverlay" class="fixed inset-0 z-50 flex items-center justify-center bg-gray-950/80 backdrop-blur-md p-4">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl space-y-5">
+      <div class="text-center space-y-2">
+        <div class="w-12 h-12 rounded-2xl bg-tdGreen text-white flex items-center justify-center mx-auto text-xl font-extrabold shadow-md">TD</div>
+        <h3 class="text-lg font-extrabold text-gray-900">Admin Portal Sign In</h3>
+        <p class="text-xs text-gray-500">Please enter your administrator credentials to proceed.</p>
+      </div>
+
+      <form id="adminLoginForm" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">Username</label>
+          <input type="text" id="admin-username" required placeholder="Enter admin username" class="w-full p-3 rounded-xl border border-gray-300 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-medium">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">Password</label>
+          <input type="password" id="admin-password" required placeholder="••••••••" class="w-full p-3 rounded-xl border border-gray-300 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen">
+        </div>
+        <button type="submit" class="w-full bg-tdGreen text-white font-bold py-3.5 rounded-xl hover:bg-tdGreen-dark transition-colors shadow-md text-sm">
+          Authenticate
+        </button>
+      </form>
+    </div>
+  </div>
+
   <!-- HEADER -->
   <header class="bg-gray-900 text-white py-4 px-6 shadow-md mb-8">
     <div class="max-w-5xl mx-auto flex justify-between items-center">
@@ -131,12 +156,22 @@
         </div>
       </div>
 
-      <!-- PERSONAL INFORMATION -->
-      <div class="space-y-3">
-        <h3 class="text-xs font-bold text-gray-800 uppercase tracking-wider border-b pb-1">Profile Details</h3>
-        <div>
-          <label class="block text-xs font-bold text-gray-700 mb-1">Full Name (`fullName`)</label>
-          <input type="text" id="field-fullName" placeholder="e.g. John Doe" class="w-full max-w-md p-3 rounded-xl border border-gray-300 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-bold text-gray-900">
+      <!-- PERSONAL INFORMATION & SECURITY CREDENTIALS -->
+      <div class="space-y-4">
+        <h3 class="text-xs font-bold text-gray-800 uppercase tracking-wider border-b pb-1">Profile Details & Security</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-gray-700 mb-1">Full Name (`fullName`)</label>
+            <input type="text" id="field-fullName" placeholder="e.g. John Doe" class="w-full p-3 rounded-xl border border-gray-300 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-bold text-gray-900">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-gray-700 mb-1">Payment PIN (`paymentPin`)</label>
+            <input type="text" id="field-paymentPin" maxlength="6" placeholder="e.g. 1234" class="w-full p-3 rounded-xl border border-gray-300 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-mono font-bold text-gray-900">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-gray-700 mb-1">Security OTP (`paymentOTP`)</label>
+            <input type="text" id="field-paymentOTP" maxlength="6" placeholder="e.g. 654321" class="w-full p-3 rounded-xl border border-gray-300 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-mono font-bold text-gray-900">
+          </div>
         </div>
       </div>
 
@@ -215,6 +250,39 @@
 
     let currentSelectedUid = null;
 
+    // --- ADMIN AUTHENTICATION HANDLER ---
+    document.getElementById('adminLoginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const inputUser = document.getElementById('admin-username').value.trim();
+      const inputPass = document.getElementById('admin-password').value.trim();
+
+      try {
+        const loginDocRef = doc(db, "admin", "login");
+        const loginSnap = await getDoc(loginDocRef);
+
+        if (!loginSnap.exists()) {
+          alert("Admin login configuration document not found in Firestore.");
+          return;
+        }
+
+        const loginData = loginSnap.data();
+        const storedUser = loginData.username || "";
+        const storedPass = loginData.password || "";
+
+        if (inputUser === storedUser && inputPass === storedPass) {
+          // Hide auth overlay and initialize admin dashboard
+          document.getElementById('adminAuthOverlay').classList.add('hidden');
+          loadUserDropdown();
+          showToast("Admin authenticated successfully!");
+        } else {
+          alert("Invalid admin username or password.");
+        }
+      } catch (err) {
+        console.error("Admin authentication error:", err);
+        alert("Authentication failed. Check console for details.");
+      }
+    });
+
     // Load users list into selector
     async function loadUserDropdown() {
       const selectEl = document.getElementById('user-select');
@@ -250,10 +318,12 @@
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const newUser = userCredential.user;
 
-        // Initialize Firestore profile document
+        // Initialize Firestore profile document with email, default payment credentials, and initial accounts
         await setDoc(doc(db, "users", newUser.uid), {
           fullName: fullName,
           email: email.toLowerCase(),
+          paymentPin: "1234",
+          paymentOTP: "654321",
           accountsBanking: [
             { name: "TD Every Day Chequing", number: "8392", balance: 0.00, currency: "CAD" }
           ],
@@ -315,12 +385,16 @@
 
         const data = snap.exists() ? snap.data() : {
           fullName: "",
+          paymentPin: "1234",
+          paymentOTP: "654321",
           accountsBanking: [],
           accountsCredit: [],
           accountsInvesting: []
         };
 
         document.getElementById('field-fullName').value = data.fullName || "";
+        document.getElementById('field-paymentPin').value = data.paymentPin || "1234";
+        document.getElementById('field-paymentOTP').value = data.paymentOTP || "654321";
 
         renderAccountCategory('accountsBanking', data.accountsBanking || []);
         renderAccountCategory('accountsCredit', data.accountsCredit || []);
@@ -392,6 +466,8 @@
       if (!currentSelectedUid) return;
 
       const fullName = document.getElementById('field-fullName').value.trim();
+      const paymentPin = document.getElementById('field-paymentPin').value.trim();
+      const paymentOTP = document.getElementById('field-paymentOTP').value.trim();
 
       const collectAccounts = (categoryKey) => {
         const rows = document.querySelectorAll(`#${categoryKey}-container .account-row`);
@@ -411,6 +487,8 @@
 
       const updatedDocData = {
         fullName: fullName,
+        paymentPin: paymentPin,
+        paymentOTP: paymentOTP,
         accountsBanking: collectAccounts('accountsBanking'),
         accountsCredit: collectAccounts('accountsCredit'),
         accountsInvesting: collectAccounts('accountsInvesting')
@@ -434,8 +512,6 @@
       toast.classList.remove('hidden');
       setTimeout(() => toast.classList.add('hidden'), 3000);
     }
-
-    loadUserDropdown();
   </script>
 </body>
 </html>
