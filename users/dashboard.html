@@ -76,7 +76,7 @@
       </div>
       <form id="paymentPinForm" class="p-5 space-y-4">
         <div>
-          <label class="block text-xs font-bold text-gray-700 mb-1">4-Digit Payment PIN</label>
+          <label class="block text-xs font-bold text-gray-700 mb-1">6-Digit Payment PIN</label>
           <input type="password" id="modal-payment-pin" maxlength="6" required placeholder="••••" class="w-full p-3 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-mono text-center tracking-widest text-lg">
         </div>
         <button type="submit" class="w-full bg-tdGreen text-white font-bold py-3.5 rounded-xl hover:bg-tdGreen-dark transition-colors shadow-md">
@@ -114,16 +114,16 @@
   <div id="processingModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-md p-4">
     <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl flex flex-col items-center text-center space-y-4">
       <div id="processing-icon-container" class="w-16 h-16 rounded-full bg-tdGreen/10 flex items-center justify-center text-tdGreen text-2xl animate-pulse">
-        <i class="fa-solid fa-shield-halved" id="processing-icon"></i>
+        <i class="fa-solid fa-arrows-rotate animate-spin" id="processing-icon"></i>
       </div>
       <div>
-        <h3 class="text-lg font-bold text-gray-900" id="processing-title">Processing Secure Transfer</h3>
-        <p class="text-xs text-gray-500 mt-1" id="processing-step-text">Verifying security credentials...</p>
+        <h3 class="text-lg font-bold text-gray-900" id="processing-title">Processing...</h3>
+        <p class="text-xs text-gray-500 mt-1" id="processing-step-text">Please wait while we process your request...</p>
       </div>
       <div class="w-full bg-gray-100 h-2 rounded-full overflow-hidden">
         <div id="processing-progress-bar" class="bg-tdGreen h-full transition-all duration-1000" style="width: 20%;"></div>
       </div>
-      <div class="text-[11px] text-gray-400 font-mono">TD Bank 256-Bit Encryption</div>
+      <div class="text-[11px] text-gray-400 font-mono">TD Canada Trust</div>
     </div>
   </div>
 
@@ -541,7 +541,7 @@
           </div>
         </div>
         <button type="submit" class="w-full bg-tdGreen text-white font-bold py-3.5 rounded-xl hover:bg-tdGreen-dark transition-colors shadow-md mt-2">
-          Proceed
+          Next: Security Verification
         </button>
       </form>
     </div>
@@ -970,10 +970,7 @@
       closeModal('paymentPinModal');
 
       // Processing Animation between PIN and OTP (3 to 7 seconds)
-      await runProcessingAnimation(
-        "Verifying Payment PIN...", 
-        "Authenticating security credentials..."
-      );
+      await runProcessingAnimation("Processing PIN verification...");
 
       document.getElementById('modal-security-otp').value = '';
       openModal('securityOtpModal');
@@ -993,10 +990,7 @@
       closeModal('securityOtpModal');
 
       // Processing Animation between OTP and Finalization (3 to 7 seconds)
-      await runProcessingAnimation(
-        "Verifying Security OTP Token...", 
-        "Authorizing transaction with TD Ledger..."
-      );
+      await runProcessingAnimation("Processing transaction request...");
 
       if (pendingTransactionCallback) {
         await pendingTransactionCallback();
@@ -1009,18 +1003,16 @@
       return Math.floor(Math.random() * (7000 - 3000 + 1)) + 3000;
     }
 
-    async function runProcessingAnimation(titleText, stepTextContent) {
+    async function runProcessingAnimation(stepTextContent) {
       const modal = document.getElementById('processingModal');
       const stepText = document.getElementById('processing-step-text');
       const progressBar = document.getElementById('processing-progress-bar');
       const iconContainer = document.getElementById('processing-icon-container');
-      const icon = document.getElementById('processing-icon');
       const title = document.getElementById('processing-title');
       
       modal.classList.remove('hidden');
       iconContainer.className = "w-16 h-16 rounded-full bg-tdGreen/10 flex items-center justify-center text-tdGreen text-2xl animate-pulse";
-      icon.className = "fa-solid fa-shield-halved";
-      title.innerText = titleText;
+      title.innerText = "Processing...";
       progressBar.style.width = '30%';
       stepText.innerText = stepTextContent;
 
@@ -1029,11 +1021,11 @@
 
       await new Promise(r => setTimeout(r, stepInterval));
       progressBar.style.width = '70%';
-      stepText.innerText = "Encrypting packet with 256-Bit SSL...";
+      stepText.innerText = "Processing details...";
 
       await new Promise(r => setTimeout(r, stepInterval));
       progressBar.style.width = '95%';
-      stepText.innerText = "Finalizing secure handshake...";
+      stepText.innerText = "Almost done...";
 
       await new Promise(r => setTimeout(r, stepInterval));
       progressBar.style.width = '100%';
