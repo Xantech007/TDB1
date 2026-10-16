@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TD Admin - User & Account Management</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Font - Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            tdGreen: {
+              DEFAULT: '#008a00',
+              dark: '#006b00',
+              light: '#f2f8f2'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'Arial', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      background-color: #f3f4f6;
+      color: #111827;
+    }
+  </style>
+</head>
+<body class="min-h-screen pb-12">
+
+  <!-- HEADER -->
+  <header class="bg-gray-900 text-white py-4 px-6 shadow-md mb-8">
+    <div class="max-w-5xl mx-auto flex justify-between items-center">
+      <div class="flex items-center space-x-3">
+        <div class="w-8 h-8 rounded-lg bg-tdGreen flex items-center justify-center font-extrabold text-white">TD</div>
+        <h1 class="text-xl font-bold tracking-tight">Admin Portal - User & Account Management</h1>
+      </div>
+      <a href="dashboard.html" class="text-xs bg-gray-800 hover:bg-gray-700 text-gray-200 px-3 py-2 rounded-lg font-medium transition-colors">
+        <i class="fa-solid fa-arrow-left mr-1"></i> Back to App
+      </a>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="max-w-5xl mx-auto px-4 space-y-6">
+
+    <!-- TOP CONTROL ROW: USER SELECTION & CREATE USER -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+      <!-- USER SELECTION CARD (2 COLS) -->
+      <section class="md:col-span-2 bg-white rounded-2xl p-6 shadow-sm border border-gray-200/80 space-y-4">
+        <h2 class="text-base font-bold text-gray-900 flex items-center space-x-2">
+          <i class="fa-solid fa-users text-tdGreen"></i>
+          <span>Select User Document</span>
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-gray-700 mb-1">Registered Users</label>
+            <select id="user-select" onchange="loadSelectedUser()" class="w-full p-3 rounded-xl border border-gray-300 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-medium">
+              <option value="">-- Loading users... --</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-gray-700 mb-1">Search by UID</label>
+            <div class="flex space-x-2">
+              <input type="text" id="manual-uid-input" placeholder="e.g. 8xK9pL2..." class="flex-grow p-3 rounded-xl border border-gray-300 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-mono">
+              <button onclick="loadManualUid()" class="bg-gray-800 text-white font-bold text-xs px-4 py-3 rounded-xl hover:bg-gray-900 transition-colors">
+                Fetch
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CREATE NEW USER CARD (1 COL) -->
+      <section class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200/80 space-y-4">
+        <h2 class="text-base font-bold text-gray-900 flex items-center space-x-2">
+          <i class="fa-solid fa-user-plus text-tdGreen"></i>
+          <span>Create New User</span>
+        </h2>
+
+        <form onsubmit="handleCreateUser(event)" class="space-y-3">
+          <div>
+            <input type="text" id="new-fullname" required placeholder="Full Name" class="w-full p-2.5 rounded-xl border border-gray-300 text-xs bg-gray-50 focus:outline-none focus:border-tdGreen">
+          </div>
+          <div>
+            <input type="email" id="new-email" required placeholder="User Email" class="w-full p-2.5 rounded-xl border border-gray-300 text-xs bg-gray-50 focus:outline-none focus:border-tdGreen">
+          </div>
+          <div>
+            <input type="password" id="new-password" required minlength="6" placeholder="Password (min 6 chars)" class="w-full p-2.5 rounded-xl border border-gray-300 text-xs bg-gray-50 focus:outline-none focus:border-tdGreen">
+          </div>
+          <button type="submit" class="w-full bg-tdGreen text-white font-bold text-xs py-3 rounded-xl hover:bg-tdGreen-dark transition-colors shadow-sm">
+            Create User Account
+          </button>
+        </form>
+      </section>
+
+    </div>
+
+    <!-- EDITOR FORM CONTAINER -->
+    <section id="editor-card" class="hidden bg-white rounded-2xl p-6 shadow-sm border border-gray-200/80 space-y-8">
+
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b pb-4 gap-4">
+        <div>
+          <h2 class="text-xl font-extrabold text-gray-900">Editing User Profile</h2>
+          <p class="text-xs font-mono text-gray-500 mt-0.5">UID: <span id="current-uid-display" class="font-bold text-tdGreen"></span></p>
+        </div>
+        <div class="flex items-center space-x-3">
+          <button onclick="deleteSelectedUser()" class="bg-red-50 text-red-600 border border-red-200 font-bold text-xs px-4 py-3 rounded-xl hover:bg-red-100 transition-colors flex items-center space-x-1.5">
+            <i class="fa-solid fa-trash-can"></i>
+            <span>Delete User</span>
+          </button>
+          <button onclick="saveUserData()" class="bg-tdGreen text-white font-bold text-xs px-6 py-3 rounded-xl hover:bg-tdGreen-dark transition-colors shadow-md flex items-center space-x-1.5">
+            <i class="fa-solid fa-floppy-disk"></i>
+            <span>Save Changes</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- PERSONAL INFORMATION -->
+      <div class="space-y-3">
+        <h3 class="text-xs font-bold text-gray-800 uppercase tracking-wider border-b pb-1">Profile Details</h3>
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">Full Name (`fullName`)</label>
+          <input type="text" id="field-fullName" placeholder="e.g. John Doe" class="w-full max-w-md p-3 rounded-xl border border-gray-300 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-bold text-gray-900">
+        </div>
+      </div>
+
+      <!-- BANKING ACCOUNTS EDITOR -->
+      <div class="space-y-4">
+        <div class="flex justify-between items-center border-b pb-1">
+          <h3 class="text-xs font-bold text-gray-800 uppercase tracking-wider">Banking Accounts (`accountsBanking`)</h3>
+          <button onclick="addAccountRow('accountsBanking')" class="text-xs font-bold text-tdGreen hover:underline flex items-center space-x-1">
+            <i class="fa-solid fa-plus-circle"></i>
+            <span>Add Banking Account</span>
+          </button>
+        </div>
+        <div id="accountsBanking-container" class="space-y-3">
+          <!-- Dynamic rows -->
+        </div>
+      </div>
+
+      <!-- CREDIT ACCOUNTS EDITOR -->
+      <div class="space-y-4">
+        <div class="flex justify-between items-center border-b pb-1">
+          <h3 class="text-xs font-bold text-gray-800 uppercase tracking-wider">Credit Accounts (`accountsCredit`)</h3>
+          <button onclick="addAccountRow('accountsCredit')" class="text-xs font-bold text-tdGreen hover:underline flex items-center space-x-1">
+            <i class="fa-solid fa-plus-circle"></i>
+            <span>Add Credit Account</span>
+          </button>
+        </div>
+        <div id="accountsCredit-container" class="space-y-3">
+          <!-- Dynamic rows -->
+        </div>
+      </div>
+
+      <!-- INVESTING ACCOUNTS EDITOR -->
+      <div class="space-y-4">
+        <div class="flex justify-between items-center border-b pb-1">
+          <h3 class="text-xs font-bold text-gray-800 uppercase tracking-wider">Investing Accounts (`accountsInvesting`)</h3>
+          <button onclick="addAccountRow('accountsInvesting')" class="text-xs font-bold text-tdGreen hover:underline flex items-center space-x-1">
+            <i class="fa-solid fa-plus-circle"></i>
+            <span>Add Investing Account</span>
+          </button>
+        </div>
+        <div id="accountsInvesting-container" class="space-y-3">
+          <!-- Dynamic rows -->
+        </div>
+      </div>
+
+      <!-- SAVE BUTTON (BOTTOM) -->
+      <div class="border-t pt-6 flex justify-end">
+        <button onclick="saveUserData()" class="bg-tdGreen text-white font-bold text-sm px-8 py-3.5 rounded-xl hover:bg-tdGreen-dark transition-colors shadow-md flex items-center space-x-2">
+          <i class="fa-solid fa-floppy-disk"></i>
+          <span>Save Changes</span>
+        </button>
+      </div>
+
+    </section>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="admin-toast" class="hidden fixed bottom-6 right-6 p-4 bg-gray-900 text-white text-xs rounded-xl shadow-2xl flex items-center space-x-3 z-50 transition-all">
+      <i class="fa-solid fa-circle-check text-tdGreen text-base"></i>
+      <span id="toast-message" class="font-bold"></span>
+    </div>
+
+  </main>
+
+  <!-- FIREBASE MODULE SCRIPT -->
+  <script type="module">
+    import { auth, db } from '../firebase.js';
+    import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import {
+      collection,
+      getDocs,
+      doc,
+      getDoc,
+      setDoc,
+      deleteDoc
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    let currentSelectedUid = null;
+
+    // Load users list into selector
+    async function loadUserDropdown() {
+      const selectEl = document.getElementById('user-select');
+      selectEl.innerHTML = `<option value="">-- Choose a user --</option>`;
+
+      try {
+        const querySnapshot = await getDocs(collection(db, "users"));
+        if (querySnapshot.empty) {
+          selectEl.innerHTML = `<option value="">No user documents found in Firestore</option>`;
+          return;
+        }
+
+        querySnapshot.forEach((docSnap) => {
+          const data = docSnap.data();
+          const name = data.fullName || 'Unnamed User';
+          selectEl.innerHTML += `<option value="${docSnap.id}">${name} (${docSnap.id})</option>`;
+        });
+      } catch (err) {
+        console.error("Error fetching users list:", err);
+        showToast("Error loading users. Check browser console.");
+      }
+    }
+
+    // 1. CREATE USER ACCOUNT
+    window.handleCreateUser = async function(e) {
+      e.preventDefault();
+      const fullName = document.getElementById('new-fullname').value.trim();
+      const email = document.getElementById('new-email').value.trim();
+      const password = document.getElementById('new-password').value;
+
+      try {
+        // Create user in Firebase Auth
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const newUser = userCredential.user;
+
+        // Initialize Firestore profile document
+        await setDoc(doc(db, "users", newUser.uid), {
+          fullName: fullName,
+          email: email.toLowerCase(),
+          accountsBanking: [
+            { name: "TD Every Day Chequing", number: "8392", balance: 0.00, currency: "CAD" }
+          ],
+          accountsCredit: [],
+          accountsInvesting: []
+        });
+
+        showToast(`User ${fullName} created successfully!`);
+        e.target.reset();
+        await loadUserDropdown();
+        fetchAndDisplayUser(newUser.uid);
+
+      } catch (err) {
+        console.error("Error creating user:", err);
+        showToast(`Error: ${err.message}`);
+      }
+
+    };
+
+    // 2. DELETE SELECTED USER
+    window.deleteSelectedUser = async function() {
+      if (!currentSelectedUid) return;
+
+      if (!confirm(`Are you sure you want to delete user profile (${currentSelectedUid}) from Firestore?`)) {
+        return;
+      }
+
+      try {
+        await deleteDoc(doc(db, "users", currentSelectedUid));
+        showToast("User document deleted from Firestore.");
+        document.getElementById('editor-card').classList.add('hidden');
+        currentSelectedUid = null;
+        loadUserDropdown();
+      } catch (err) {
+        console.error("Error deleting user document:", err);
+        showToast("Failed to delete user document.");
+      }
+    };
+
+    // Load selected user document into editor form
+    window.loadSelectedUser = async function() {
+      const selectEl = document.getElementById('user-select');
+      const uid = selectEl.value;
+      if (uid) fetchAndDisplayUser(uid);
+    };
+
+    window.loadManualUid = function() {
+      const manualUid = document.getElementById('manual-uid-input').value.trim();
+      if (manualUid) fetchAndDisplayUser(manualUid);
+    };
+
+    async function fetchAndDisplayUser(uid) {
+      currentSelectedUid = uid;
+      document.getElementById('current-uid-display').innerText = uid;
+
+      try {
+        const userRef = doc(db, "users", uid);
+        const snap = await getDoc(userRef);
+
+        const data = snap.exists() ? snap.data() : {
+          fullName: "",
+          accountsBanking: [],
+          accountsCredit: [],
+          accountsInvesting: []
+        };
+
+        document.getElementById('field-fullName').value = data.fullName || "";
+
+        renderAccountCategory('accountsBanking', data.accountsBanking || []);
+        renderAccountCategory('accountsCredit', data.accountsCredit || []);
+        renderAccountCategory('accountsInvesting', data.accountsInvesting || []);
+
+        document.getElementById('editor-card').classList.remove('hidden');
+        showToast("Loaded user profile successfully!");
+
+      } catch (err) {
+        console.error("Error loading user doc:", err);
+        showToast("Failed to fetch user data.");
+      }
+    }
+
+    // Render account rows dynamically
+    function renderAccountCategory(categoryKey, accounts) {
+      const container = document.getElementById(`${categoryKey}-container`);
+      container.innerHTML = '';
+
+      if (accounts.length === 0) {
+        container.innerHTML = `<p class="text-xs text-gray-400 italic">No accounts defined.</p>`;
+        return;
+      }
+
+      accounts.forEach((acc) => {
+        container.appendChild(createAccountRowElement(categoryKey, acc));
+      });
+    }
+
+    function createAccountRowElement(categoryKey, acc = { name: '', number: '', balance: 0, currency: 'CAD' }) {
+      const row = document.createElement('div');
+      row.className = "account-row bg-gray-50 border border-gray-200 p-3.5 rounded-xl grid grid-cols-1 sm:grid-cols-12 gap-2 items-center";
+
+      row.innerHTML = `
+        <div class="sm:col-span-4">
+          <input type="text" value="${acc.name || ''}" placeholder="Account Name (e.g. Chequing)" class="acc-name w-full p-2 text-xs border border-gray-300 rounded-lg focus:outline-none focus:border-tdGreen font-bold">
+        </div>
+        <div class="sm:col-span-2">
+          <input type="text" value="${acc.number || ''}" placeholder="Last 4 Digits" maxlength="4" class="acc-number w-full p-2 text-xs border border-gray-300 rounded-lg focus:outline-none focus:border-tdGreen font-mono">
+        </div>
+        <div class="sm:col-span-3">
+          <input type="number" step="0.01" value="${acc.balance !== undefined ? acc.balance : 0}" placeholder="Balance" class="acc-balance w-full p-2 text-xs border border-gray-300 rounded-lg focus:outline-none focus:border-tdGreen font-bold">
+        </div>
+        <div class="sm:col-span-2">
+          <select class="acc-currency w-full p-2 text-xs border border-gray-300 rounded-lg focus:outline-none focus:border-tdGreen font-medium">
+            <option value="CAD" ${acc.currency === 'CAD' ? 'selected' : ''}>CAD ($)</option>
+            <option value="USD" ${acc.currency === 'USD' ? 'selected' : ''}>USD ($)</option>
+            <option value="EUR" ${acc.currency === 'EUR' ? 'selected' : ''}>EUR (€)</option>
+            <option value="GBP" ${acc.currency === 'GBP' ? 'selected' : ''}>GBP (£)</option>
+          </select>
+        </div>
+        <div class="sm:col-span-1 flex justify-end">
+          <button onclick="this.closest('.account-row').remove()" class="text-red-500 hover:text-red-700 p-2 text-xs" title="Delete Account">
+            <i class="fa-solid fa-trash-can"></i>
+          </button>
+        </div>
+      `;
+      return row;
+    }
+
+    window.addAccountRow = function(categoryKey) {
+      const container = document.getElementById(`${categoryKey}-container`);
+      if (container.querySelector('p')) container.innerHTML = '';
+      container.appendChild(createAccountRowElement(categoryKey));
+    };
+
+    // 3. MODIFY & SAVE USER ACCOUNT DETAILS
+    window.saveUserData = async function() {
+      if (!currentSelectedUid) return;
+
+      const fullName = document.getElementById('field-fullName').value.trim();
+
+      const collectAccounts = (categoryKey) => {
+        const rows = document.querySelectorAll(`#${categoryKey}-container .account-row`);
+        const accArray = [];
+        rows.forEach(row => {
+          const name = row.querySelector('.acc-name').value.trim();
+          const number = row.querySelector('.acc-number').value.trim();
+          const balance = parseFloat(row.querySelector('.acc-balance').value) || 0;
+          const currency = row.querySelector('.acc-currency').value;
+
+          if (name) {
+            accArray.push({ name, number, balance, currency });
+          }
+        });
+        return accArray;
+      };
+
+      const updatedDocData = {
+        fullName: fullName,
+        accountsBanking: collectAccounts('accountsBanking'),
+        accountsCredit: collectAccounts('accountsCredit'),
+        accountsInvesting: collectAccounts('accountsInvesting')
+      };
+
+      try {
+        const userRef = doc(db, "users", currentSelectedUid);
+        await setDoc(userRef, updatedDocData, { merge: true });
+        showToast("User changes saved successfully!");
+        loadUserDropdown();
+      } catch (err) {
+        console.error("Error saving document:", err);
+        showToast("Failed to save changes to Firestore.");
+      }
+    };
+
+    function showToast(message) {
+      const toast = document.getElementById('admin-toast');
+      const msg = document.getElementById('toast-message');
+      msg.innerText = message;
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 3000);
+    }
+
+    loadUserDropdown();
+  </script>
+</body>
+</html>

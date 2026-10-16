@@ -62,6 +62,63 @@
     <p class="text-xs font-semibold text-gray-600">Loading secure session...</p>
   </div>
 
+  <!-- BANK PROCESSING ANIMATION MODAL -->
+  <div id="processingModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-md p-4">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl flex flex-col items-center text-center space-y-4">
+      <div id="processing-icon-container" class="w-16 h-16 rounded-full bg-tdGreen/10 flex items-center justify-center text-tdGreen text-2xl animate-pulse">
+        <i class="fa-solid fa-shield-halved" id="processing-icon"></i>
+      </div>
+      <div>
+        <h3 class="text-lg font-bold text-gray-900" id="processing-title">Processing Secure Transfer</h3>
+        <p class="text-xs text-gray-500 mt-1" id="processing-step-text">Verifying security PIN & OTP...</p>
+      </div>
+      <div class="w-full bg-gray-100 h-2 rounded-full overflow-hidden">
+        <div id="processing-progress-bar" class="bg-tdGreen h-full transition-all duration-700" style="width: 20%;"></div>
+      </div>
+      <div class="text-[11px] text-gray-400 font-mono">TD Bank 256-Bit Encryption</div>
+    </div>
+  </div>
+
+  <!-- TRANSACTION RECEIPT MODAL -->
+  <div id="receiptModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-5 overflow-y-auto max-h-[90vh]">
+      <div class="text-center space-y-2 border-b pb-4">
+        <div class="w-12 h-12 rounded-full bg-green-100 text-tdGreen flex items-center justify-center mx-auto text-xl">
+          <i class="fa-solid fa-check"></i>
+        </div>
+        <h3 class="text-lg font-extrabold text-gray-900">Transaction Successful</h3>
+        <p class="text-xs text-gray-500 font-mono" id="receipt-timestamp"></p>
+      </div>
+
+      <div class="bg-gray-50 rounded-2xl p-4 space-y-3 border border-gray-100 text-xs">
+        <div class="flex justify-between">
+          <span class="text-gray-500 font-medium">Transaction Type</span>
+          <span class="font-bold text-gray-900" id="receipt-type">-</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray-500 font-medium">From Account</span>
+          <span class="font-bold text-gray-900" id="receipt-from">-</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray-500 font-medium">Recipient / Payee</span>
+          <span class="font-bold text-gray-900" id="receipt-recipient">-</span>
+        </div>
+        <div class="flex justify-between border-t pt-2">
+          <span class="text-gray-500 font-medium">Transfer Amount</span>
+          <span class="font-extrabold text-tdGreen text-sm" id="receipt-amount">-</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray-500 font-medium">Confirmation Reference</span>
+          <span class="font-mono text-gray-800" id="receipt-ref">-</span>
+        </div>
+      </div>
+
+      <button onclick="closeReceiptModal()" class="w-full bg-tdGreen text-white font-bold py-3.5 rounded-xl hover:bg-tdGreen-dark transition-colors shadow-md">
+        Done / Return to Dashboard
+      </button>
+    </div>
+  </div>
+
   <!-- TOP GREEN APP HEADER SECTION -->
   <header class="bg-tdGreen text-white pt-3 pb-6 px-4 shadow-md rounded-b-2xl">
     <div class="max-w-md mx-auto space-y-4">
@@ -98,23 +155,23 @@
 
       <!-- Horizontal Scrollable Quick Action Pills -->
       <div class="flex space-x-2.5 overflow-x-auto no-scrollbar pt-2 pb-1">
-        <button onclick="quickAction('Send Money')" class="flex items-center space-x-2 bg-white text-gray-800 font-semibold text-xs px-3.5 py-2 rounded-full whitespace-nowrap shadow-sm hover:bg-gray-50 active:scale-95 transition-all">
+        <button onclick="openModal('sendMoneyModal')" class="flex items-center space-x-2 bg-white text-gray-800 font-semibold text-xs px-3.5 py-2 rounded-full whitespace-nowrap shadow-sm hover:bg-gray-50 active:scale-95 transition-all">
           <i class="fa-solid fa-paper-plane text-tdGreen"></i>
           <span>Send Money</span>
         </button>
-        <button onclick="quickAction('Transfer')" class="flex items-center space-x-2 bg-white text-gray-800 font-semibold text-xs px-3.5 py-2 rounded-full whitespace-nowrap shadow-sm hover:bg-gray-50 active:scale-95 transition-all">
+        <button onclick="openModal('transferModal')" class="flex items-center space-x-2 bg-white text-gray-800 font-semibold text-xs px-3.5 py-2 rounded-full whitespace-nowrap shadow-sm hover:bg-gray-50 active:scale-95 transition-all">
           <i class="fa-solid fa-arrow-right-arrow-left text-tdGreen"></i>
           <span>Transfer</span>
         </button>
-        <button onclick="quickAction('Pay Bill')" class="flex items-center space-x-2 bg-white text-gray-800 font-semibold text-xs px-3.5 py-2 rounded-full whitespace-nowrap shadow-sm hover:bg-gray-50 active:scale-95 transition-all">
+        <button onclick="openModal('payBillModal')" class="flex items-center space-x-2 bg-white text-gray-800 font-semibold text-xs px-3.5 py-2 rounded-full whitespace-nowrap shadow-sm hover:bg-gray-50 active:scale-95 transition-all">
           <i class="fa-solid fa-file-invoice-dollar text-tdGreen"></i>
           <span>Pay Bill</span>
         </button>
-        <button onclick="quickAction('Deposit Cheque')" class="flex items-center space-x-2 bg-white text-gray-800 font-semibold text-xs px-3.5 py-2 rounded-full whitespace-nowrap shadow-sm hover:bg-gray-50 active:scale-95 transition-all">
+        <button onclick="openModal('depositChequeModal')" class="flex items-center space-x-2 bg-white text-gray-800 font-semibold text-xs px-3.5 py-2 rounded-full whitespace-nowrap shadow-sm hover:bg-gray-50 active:scale-95 transition-all">
           <i class="fa-solid fa-camera text-tdGreen"></i>
           <span>Deposit Cheque</span>
         </button>
-        <button onclick="quickAction('TD Global Transfer')" class="flex items-center space-x-2 bg-white text-gray-800 font-semibold text-xs px-3.5 py-2 rounded-full whitespace-nowrap shadow-sm hover:bg-gray-50 active:scale-95 transition-all">
+        <button onclick="openModal('tdGlobalTransferModal')" class="flex items-center space-x-2 bg-white text-gray-800 font-semibold text-xs px-3.5 py-2 rounded-full whitespace-nowrap shadow-sm hover:bg-gray-50 active:scale-95 transition-all">
           <i class="fa-solid fa-globe text-tdGreen"></i>
           <span>TD Global Transfer</span>
         </button>
@@ -143,31 +200,14 @@
         <button onclick="toggleAccordion('banking-details', 'banking-chevron')" class="w-full p-4 flex items-center justify-between text-left hover:bg-gray-50 transition-colors">
           <div>
             <h2 class="text-base font-bold text-gray-900">Banking</h2>
-            <p class="text-xs text-gray-500 font-medium">2 accounts</p>
+            <p class="text-xs text-gray-500 font-medium" id="banking-count">0 accounts</p>
           </div>
           <div class="text-right flex items-center space-x-2">
-            <div class="text-lg font-extrabold text-gray-900 balance-text" id="banking-balance" data-balance="$4,225.75">\$4,225.75</div>
+            <div class="text-lg font-extrabold text-gray-900 balance-text" id="banking-balance" data-balance="$0.00">$0.00</div>
             <i class="fa-solid fa-chevron-down text-xs text-gray-400 transition-transform duration-200" id="banking-chevron"></i>
           </div>
         </button>
-        
-        <!-- Expanded Account Sub-items -->
-        <div id="banking-details" class="hidden border-t border-gray-100 bg-gray-50/50 divide-y divide-gray-100">
-          <div class="p-3.5 px-4 flex justify-between items-center hover:bg-white transition-colors cursor-pointer" onclick="quickAction('TD Every Day Chequing')">
-            <div>
-              <p class="text-xs font-bold text-gray-800">TD Every Day Chequing</p>
-              <p class="text-[11px] text-gray-400 font-mono">•••• 8392</p>
-            </div>
-            <p class="text-sm font-bold text-gray-900 balance-text" data-balance="\$2,428.52">\$2,428.52</p>
-          </div>
-          <div class="p-3.5 px-4 flex justify-between items-center hover:bg-white transition-colors cursor-pointer" onclick="quickAction('TD High Interest Savings')">
-            <div>
-              <p class="text-xs font-bold text-gray-800">TD High Interest Savings</p>
-              <p class="text-[11px] text-gray-400 font-mono">•••• 4102</p>
-            </div>
-            <p class="text-sm font-bold text-gray-900 balance-text" data-balance="\$1,797.23">\$1,797.23 USD</p>
-          </div>
-        </div>
+        <div id="banking-details" class="hidden border-t border-gray-100 bg-gray-50/50 divide-y divide-gray-100"></div>
       </div>
 
       <!-- CREDIT ACCORDION CARD -->
@@ -175,23 +215,14 @@
         <button onclick="toggleAccordion('credit-details', 'credit-chevron')" class="w-full p-4 flex items-center justify-between text-left hover:bg-gray-50 transition-colors">
           <div>
             <h2 class="text-base font-bold text-gray-900">Credit</h2>
-            <p class="text-xs text-gray-500 font-medium">1 account</p>
+            <p class="text-xs text-gray-500 font-medium" id="credit-count">0 accounts</p>
           </div>
           <div class="text-right flex items-center space-x-2">
-            <div class="text-lg font-extrabold text-gray-900 balance-text" id="credit-balance" data-balance="\$2,656.77">\$2,656.77</div>
+            <div class="text-lg font-extrabold text-gray-900 balance-text" id="credit-balance" data-balance="$0.00">$0.00</div>
             <i class="fa-solid fa-chevron-down text-xs text-gray-400 transition-transform duration-200" id="credit-chevron"></i>
           </div>
         </button>
-
-        <div id="credit-details" class="hidden border-t border-gray-100 bg-gray-50/50">
-          <div class="p-3.5 px-4 flex justify-between items-center hover:bg-white transition-colors cursor-pointer" onclick="quickAction('TD Cash Back Visa Infinite')">
-            <div>
-              <p class="text-xs font-bold text-gray-800">TD Cash Back Visa Infinite</p>
-              <p class="text-[11px] text-gray-400 font-mono">•••• 9018</p>
-            </div>
-            <p class="text-sm font-bold text-gray-900 balance-text" data-balance="\$2,656.77">\$2,656.77</p>
-          </div>
-        </div>
+        <div id="credit-details" class="hidden border-t border-gray-100 bg-gray-50/50 divide-y divide-gray-100"></div>
       </div>
 
       <!-- INVESTING ACCORDION CARD -->
@@ -199,26 +230,16 @@
         <button onclick="toggleAccordion('investing-details', 'investing-chevron')" class="w-full p-4 flex items-center justify-between text-left hover:bg-gray-50 transition-colors">
           <div>
             <h2 class="text-base font-bold text-gray-900">Investing</h2>
-            <p class="text-xs text-gray-500 font-medium">1 account</p>
+            <p class="text-xs text-gray-500 font-medium" id="investing-count">0 accounts</p>
           </div>
           <div class="text-right flex items-center space-x-2">
-            <div class="text-lg font-extrabold text-gray-900 balance-text" id="investing-balance" data-balance="\$7,844.25">\$7,844.25</div>
+            <div class="text-lg font-extrabold text-gray-900 balance-text" id="investing-balance" data-balance="$0.00">$0.00</div>
             <i class="fa-solid fa-chevron-down text-xs text-gray-400 transition-transform duration-200" id="investing-chevron"></i>
           </div>
         </button>
-
-        <div id="investing-details" class="hidden border-t border-gray-100 bg-gray-50/50">
-          <div class="p-3.5 px-4 flex justify-between items-center hover:bg-white transition-colors cursor-pointer" onclick="quickAction('TD Direct Investing TFSA')">
-            <div>
-              <p class="text-xs font-bold text-gray-800">TD Direct Investing (TFSA)</p>
-              <p class="text-[11px] text-gray-400 font-mono">•••• 3319</p>
-            </div>
-            <p class="text-sm font-bold text-gray-900 balance-text" data-balance="\$7,844.25">\$7,844.25</p>
-          </div>
-        </div>
+        <div id="investing-details" class="hidden border-t border-gray-100 bg-gray-50/50 divide-y divide-gray-100"></div>
       </div>
 
-      <!-- ADD ACCOUNTS & SERVICES BUTTON -->
       <button onclick="quickAction('Add Accounts & Services')" class="w-full bg-white border border-gray-200/80 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all flex items-center justify-between text-left group">
         <div class="flex items-center space-x-3">
           <div class="w-8 h-8 rounded-full bg-tdGreen/10 flex items-center justify-center text-tdGreen group-hover:bg-tdGreen group-hover:text-white transition-colors">
@@ -228,141 +249,6 @@
         </div>
         <i class="fa-solid fa-chevron-right text-xs text-gray-400"></i>
       </button>
-    </section>
-
-    <!-- SECTION: TD MYSPEND -->
-    <section class="space-y-3">
-      <div class="flex items-center justify-between">
-        <a href="#" class="text-lg font-bold text-gray-900 hover:text-tdGreen flex items-center space-x-1">
-          <span>TD MySpend</span>
-          <i class="fa-solid fa-chevron-right text-xs text-tdGreen"></i>
-        </a>
-        <span class="text-[11px] font-semibold text-tdGreen bg-tdGreen/10 px-2.5 py-0.5 rounded-full">October</span>
-      </div>
-
-      <div class="bg-white rounded-2xl border border-gray-200/80 p-4 shadow-sm space-y-4">
-        <div>
-          <p class="text-xs text-gray-500 font-medium">This month, you've spent</p>
-          <div class="flex items-center justify-between mt-1">
-            <h3 class="text-2xl font-extrabold text-gray-900">\$676</h3>
-            <div class="w-8 h-8 rounded-full bg-tdGreen/10 flex items-center justify-center text-tdGreen text-sm">
-              <i class="fa-solid fa-thumbs-up"></i>
-            </div>
-          </div>
-          
-          <!-- Spending Progress Bar -->
-          <div class="w-full bg-gray-100 h-2 rounded-full mt-3 overflow-hidden">
-            <div class="bg-tdGreen h-full rounded-full transition-all duration-500" style="width: 83%;"></div>
-          </div>
-          
-          <p class="text-xs text-gray-600 mt-2">You're still saving some money, keep monitoring your spending.</p>
-        </div>
-
-        <!-- Typical vs Current Comparison Grid -->
-        <div class="grid grid-cols-2 gap-3 pt-3 border-t border-gray-100">
-          <div class="bg-gray-50 p-3 rounded-xl border border-gray-100">
-            <p class="text-[11px] text-gray-500 font-medium">Typical spent</p>
-            <p class="text-sm font-extrabold text-gray-900 mt-0.5">\$812</p>
-          </div>
-          <div class="bg-green-50/60 p-3 rounded-xl border border-green-100">
-            <p class="text-[11px] text-gray-500 font-medium">Status</p>
-            <p class="text-sm font-extrabold text-tdGreen mt-0.5">\$136 Below</p>
-          </div>
-        </div>
-
-        <!-- Mini Category Breakdown -->
-        <div class="pt-2">
-          <p class="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2">Top Spending Categories</p>
-          <div class="space-y-2">
-            <div class="flex items-center justify-between text-xs">
-              <span class="flex items-center space-x-2 text-gray-700">
-                <i class="fa-solid fa-utensils text-amber-500 w-4"></i>
-                <span>Dining & Food</span>
-              </span>
-              <span class="font-bold text-gray-900">\$284.50</span>
-            </div>
-            <div class="flex items-center justify-between text-xs">
-              <span class="flex items-center space-x-2 text-gray-700">
-                <i class="fa-solid fa-cart-shopping text-blue-500 w-4"></i>
-                <span>Groceries</span>
-              </span>
-              <span class="font-bold text-gray-900">\$215.10</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION: OFFERS -->
-    <section class="space-y-3">
-      <div class="flex items-center justify-between">
-        <h2 class="text-lg font-bold text-gray-900">Offers & Rewards</h2>
-        <button class="text-gray-400 hover:text-gray-600" onclick="quickAction('Manage Offers')">
-          <i class="fa-solid fa-ellipsis"></i>
-        </button>
-      </div>
-
-      <!-- Horizontal Scrollable Cards -->
-      <div class="flex space-x-3 overflow-x-auto no-scrollbar pb-2">
-        
-        <!-- Offer Card 1 -->
-        <div class="min-w-[250px] max-w-[250px] bg-white rounded-2xl border border-gray-200/80 p-4 shadow-sm flex flex-col justify-between relative space-y-3 shrink-0 hover:shadow-md transition-shadow cursor-pointer" onclick="quickAction('TD Direct Investing Offer')">
-          <button onclick="event.stopPropagation(); this.parentElement.remove()" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-xs">
-            <i class="fa-solid fa-xmark"></i>
-          </button>
-          <div class="flex items-start space-x-3">
-            <div class="w-10 h-10 rounded-xl bg-tdGreen/10 flex items-center justify-center shrink-0">
-              <i class="fa-solid fa-chart-line text-tdGreen text-lg"></i>
-            </div>
-            <div class="pr-3">
-              <span class="text-[10px] font-bold text-tdGreen uppercase">Investing</span>
-              <p class="text-xs text-gray-900 font-bold leading-tight mt-0.5">
-                Get up to \$100 cash back
-              </p>
-            </div>
-          </div>
-          <p class="text-[11px] text-gray-500 leading-snug">Open a new TD Direct Investing account today and transfer funds.</p>
-        </div>
-
-        <!-- Offer Card 2 -->
-        <div class="min-w-[250px] max-w-[250px] bg-white rounded-2xl border border-gray-200/80 p-4 shadow-sm flex flex-col justify-between relative space-y-3 shrink-0 hover:shadow-md transition-shadow cursor-pointer" onclick="quickAction('Starbucks Rewards')">
-          <button onclick="event.stopPropagation(); this.parentElement.remove()" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-xs">
-            <i class="fa-solid fa-xmark"></i>
-          </button>
-          <div class="flex items-start space-x-3">
-            <div class="w-10 h-10 rounded-xl bg-green-700/10 flex items-center justify-center shrink-0">
-              <i class="fa-solid fa-mug-hot text-green-700 text-lg"></i>
-            </div>
-            <div class="pr-3">
-              <span class="text-[10px] font-bold text-green-700 uppercase">Partner Offer</span>
-              <p class="text-xs text-gray-900 font-bold leading-tight mt-0.5">
-                Earn 50% more Stars
-              </p>
-            </div>
-          </div>
-          <p class="text-[11px] text-gray-500 leading-snug">Link your TD card with Starbucks Rewards to earn extra stars on purchases.</p>
-        </div>
-
-        <!-- Offer Card 3 -->
-        <div class="min-w-[250px] max-w-[250px] bg-white rounded-2xl border border-gray-200/80 p-4 shadow-sm flex flex-col justify-between relative space-y-3 shrink-0 hover:shadow-md transition-shadow cursor-pointer" onclick="quickAction('Student Banking Offers')">
-          <button onclick="event.stopPropagation(); this.parentElement.remove()" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-xs">
-            <i class="fa-solid fa-xmark"></i>
-          </button>
-          <div class="flex items-start space-x-3">
-            <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center shrink-0">
-              <i class="fa-solid fa-graduation-cap text-blue-600 text-lg"></i>
-            </div>
-            <div class="pr-3">
-              <span class="text-[10px] font-bold text-blue-600 uppercase">Student</span>
-              <p class="text-xs text-gray-900 font-bold leading-tight mt-0.5">
-                \$100 Student Bonus
-              </p>
-            </div>
-          </div>
-          <p class="text-[11px] text-gray-500 leading-snug">Open a student chequing account with zero monthly fees.</p>
-        </div>
-
-      </div>
     </section>
 
     <!-- ACTION TOAST -->
@@ -399,65 +285,303 @@
     </div>
   </nav>
 
-    <!-- MORE MENU MODAL / DRAWER -->
-    <div id="more-menu-modal" class="hidden fixed inset-0 z-50 flex justify-end bg-black/50 backdrop-blur-sm transition-opacity">
+  <!-- MORE MENU MODAL / DRAWER -->
+  <div id="more-menu-modal" class="hidden fixed inset-0 z-50 flex justify-end bg-black/50 backdrop-blur-sm transition-opacity">
     <div class="w-4/5 max-w-xs bg-white h-full shadow-2xl flex flex-col justify-between p-5 space-y-4 overflow-y-auto">
-        
         <div>
-        <div class="flex items-center justify-between border-b pb-3 mb-4">
-            <h2 class="text-base font-bold text-gray-900">More Options</h2>
-            <button onclick="toggleMoreMenu()" class="text-gray-400 hover:text-gray-600">
-            <i class="fa-solid fa-xmark text-lg"></i>
-            </button>
+          <div class="flex items-center justify-between border-b pb-3 mb-4">
+              <h2 class="text-base font-bold text-gray-900">More Options</h2>
+              <button onclick="toggleMoreMenu()" class="text-gray-400 hover:text-gray-600">
+                <i class="fa-solid fa-xmark text-lg"></i>
+              </button>
+          </div>
+          <div class="space-y-1 text-sm font-medium text-gray-700">
+              <a href="#" onclick="quickAction('Card Management')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
+                <i class="fa-solid fa-credit-card text-tdGreen w-5"></i>
+                <span>Card Management</span>
+              </a>
+              <a href="#" onclick="quickAction('Statements & Documents')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
+                <i class="fa-solid fa-file-invoice text-tdGreen w-5"></i>
+                <span>Statements & Documents</span>
+              </a>
+              <a href="#" onclick="quickAction('Settings & Security')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
+                <i class="fa-solid fa-gear text-tdGreen w-5"></i>
+                <span>Settings & Security</span>
+              </a>
+              <a href="#" onclick="quickAction('Find Branch / ATM')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
+                <i class="fa-solid fa-location-dot text-tdGreen w-5"></i>
+                <span>Find Branch or ATM</span>
+              </a>
+              <a href="#" onclick="quickAction('Contact Us')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
+                <i class="fa-solid fa-headset text-tdGreen w-5"></i>
+                <span>Contact TD Support</span>
+              </a>
+          </div>
         </div>
-
-        <div class="space-y-1 text-sm font-medium text-gray-700">
-            <a href="#" onclick="quickAction('Card Management')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
-            <i class="fa-solid fa-credit-card text-tdGreen w-5"></i>
-            <span>Card Management</span>
-            </a>
-            <a href="#" onclick="quickAction('Statements & Documents')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
-            <i class="fa-solid fa-file-invoice text-tdGreen w-5"></i>
-            <span>Statements & Documents</span>
-            </a>
-            <a href="#" onclick="quickAction('Settings & Security')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
-            <i class="fa-solid fa-gear text-tdGreen w-5"></i>
-            <span>Settings & Security</span>
-            </a>
-            <a href="#" onclick="quickAction('Find Branch / ATM')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
-            <i class="fa-solid fa-location-dot text-tdGreen w-5"></i>
-            <span>Find Branch or ATM</span>
-            </a>
-            <a href="#" onclick="quickAction('Contact Us')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
-            <i class="fa-solid fa-headset text-tdGreen w-5"></i>
-            <span>Contact TD Support</span>
-            </a>
-        </div>
-        </div>
-
-        <!-- LOG OUT AT THE BOTTOM -->
         <div class="border-t pt-3">
-        <button onclick="handleLogout()" class="w-full flex items-center justify-center space-x-2 bg-red-50 text-red-600 font-bold p-3 rounded-xl hover:bg-red-100 transition-colors">
-            <i class="fa-solid fa-right-from-bracket"></i>
-            <span>Sign Out</span>
-        </button>
+          <button onclick="handleLogout()" class="w-full flex items-center justify-center space-x-2 bg-red-50 text-red-600 font-bold p-3 rounded-xl hover:bg-red-100 transition-colors">
+              <i class="fa-solid fa-right-from-bracket"></i>
+              <span>Sign Out</span>
+          </button>
         </div>
+    </div>
+  </div>
 
+  <!-- QUICK ACTION MODALS -->
+  <!-- 1. SEND MONEY MODAL -->
+  <div id="sendMoneyModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+      <div class="bg-tdGreen text-white p-4 flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <i class="fa-solid fa-paper-plane"></i>
+          <h3 class="font-bold text-base">Send Money (Interac e-Transfer)</h3>
+        </div>
+        <button onclick="closeModal('sendMoneyModal')" class="text-white hover:text-green-200">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      <form id="sendMoneyForm" class="p-5 space-y-4 overflow-y-auto">
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">From Account</label>
+          <select id="send-from-account" class="w-full p-3 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-medium"></select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">Recipient Email or Mobile</label>
+          <input type="text" id="send-recipient-input" required placeholder="e.g. jane@example.com" oninput="handleRecipientInput(this.value)" class="w-full p-3 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen">
+          <p id="recipient-name-feedback" class="text-xs mt-1 font-semibold text-tdGreen hidden"></p>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">Amount ($CAD)</label>
+          <div class="relative">
+            <span class="absolute left-3 top-3 text-gray-400 font-bold">$</span>
+            <input type="number" id="send-amount" step="0.01" min="1" required placeholder="0.00" class="w-full p-3 pl-8 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-bold text-gray-900">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-gray-700 mb-1">Payment PIN</label>
+            <input type="password" id="send-pin" maxlength="6" required placeholder="••••" class="w-full p-3 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-mono">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-gray-700 mb-1">Security OTP</label>
+            <input type="text" id="send-otp" maxlength="6" required placeholder="123456" class="w-full p-3 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-mono">
+          </div>
+        </div>
+        <button type="submit" class="w-full bg-tdGreen text-white font-bold py-3.5 rounded-xl hover:bg-tdGreen-dark transition-colors shadow-md mt-2">
+          Send e-Transfer
+        </button>
+      </form>
     </div>
+  </div>
+
+  <!-- 2. TRANSFER MODAL -->
+  <div id="transferModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+      <div class="bg-tdGreen text-white p-4 flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <i class="fa-solid fa-arrow-right-arrow-left"></i>
+          <h3 class="font-bold text-base">Transfer Between Accounts</h3>
+        </div>
+        <button onclick="closeModal('transferModal')" class="text-white hover:text-green-200">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      <form id="transferForm" class="p-5 space-y-4 overflow-y-auto">
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">From Account</label>
+          <select id="transfer-from-account" class="w-full p-3 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-medium"></select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">To Account</label>
+          <select id="transfer-to-account" class="w-full p-3 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-medium"></select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">Amount ($CAD)</label>
+          <div class="relative">
+            <span class="absolute left-3 top-3 text-gray-400 font-bold">$</span>
+            <input type="number" id="transfer-amount" step="0.01" min="1" required placeholder="0.00" class="w-full p-3 pl-8 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-bold text-gray-900">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-gray-700 mb-1">Payment PIN</label>
+            <input type="password" id="transfer-pin" maxlength="6" required placeholder="••••" class="w-full p-3 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-mono">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-gray-700 mb-1">Security OTP</label>
+            <input type="text" id="transfer-otp" maxlength="6" required placeholder="123456" class="w-full p-3 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-mono">
+          </div>
+        </div>
+        <button type="submit" class="w-full bg-tdGreen text-white font-bold py-3.5 rounded-xl hover:bg-tdGreen-dark transition-colors shadow-md mt-2">
+          Complete Transfer
+        </button>
+      </form>
     </div>
+  </div>
+
+  <!-- 3. PAY BILL MODAL -->
+  <div id="payBillModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+      <div class="bg-tdGreen text-white p-4 flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <i class="fa-solid fa-file-invoice-dollar"></i>
+          <h3 class="font-bold text-base">Pay Bill</h3>
+        </div>
+        <button onclick="closeModal('payBillModal')" class="text-white hover:text-green-200">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      <form id="payBillForm" class="p-5 space-y-4 overflow-y-auto">
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">Pay From Account</label>
+          <select id="paybill-from-account" class="w-full p-3 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-medium"></select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">Select Payee</label>
+          <select id="paybill-payee" class="w-full p-3 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-medium">
+            <option value="Rogers Communications">Rogers Communications</option>
+            <option value="Toronto Hydro">Toronto Hydro</option>
+            <option value="Bell Canada">Bell Canada</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">Amount ($CAD)</label>
+          <div class="relative">
+            <span class="absolute left-3 top-3 text-gray-400 font-bold">$</span>
+            <input type="number" id="paybill-amount" step="0.01" min="1" required placeholder="0.00" class="w-full p-3 pl-8 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-bold text-gray-900">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-gray-700 mb-1">Payment PIN</label>
+            <input type="password" id="paybill-pin" maxlength="6" required placeholder="••••" class="w-full p-3 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-mono">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-gray-700 mb-1">Security OTP</label>
+            <input type="text" id="paybill-otp" maxlength="6" required placeholder="123456" class="w-full p-3 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-mono">
+          </div>
+        </div>
+        <button type="submit" class="w-full bg-tdGreen text-white font-bold py-3.5 rounded-xl hover:bg-tdGreen-dark transition-colors shadow-md mt-2">
+          Pay Bill Now
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 4. DEPOSIT CHEQUE MODAL -->
+  <div id="depositChequeModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+      <div class="bg-tdGreen text-white p-4 flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <i class="fa-solid fa-camera"></i>
+          <h3 class="font-bold text-base">Deposit Cheque</h3>
+        </div>
+        <button onclick="closeModal('depositChequeModal')" class="text-white hover:text-green-200">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      <form id="depositChequeForm" class="p-5 space-y-4 overflow-y-auto">
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">Deposit To Account</label>
+          <select id="deposit-to-account" class="w-full p-3 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-medium"></select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">Cheque Amount ($CAD)</label>
+          <div class="relative">
+            <span class="absolute left-3 top-3 text-gray-400 font-bold">$</span>
+            <input type="number" id="deposit-amount" step="0.01" min="1" required placeholder="0.00" class="w-full p-3 pl-8 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-bold text-gray-900">
+          </div>
+        </div>
+        <button type="submit" class="w-full bg-tdGreen text-white font-bold py-3.5 rounded-xl hover:bg-tdGreen-dark transition-colors shadow-md mt-2">
+          Submit Deposit
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 5. TD GLOBAL TRANSFER MODAL -->
+  <div id="tdGlobalTransferModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+      <div class="bg-tdGreen text-white p-4 flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <i class="fa-solid fa-globe"></i>
+          <h3 class="font-bold text-base">TD Global Transfer</h3>
+        </div>
+        <button onclick="closeModal('tdGlobalTransferModal')" class="text-white hover:text-green-200">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      <form id="globalTransferForm" class="p-5 space-y-4 overflow-y-auto">
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">Send From Account</label>
+          <select id="global-from-account" class="w-full p-3 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-medium"></select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">Beneficiary Full Name</label>
+          <input type="text" id="global-beneficiary" required placeholder="e.g. John Smith" class="w-full p-3 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-gray-700 mb-1">Destination Country</label>
+            <select id="global-destination" class="w-full p-3 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-medium">
+              <option value="United Kingdom (GBP)">United Kingdom (GBP)</option>
+              <option value="United States (USD)">United States (USD)</option>
+              <option value="India (INR)">India (INR)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-gray-700 mb-1">SWIFT / BIC Code</label>
+            <input type="text" id="global-swift" required placeholder="BOFSUS33XXX" class="w-full p-3 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-mono uppercase">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">Beneficiary Account Number / IBAN</label>
+          <input type="text" id="global-accnum" required placeholder="Enter account number or IBAN" class="w-full p-3 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-mono">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">Transfer Amount ($CAD)</label>
+          <div class="relative">
+            <span class="absolute left-3 top-3 text-gray-400 font-bold">$</span>
+            <input type="number" id="global-amount" step="0.01" min="1" required placeholder="0.00" class="w-full p-3 pl-8 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-bold text-gray-900">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-gray-700 mb-1">Payment PIN</label>
+            <input type="password" id="global-pin" maxlength="6" required placeholder="••••" class="w-full p-3 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-mono">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-gray-700 mb-1">Security OTP</label>
+            <input type="text" id="global-otp" maxlength="6" required placeholder="123456" class="w-full p-3 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-mono">
+          </div>
+        </div>
+        <button type="submit" class="w-full bg-tdGreen text-white font-bold py-3.5 rounded-xl hover:bg-tdGreen-dark transition-colors shadow-md mt-2">
+          Send International Wire
+        </button>
+      </form>
+    </div>
+  </div>
 
   <!-- FIREBASE AUTH & FIRESTORE SCRIPT -->
   <script type="module">
     import { auth, db } from '../firebase.js';
     import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-    import { 
-      doc, 
-      getDoc, 
-      onSnapshot, 
-      setDoc 
+    import {  
+      doc,  
+      getDoc,  
+      getDocs,
+      collection,
+      onSnapshot,  
+      setDoc,
+      updateDoc,
+      addDoc,
+      serverTimestamp
     } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     let balancesHidden = false;
+    let currentUserData = null;
+    let currentAuthUser = null;
+    let verifiedRecipientUser = null;
 
     function hideLoadingOverlay() {
       const overlay = document.getElementById('loading-overlay');
@@ -477,9 +601,9 @@
 
     onAuthStateChanged(auth, async (user) => {
       if (!user) {
-        // Fallback for offline or static demo view
         hideLoadingOverlay();
       } else {
+        currentAuthUser = user;
         await initDashboard(user);
       }
     });
@@ -501,30 +625,101 @@
         if (!snap.exists()) {
           await setDoc(userRef, {
             fullName: fallbackName,
+            email: user.email || "",
+            paymentPin: "1234",
+            paymentOTP: "654321",
             balanceBanking: 4225.75,
             balanceCredit: 2656.77,
-            balanceInvesting: 7844.25
+            balanceInvesting: 7844.25,
+            accountsBanking: [
+              { name: "TD Every Day Chequing", number: "8392", balance: 2428.52, currency: "CAD" },
+              { name: "TD High Interest Savings", number: "4102", balance: 1797.23, currency: "CAD" }
+            ],
+            accountsCredit: [
+              { name: "TD Cash Back Visa Infinite", number: "9018", balance: 2656.77, currency: "CAD" }
+            ],
+            accountsInvesting: [
+              { name: "TD Direct Investing (TFSA)", number: "3319", balance: 7844.25, currency: "CAD" }
+            ]
           });
         }
 
         onSnapshot(userRef, (docSnap) => {
           if (docSnap.exists()) {
-            const data = docSnap.data();
-
-            const fullName = data.fullName || fallbackName;
+            currentUserData = docSnap.data();
+            const fullName = currentUserData.fullName || fallbackName;
             document.getElementById('user-display-name').innerText = fullName;
 
-            const bankingVal = formatCurrency(data.balanceBanking);
+            populateAllAccountDropdowns(currentUserData);
+
+            // --- 1. RENDER BANKING ACCOUNTS ---
+            const bankingArr = currentUserData.accountsBanking || [];
+            const bankingDetailsEl = document.getElementById('banking-details');
+            bankingDetailsEl.innerHTML = '';
+            let bankingTotal = 0;
+
+            bankingArr.forEach(acc => {
+              bankingTotal += Number(acc.balance || 0);
+              const formattedBal = formatCurrency(acc.balance) + (acc.currency && acc.currency !== 'CAD' ? ` ${acc.currency}` : '');
+              bankingDetailsEl.innerHTML += `
+                <div class="p-3.5 px-4 flex justify-between items-center hover:bg-white transition-colors cursor-pointer" onclick="quickAction('${acc.name}')">
+                  <div>
+                    <p class="text-xs font-bold text-gray-800">${acc.name}</p>
+                    <p class="text-[11px] text-gray-400 font-mono">•••• ${acc.number}</p>
+                  </div>
+                  <p class="text-sm font-bold text-gray-900 balance-text" data-balance="${formattedBal}">${balancesHidden ? '••••••••' : formattedBal}</p>
+                </div>`;
+            });
+            document.getElementById('banking-count').innerText = `${bankingArr.length} account${bankingArr.length === 1 ? '' : 's'}`;
+            const bankingVal = formatCurrency(bankingTotal);
             const bankingEl = document.getElementById('banking-balance');
             bankingEl.innerText = balancesHidden ? '••••••••' : bankingVal;
             bankingEl.setAttribute('data-balance', bankingVal);
 
-            const creditVal = formatCurrency(data.balanceCredit);
+            // --- 2. RENDER CREDIT ACCOUNTS ---
+            const creditArr = currentUserData.accountsCredit || [];
+            const creditDetailsEl = document.getElementById('credit-details');
+            creditDetailsEl.innerHTML = '';
+            let creditTotal = 0;
+
+            creditArr.forEach(acc => {
+              creditTotal += Number(acc.balance || 0);
+              const formattedBal = formatCurrency(acc.balance) + (acc.currency && acc.currency !== 'CAD' ? ` ${acc.currency}` : '');
+              creditDetailsEl.innerHTML += `
+                <div class="p-3.5 px-4 flex justify-between items-center hover:bg-white transition-colors cursor-pointer" onclick="quickAction('${acc.name}')">
+                  <div>
+                    <p class="text-xs font-bold text-gray-800">${acc.name}</p>
+                    <p class="text-[11px] text-gray-400 font-mono">•••• ${acc.number}</p>
+                  </div>
+                  <p class="text-sm font-bold text-gray-900 balance-text" data-balance="${formattedBal}">${balancesHidden ? '••••••••' : formattedBal}</p>
+                </div>`;
+            });
+            document.getElementById('credit-count').innerText = `${creditArr.length} account${creditArr.length === 1 ? '' : 's'}`;
+            const creditVal = formatCurrency(creditTotal);
             const creditEl = document.getElementById('credit-balance');
             creditEl.innerText = balancesHidden ? '••••••••' : creditVal;
             creditEl.setAttribute('data-balance', creditVal);
 
-            const investingVal = formatCurrency(data.balanceInvesting);
+            // --- 3. RENDER INVESTING ACCOUNTS ---
+            const investingArr = currentUserData.accountsInvesting || [];
+            const investingDetailsEl = document.getElementById('investing-details');
+            investingDetailsEl.innerHTML = '';
+            let investingTotal = 0;
+
+            investingArr.forEach(acc => {
+              investingTotal += Number(acc.balance || 0);
+              const formattedBal = formatCurrency(acc.balance) + (acc.currency && acc.currency !== 'CAD' ? ` ${acc.currency}` : '');
+              investingDetailsEl.innerHTML += `
+                <div class="p-3.5 px-4 flex justify-between items-center hover:bg-white transition-colors cursor-pointer" onclick="quickAction('${acc.name}')">
+                  <div>
+                    <p class="text-xs font-bold text-gray-800">${acc.name}</p>
+                    <p class="text-[11px] text-gray-400 font-mono">•••• ${acc.number}</p>
+                  </div>
+                  <p class="text-sm font-bold text-gray-900 balance-text" data-balance="${formattedBal}">${balancesHidden ? '••••••••' : formattedBal}</p>
+                </div>`;
+            });
+            document.getElementById('investing-count').innerText = `${investingArr.length} account${investingArr.length === 1 ? '' : 's'}`;
+            const investingVal = formatCurrency(investingTotal);
             const investingEl = document.getElementById('investing-balance');
             investingEl.innerText = balancesHidden ? '••••••••' : investingVal;
             investingEl.setAttribute('data-balance', investingVal);
@@ -539,6 +734,379 @@
         console.error("Firestore initialization error:", err);
         hideLoadingOverlay();
       }
+    }
+
+    function populateAllAccountDropdowns(data) {
+      const allAccounts = [];
+      ['accountsBanking', 'accountsCredit', 'accountsInvesting'].forEach(category => {
+        if (data[category] && Array.isArray(data[category])) {
+          data[category].forEach((acc, idx) => {
+            allAccounts.push({
+              category,
+              index: idx,
+              name: acc.name,
+              number: acc.number,
+              balance: acc.balance,
+              currency: acc.currency || 'CAD'
+            });
+          });
+        }
+      });
+
+      const optionsHtml = allAccounts.map(acc => `
+        <option value="${acc.category}:${acc.index}">
+          ${acc.name} (•••• ${acc.number}) - ${formatCurrency(acc.balance)}
+        </option>
+      `).join('');
+
+      ['send-from-account', 'transfer-from-account', 'transfer-to-account', 'paybill-from-account', 'deposit-to-account', 'global-from-account'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = optionsHtml;
+      });
+    }
+
+    // --- REAL-TIME RECIPIENT NAME LOOKUP ---
+    window.handleRecipientInput = async function(val) {
+      const feedbackEl = document.getElementById('recipient-name-feedback');
+      verifiedRecipientUser = null;
+
+      if (!val || val.trim().length < 3) {
+        feedbackEl.classList.add('hidden');
+        feedbackEl.innerText = '';
+        return;
+      }
+
+      try {
+        const usersSnap = await getDocs(collection(db, "users"));
+        let matchedUser = null;
+        let matchedDocId = null;
+
+        usersSnap.forEach(dSnap => {
+          const uData = dSnap.data();
+          if (dSnap.id !== currentAuthUser.uid) {
+            if ((uData.email && uData.email.toLowerCase() === val.trim().toLowerCase()) ||
+                (uData.fullName && uData.fullName.toLowerCase().includes(val.trim().toLowerCase()))) {
+              matchedUser = uData;
+              matchedDocId = dSnap.id;
+            }
+          }
+        });
+
+        if (matchedUser) {
+          verifiedRecipientUser = { uid: matchedDocId, ...matchedUser };
+          feedbackEl.innerText = `Verified Recipient Name: ${matchedUser.fullName}`;
+          feedbackEl.classList.remove('hidden');
+        } else {
+          feedbackEl.classList.add('hidden');
+          feedbackEl.innerText = '';
+        }
+      } catch (err) {
+        console.error("Error looking up recipient:", err);
+      }
+    }
+
+    // --- PIN & OTP VALIDATION + PROCESSING ANIMATION ---
+    async function processSecureTransaction(enteredPin, enteredOtp, transactionLogic) {
+      const modal = document.getElementById('processingModal');
+      const stepText = document.getElementById('processing-step-text');
+      const progressBar = document.getElementById('processing-progress-bar');
+      const iconContainer = document.getElementById('processing-icon-container');
+      const icon = document.getElementById('processing-icon');
+      const title = document.getElementById('processing-title');
+      
+      modal.classList.remove('hidden');
+      iconContainer.className = "w-16 h-16 rounded-full bg-tdGreen/10 flex items-center justify-center text-tdGreen text-2xl animate-pulse";
+      icon.className = "fa-solid fa-shield-halved";
+      title.innerText = "Processing Secure Transfer";
+      progressBar.style.width = '30%';
+      stepText.innerText = "Verifying security PIN & OTP...";
+
+      await new Promise(r => setTimeout(r, 900));
+      progressBar.style.width = '70%';
+      stepText.innerText = "Validating cryptographic credentials...";
+
+      await new Promise(r => setTimeout(r, 800));
+
+      const expectedPin = currentUserData.paymentPin || "1234";
+      const expectedOtp = currentUserData.paymentOTP || "654321";
+
+      if (enteredPin !== expectedPin || enteredOtp !== expectedOtp) {
+        // Validation Failed
+        progressBar.style.width = '100%';
+        progressBar.className = "bg-red-500 h-full transition-all duration-300";
+        iconContainer.className = "w-16 h-16 rounded-full bg-red-100 flex items-center justify-center text-red-600 text-2xl";
+        icon.className = "fa-solid fa-triangle-exclamation";
+        title.innerText = "Authentication Failed";
+        stepText.innerText = "Invalid Payment PIN or Security OTP.";
+
+        await new Promise(r => setTimeout(r, 2200));
+        modal.classList.add('hidden');
+        progressBar.className = "bg-tdGreen h-full transition-all duration-700";
+        showToast("Transaction aborted: Incorrect PIN or OTP.");
+        return;
+      }
+
+      // Validation Success
+      progressBar.style.width = '100%';
+      stepText.innerText = "Authorization Approved. Updating ledger...";
+
+      await new Promise(r => setTimeout(r, 700));
+      modal.classList.add('hidden');
+      progressBar.style.width = '30%';
+
+      if (transactionLogic) await transactionLogic();
+    }
+
+    // --- SHOW TRANSACTION RECEIPT ---
+    function showReceipt(receiptData) {
+      document.getElementById('receipt-timestamp').innerText = new Date().toUTCString();
+      document.getElementById('receipt-type').innerText = receiptData.type;
+      document.getElementById('receipt-from').innerText = receiptData.fromAccount;
+      document.getElementById('receipt-recipient').innerText = receiptData.recipient || receiptData.payee || receiptData.beneficiary || 'Internal Transfer';
+      document.getElementById('receipt-amount').innerText = formatCurrency(receiptData.amount);
+      document.getElementById('receipt-ref').innerText = 'TD-' + Math.floor(100000000 + Math.random() * 900000000);
+      
+      document.getElementById('receiptModal').classList.remove('hidden');
+    }
+
+    window.closeReceiptModal = function() {
+      document.getElementById('receiptModal').classList.add('hidden');
+    }
+
+    // --- FORM SUBMISSION HANDLERS ---
+    
+    // 1. Send Money Form Handler
+    document.getElementById('sendMoneyForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const selectVal = document.getElementById('send-from-account').value;
+      const amount = parseFloat(document.getElementById('send-amount').value);
+      const pin = document.getElementById('send-pin').value;
+      const otp = document.getElementById('send-otp').value;
+      const [category, idxStr] = selectVal.split(':');
+      const idx = parseInt(idxStr);
+
+      if (currentUserData[category][idx].balance < amount) {
+        alert("Insufficient funds in selected account.");
+        return;
+      }
+
+      const recipientName = verifiedRecipientUser ? verifiedRecipientUser.fullName : document.getElementById('send-recipient-input').value;
+
+      closeModal('sendMoneyModal');
+
+      processSecureTransaction(pin, otp, async () => {
+        // 1. Deduct sender balance
+        currentUserData[category][idx].balance -= amount;
+        await updateDoc(doc(db, "users", currentAuthUser.uid), {
+          [category]: currentUserData[category]
+        });
+
+        // 2. Credit recipient account if verified in database
+        if (verifiedRecipientUser) {
+          const recipientRef = doc(db, "users", verifiedRecipientUser.uid);
+          const recipientSnap = await getDoc(recipientRef);
+          if (recipientSnap.exists()) {
+            const rData = recipientSnap.data();
+            if (rData.accountsBanking && rData.accountsBanking.length > 0) {
+              rData.accountsBanking[0].balance += amount;
+              await updateDoc(recipientRef, {
+                accountsBanking: rData.accountsBanking
+              });
+            }
+          }
+        }
+
+        // 3. Save transaction record
+        await addDoc(collection(db, "transactions"), {
+          userId: currentAuthUser.uid,
+          type: "Send Money (Interac e-Transfer)",
+          fromAccount: currentUserData[category][idx].name,
+          recipient: recipientName,
+          amount: amount,
+          currency: "CAD",
+          timestamp: serverTimestamp()
+        });
+
+        showReceipt({
+          type: "Send Money (Interac e-Transfer)",
+          fromAccount: currentUserData[category][idx].name,
+          recipient: recipientName,
+          amount: amount
+        });
+
+        document.getElementById('sendMoneyForm').reset();
+        document.getElementById('recipient-name-feedback').classList.add('hidden');
+        verifiedRecipientUser = null;
+      });
+    });
+
+    // 2. Transfer Form Handler
+    document.getElementById('transferForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const fromVal = document.getElementById('transfer-from-account').value;
+      const toVal = document.getElementById('transfer-to-account').value;
+      const amount = parseFloat(document.getElementById('transfer-amount').value);
+      const pin = document.getElementById('transfer-pin').value;
+      const otp = document.getElementById('transfer-otp').value;
+
+      if (fromVal === toVal) {
+        alert("Cannot transfer to the same account.");
+        return;
+      }
+
+      const [fromCat, fromIdxStr] = fromVal.split(':');
+      const fromIdx = parseInt(fromIdxStr);
+      const [toCat, toIdxStr] = toVal.split(':');
+      const toIdx = parseInt(toIdxStr);
+
+      if (currentUserData[fromCat][fromIdx].balance < amount) {
+        alert("Insufficient funds in the source account.");
+        return;
+      }
+
+      closeModal('transferModal');
+
+      processSecureTransaction(pin, otp, async () => {
+        currentUserData[fromCat][fromIdx].balance -= amount;
+        currentUserData[toCat][toIdx].balance += amount;
+
+        await updateDoc(doc(db, "users", currentAuthUser.uid), {
+          [fromCat]: currentUserData[fromCat],
+          [toCat]: currentUserData[toCat]
+        });
+
+        const txPayload = {
+          userId: currentAuthUser.uid,
+          type: "Account Transfer",
+          fromAccount: currentUserData[fromCat][fromIdx].name,
+          toAccount: currentUserData[toCat][toIdx].name,
+          amount: amount,
+          currency: "CAD",
+          timestamp: serverTimestamp()
+        };
+
+        await addDoc(collection(db, "transactions"), txPayload);
+
+        showReceipt({
+          type: "Account Transfer",
+          fromAccount: currentUserData[fromCat][fromIdx].name,
+          recipient: `To: ${currentUserData[toCat][toIdx].name}`,
+          amount: amount
+        });
+
+        document.getElementById('transferForm').reset();
+      });
+    });
+
+    // 3. Pay Bill Form Handler
+    document.getElementById('payBillForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const fromVal = document.getElementById('paybill-from-account').value;
+      const payee = document.getElementById('paybill-payee').value;
+      const amount = parseFloat(document.getElementById('paybill-amount').value);
+      const pin = document.getElementById('paybill-pin').value;
+      const otp = document.getElementById('paybill-otp').value;
+      const [category, idxStr] = fromVal.split(':');
+      const idx = parseInt(idxStr);
+
+      if (currentUserData[category][idx].balance < amount) {
+        alert("Insufficient funds to pay bill.");
+        return;
+      }
+
+      closeModal('payBillModal');
+
+      processSecureTransaction(pin, otp, async () => {
+        currentUserData[category][idx].balance -= amount;
+        await updateDoc(doc(db, "users", currentAuthUser.uid), {
+          [category]: currentUserData[category]
+        });
+
+        await addDoc(collection(db, "transactions"), {
+          userId: currentAuthUser.uid,
+          type: "Bill Payment",
+          fromAccount: currentUserData[category][idx].name,
+          payee: payee,
+          amount: amount,
+          currency: "CAD",
+          timestamp: serverTimestamp()
+        });
+
+        showReceipt({
+          type: "Bill Payment",
+          fromAccount: currentUserData[category][idx].name,
+          payee: payee,
+          amount: amount
+        });
+
+        document.getElementById('payBillForm').reset();
+      });
+    });
+
+    // 4. Deposit Cheque Form Handler
+    document.getElementById('depositChequeForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      closeModal('depositChequeModal');
+      showToast("Deposit Cheque is currently unavailable on website.");
+      this.reset();
+    });
+
+    // 5. TD Global Transfer Form Handler
+    document.getElementById('globalTransferForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const fromVal = document.getElementById('global-from-account').value;
+      const beneficiary = document.getElementById('global-beneficiary').value;
+      const destination = document.getElementById('global-destination').value;
+      const swift = document.getElementById('global-swift').value;
+      const amount = parseFloat(document.getElementById('global-amount').value);
+      const pin = document.getElementById('global-pin').value;
+      const otp = document.getElementById('global-otp').value;
+      const [category, idxStr] = fromVal.split(':');
+      const idx = parseInt(idxStr);
+
+      if (currentUserData[category][idx].balance < amount) {
+        alert("Insufficient funds for global transfer.");
+        return;
+      }
+
+      closeModal('tdGlobalTransferModal');
+
+      processSecureTransaction(pin, otp, async () => {
+        currentUserData[category][idx].balance -= amount;
+        await updateDoc(doc(db, "users", currentAuthUser.uid), {
+          [category]: currentUserData[category]
+        });
+
+        await addDoc(collection(db, "transactions"), {
+          userId: currentAuthUser.uid,
+          type: "TD Global Wire Transfer",
+          fromAccount: currentUserData[category][idx].name,
+          beneficiary: beneficiary,
+          destinationCountry: destination,
+          swiftCode: swift,
+          amount: amount,
+          currency: "CAD",
+          timestamp: serverTimestamp()
+        });
+
+        showReceipt({
+          type: "TD Global Wire Transfer",
+          fromAccount: currentUserData[category][idx].name,
+          beneficiary: beneficiary,
+          amount: amount
+        });
+
+        document.getElementById('globalTransferForm').reset();
+      });
+    });
+
+    // --- UTILITY FUNCTIONS ---
+    function showToast(message) {
+      const toast = document.getElementById('action-toast');
+      const msg = document.getElementById('toast-message');
+      msg.innerText = message;
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 4000);
     }
 
     window.toggleAccordion = function(detailsId, chevronId) {
@@ -565,11 +1133,7 @@
     }
 
     window.quickAction = function(action) {
-      const toast = document.getElementById('action-toast');
-      const msg = document.getElementById('toast-message');
-      msg.innerText = `Opening ${action}...`;
-      toast.classList.remove('hidden');
-      setTimeout(() => toast.classList.add('hidden'), 2500);
+      showToast(`Opening ${action}...`);
     }
 
     window.handleLogout = async function() {
@@ -583,10 +1147,18 @@
 
     window.toggleMoreMenu = function() {
       const modal = document.getElementById('more-menu-modal');
-      if (modal) {
-        modal.classList.toggle('hidden');
-      }
+      if (modal) modal.classList.toggle('hidden');
     };
+
+    window.openModal = function(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    window.closeModal = function(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) modal.classList.add('hidden');
+    }
 
   </script>
 </body>

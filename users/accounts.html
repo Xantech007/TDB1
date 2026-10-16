@@ -118,7 +118,7 @@
         <p class="text-xs text-gray-600 mt-0.5">Combined Liquid & Credit Assets</p>
       </div>
       <div class="text-right">
-        <span class="text-lg font-black text-gray-900 balance-text" id="net-total-display" data-balance="$12,929.54">$12,929.54</span>
+        <span class="text-lg font-black text-gray-900 balance-text" id="net-total-display" data-balance="\$0.00">\$0.00</span>
       </div>
     </div>
 
@@ -166,8 +166,8 @@
         </div>
         <div class="pt-2">
           <p class="text-[10px] uppercase font-bold text-green-100 tracking-wider">Current Balance</p>
-          <p class="text-2xl font-black balance-text" id="drawer-balance" data-balance="$2,428.52">$2,428.52</p>
-          <p class="text-[11px] text-green-100 mt-0.5" id="drawer-subbalance">Available: $2,428.52</p>
+          <p class="text-2xl font-black balance-text" id="drawer-balance" data-balance="\$0.00">\$0.00</p>
+          <p class="text-[11px] text-green-100 mt-0.5" id="drawer-subbalance">Available: \$0.00</p>
         </div>
       </div>
 
@@ -195,11 +195,11 @@
 
       <!-- Action Buttons Row -->
       <div class="grid grid-cols-3 gap-2">
-        <button onclick="showToast('Downloading Void Cheque PDF...')" class="flex flex-col items-center justify-center bg-white border border-gray-200 p-3 rounded-xl hover:bg-gray-50 transition-colors">
+        <button onclick="handleVoidCheque()" class="flex flex-col items-center justify-center bg-white border border-gray-200 p-3 rounded-xl hover:bg-gray-50 transition-colors">
           <i class="fa-solid fa-file-pdf text-tdGreen text-base mb-1"></i>
           <span class="text-[11px] font-semibold text-gray-800">Void Cheque</span>
         </button>
-        <button onclick="showToast('Opening Statements...')" class="flex flex-col items-center justify-center bg-white border border-gray-200 p-3 rounded-xl hover:bg-gray-50 transition-colors">
+        <button onclick="openStatementModal()" class="flex flex-col items-center justify-center bg-white border border-gray-200 p-3 rounded-xl hover:bg-gray-50 transition-colors">
           <i class="fa-solid fa-receipt text-tdGreen text-base mb-1"></i>
           <span class="text-[11px] font-semibold text-gray-800">Statements</span>
         </button>
@@ -213,13 +213,82 @@
       <div class="space-y-3 pt-1">
         <h3 class="text-sm font-bold text-gray-900 flex items-center justify-between">
           <span>Recent Activity</span>
-          <span class="text-xs font-semibold text-tdGreen hover:underline cursor-pointer" onclick="showToast('Loading full transaction history...')">View All</span>
+          <span class="text-xs font-semibold text-tdGreen hover:underline cursor-pointer" onclick="openAllTransactionsModal()">View All</span>
         </h3>
 
         <div class="space-y-2" id="drawer-transactions">
           <!-- Dynamically populated transaction items -->
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- STATEMENT MODAL -->
+  <div id="statementModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4 overflow-y-auto max-h-[90vh]">
+      <div class="flex items-center justify-between border-b pb-3">
+        <div class="flex items-center space-x-2">
+          <i class="fa-solid fa-file-invoice-dollar text-tdGreen text-lg"></i>
+          <h3 class="font-bold text-base text-gray-900">Account Statement</h3>
+        </div>
+        <button onclick="closeStatementModal()" class="text-gray-400 hover:text-gray-600">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      
+      <div class="bg-gray-50 rounded-2xl p-4 text-xs space-y-2 border border-gray-100">
+        <div class="flex justify-between font-bold text-gray-800 border-b pb-2">
+          <span id="stmt-acc-name">Account Name</span>
+          <span id="stmt-acc-num">**** 0000</span>
+        </div>
+        <div class="flex justify-between text-gray-500">
+          <span>Statement Period:</span>
+          <span class="font-mono text-gray-800" id="stmt-period">Last 30 Days</span>
+        </div>
+        <div class="flex justify-between text-gray-500">
+          <span>Generated On:</span>
+          <span class="font-mono text-gray-800" id="stmt-date">-</span>
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <p class="text-xs font-bold text-gray-700">Transaction Summary</p>
+        <div id="stmt-transactions-list" class="space-y-1.5 max-h-48 overflow-y-auto text-xs">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+
+      <div class="pt-2 flex space-x-2">
+        <button onclick="showToast('Statement downloaded successfully!')" class="w-full bg-tdGreen text-white font-bold py-3 rounded-xl hover:bg-tdGreen-dark transition-colors shadow-md text-xs">
+          Download PDF Statement
+        </button>
+        <button onclick="closeStatementModal()" class="w-1/3 bg-gray-100 text-gray-700 font-bold py-3 rounded-xl hover:bg-gray-200 transition-colors text-xs">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALL TRANSACTIONS MODAL -->
+  <div id="allTransactionsModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4 overflow-y-auto max-h-[90vh]">
+      <div class="flex items-center justify-between border-b pb-3">
+        <div class="flex items-center space-x-2">
+          <i class="fa-solid fa-list-ul text-tdGreen text-lg"></i>
+          <h3 class="font-bold text-base text-gray-900">All Transactions</h3>
+        </div>
+        <button onclick="closeAllTransactionsModal()" class="text-gray-400 hover:text-gray-600">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div id="all-transactions-container" class="space-y-2 overflow-y-auto max-h-[60vh]">
+        <!-- Populated dynamically -->
+      </div>
+
+      <button onclick="closeAllTransactionsModal()" class="w-full bg-tdGreen text-white font-bold py-3 rounded-xl hover:bg-tdGreen-dark transition-colors text-xs">
+        Done
+      </button>
     </div>
   </div>
 
@@ -255,126 +324,63 @@
     </div>
   </nav>
 
-    <!-- MORE MENU MODAL / DRAWER -->
-    <div id="more-menu-modal" class="hidden fixed inset-0 z-50 flex justify-end bg-black/50 backdrop-blur-sm transition-opacity">
+  <!-- MORE MENU MODAL / DRAWER -->
+  <div id="more-menu-modal" class="hidden fixed inset-0 z-50 flex justify-end bg-black/50 backdrop-blur-sm transition-opacity">
     <div class="w-4/5 max-w-xs bg-white h-full shadow-2xl flex flex-col justify-between p-5 space-y-4 overflow-y-auto">
-        
         <div>
-        <div class="flex items-center justify-between border-b pb-3 mb-4">
-            <h2 class="text-base font-bold text-gray-900">More Options</h2>
-            <button onclick="toggleMoreMenu()" class="text-gray-400 hover:text-gray-600">
-            <i class="fa-solid fa-xmark text-lg"></i>
-            </button>
+          <div class="flex items-center justify-between border-b pb-3 mb-4">
+              <h2 class="text-base font-bold text-gray-900">More Options</h2>
+              <button onclick="toggleMoreMenu()" class="text-gray-400 hover:text-gray-600">
+              <i class="fa-solid fa-xmark text-lg"></i>
+              </button>
+          </div>
+
+          <div class="space-y-1 text-sm font-medium text-gray-700">
+              <a href="#" onclick="quickAction('Card Management')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
+              <i class="fa-solid fa-credit-card text-tdGreen w-5"></i>
+              <span>Card Management</span>
+              </a>
+              <a href="#" onclick="quickAction('Statements & Documents')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
+              <i class="fa-solid fa-file-invoice text-tdGreen w-5"></i>
+              <span>Statements & Documents</span>
+              </a>
+              <a href="#" onclick="quickAction('Settings & Security')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
+              <i class="fa-solid fa-gear text-tdGreen w-5"></i>
+              <span>Settings & Security</span>
+              </a>
+              <a href="#" onclick="quickAction('Find Branch / ATM')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
+              <i class="fa-solid fa-location-dot text-tdGreen w-5"></i>
+              <span>Find Branch or ATM</span>
+              </a>
+              <a href="#" onclick="quickAction('Contact Us')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
+              <i class="fa-solid fa-headset text-tdGreen w-5"></i>
+              <span>Contact TD Support</span>
+              </a>
+          </div>
         </div>
 
-        <div class="space-y-1 text-sm font-medium text-gray-700">
-            <a href="#" onclick="quickAction('Card Management')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
-            <i class="fa-solid fa-credit-card text-tdGreen w-5"></i>
-            <span>Card Management</span>
-            </a>
-            <a href="#" onclick="quickAction('Statements & Documents')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
-            <i class="fa-solid fa-file-invoice text-tdGreen w-5"></i>
-            <span>Statements & Documents</span>
-            </a>
-            <a href="#" onclick="quickAction('Settings & Security')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
-            <i class="fa-solid fa-gear text-tdGreen w-5"></i>
-            <span>Settings & Security</span>
-            </a>
-            <a href="#" onclick="quickAction('Find Branch / ATM')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
-            <i class="fa-solid fa-location-dot text-tdGreen w-5"></i>
-            <span>Find Branch or ATM</span>
-            </a>
-            <a href="#" onclick="quickAction('Contact Us')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
-            <i class="fa-solid fa-headset text-tdGreen w-5"></i>
-            <span>Contact TD Support</span>
-            </a>
-        </div>
-        </div>
-
-        <!-- LOG OUT AT THE BOTTOM -->
         <div class="border-t pt-3">
-        <button onclick="handleLogout()" class="w-full flex items-center justify-center space-x-2 bg-red-50 text-red-600 font-bold p-3 rounded-xl hover:bg-red-100 transition-colors">
-            <i class="fa-solid fa-right-from-bracket"></i>
-            <span>Sign Out</span>
-        </button>
+          <button onclick="handleLogout()" class="w-full flex items-center justify-center space-x-2 bg-red-50 text-red-600 font-bold p-3 rounded-xl hover:bg-red-100 transition-colors">
+              <i class="fa-solid fa-right-from-bracket"></i>
+              <span>Sign Out</span>
+          </button>
         </div>
-
     </div>
-    </div>
+  </div>
 
   <!-- APP SCRIPT & FIREBASE -->
   <script type="module">
     import { auth, db } from '../firebase.js';
-    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-    import { doc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { doc, getDoc, collection, query, where, getDocs, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     // Application state
     let balancesHidden = false;
     let currentCategory = 'All';
     let activeAccountsData = [];
-
-    // Fallback Mock Data matching TD standard mobile layout
-    const defaultAccounts = [
-      {
-        id: 'acc-1',
-        name: 'TD Every Day Checking',
-        number: '**** 4892',
-        rawNum: '5294892',
-        type: 'Banking',
-        balance: 2428.52,
-        subBalanceLabel: 'Available Balance',
-        subBalance: 2428.52,
-        transactions: [
-          { name: 'Starbucks Coffee', date: 'Today', amount: '-$5.75', isNegative: true },
-          { name: 'Payroll Deposit - Acme Corp', date: 'Yesterday', amount: '+$1,850.00', isNegative: false },
-          { name: 'Interac e-Transfer Sent', date: 'Oct 14', amount: '-$45.00', isNegative: true },
-          { name: 'TD ATM Withdrawal', date: 'Oct 12', amount: '-$100.00', isNegative: true }
-        ]
-      },
-      {
-        id: 'acc-2',
-        name: 'TD High Interest Savings',
-        number: '**** 9102',
-        rawNum: '8109102',
-        type: 'Banking',
-        balance: 1797.23,
-        subBalanceLabel: 'Interest Rate: 1.75%',
-        subBalance: 1797.23,
-        transactions: [
-          { name: 'Monthly Interest Earned', date: 'Oct 01', amount: '+$2.45', isNegative: false },
-          { name: 'Transfer from Checking', date: 'Sep 28', amount: '+$500.00', isNegative: false }
-        ]
-      },
-      {
-        id: 'acc-3',
-        name: 'TD Rewards Visa* Card',
-        number: '**** 6610',
-        rawNum: '45206610',
-        type: 'Credit',
-        balance: 2656.77,
-        subBalanceLabel: 'Available Credit: $7,343.23',
-        subBalance: 7343.23,
-        transactions: [
-          { name: 'Uber Eats', date: 'Today', amount: '-$28.40', isNegative: true },
-          { name: 'Metro Supermarket', date: 'Oct 15', amount: '-$112.35', isNegative: true },
-          { name: 'Payment - Thank You', date: 'Oct 05', amount: '+$500.00', isNegative: false }
-        ]
-      },
-      {
-        id: 'acc-4',
-        name: 'TD Direct Investing TFSA',
-        number: '**** 3381',
-        rawNum: '9923381',
-        type: 'Investing',
-        balance: 7844.25,
-        subBalanceLabel: "Today's Change: +$124.10",
-        subBalance: 7844.25,
-        transactions: [
-          { name: 'Dividend Received - TD.TO', date: 'Oct 10', amount: '+$42.80', isNegative: false },
-          { name: 'Buy Order Filled - XEQT', date: 'Oct 02', amount: '-$500.00', isNegative: true }
-        ]
-      }
-    ];
+    let globalTransactions = [];
+    let currentAuthUser = null;
+    let selectedActiveAccount = null;
 
     const formatCurrency = (val) => `$${Number(val || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
@@ -383,42 +389,122 @@
       if (overlay) overlay.classList.add('hidden');
     }
 
-    // Initialize Auth & Firestore Listener
+    // Initialize Auth & Firestore Listeners
     onAuthStateChanged(auth, async (user) => {
       if (!user) {
-        // Fallback to offline mock rendering if not authenticated
-        activeAccountsData = defaultAccounts;
-        renderAccounts();
         hideLoadingOverlay();
       } else {
+        currentAuthUser = user;
+        
+        // 1. Listen to user profile document for live account balances
         const userRef = doc(db, "users", user.uid);
-        onSnapshot(userRef, (docSnap) => {
+        onSnapshot(userRef, async (docSnap) => {
+          let bankingArr = [];
+          let creditArr = [];
+          let investingArr = [];
+
           if (docSnap.exists()) {
             const data = docSnap.data();
-            // Sync balances if available in Firestore
-            activeAccountsData = defaultAccounts.map(acc => {
-              if (acc.type === 'Banking' && acc.id === 'acc-1' && data.balanceBanking !== undefined) {
-                acc.balance = Number(data.balanceBanking);
-                acc.subBalance = acc.balance;
-              }
-              if (acc.type === 'Credit' && data.balanceCredit !== undefined) {
-                acc.balance = Number(data.balanceCredit);
-              }
-              if (acc.type === 'Investing' && data.balanceInvesting !== undefined) {
-                acc.balance = Number(data.balanceInvesting);
-                acc.subBalance = acc.balance;
-              }
-              return acc;
-            });
-          } else {
-            activeAccountsData = defaultAccounts;
+            bankingArr = data.accountsBanking || [];
+            creditArr = data.accountsCredit || [];
+            investingArr = data.accountsInvesting || [];
           }
+
+          // 2. Fetch live transactions collection for the user
+          try {
+            const txQuery = query(collection(db, "transactions"), where("userId", "==", user.uid));
+            const txSnap = await getDocs(txQuery);
+            globalTransactions = [];
+            txSnap.forEach(tDoc => {
+              globalTransactions.push(tDoc.data());
+            });
+          } catch (e) {
+            console.error("Error fetching transactions collection:", e);
+          }
+
+          // Build dynamic active accounts list from Firestore collections
+          activeAccountsData = [];
+
+          bankingArr.forEach((acc, idx) => {
+            activeAccountsData.push({
+              id: `banking-${idx}`,
+              name: acc.name,
+              number: `**** ${acc.number}`,
+              rawNum: acc.number,
+              type: 'Banking',
+              balance: Number(acc.balance || 0),
+              subBalanceLabel: 'Available Balance',
+              subBalance: Number(acc.balance || 0),
+              transactions: globalTransactions
+                .filter(tx => tx.fromAccount === acc.name || tx.toAccount === acc.name)
+                .map(tx => {
+                  const isOut = tx.fromAccount === acc.name;
+                  return {
+                    name: tx.type + (tx.recipient ? ` to ${tx.recipient}` : '') + (tx.payee ? ` (${tx.payee})` : ''),
+                    date: tx.timestamp ? new Date(tx.timestamp.toDate()).toLocaleDateString() : 'Recent',
+                    amount: (isOut ? '-$' : '+$') + Number(tx.amount || 0).toFixed(2),
+                    isNegative: isOut
+                  };
+                })
+            });
+          });
+
+          creditArr.forEach((acc, idx) => {
+            activeAccountsData.push({
+              id: `credit-${idx}`,
+              name: acc.name,
+              number: `**** ${acc.number}`,
+              rawNum: acc.number,
+              type: 'Credit',
+              balance: Number(acc.balance || 0),
+              subBalanceLabel: 'Credit Account Balance',
+              subBalance: Number(acc.balance || 0),
+              transactions: globalTransactions
+                .filter(tx => tx.fromAccount === acc.name)
+                .map(tx => ({
+                  name: tx.type,
+                  date: tx.timestamp ? new Date(tx.timestamp.toDate()).toLocaleDateString() : 'Recent',
+                  amount: '-\$' + Number(tx.amount || 0).toFixed(2),
+                  isNegative: true
+                }))
+            });
+          });
+
+          investingArr.forEach((acc, idx) => {
+            activeAccountsData.push({
+              id: `investing-${idx}`,
+              name: acc.name,
+              number: `**** ${acc.number}`,
+              rawNum: acc.number,
+              type: 'Investing',
+              balance: Number(acc.balance || 0),
+              subBalanceLabel: 'Investment Portfolio Value',
+              subBalance: Number(acc.balance || 0),
+              transactions: globalTransactions
+                .filter(tx => tx.fromAccount === acc.name)
+                .map(tx => ({
+                  name: tx.type,
+                  date: tx.timestamp ? new Date(tx.timestamp.toDate()).toLocaleDateString() : 'Recent',
+                  amount: '-\$' + Number(tx.amount || 0).toFixed(2),
+                  isNegative: true
+                }))
+            });
+          });
+
           renderAccounts();
+          
+          // Keep drawer current if open
+          if (selectedActiveAccount) {
+            const updated = activeAccountsData.find(a => a.id === selectedActiveAccount.id);
+            if (updated) {
+              selectedActiveAccount = updated;
+              openAccountDetail(updated.id, false);
+            }
+          }
+
           hideLoadingOverlay();
         }, (err) => {
           console.error("Firestore listener error:", err);
-          activeAccountsData = defaultAccounts;
-          renderAccounts();
           hideLoadingOverlay();
         });
       }
@@ -526,14 +612,15 @@
       }
 
       document.querySelectorAll('.balance-text').forEach(el => {
-        el.innerText = balancesHidden ? '••••••••' : (el.getAttribute('data-balance') || '$0.00');
+        el.innerText = balancesHidden ? '••••••••' : (el.getAttribute('data-balance') || '\$0.00');
       });
     };
 
     // Account Drawer Modal logic
-    window.openAccountDetail = function(accId) {
+    window.openAccountDetail = function(accId, animate = true) {
       const acc = activeAccountsData.find(a => a.id === accId);
       if (!acc) return;
+      selectedActiveAccount = acc;
 
       document.getElementById('drawer-account-name').innerText = acc.name;
       document.getElementById('drawer-account-num').innerText = acc.number;
@@ -546,7 +633,6 @@
       drawerBalEl.innerText = balancesHidden ? '••••••••' : formattedBal;
       document.getElementById('drawer-subbalance').innerText = acc.subBalanceLabel;
 
-      // Show routing box only for banking accounts
       const transitBox = document.getElementById('transit-info-box');
       if (acc.type === 'Banking') {
         transitBox.classList.remove('hidden');
@@ -554,33 +640,97 @@
         transitBox.classList.add('hidden');
       }
 
-      // Populate transactions
+      // Populate recent transactions (up to 5)
       const txContainer = document.getElementById('drawer-transactions');
-      txContainer.innerHTML = acc.transactions.map(tx => `
-        <div class="flex items-center justify-between p-2.5 bg-gray-50 rounded-xl">
-          <div>
-            <p class="text-xs font-bold text-gray-900">${tx.name}</p>
-            <p class="text-[10px] text-gray-400 font-medium">${tx.date}</p>
+      if (acc.transactions.length === 0) {
+        txContainer.innerHTML = `<p class="text-xs text-gray-400 text-center py-3">No recent transaction records found.</p>`;
+      } else {
+        const recentTx = acc.transactions.slice(0, 5);
+        txContainer.innerHTML = recentTx.map(tx => `
+          <div class="flex items-center justify-between p-2.5 bg-gray-50 rounded-xl">
+            <div>
+              <p class="text-xs font-bold text-gray-900">${tx.name}</p>
+              <p class="text-[10px] text-gray-400 font-medium">${tx.date}</p>
+            </div>
+            <span class="text-xs font-extrabold ${tx.isNegative ? 'text-gray-900' : 'text-tdGreen'}">${tx.amount}</span>
           </div>
-          <span class="text-xs font-extrabold ${tx.isNegative ? 'text-gray-900' : 'text-tdGreen'}">${tx.amount}</span>
-        </div>
-      `).join('');
+        `).join('');
+      }
 
-      // Open Backdrop & Drawer
-      const backdrop = document.getElementById('account-drawer-backdrop');
-      const drawer = document.getElementById('account-drawer');
-      backdrop.classList.remove('opacity-0', 'pointer-events-none');
-      drawer.classList.remove('translate-y-full');
+      if (animate) {
+        const backdrop = document.getElementById('account-drawer-backdrop');
+        const drawer = document.getElementById('account-drawer');
+        backdrop.classList.remove('opacity-0', 'pointer-events-none');
+        drawer.classList.remove('translate-y-full');
+      }
     };
 
     window.closeDrawer = function() {
+      selectedActiveAccount = null;
       const backdrop = document.getElementById('account-drawer-backdrop');
       const drawer = document.getElementById('account-drawer');
       backdrop.classList.add('opacity-0', 'pointer-events-none');
       drawer.classList.add('translate-y-full');
     };
 
-    // UI Toast Notification helper
+    // Void Cheque Feedback
+    window.handleVoidCheque = function() {
+      showToast('Void cheque is currently not available on website');
+    };
+
+    // Auto-generate Statement Modal
+    window.openStatementModal = function() {
+      if (!selectedActiveAccount) return;
+      document.getElementById('stmt-acc-name').innerText = selectedActiveAccount.name;
+      document.getElementById('stmt-acc-num').innerText = selectedActiveAccount.number;
+      document.getElementById('stmt-date').innerText = new Date().toLocaleDateString();
+
+      const stmtList = document.getElementById('stmt-transactions-list');
+      if (selectedActiveAccount.transactions.length === 0) {
+        stmtList.innerHTML = `<p class="text-xs text-gray-400 text-center py-2">No transactions for this statement period.</p>`;
+      } else {
+        stmtList.innerHTML = selectedActiveAccount.transactions.map(tx => `
+          <div class="flex justify-between items-center py-1 border-b border-gray-100">
+            <div>
+              <span class="font-medium text-gray-800 block">${tx.name}</span>
+              <span class="text-[10px] text-gray-400">${tx.date}</span>
+            </div>
+            <span class="font-bold ${tx.isNegative ? 'text-gray-900' : 'text-tdGreen'}">${tx.amount}</span>
+          </div>
+        `).join('');
+      }
+
+      document.getElementById('statementModal').classList.remove('hidden');
+    };
+
+    window.closeStatementModal = function() {
+      document.getElementById('statementModal').classList.add('hidden');
+    };
+
+    // View All Transactions Modal
+    window.openAllTransactionsModal = function() {
+      if (!selectedActiveAccount) return;
+      const container = document.getElementById('all-transactions-container');
+      if (selectedActiveAccount.transactions.length === 0) {
+        container.innerHTML = `<p class="text-xs text-gray-400 text-center py-4">No transactions found for this account.</p>`;
+      } else {
+        container.innerHTML = selectedActiveAccount.transactions.map(tx => `
+          <div class="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
+            <div>
+              <p class="text-xs font-bold text-gray-900">${tx.name}</p>
+              <p class="text-[10px] text-gray-400 font-medium">${tx.date}</p>
+            </div>
+            <span class="text-xs font-extrabold ${tx.isNegative ? 'text-gray-900' : 'text-tdGreen'}">${tx.amount}</span>
+          </div>
+        `).join('');
+      }
+      document.getElementById('allTransactionsModal').classList.remove('hidden');
+    };
+
+    window.closeAllTransactionsModal = function() {
+      document.getElementById('allTransactionsModal').classList.add('hidden');
+    };
+
     window.showToast = function(msg) {
       const toast = document.getElementById('action-toast');
       const txt = document.getElementById('toast-message');
@@ -590,10 +740,19 @@
     };
 
     window.toggleMoreMenu = function() {
-    const modal = document.getElementById('more-menu-modal');
-    if (modal) {
+      const modal = document.getElementById('more-menu-modal');
+      if (modal) {
         modal.classList.toggle('hidden');
-    }
+      }
+    };
+
+    window.handleLogout = async function() {
+      try {
+        await signOut(auth);
+        window.location.href = '../login.html';
+      } catch (e) {
+        console.error("Sign out error:", e);
+      }
     };
 
   </script>
