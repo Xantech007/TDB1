@@ -177,15 +177,15 @@
 </head>
 <body>
     <!-- Utility Navigation -->
-    <div class="utility-nav">
+    <div class="utility-nav" id="utilityNav">
         <div class="container">
             <ul class="utility-links">
-                <li class="active"><a href="index.html">Personal</a></li>
+                <li><a href="index.html">Personal</a></li>
                 <li><a href="small-business.html">Small Business</a></li>
                 <li><a href="commercial-banking.html">Commercial</a></li>
                 <li><a href="investing.html">Investing</a></li>
                 <li><a href="asset-management.html">TD Asset Management</a></li>
-                <li class="active"><a href="about-td.html">About TD</a></li>
+                <li><a href="about-td.html">About TD</a></li>
             </ul>
             <div class="country-selector">
                 <img src="images/country-ca-en.png" alt="Canada" style="height: 20px; width: auto; vertical-align: middle;">
@@ -248,7 +248,7 @@
                     <i class="fas fa-user"></i>
                     Log In
                 </a>
-                <button class="mobile-menu-toggle" id="menuToggle" onclick="toggleMobileMenu()">
+                <button class="mobile-menu-toggle" id="menuToggle" aria-controls="utilityNav" aria-expanded="false" onclick="toggleMobileMenu()">
                     <i class="fas fa-bars"></i>
                 </button>
             </div>
@@ -485,8 +485,10 @@
     </script>
     <script>
         function toggleMobileMenu() {
-            const nav = document.getElementById('mainNav');
-            nav.classList.toggle('active');
+            const utilityNav = document.getElementById('utilityNav');
+            const menuToggle = document.getElementById('menuToggle');
+            const isOpen = utilityNav.classList.toggle('active');
+            menuToggle.setAttribute('aria-expanded', String(isOpen));
         }
 
         function toggleDropdown(element) {
