@@ -257,6 +257,148 @@
       <span id="toast-message" class="font-medium">Action requested</span>
     </div>
 
+    <!-- SECTION: TD MYSPEND -->
+    <section class="space-y-3">
+      <div class="flex items-center justify-between">
+        <a href="#" class="text-lg font-bold text-gray-900 hover:text-tdGreen flex items-center space-x-1">
+          <span>TD MySpend</span>
+          <i class="fa-solid fa-chevron-right text-xs text-tdGreen"></i>
+        </a>
+        <span class="text-[11px] font-semibold text-tdGreen bg-tdGreen/10 px-2.5 py-0.5 rounded-full">October</span>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-gray-200/80 p-4 shadow-sm space-y-4">
+        <div>
+          <p class="text-xs text-gray-500 font-medium">This month, you've spent</p>
+          <div class="flex items-center justify-between mt-1">
+            <h3 class="text-2xl font-extrabold text-gray-900">\$676</h3>
+            <div class="w-8 h-8 rounded-full bg-tdGreen/10 flex items-center justify-center text-tdGreen text-sm">
+              <i class="fa-solid fa-thumbs-up"></i>
+            </div>
+          </div>
+          
+          <!-- Spending Progress Bar -->
+          <div class="w-full bg-gray-100 h-2 rounded-full mt-3 overflow-hidden">
+            <div class="bg-tdGreen h-full rounded-full transition-all duration-500" style="width: 83%;"></div>
+          </div>
+          
+          <p class="text-xs text-gray-600 mt-2">You're still saving some money, keep monitoring your spending.</p>
+        </div>
+
+        <!-- Typical vs Current Comparison Grid -->
+        <div class="grid grid-cols-2 gap-3 pt-3 border-t border-gray-100">
+          <div class="bg-gray-50 p-3 rounded-xl border border-gray-100">
+            <p class="text-[11px] text-gray-500 font-medium">Typical spent</p>
+            <p class="text-sm font-extrabold text-gray-900 mt-0.5">\$812</p>
+          </div>
+          <div class="bg-green-50/60 p-3 rounded-xl border border-green-100">
+            <p class="text-[11px] text-gray-500 font-medium">Status</p>
+            <p class="text-sm font-extrabold text-tdGreen mt-0.5">\$136 Below</p>
+          </div>
+        </div>
+
+        <!-- Mini Category Breakdown -->
+        <div class="pt-2">
+          <p class="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2">Top Spending Categories</p>
+          <div class="space-y-2">
+            <div class="flex items-center justify-between text-xs">
+              <span class="flex items-center space-x-2 text-gray-700">
+                <i class="fa-solid fa-utensils text-amber-500 w-4"></i>
+                <span>Dining & Food</span>
+              </span>
+              <span class="font-bold text-gray-900">\$284.50</span>
+            </div>
+            <div class="flex items-center justify-between text-xs">
+              <span class="flex items-center space-x-2 text-gray-700">
+                <i class="fa-solid fa-cart-shopping text-blue-500 w-4"></i>
+                <span>Groceries</span>
+              </span>
+              <span class="font-bold text-gray-900">\$215.10</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: OFFERS -->
+    <section class="space-y-3">
+      <div class="flex items-center justify-between">
+        <h2 class="text-lg font-bold text-gray-900">Offers & Rewards</h2>
+        <button class="text-gray-400 hover:text-gray-600" onclick="quickAction('Manage Offers')">
+          <i class="fa-solid fa-ellipsis"></i>
+        </button>
+      </div>
+
+      <!-- Horizontal Scrollable Cards -->
+      <div class="flex space-x-3 overflow-x-auto no-scrollbar pb-2">
+        
+        <!-- Offer Card 1 -->
+        <div class="min-w-[250px] max-w-[250px] bg-white rounded-2xl border border-gray-200/80 p-4 shadow-sm flex flex-col justify-between relative space-y-3 shrink-0 hover:shadow-md transition-shadow cursor-pointer" onclick="quickAction('TD Direct Investing Offer')">
+          <button onclick="event.stopPropagation(); this.parentElement.remove()" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-xs">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <div class="flex items-start space-x-3">
+            <div class="w-10 h-10 rounded-xl bg-tdGreen/10 flex items-center justify-center shrink-0">
+              <i class="fa-solid fa-chart-line text-tdGreen text-lg"></i>
+            </div>
+            <div class="pr-3">
+              <span class="text-[10px] font-bold text-tdGreen uppercase">Investing</span>
+              <p class="text-xs text-gray-900 font-bold leading-tight mt-0.5">
+                Get up to \$100 cash back
+              </p>
+            </div>
+          </div>
+          <p class="text-[11px] text-gray-500 leading-snug">Open a new TD Direct Investing account today and transfer funds.</p>
+        </div>
+
+        <!-- Offer Card 2 -->
+        <div class="min-w-[250px] max-w-[250px] bg-white rounded-2xl border border-gray-200/80 p-4 shadow-sm flex flex-col justify-between relative space-y-3 shrink-0 hover:shadow-md transition-shadow cursor-pointer" onclick="quickAction('Starbucks Rewards')">
+          <button onclick="event.stopPropagation(); this.parentElement.remove()" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-xs">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <div class="flex items-start space-x-3">
+            <div class="w-10 h-10 rounded-xl bg-green-700/10 flex items-center justify-center shrink-0">
+              <i class="fa-solid fa-mug-hot text-green-700 text-lg"></i>
+            </div>
+            <div class="pr-3">
+              <span class="text-[10px] font-bold text-green-700 uppercase">Partner Offer</span>
+              <p class="text-xs text-gray-900 font-bold leading-tight mt-0.5">
+                Earn 50% more Stars
+              </p>
+            </div>
+          </div>
+          <p class="text-[11px] text-gray-500 leading-snug">Link your TD card with Starbucks Rewards to earn extra stars on purchases.</p>
+        </div>
+
+        <!-- Offer Card 3 -->
+        <div class="min-w-[250px] max-w-[250px] bg-white rounded-2xl border border-gray-200/80 p-4 shadow-sm flex flex-col justify-between relative space-y-3 shrink-0 hover:shadow-md transition-shadow cursor-pointer" onclick="quickAction('Student Banking Offers')">
+          <button onclick="event.stopPropagation(); this.parentElement.remove()" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-xs">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <div class="flex items-start space-x-3">
+            <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center shrink-0">
+              <i class="fa-solid fa-graduation-cap text-blue-600 text-lg"></i>
+            </div>
+            <div class="pr-3">
+              <span class="text-[10px] font-bold text-blue-600 uppercase">Student</span>
+              <p class="text-xs text-gray-900 font-bold leading-tight mt-0.5">
+                \$100 Student Bonus
+              </p>
+            </div>
+          </div>
+          <p class="text-[11px] text-gray-500 leading-snug">Open a student chequing account with zero monthly fees.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ACTION TOAST -->
+    <div id="action-toast" class="hidden fixed bottom-20 left-1/2 -translate-x-1/2 p-3 px-4 bg-gray-900/95 text-white text-xs rounded-xl shadow-2xl flex items-center space-x-2.5 z-50 backdrop-blur-md transition-all">
+      <i class="fa-solid fa-circle-info text-tdGreen text-sm"></i>
+      <span id="toast-message" class="font-medium">Action requested</span>
+    </div>
+
+
   </main>
 
   <!-- BOTTOM MOBILE NAVIGATION BAR -->
