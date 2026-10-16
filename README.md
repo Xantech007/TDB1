@@ -23,3 +23,5 @@ Before using the portal:
 5. Open `superadmin.html` as that administrator. The page creates Firebase Authentication accounts, stores the demo profile under the new user's UID, and can edit the Firestore profile later. Passwords are never stored in Firestore; changing a user's authentication email or password is a separate account-management operation.
 
 Use synthetic names, contact details, account numbers, balances, and activity only. Do not enter real customer, financial, or identity data.
+
+...
