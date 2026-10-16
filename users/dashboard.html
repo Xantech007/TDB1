@@ -312,14 +312,14 @@
           <span>TD MySpend</span>
           <i class="fa-solid fa-chevron-right text-xs text-tdGreen"></i>
         </a>
-        <span class="text-[11px] font-semibold text-tdGreen bg-tdGreen/10 px-2.5 py-0.5 rounded-full">October</span>
+        <span class="text-[11px] font-semibold text-tdGreen bg-tdGreen/10 px-2.5 py-0.5 rounded-full" id="myspend-month-label">October</span>
       </div>
 
       <div class="bg-white rounded-2xl border border-gray-200/80 p-4 shadow-sm space-y-4">
         <div>
           <p class="text-xs text-gray-500 font-medium">This month, you've spent</p>
           <div class="flex items-center justify-between mt-1">
-            <h3 class="text-2xl font-extrabold text-gray-900">$676</h3>
+            <h3 class="text-2xl font-extrabold text-gray-900" id="myspend-total-spent">$0.00</h3>
             <div class="w-8 h-8 rounded-full bg-tdGreen/10 flex items-center justify-center text-tdGreen text-sm">
               <i class="fa-solid fa-thumbs-up"></i>
             </div>
@@ -327,42 +327,29 @@
           
           <!-- Spending Progress Bar -->
           <div class="w-full bg-gray-100 h-2 rounded-full mt-3 overflow-hidden">
-            <div class="bg-tdGreen h-full rounded-full transition-all duration-500" style="width: 83%;"></div>
+            <div id="myspend-progress-bar" class="bg-tdGreen h-full rounded-full transition-all duration-500" style="width: 0%;"></div>
           </div>
           
-          <p class="text-xs text-gray-600 mt-2">You're still saving some money, keep monitoring your spending.</p>
+          <p id="myspend-status-msg" class="text-xs text-gray-600 mt-2">Loading spending insights...</p>
         </div>
 
         <!-- Typical vs Current Comparison Grid -->
         <div class="grid grid-cols-2 gap-3 pt-3 border-t border-gray-100">
           <div class="bg-gray-50 p-3 rounded-xl border border-gray-100">
             <p class="text-[11px] text-gray-500 font-medium">Typical spent</p>
-            <p class="text-sm font-extrabold text-gray-900 mt-0.5">$812</p>
+            <p class="text-sm font-extrabold text-gray-900 mt-0.5" id="myspend-typical">$812.00</p>
           </div>
           <div class="bg-green-50/60 p-3 rounded-xl border border-green-100">
             <p class="text-[11px] text-gray-500 font-medium">Status</p>
-            <p class="text-sm font-extrabold text-tdGreen mt-0.5">$136 Below</p>
+            <p class="text-sm font-extrabold text-tdGreen mt-0.5" id="myspend-diff-label">$0.00 Difference</p>
           </div>
         </div>
 
         <!-- Mini Category Breakdown -->
         <div class="pt-2">
-          <p class="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2">Top Spending Categories</p>
-          <div class="space-y-2">
-            <div class="flex items-center justify-between text-xs">
-              <span class="flex items-center space-x-2 text-gray-700">
-                <i class="fa-solid fa-utensils text-amber-500 w-4"></i>
-                <span>Dining & Food</span>
-              </span>
-              <span class="font-bold text-gray-900">$284.50</span>
-            </div>
-            <div class="flex items-center justify-between text-xs">
-              <span class="flex items-center space-x-2 text-gray-700">
-                <i class="fa-solid fa-cart-shopping text-blue-500 w-4"></i>
-                <span>Groceries</span>
-              </span>
-              <span class="font-bold text-gray-900">$215.10</span>
-            </div>
+          <p class="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2">Top Transactions / Categories</p>
+          <div class="space-y-2" id="myspend-categories-list">
+            <div class="text-xs text-gray-400 text-center py-2">No spending records found this month.</div>
           </div>
         </div>
       </div>
@@ -381,7 +368,7 @@
       <div class="flex space-x-3 overflow-x-auto no-scrollbar pb-2">
         
         <!-- Offer Card 1 -->
-        <div class="min-w-[250px] max-w-[250px] bg-white rounded-2xl border border-gray-200/80 p-4 shadow-sm flex flex-col justify-between relative space-y-3 shrink-0 hover:shadow-md transition-shadow cursor-pointer" onclick="quickAction('TD Direct Investing Offer')">
+        <div class="min-w-[250px] max-w-[250px] bg-white rounded-2xl border border-gray-200/80 p-4 shadow-sm flex flex-col justify-between relative space-y-3 shrink-0 hover:shadow-md transition-shadow cursor-pointer" onclick="showToast('Offer only available in mobile app')">
           <button onclick="event.stopPropagation(); this.parentElement.remove()" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-xs">
             <i class="fa-solid fa-xmark"></i>
           </button>
@@ -400,7 +387,7 @@
         </div>
 
         <!-- Offer Card 2 -->
-        <div class="min-w-[250px] max-w-[250px] bg-white rounded-2xl border border-gray-200/80 p-4 shadow-sm flex flex-col justify-between relative space-y-3 shrink-0 hover:shadow-md transition-shadow cursor-pointer" onclick="quickAction('Starbucks Rewards')">
+        <div class="min-w-[250px] max-w-[250px] bg-white rounded-2xl border border-gray-200/80 p-4 shadow-sm flex flex-col justify-between relative space-y-3 shrink-0 hover:shadow-md transition-shadow cursor-pointer" onclick="showToast('Offer only available in mobile app')">
           <button onclick="event.stopPropagation(); this.parentElement.remove()" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-xs">
             <i class="fa-solid fa-xmark"></i>
           </button>
@@ -419,7 +406,7 @@
         </div>
 
         <!-- Offer Card 3 -->
-        <div class="min-w-[250px] max-w-[250px] bg-white rounded-2xl border border-gray-200/80 p-4 shadow-sm flex flex-col justify-between relative space-y-3 shrink-0 hover:shadow-md transition-shadow cursor-pointer" onclick="quickAction('Student Banking Offers')">
+        <div class="min-w-[250px] max-w-[250px] bg-white rounded-2xl border border-gray-200/80 p-4 shadow-sm flex flex-col justify-between relative space-y-3 shrink-0 hover:shadow-md transition-shadow cursor-pointer" onclick="showToast('Offer only available in mobile app')">
           <button onclick="event.stopPropagation(); this.parentElement.remove()" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-xs">
             <i class="fa-solid fa-xmark"></i>
           </button>
@@ -602,9 +589,46 @@
         <div>
           <label class="block text-xs font-bold text-gray-700 mb-1">Select Payee</label>
           <select id="paybill-payee" class="w-full p-3 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-medium">
-            <option value="Rogers Communications">Rogers Communications</option>
-            <option value="Toronto Hydro">Toronto Hydro</option>
-            <option value="Bell Canada">Bell Canada</option>
+            <optgroup label="Telecom & Internet">
+              <option value="Rogers Communications">Rogers Communications</option>
+              <option value="Bell Canada">Bell Canada</option>
+              <option value="TELUS Mobility">TELUS Mobility</option>
+              <option value="Fido Solutions">Fido Solutions</option>
+              <option value="Koodo Mobile">Koodo Mobile</option>
+              <option value="Freedom Mobile">Freedom Mobile</option>
+              <option value="Shaw Cable">Shaw Cable</option>
+              <option value="Videotron">Videotron</option>
+            </optgroup>
+            <optgroup label="Utilities & Energy">
+              <option value="Toronto Hydro">Toronto Hydro</option>
+              <option value="Enbridge Gas">Enbridge Gas</option>
+              <option value="Hydro One">Hydro One</option>
+              <option value="BC Hydro">BC Hydro</option>
+              <option value="Epcor Utilities">Epcor Utilities</option>
+              <option value="Capital Power">Capital Power</option>
+            </optgroup>
+            <optgroup label="Credit Cards & Loans">
+              <option value="TD Credit Card Payment">TD Credit Card Payment</option>
+              <option value="RBC Royal Bank Visa/Mastercard">RBC Royal Bank Visa/Mastercard</option>
+              <option value="BMO Bank of Montreal Credit Card">BMO Bank of Montreal Credit Card</option>
+              <option value="CIBC Visa Card">CIBC Visa Card</option>
+              <option value="Scotiabank Visa/Amex">Scotiabank Visa/Amex</option>
+              <option value="American Express Canada">American Express Canada</option>
+              <option value="Capital One Canada">Capital One Canada</option>
+            </optgroup>
+            <optgroup label="Insurance">
+              <option value="TD Insurance Meloche Monnex">TD Insurance Meloche Monnex</option>
+              <option value="Intact Insurance">Intact Insurance</option>
+              <option value="Desjardins Insurance">Desjardins Insurance</option>
+              <option value="Co-operators Insurance">Co-operators Insurance</option>
+              <option value="Aviva Canada">Aviva Canada</option>
+            </optgroup>
+            <optgroup label="Government & Taxes">
+              <option value="CRA Receiver General (Tax/GST/HST)">CRA Receiver General (Tax/GST/HST)</option>
+              <option value="Ontario Ministry of Finance">Ontario Ministry of Finance</option>
+              <option value="Revenue Quebec">Revenue Quebec</option>
+              <option value="City of Toronto Property Tax">City of Toronto Property Tax</option>
+            </optgroup>
           </select>
         </div>
         <div>
@@ -714,6 +738,8 @@
       getDoc,  
       getDocs,
       collection,
+      query,
+      where,
       onSnapshot,  
       setDoc,
       updateDoc,
@@ -749,6 +775,7 @@
       } else {
         currentAuthUser = user;
         await initDashboard(user);
+        await initMySpend(user);
       }
     });
 
@@ -877,6 +904,77 @@
       } catch (err) {
         console.error("Firestore initialization error:", err);
         hideLoadingOverlay();
+      }
+    }
+
+    // --- TD MYSPEND DATA CALCULATOR & RENDERER ---
+    async function initMySpend(user) {
+      try {
+        const txQuery = query(collection(db, "transactions"), where("userId", "==", user.uid));
+        const txSnap = await getDocs(txQuery);
+        let totalSpent = 0;
+        const txList = [];
+
+        txSnap.forEach(tDoc => {
+          const tData = tDoc.data();
+          // Consider outgoing transactions or bill payments as spending
+          const amount = Number(tData.amount || 0);
+          totalSpent += amount;
+          txList.push({
+            type: tData.type,
+            recipient: tData.recipient || tData.payee || tData.beneficiary || 'Transfer / Payment',
+            amount: amount,
+            date: tData.timestamp ? new Date(tData.timestamp.toDate()).toLocaleDateString() : 'Recent'
+          });
+        });
+
+        const currentMonthName = new Date().toLocaleString('default', { month: 'long' });
+        document.getElementById('myspend-month-label').innerText = currentMonthName;
+        document.getElementById('myspend-total-spent').innerText = formatCurrency(totalSpent);
+
+        const typicalSpent = 812.00;
+        document.getElementById('myspend-typical').innerText = formatCurrency(typicalSpent);
+
+        const diff = typicalSpent - totalSpent;
+        const diffLabel = document.getElementById('myspend-diff-label');
+        if (diff >= 0) {
+          diffLabel.innerText = `${formatCurrency(diff)} Below`;
+          diffLabel.className = "text-sm font-extrabold text-tdGreen mt-0.5";
+        } else {
+          diffLabel.innerText = `${formatCurrency(Math.abs(diff))} Above`;
+          diffLabel.className = "text-sm font-extrabold text-red-600 mt-0.5";
+        }
+
+        const percentage = Math.min(Math.round((totalSpent / typicalSpent) * 100), 100);
+        document.getElementById('myspend-progress-bar').style.width = `${percentage}%`;
+
+        const statusMsg = document.getElementById('myspend-status-msg');
+        if (totalSpent === 0) {
+          statusMsg.innerText = "No spending recorded for this month yet.";
+        } else if (totalSpent <= typicalSpent) {
+          statusMsg.innerText = "You're spending below your typical average, keep it up!";
+        } else {
+          statusMsg.innerText = "You've exceeded your typical spending average this month.";
+        }
+
+        const catContainer = document.getElementById('myspend-categories-list');
+        if (txList.length === 0) {
+          catContainer.innerHTML = `<div class="text-xs text-gray-400 text-center py-2">No spending records found this month.</div>`;
+        } else {
+          // Show top 3 recent transactions
+          catContainer.innerHTML = txList.slice(0, 3).map(tx => `
+            <div class="flex items-center justify-between text-xs p-2 bg-gray-50 rounded-xl">
+              <span class="flex items-center space-x-2 text-gray-700">
+                <i class="fa-solid fa-receipt text-tdGreen w-4"></i>
+                <span class="font-bold text-gray-800">${tx.type} (${tx.recipient})</span>
+              </span>
+              <span class="font-extrabold text-gray-900">-${formatCurrency(tx.amount)}</span>
+            </div>
+          `).join('');
+        }
+
+      } catch (e) {
+        console.error("Error loading MySpend data:", e);
       }
     }
 
@@ -1049,6 +1147,8 @@
 
     window.closeReceiptModal = function() {
       document.getElementById('receiptModal').classList.add('hidden');
+      // Refresh MySpend data
+      if (currentAuthUser) initMySpend(currentAuthUser);
     }
 
     // --- FORM SUBMISSION HANDLERS ---
