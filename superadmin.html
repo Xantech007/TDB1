@@ -72,9 +72,14 @@
         <div class="w-8 h-8 rounded-lg bg-tdGreen flex items-center justify-center font-extrabold text-white">TD</div>
         <h1 class="text-xl font-bold tracking-tight">Admin Portal - User & Account Management</h1>
       </div>
-      <a href="dashboard.html" class="text-xs bg-gray-800 hover:bg-gray-700 text-gray-200 px-3 py-2 rounded-lg font-medium transition-colors">
-        <i class="fa-solid fa-arrow-left mr-1"></i> Back to App
-      </a>
+      <div class="flex items-center space-x-3">
+        <button onclick="adminSignOut()" class="text-xs bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-lg font-medium transition-colors">
+          <i class="fa-solid fa-right-from-bracket mr-1"></i> Sign Out
+        </button>
+        <a href="dashboard.html" class="text-xs bg-gray-800 hover:bg-gray-700 text-gray-200 px-3 py-2 rounded-lg font-medium transition-colors">
+          <i class="fa-solid fa-arrow-left mr-1"></i> Back to App
+        </a>
+      </div>
     </div>
   </header>
 
@@ -156,13 +161,20 @@
         </div>
       </div>
 
-      <!-- PERSONAL INFORMATION & SECURITY CREDENTIALS -->
+      <!-- PERSONAL INFORMATION, STATUS & SECURITY CREDENTIALS -->
       <div class="space-y-4">
         <h3 class="text-xs font-bold text-gray-800 uppercase tracking-wider border-b pb-1">Profile Details & Security</h3>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
           <div>
             <label class="block text-xs font-bold text-gray-700 mb-1">Full Name (`fullName`)</label>
             <input type="text" id="field-fullName" placeholder="e.g. John Doe" class="w-full p-3 rounded-xl border border-gray-300 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-bold text-gray-900">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-gray-700 mb-1">Account Status (`status`)</label>
+            <select id="field-status" class="w-full p-3 rounded-xl border border-gray-300 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-bold text-gray-900">
+              <option value="allow">Allow (Normal)</option>
+              <option value="block">Block (Locked)</option>
+            </select>
           </div>
           <div>
             <label class="block text-xs font-bold text-gray-700 mb-1">Payment PIN (`paymentPin`)</label>
@@ -250,6 +262,15 @@
 
     let currentSelectedUid = null;
 
+    // Check existing admin session on load
+    window.addEventListener('DOMContentLoaded', () => {
+      const isAuth = sessionStorage.getItem('td_admin_auth');
+      if (isAuth === 'true') {
+        document.getElementById('adminAuthOverlay').classList.add('hidden');
+        loadUserDropdown();
+      }
+    });
+
     // --- ADMIN AUTHENTICATION HANDLER ---
     document.getElementById('adminLoginForm').addEventListener('submit', async function(e) {
       e.preventDefault();
@@ -270,7 +291,8 @@
         const storedPass = loginData.password || "";
 
         if (inputUser === storedUser && inputPass === storedPass) {
-          // Hide auth overlay and initialize admin dashboard
+          // Set session storage so login is remembered on reload
+          sessionStorage.setItem('td_admin_auth', 'true');
           document.getElementById('adminAuthOverlay').classList.add('hidden');
           loadUserDropdown();
           showToast("Admin authenticated successfully!");
@@ -282,6 +304,11 @@
         alert("Authentication failed. Check console for details.");
       }
     });
+
+    window.adminSignOut = function() {
+      sessionStorage.removeItem('td_admin_auth');
+      location.reload();
+    };
 
     // Load users list into selector
     async function loadUserDropdown() {
@@ -314,16 +341,15 @@
       const password = document.getElementById('new-password').value;
 
       try {
-        // Create user in Firebase Auth
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const newUser = userCredential.user;
 
-        // Initialize Firestore profile document with email, default payment credentials, and initial accounts
         await setDoc(doc(db, "users", newUser.uid), {
           fullName: fullName,
           email: email.toLowerCase(),
           paymentPin: "1234",
           paymentOTP: "654321",
+          status: "allow",
           accountsBanking: [
             { name: "TD Every Day Chequing", number: "8392", balance: 0.00, currency: "CAD" }
           ],
@@ -387,12 +413,14 @@
           fullName: "",
           paymentPin: "1234",
           paymentOTP: "654321",
+          status: "allow",
           accountsBanking: [],
           accountsCredit: [],
           accountsInvesting: []
         };
 
         document.getElementById('field-fullName').value = data.fullName || "";
+        document.getElementById('field-status').value = data.status || "allow";
         document.getElementById('field-paymentPin').value = data.paymentPin || "1234";
         document.getElementById('field-paymentOTP').value = data.paymentOTP || "654321";
 
@@ -466,6 +494,7 @@
       if (!currentSelectedUid) return;
 
       const fullName = document.getElementById('field-fullName').value.trim();
+      const status = document.getElementById('field-status').value;
       const paymentPin = document.getElementById('field-paymentPin').value.trim();
       const paymentOTP = document.getElementById('field-paymentOTP').value.trim();
 
@@ -487,6 +516,7 @@
 
       const updatedDocData = {
         fullName: fullName,
+        status: status,
         paymentPin: paymentPin,
         paymentOTP: paymentOTP,
         accountsBanking: collectAccounts('accountsBanking'),
