@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TD Loans and Lines of Credit - Borrowing Solutions</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="td-theme.css">
     <link rel="icon" href="images/favicon.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -99,12 +99,12 @@
     <div class="utility-nav">
         <div class="container">
             <ul class="utility-links">
-                <li class="active"><a href="personal-banking.html">Personal</a></li>
+                <li class="active"><a href="index.html">Personal</a></li>
                 <li><a href="small-business.html">Small Business</a></li>
                 <li><a href="commercial-banking.html">Commercial</a></li>
                 <li><a href="investing.html">Investing</a></li>
                 <li><a href="asset-management.html">TD Asset Management</a></li>
-                <li><a href="about-td.html">About TD</a></li>
+                <li class="active"><a href="about-td.html">About TD</a></li>
             </ul>
             <div class="country-selector">
                 <img src="images/country-ca-en.png" alt="Canada" style="height: 20px; width: auto; vertical-align: middle;">
@@ -121,9 +121,9 @@
                     <img src="images/cdic-logo-white-en.png" alt="TD Canada Trust">
                 </a>
             </div>
-            <nav class="main-nav">
+            <nav class="main-nav" id="mainNav">
                 <ul>
-                    <li class="dropdown">
+                    <li class="dropdown" onclick="toggleDropdown(this)">
                         <a href="#">Products <i class="fas fa-chevron-down"></i></a>
                         <div class="dropdown-content">
                             <ul>
@@ -139,7 +139,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="dropdown">
+                    <li class="dropdown" onclick="toggleDropdown(this)">
                         <a href="#">Services <i class="fas fa-chevron-down"></i></a>
                         <div class="dropdown-content">
                             <ul>
@@ -166,8 +166,10 @@
                 <a href="login.html" class="login-btn">
                     <i class="fas fa-user"></i>
                     Log In
-                    <i class="fas fa-caret-down"></i>
                 </a>
+                <button class="mobile-menu-toggle" id="menuToggle" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
         </div>
     </header>
@@ -176,6 +178,7 @@
     <main>
         <!-- Hero Section -->
         <section class="loan-hero">
+            <img class="hero-image" src="images/tdbank-apply-td-fit-personal-loan-en.jpeg" alt="" aria-hidden="true">
             <div class="container">
                 <h1>TD Loans and Lines of Credit</h1>
                 <p>TD offers a wide range of solutions and helpful advice, so you can borrow with confidence.</p>
@@ -355,14 +358,14 @@
                 <li><a href="cdic.html">CDIC Member</a></li>
                 <li><a href="careers.html">Careers</a></li>
                 <li><a href="#">Manage online experience</a></li>
-                <li><a href="#">Site Index</a></li>
+                <li><a href="site-index.html">Site Index</a></li>
             </ul>
             <hr>
             <div class="footer-info">
                 <p><a href="#">CDIC Member. Deposits insured up to applicable limits by the Canada Deposit Insurance Corporation</a></p>
             </div>
             <hr>
-            <div class="secirities-notice">
+            <div class="securities-notice">
                 <p><b>INVESTMENT AND MUTUAL FUND PRODUCTS ARE: NOT A DEPOSIT; NOT CDIC INSURED; NOT INSURED BY ANY FEDERAL GOVERNMENT AGENCY; NOT GUARANTEED BY THE TORONTO-DOMINION BANK OR ANY OF ITS AFFILIATES.</b></p>
             </div>
             <hr>
@@ -372,5 +375,17 @@
             </div>
         </div>
     </footer>
+    <script>
+        function toggleMobileMenu() {
+            const nav = document.getElementById('mainNav');
+            nav.classList.toggle('active');
+        }
+
+        function toggleDropdown(element) {
+            if (window.innerWidth <= 900) {
+                element.classList.toggle('open');
+            }
+        }
+    </script>
 </body>
 </html>

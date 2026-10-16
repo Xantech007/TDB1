@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy & Security - Protecting Your Data & Banking Online | TD Canada Trust</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="td-theme.css">
     <link rel="icon" href="images/favicon.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -180,12 +180,12 @@
     <div class="utility-nav">
         <div class="container">
             <ul class="utility-links">
-                <li class="active"><a href="personal-banking.html">Personal</a></li>
+                <li class="active"><a href="index.html">Personal</a></li>
                 <li><a href="small-business.html">Small Business</a></li>
                 <li><a href="commercial-banking.html">Commercial</a></li>
                 <li><a href="investing.html">Investing</a></li>
                 <li><a href="asset-management.html">TD Asset Management</a></li>
-                <li><a href="about-td.html">About TD</a></li>
+                <li class="active"><a href="about-td.html">About TD</a></li>
             </ul>
             <div class="country-selector">
                 <img src="images/country-ca-en.png" alt="Canada" style="height: 20px; width: auto; vertical-align: middle;">
@@ -202,9 +202,9 @@
                     <img src="images/cdic-logo-white-en.png" alt="TD Canada Trust">
                 </a>
             </div>
-            <nav class="main-nav">
+            <nav class="main-nav" id="mainNav">
                 <ul>
-                    <li class="dropdown">
+                    <li class="dropdown" onclick="toggleDropdown(this)">
                         <a href="#">Products <i class="fas fa-chevron-down"></i></a>
                         <div class="dropdown-content">
                             <ul>
@@ -220,7 +220,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="dropdown">
+                    <li class="dropdown" onclick="toggleDropdown(this)">
                         <a href="#">Services <i class="fas fa-chevron-down"></i></a>
                         <div class="dropdown-content">
                             <ul>
@@ -247,8 +247,10 @@
                 <a href="login.html" class="login-btn">
                     <i class="fas fa-user"></i>
                     Log In
-                    <i class="fas fa-caret-down"></i>
                 </a>
+                <button class="mobile-menu-toggle" id="menuToggle" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
         </div>
     </header>
@@ -257,6 +259,7 @@
     <main>
         <!-- Hero Section -->
         <section class="security-hero">
+            <img class="hero-image" src="images/homepage-3.2d-200x90px-spot-three.jpeg" alt="" aria-hidden="true">
             <div class="container">
                 <h1>Privacy and Security</h1>
                 <p>At TD, our commitment to protecting the integrity and security of your online transactions and banking data remains our top priority however you choose to invest.</p>
@@ -439,7 +442,7 @@
                 </div>
             </div>
             <ul class="footer-links">
-                <li class="active"><a href="privacy-and-security.html">Privacy and Security</a></li>
+                <li><a href="privacy-and-security.html">Privacy and Security</a></li>
                 <li><a href="legal-notices-and-disclaimers.html">Legal</a></li>
                 <li><a href="accessibility.html">Accessibility</a></li>
                 <li><a href="cdic.html">CDIC Member</a></li>
@@ -479,6 +482,18 @@
 
         const navigateFraudSlide = createCarousel('fraud', 2);
         const navigateTipSlide = createCarousel('tip', 5);
+    </script>
+    <script>
+        function toggleMobileMenu() {
+            const nav = document.getElementById('mainNav');
+            nav.classList.toggle('active');
+        }
+
+        function toggleDropdown(element) {
+            if (window.innerWidth <= 900) {
+                element.classList.toggle('open');
+            }
+        }
     </script>
 </body>
 </html>

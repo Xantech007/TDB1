@@ -54,7 +54,7 @@
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between pb-16">
+<body class="min-h-screen flex flex-col justify-between pb-20">
 
   <!-- LOADING OVERLAY -->
   <div id="loading-overlay" class="fixed inset-0 bg-white z-50 flex flex-col items-center justify-center space-y-3 transition-opacity duration-300">
@@ -89,7 +89,11 @@
           <p class="text-xs text-green-100 font-medium" id="greeting-time">Good morning,</p>
           <h1 class="text-2xl font-extrabold tracking-tight" id="user-display-name">Valued Customer</h1>
         </div>
-        <img src="../images/cdic-logo-white-en.png" alt="TD Logo" class="h-6 w-auto opacity-90">
+        <!-- TD Shield / CDIC Badge -->
+        <div class="flex items-center space-x-1 bg-white/10 px-2.5 py-1 rounded-lg backdrop-blur-sm border border-white/20">
+          <i class="fa-solid fa-shield-halved text-sm text-green-200"></i>
+          <span class="text-[10px] font-bold tracking-wide uppercase">CDIC Protected</span>
+        </div>
       </div>
 
       <!-- Horizontal Scrollable Quick Action Pills -->
@@ -110,6 +114,10 @@
           <i class="fa-solid fa-camera text-tdGreen"></i>
           <span>Deposit Cheque</span>
         </button>
+        <button onclick="quickAction('TD Global Transfer')" class="flex items-center space-x-2 bg-white text-gray-800 font-semibold text-xs px-3.5 py-2 rounded-full whitespace-nowrap shadow-sm hover:bg-gray-50 active:scale-95 transition-all">
+          <i class="fa-solid fa-globe text-tdGreen"></i>
+          <span>TD Global Transfer</span>
+        </button>
       </div>
 
     </div>
@@ -121,119 +129,343 @@
     <!-- SECTION: MY ACCOUNTS -->
     <section class="space-y-3">
       <div class="flex items-center justify-between">
-        <a href="#" class="text-lg font-bold text-gray-900 hover:text-tdGreen flex items-center space-x-1">
+        <a href="accounts.html" class="text-lg font-bold text-gray-900 hover:text-tdGreen flex items-center space-x-1">
           <span>My Accounts</span>
           <i class="fa-solid fa-chevron-right text-xs text-tdGreen"></i>
         </a>
-        <button onclick="toggleBalances()" class="text-gray-400 hover:text-gray-600">
-          <i class="fa-solid fa-ellipsis" id="balance-toggle-icon"></i>
+        <button onclick="toggleBalances()" class="text-gray-400 hover:text-gray-600 p-1" title="Hide/Show Balances">
+          <i class="fa-solid fa-eye text-sm" id="balance-toggle-icon"></i>
         </button>
       </div>
 
-      <!-- BANKING GROUP CARD -->
-      <div class="bg-white rounded-2xl border border-gray-200/80 p-4 shadow-sm hover:shadow-md transition-shadow">
-        <div class="flex items-center justify-between">
+      <!-- BANKING ACCORDION CARD -->
+      <div class="bg-white rounded-2xl border border-gray-200/80 shadow-sm overflow-hidden transition-all">
+        <button onclick="toggleAccordion('banking-details', 'banking-chevron')" class="w-full p-4 flex items-center justify-between text-left hover:bg-gray-50 transition-colors">
           <div>
             <h2 class="text-base font-bold text-gray-900">Banking</h2>
-            <p class="text-xs text-gray-500 font-medium">1 account</p>
+            <p class="text-xs text-gray-500 font-medium">2 accounts</p>
           </div>
           <div class="text-right flex items-center space-x-2">
-            <div class="text-lg font-extrabold text-gray-900 balance-text" id="banking-balance" data-balance="\$2,428.52">\$2,428.52</div>
-            <i class="fa-solid fa-chevron-down text-xs text-gray-400"></i>
+            <div class="text-lg font-extrabold text-gray-900 balance-text" id="banking-balance" data-balance="$4,225.75">\$4,225.75</div>
+            <i class="fa-solid fa-chevron-down text-xs text-gray-400 transition-transform duration-200" id="banking-chevron"></i>
+          </div>
+        </button>
+        
+        <!-- Expanded Account Sub-items -->
+        <div id="banking-details" class="hidden border-t border-gray-100 bg-gray-50/50 divide-y divide-gray-100">
+          <div class="p-3.5 px-4 flex justify-between items-center hover:bg-white transition-colors cursor-pointer" onclick="quickAction('TD Every Day Chequing')">
+            <div>
+              <p class="text-xs font-bold text-gray-800">TD Every Day Chequing</p>
+              <p class="text-[11px] text-gray-400 font-mono">•••• 8392</p>
+            </div>
+            <p class="text-sm font-bold text-gray-900 balance-text" data-balance="\$2,428.52">\$2,428.52</p>
+          </div>
+          <div class="p-3.5 px-4 flex justify-between items-center hover:bg-white transition-colors cursor-pointer" onclick="quickAction('TD High Interest Savings')">
+            <div>
+              <p class="text-xs font-bold text-gray-800">TD High Interest Savings</p>
+              <p class="text-[11px] text-gray-400 font-mono">•••• 4102</p>
+            </div>
+            <p class="text-sm font-bold text-gray-900 balance-text" data-balance="\$1,797.23">\$1,797.23 USD</p>
           </div>
         </div>
       </div>
 
-      <!-- CREDIT GROUP CARD -->
-      <div class="bg-white rounded-2xl border border-gray-200/80 p-4 shadow-sm hover:shadow-md transition-shadow">
-        <div class="flex items-center justify-between">
+      <!-- CREDIT ACCORDION CARD -->
+      <div class="bg-white rounded-2xl border border-gray-200/80 shadow-sm overflow-hidden transition-all">
+        <button onclick="toggleAccordion('credit-details', 'credit-chevron')" class="w-full p-4 flex items-center justify-between text-left hover:bg-gray-50 transition-colors">
           <div>
             <h2 class="text-base font-bold text-gray-900">Credit</h2>
             <p class="text-xs text-gray-500 font-medium">1 account</p>
           </div>
           <div class="text-right flex items-center space-x-2">
             <div class="text-lg font-extrabold text-gray-900 balance-text" id="credit-balance" data-balance="\$2,656.77">\$2,656.77</div>
-            <i class="fa-solid fa-chevron-down text-xs text-gray-400"></i>
+            <i class="fa-solid fa-chevron-down text-xs text-gray-400 transition-transform duration-200" id="credit-chevron"></i>
+          </div>
+        </button>
+
+        <div id="credit-details" class="hidden border-t border-gray-100 bg-gray-50/50">
+          <div class="p-3.5 px-4 flex justify-between items-center hover:bg-white transition-colors cursor-pointer" onclick="quickAction('TD Cash Back Visa Infinite')">
+            <div>
+              <p class="text-xs font-bold text-gray-800">TD Cash Back Visa Infinite</p>
+              <p class="text-[11px] text-gray-400 font-mono">•••• 9018</p>
+            </div>
+            <p class="text-sm font-bold text-gray-900 balance-text" data-balance="\$2,656.77">\$2,656.77</p>
           </div>
         </div>
       </div>
 
-      <!-- INVESTING GROUP CARD -->
-      <div class="bg-white rounded-2xl border border-gray-200/80 p-4 shadow-sm hover:shadow-md transition-shadow">
-        <div class="flex items-center justify-between">
+      <!-- INVESTING ACCORDION CARD -->
+      <div class="bg-white rounded-2xl border border-gray-200/80 shadow-sm overflow-hidden transition-all">
+        <button onclick="toggleAccordion('investing-details', 'investing-chevron')" class="w-full p-4 flex items-center justify-between text-left hover:bg-gray-50 transition-colors">
           <div>
             <h2 class="text-base font-bold text-gray-900">Investing</h2>
             <p class="text-xs text-gray-500 font-medium">1 account</p>
           </div>
           <div class="text-right flex items-center space-x-2">
             <div class="text-lg font-extrabold text-gray-900 balance-text" id="investing-balance" data-balance="\$7,844.25">\$7,844.25</div>
-            <i class="fa-solid fa-chevron-down text-xs text-gray-400"></i>
+            <i class="fa-solid fa-chevron-down text-xs text-gray-400 transition-transform duration-200" id="investing-chevron"></i>
+          </div>
+        </button>
+
+        <div id="investing-details" class="hidden border-t border-gray-100 bg-gray-50/50">
+          <div class="p-3.5 px-4 flex justify-between items-center hover:bg-white transition-colors cursor-pointer" onclick="quickAction('TD Direct Investing TFSA')">
+            <div>
+              <p class="text-xs font-bold text-gray-800">TD Direct Investing (TFSA)</p>
+              <p class="text-[11px] text-gray-400 font-mono">•••• 3319</p>
+            </div>
+            <p class="text-sm font-bold text-gray-900 balance-text" data-balance="\$7,844.25">\$7,844.25</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ADD ACCOUNTS & SERVICES BUTTON -->
+      <button onclick="quickAction('Add Accounts & Services')" class="w-full bg-white border border-gray-200/80 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all flex items-center justify-between text-left group">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-full bg-tdGreen/10 flex items-center justify-center text-tdGreen group-hover:bg-tdGreen group-hover:text-white transition-colors">
+            <i class="fa-solid fa-plus text-xs"></i>
+          </div>
+          <span class="text-sm font-bold text-gray-900">Add Accounts & Services</span>
+        </div>
+        <i class="fa-solid fa-chevron-right text-xs text-gray-400"></i>
+      </button>
+    </section>
+
+    <!-- SECTION: TD MYSPEND -->
+    <section class="space-y-3">
+      <div class="flex items-center justify-between">
+        <a href="#" class="text-lg font-bold text-gray-900 hover:text-tdGreen flex items-center space-x-1">
+          <span>TD MySpend</span>
+          <i class="fa-solid fa-chevron-right text-xs text-tdGreen"></i>
+        </a>
+        <span class="text-[11px] font-semibold text-tdGreen bg-tdGreen/10 px-2.5 py-0.5 rounded-full">October</span>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-gray-200/80 p-4 shadow-sm space-y-4">
+        <div>
+          <p class="text-xs text-gray-500 font-medium">This month, you've spent</p>
+          <div class="flex items-center justify-between mt-1">
+            <h3 class="text-2xl font-extrabold text-gray-900">\$676</h3>
+            <div class="w-8 h-8 rounded-full bg-tdGreen/10 flex items-center justify-center text-tdGreen text-sm">
+              <i class="fa-solid fa-thumbs-up"></i>
+            </div>
+          </div>
+          
+          <!-- Spending Progress Bar -->
+          <div class="w-full bg-gray-100 h-2 rounded-full mt-3 overflow-hidden">
+            <div class="bg-tdGreen h-full rounded-full transition-all duration-500" style="width: 83%;"></div>
+          </div>
+          
+          <p class="text-xs text-gray-600 mt-2">You're still saving some money, keep monitoring your spending.</p>
+        </div>
+
+        <!-- Typical vs Current Comparison Grid -->
+        <div class="grid grid-cols-2 gap-3 pt-3 border-t border-gray-100">
+          <div class="bg-gray-50 p-3 rounded-xl border border-gray-100">
+            <p class="text-[11px] text-gray-500 font-medium">Typical spent</p>
+            <p class="text-sm font-extrabold text-gray-900 mt-0.5">\$812</p>
+          </div>
+          <div class="bg-green-50/60 p-3 rounded-xl border border-green-100">
+            <p class="text-[11px] text-gray-500 font-medium">Status</p>
+            <p class="text-sm font-extrabold text-tdGreen mt-0.5">\$136 Below</p>
+          </div>
+        </div>
+
+        <!-- Mini Category Breakdown -->
+        <div class="pt-2">
+          <p class="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2">Top Spending Categories</p>
+          <div class="space-y-2">
+            <div class="flex items-center justify-between text-xs">
+              <span class="flex items-center space-x-2 text-gray-700">
+                <i class="fa-solid fa-utensils text-amber-500 w-4"></i>
+                <span>Dining & Food</span>
+              </span>
+              <span class="font-bold text-gray-900">\$284.50</span>
+            </div>
+            <div class="flex items-center justify-between text-xs">
+              <span class="flex items-center space-x-2 text-gray-700">
+                <i class="fa-solid fa-cart-shopping text-blue-500 w-4"></i>
+                <span>Groceries</span>
+              </span>
+              <span class="font-bold text-gray-900">\$215.10</span>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- SECTION: OFFERS -->
+    <section class="space-y-3">
+      <div class="flex items-center justify-between">
+        <h2 class="text-lg font-bold text-gray-900">Offers & Rewards</h2>
+        <button class="text-gray-400 hover:text-gray-600" onclick="quickAction('Manage Offers')">
+          <i class="fa-solid fa-ellipsis"></i>
+        </button>
+      </div>
+
+      <!-- Horizontal Scrollable Cards -->
+      <div class="flex space-x-3 overflow-x-auto no-scrollbar pb-2">
+        
+        <!-- Offer Card 1 -->
+        <div class="min-w-[250px] max-w-[250px] bg-white rounded-2xl border border-gray-200/80 p-4 shadow-sm flex flex-col justify-between relative space-y-3 shrink-0 hover:shadow-md transition-shadow cursor-pointer" onclick="quickAction('TD Direct Investing Offer')">
+          <button onclick="event.stopPropagation(); this.parentElement.remove()" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-xs">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <div class="flex items-start space-x-3">
+            <div class="w-10 h-10 rounded-xl bg-tdGreen/10 flex items-center justify-center shrink-0">
+              <i class="fa-solid fa-chart-line text-tdGreen text-lg"></i>
+            </div>
+            <div class="pr-3">
+              <span class="text-[10px] font-bold text-tdGreen uppercase">Investing</span>
+              <p class="text-xs text-gray-900 font-bold leading-tight mt-0.5">
+                Get up to \$100 cash back
+              </p>
+            </div>
+          </div>
+          <p class="text-[11px] text-gray-500 leading-snug">Open a new TD Direct Investing account today and transfer funds.</p>
+        </div>
+
+        <!-- Offer Card 2 -->
+        <div class="min-w-[250px] max-w-[250px] bg-white rounded-2xl border border-gray-200/80 p-4 shadow-sm flex flex-col justify-between relative space-y-3 shrink-0 hover:shadow-md transition-shadow cursor-pointer" onclick="quickAction('Starbucks Rewards')">
+          <button onclick="event.stopPropagation(); this.parentElement.remove()" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-xs">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <div class="flex items-start space-x-3">
+            <div class="w-10 h-10 rounded-xl bg-green-700/10 flex items-center justify-center shrink-0">
+              <i class="fa-solid fa-mug-hot text-green-700 text-lg"></i>
+            </div>
+            <div class="pr-3">
+              <span class="text-[10px] font-bold text-green-700 uppercase">Partner Offer</span>
+              <p class="text-xs text-gray-900 font-bold leading-tight mt-0.5">
+                Earn 50% more Stars
+              </p>
+            </div>
+          </div>
+          <p class="text-[11px] text-gray-500 leading-snug">Link your TD card with Starbucks Rewards to earn extra stars on purchases.</p>
+        </div>
+
+        <!-- Offer Card 3 -->
+        <div class="min-w-[250px] max-w-[250px] bg-white rounded-2xl border border-gray-200/80 p-4 shadow-sm flex flex-col justify-between relative space-y-3 shrink-0 hover:shadow-md transition-shadow cursor-pointer" onclick="quickAction('Student Banking Offers')">
+          <button onclick="event.stopPropagation(); this.parentElement.remove()" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-xs">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <div class="flex items-start space-x-3">
+            <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center shrink-0">
+              <i class="fa-solid fa-graduation-cap text-blue-600 text-lg"></i>
+            </div>
+            <div class="pr-3">
+              <span class="text-[10px] font-bold text-blue-600 uppercase">Student</span>
+              <p class="text-xs text-gray-900 font-bold leading-tight mt-0.5">
+                \$100 Student Bonus
+              </p>
+            </div>
+          </div>
+          <p class="text-[11px] text-gray-500 leading-snug">Open a student chequing account with zero monthly fees.</p>
+        </div>
+
+      </div>
+    </section>
+
     <!-- ACTION TOAST -->
-    <div id="action-toast" class="hidden p-3 bg-gray-900 text-white text-xs rounded-xl shadow-lg flex items-center space-x-2">
-      <i class="fa-solid fa-circle-info text-tdGreen"></i>
-      <span id="toast-message">Action requested</span>
+    <div id="action-toast" class="hidden fixed bottom-20 left-1/2 -translate-x-1/2 p-3 px-4 bg-gray-900/95 text-white text-xs rounded-xl shadow-2xl flex items-center space-x-2.5 z-50 backdrop-blur-md transition-all">
+      <i class="fa-solid fa-circle-info text-tdGreen text-sm"></i>
+      <span id="toast-message" class="font-medium">Action requested</span>
     </div>
 
   </main>
 
   <!-- BOTTOM MOBILE NAVIGATION BAR -->
-  <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2 z-50">
+  <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2 z-40">
     <div class="max-w-md mx-auto flex justify-between items-center text-[10px] text-gray-500 font-medium">
       <a href="dashboard.html" class="flex flex-col items-center text-tdGreen font-bold space-y-1">
         <i class="fa-solid fa-house text-lg"></i>
         <span>Home</span>
       </a>
-      <a href="accounts.html" class="flex flex-col items-center hover:text-tdGreen space-y-1">
+      <a href="accounts.html" class="flex flex-col items-center hover:text-tdGreen transition-colors space-y-1">
         <i class="fa-solid fa-wallet text-lg"></i>
         <span>Accounts</span>
       </a>
-      <a href="move.html" class="flex flex-col items-center hover:text-tdGreen space-y-1">
+      <a href="move.html" class="flex flex-col items-center hover:text-tdGreen transition-colors space-y-1">
         <i class="fa-solid fa-arrows-up-down-left-right text-lg"></i>
         <span>Move</span>
       </a>
-      <a href="rewards.html" class="flex flex-col items-center hover:text-tdGreen space-y-1">
+      <a href="rewards.html" class="flex flex-col items-center hover:text-tdGreen transition-colors space-y-1">
         <i class="fa-solid fa-gift text-lg"></i>
         <span>Rewards</span>
       </a>
-      <button onclick="handleLogout()" class="flex flex-col items-center hover:text-red-600 space-y-1">
+      <button onclick="toggleMoreMenu()" class="flex flex-col items-center hover:text-tdGreen transition-colors space-y-1">
         <i class="fa-solid fa-bars text-lg"></i>
         <span>More</span>
-      </button>
+      </button>    
     </div>
   </nav>
 
+    <!-- MORE MENU MODAL / DRAWER -->
+    <div id="more-menu-modal" class="hidden fixed inset-0 z-50 flex justify-end bg-black/50 backdrop-blur-sm transition-opacity">
+    <div class="w-4/5 max-w-xs bg-white h-full shadow-2xl flex flex-col justify-between p-5 space-y-4 overflow-y-auto">
+        
+        <div>
+        <div class="flex items-center justify-between border-b pb-3 mb-4">
+            <h2 class="text-base font-bold text-gray-900">More Options</h2>
+            <button onclick="toggleMoreMenu()" class="text-gray-400 hover:text-gray-600">
+            <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+
+        <div class="space-y-1 text-sm font-medium text-gray-700">
+            <a href="#" onclick="quickAction('Card Management')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
+            <i class="fa-solid fa-credit-card text-tdGreen w-5"></i>
+            <span>Card Management</span>
+            </a>
+            <a href="#" onclick="quickAction('Statements & Documents')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
+            <i class="fa-solid fa-file-invoice text-tdGreen w-5"></i>
+            <span>Statements & Documents</span>
+            </a>
+            <a href="#" onclick="quickAction('Settings & Security')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
+            <i class="fa-solid fa-gear text-tdGreen w-5"></i>
+            <span>Settings & Security</span>
+            </a>
+            <a href="#" onclick="quickAction('Find Branch / ATM')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
+            <i class="fa-solid fa-location-dot text-tdGreen w-5"></i>
+            <span>Find Branch or ATM</span>
+            </a>
+            <a href="#" onclick="quickAction('Contact Us')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
+            <i class="fa-solid fa-headset text-tdGreen w-5"></i>
+            <span>Contact TD Support</span>
+            </a>
+        </div>
+        </div>
+
+        <!-- LOG OUT AT THE BOTTOM -->
+        <div class="border-t pt-3">
+        <button onclick="handleLogout()" class="w-full flex items-center justify-center space-x-2 bg-red-50 text-red-600 font-bold p-3 rounded-xl hover:bg-red-100 transition-colors">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Sign Out</span>
+        </button>
+        </div>
+
+    </div>
+    </div>
+
   <!-- FIREBASE AUTH & FIRESTORE SCRIPT -->
   <script type="module">
-    import { auth } from '../firebase.js';
+    import { auth, db } from '../firebase.js';
     import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
     import { 
-      getFirestore, 
       doc, 
       getDoc, 
       onSnapshot, 
       setDoc 
     } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-    const db = getFirestore(auth.app);
     let balancesHidden = false;
 
-    // Helper to hide overlay safely
     function hideLoadingOverlay() {
       const overlay = document.getElementById('loading-overlay');
-      if (overlay) {
-        overlay.classList.add('hidden');
-      }
+      if (overlay) overlay.classList.add('hidden');
     }
 
-    // Helper to format currency numbers
     const formatCurrency = (val) => `$${Number(val || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
-    // Helper to extract default display name from email/username
     function getDefaultDisplayName(user) {
       if (user.displayName) return user.displayName;
       if (user.email) {
@@ -243,19 +475,16 @@
       return "Valued Customer";
     }
 
-    // 1. ROUTE AUTHENTICATION: Ensure user is signed in
     onAuthStateChanged(auth, async (user) => {
       if (!user) {
-        // Unauthenticated -> Redirect to login page
-        window.location.href = '../login.html';
+        // Fallback for offline or static demo view
+        hideLoadingOverlay();
       } else {
         await initDashboard(user);
       }
     });
 
-    // 2. FETCH DATA FROM USERS COLLECTION
     async function initDashboard(user) {
-      // Set greeting based on time of day
       const hour = new Date().getHours();
       let greeting = 'Good morning,';
       if (hour >= 12 && hour < 17) greeting = 'Good afternoon,';
@@ -268,46 +497,38 @@
       const userRef = doc(db, "users", user.uid);
 
       try {
-        // Initialize default document if user record does not exist in Firestore yet
         const snap = await getDoc(userRef);
         if (!snap.exists()) {
           await setDoc(userRef, {
             fullName: fallbackName,
-            balanceBanking: 2428.52,
+            balanceBanking: 4225.75,
             balanceCredit: 2656.77,
             balanceInvesting: 7844.25
-          }).catch(err => console.warn("Firestore setDoc permitted/warning:", err));
+          });
         }
 
-        // Realtime listener for users collection document
         onSnapshot(userRef, (docSnap) => {
           if (docSnap.exists()) {
             const data = docSnap.data();
 
-            // Set Full Name
             const fullName = data.fullName || fallbackName;
             document.getElementById('user-display-name').innerText = fullName;
 
-            // 1. balanceBanking
             const bankingVal = formatCurrency(data.balanceBanking);
             const bankingEl = document.getElementById('banking-balance');
             bankingEl.innerText = balancesHidden ? '••••••••' : bankingVal;
             bankingEl.setAttribute('data-balance', bankingVal);
 
-            // 2. balanceCredit
             const creditVal = formatCurrency(data.balanceCredit);
             const creditEl = document.getElementById('credit-balance');
             creditEl.innerText = balancesHidden ? '••••••••' : creditVal;
             creditEl.setAttribute('data-balance', creditVal);
 
-            // 3. balanceInvesting
             const investingVal = formatCurrency(data.balanceInvesting);
             const investingEl = document.getElementById('investing-balance');
             investingEl.innerText = balancesHidden ? '••••••••' : investingVal;
             investingEl.setAttribute('data-balance', investingVal);
           }
-
-          // Hide loading screen once data loads
           hideLoadingOverlay();
         }, (err) => {
           console.error("Firestore listener error:", err);
@@ -316,20 +537,30 @@
 
       } catch (err) {
         console.error("Firestore initialization error:", err);
-        // Fallback: hide loading screen so user isn't locked out on database error
         hideLoadingOverlay();
       }
     }
 
-    // Toggle balance privacy mask (••••••••)
+    window.toggleAccordion = function(detailsId, chevronId) {
+      const details = document.getElementById(detailsId);
+      const chevron = document.getElementById(chevronId);
+      if (details.classList.contains('hidden')) {
+        details.classList.remove('hidden');
+        chevron.classList.add('rotate-180');
+      } else {
+        details.classList.add('hidden');
+        chevron.classList.remove('rotate-180');
+      }
+    }
+
     window.toggleBalances = function() {
       balancesHidden = !balancesHidden;
+      const icon = document.getElementById('balance-toggle-icon');
+      if (icon) {
+        icon.className = balancesHidden ? 'fa-solid fa-eye-slash text-sm' : 'fa-solid fa-eye text-sm';
+      }
       document.querySelectorAll('.balance-text').forEach(el => {
-        if (balancesHidden) {
-          el.innerText = '••••••••';
-        } else {
-          el.innerText = el.getAttribute('data-balance') || '\$0.00';
-        }
+        el.innerText = balancesHidden ? '••••••••' : (el.getAttribute('data-balance') || '\$0.00');
       });
     }
 
@@ -341,7 +572,6 @@
       setTimeout(() => toast.classList.add('hidden'), 2500);
     }
 
-    // Logout handler
     window.handleLogout = async function() {
       try {
         await signOut(auth);
@@ -350,6 +580,14 @@
         console.error("Sign out error:", e);
       }
     }
+
+    window.toggleMoreMenu = function() {
+      const modal = document.getElementById('more-menu-modal');
+      if (modal) {
+        modal.classList.toggle('hidden');
+      }
+    };
+
   </script>
 </body>
 </html>

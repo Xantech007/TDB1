@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Digital Banking Registration: Personal Information - TD Canada Trust</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="td-theme.css">
     <link rel="icon" href="images/favicon.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -105,12 +105,12 @@
     <div class="utility-nav">
         <div class="container">
             <ul class="utility-links">
-                <li class="active"><a href="personal-banking.html">Personal</a></li>
+                <li class="active"><a href="index.html">Personal</a></li>
                 <li><a href="small-business.html">Small Business</a></li>
                 <li><a href="commercial-banking.html">Commercial</a></li>
-                <li><a href="investing">Investing</a></li>
+                <li><a href="investing.html">Investing</a></li>
                 <li><a href="asset-management.html">TD Asset Management</a></li>
-                <li><a href="about-td.html">About TD</a></li>
+                <li class="active"><a href="about-td.html">About TD</a></li>
             </ul>
             <div class="country-selector">
                 <img src="images/country-ca-en.png" alt="Canada" style="height: 20px; width: auto; vertical-align: middle;">
@@ -127,9 +127,9 @@
                     <img src="images/cdic-logo-white-en.png" alt="TD Canada Trust">
                 </a>
             </div>
-            <nav class="main-nav">
+            <nav class="main-nav" id="mainNav">
                 <ul>
-                    <li class="dropdown">
+                    <li class="dropdown" onclick="toggleDropdown(this)">
                         <a href="#">Products <i class="fas fa-chevron-down"></i></a>
                         <div class="dropdown-content">
                             <ul>
@@ -145,7 +145,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="dropdown">
+                    <li class="dropdown" onclick="toggleDropdown(this)">
                         <a href="#">Services <i class="fas fa-chevron-down"></i></a>
                         <div class="dropdown-content">
                             <ul>
@@ -172,8 +172,10 @@
                 <a href="login.html" class="login-btn">
                     <i class="fas fa-user"></i>
                     Log In
-                    <i class="fas fa-caret-down"></i>
                 </a>
+                <button class="mobile-menu-toggle" id="menuToggle" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
         </div>
     </header>
@@ -182,6 +184,7 @@
     <main>
         <div class="container">
             <div class="register-container">
+                        <img class="supporting-image" src="images/tdbank-mobileapp-homepage-3.3d-en.jpeg" alt="Mobile banking with the TD app">
                 <h2>Digital Banking Registration: Personal Information</h2>
                 <p class="register-subtitle">Please enter your details below</p>
 
@@ -311,6 +314,18 @@
             // Proceed to next step or handle registration workflow
             alert('Unable to register at the moment. Try again later...');
         });
+    </script>
+    <script>
+        function toggleMobileMenu() {
+            const nav = document.getElementById('mainNav');
+            nav.classList.toggle('active');
+        }
+
+        function toggleDropdown(element) {
+            if (window.innerWidth <= 900) {
+                element.classList.toggle('open');
+            }
+        }
     </script>
 </body>
 </html>

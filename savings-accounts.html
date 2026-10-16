@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TD Savings Accounts - High Interest, Growth & TFSA Savings</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="td-theme.css">
     <link rel="icon" href="images/favicon.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -132,12 +132,12 @@
     <div class="utility-nav">
         <div class="container">
             <ul class="utility-links">
-                <li class="active"><a href="personal-banking.html">Personal</a></li>
+                <li class="active"><a href="index.html">Personal</a></li>
                 <li><a href="small-business.html">Small Business</a></li>
                 <li><a href="commercial-banking.html">Commercial</a></li>
                 <li><a href="investing.html">Investing</a></li>
                 <li><a href="asset-management.html">TD Asset Management</a></li>
-                <li><a href="about-td.html">About TD</a></li>
+                <li class="active"><a href="about-td.html">About TD</a></li>
             </ul>
             <div class="country-selector">
                 <img src="images/country-ca-en.png" alt="Canada" style="height: 20px; width: auto; vertical-align: middle;">
@@ -154,9 +154,9 @@
                     <img src="images/cdic-logo-white-en.png" alt="TD Canada Trust">
                 </a>
             </div>
-            <nav class="main-nav">
+            <nav class="main-nav" id="mainNav">
                 <ul>
-                    <li class="dropdown">
+                    <li class="dropdown" onclick="toggleDropdown(this)">
                         <a href="#">Products <i class="fas fa-chevron-down"></i></a>
                         <div class="dropdown-content">
                             <ul>
@@ -172,7 +172,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="dropdown">
+                    <li class="dropdown" onclick="toggleDropdown(this)">
                         <a href="#">Services <i class="fas fa-chevron-down"></i></a>
                         <div class="dropdown-content">
                             <ul>
@@ -199,8 +199,10 @@
                 <a href="login.html" class="login-btn">
                     <i class="fas fa-user"></i>
                     Log In
-                    <i class="fas fa-caret-down"></i>
                 </a>
+                <button class="mobile-menu-toggle" id="menuToggle" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
         </div>
     </header>
@@ -209,6 +211,7 @@
     <main>
         <!-- Hero Section -->
         <section class="savings-hero">
+            <img class="hero-image" src="images/heroimage.png" alt="" aria-hidden="true">
             <div class="container">
                 <h1>Looking for a savings account?</h1>
                 <p>With a TD Savings Account, you can save for whatever is on your savings to-do list with a $0 monthly fee.</p>
@@ -431,7 +434,7 @@
                 <li><a href="cdic.html">CDIC Member</a></li>
                 <li><a href="careers.html">Careers</a></li>
                 <li><a href="#">Manage online experience</a></li>
-                <li><a href="#">Site Index</a></li>
+                <li><a href="site-index.html">Site Index</a></li>
             </ul>
             <hr>
             <div class="footer-info">
@@ -448,5 +451,17 @@
             </div>
         </div>
     </footer>
+    <script>
+        function toggleMobileMenu() {
+            const nav = document.getElementById('mainNav');
+            nav.classList.toggle('active');
+        }
+
+        function toggleDropdown(element) {
+            if (window.innerWidth <= 900) {
+                element.classList.toggle('open');
+            }
+        }
+    </script>
 </body>
 </html>

@@ -200,7 +200,7 @@ p {
 }
 
 .main-nav li a {
-    color: ;
+    color: var(--td-green);
     font-weight: bold;
     padding: 10px 0;
     display: flex;
@@ -305,7 +305,7 @@ p {
 
 .hero-message h1 {
     font-size: 36px;
-	color: #fffff;
+    color: #fff;
     margin-bottom: 20px;
 }
 

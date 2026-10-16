@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>TD Canada Trust - Accounts</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Font - Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            tdGreen: {
+              DEFAULT: '#008a00',
+              dark: '#006b00',
+              light: '#f2f8f2',
+            },
+            tdGray: {
+              bg: '#f4f6f8',
+              card: '#ffffff',
+              border: '#e5e7eb',
+              text: '#111827',
+              subtext: '#6b7280'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'Arial', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      background-color: #f4f6f8;
+      color: #111827;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .drawer-transform {
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between pb-20 select-none">
+
+  <!-- LOADING OVERLAY -->
+  <div id="loading-overlay" class="fixed inset-0 bg-white z-50 flex flex-col items-center justify-center space-y-3 transition-opacity duration-300">
+    <div class="w-10 h-10 border-4 border-tdGreen border-t-transparent rounded-full animate-spin"></div>
+    <p class="text-xs font-semibold text-gray-600">Loading accounts...</p>
+  </div>
+
+  <!-- TOP GREEN HEADER SECTION -->
+  <header class="bg-tdGreen text-white pt-4 pb-5 px-4 shadow-md rounded-b-2xl sticky top-0 z-30">
+    <div class="max-w-md mx-auto space-y-3">
+      
+      <!-- Top Navigation Bar -->
+      <div class="flex items-center justify-between">
+        <a href="dashboard.html" class="p-1.5 -ml-1 rounded-full hover:bg-white/10 transition-colors">
+          <i class="fa-solid fa-chevron-left text-lg"></i>
+        </a>
+        <h1 class="text-lg font-bold">Accounts</h1>
+        <div class="flex items-center space-x-2">
+          <!-- Toggle Balance Visibility -->
+          <button onclick="toggleBalances()" class="p-1.5 rounded-full hover:bg-white/10 transition-colors" title="Toggle Balances">
+            <i class="fa-solid fa-eye text-lg" id="eye-icon"></i>
+          </button>
+          <!-- Messages -->
+          <button onclick="showToast('Opening Messages...')" class="relative p-1.5 rounded-full hover:bg-white/10 transition-colors">
+            <i class="fa-regular fa-envelope text-lg"></i>
+            <span class="absolute top-1 right-1 bg-red-500 text-white text-[9px] font-bold w-3.5 h-3.5 rounded-full flex items-center justify-center">1</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="relative">
+        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-gray-400 text-sm"></i>
+        <input type="text" id="account-search" oninput="filterAccounts()" placeholder="Search accounts or account numbers..." class="w-full bg-white/95 text-gray-900 placeholder-gray-400 text-xs font-medium pl-9 pr-8 py-2.5 rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-white/80 shadow-inner">
+        <button id="clear-search" onclick="clearSearch()" class="hidden absolute right-3 top-2.5 text-gray-400 hover:text-gray-600 text-xs">
+          <i class="fa-solid fa-circle-xmark"></i>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="max-w-md mx-auto px-4 py-4 flex-grow w-full space-y-4">
+
+    <!-- HORIZONTAL CATEGORY TABS -->
+    <div class="flex space-x-2 overflow-x-auto no-scrollbar pb-1">
+      <button onclick="setCategory('All')" id="tab-All" class="tab-btn bg-tdGreen text-white font-semibold text-xs px-3.5 py-2 rounded-full whitespace-nowrap shadow-sm transition-all">All Accounts</button>
+      <button onclick="setCategory('Banking')" id="tab-Banking" class="tab-btn bg-white text-gray-700 font-semibold text-xs px-3.5 py-2 rounded-full whitespace-nowrap border border-gray-200 shadow-sm transition-all">Banking</button>
+      <button onclick="setCategory('Credit')" id="tab-Credit" class="tab-btn bg-white text-gray-700 font-semibold text-xs px-3.5 py-2 rounded-full whitespace-nowrap border border-gray-200 shadow-sm transition-all">Credit Cards</button>
+      <button onclick="setCategory('Investing')" id="tab-Investing" class="tab-btn bg-white text-gray-700 font-semibold text-xs px-3.5 py-2 rounded-full whitespace-nowrap border border-gray-200 shadow-sm transition-all">Investments</button>
+      <button onclick="setCategory('Loans')" id="tab-Loans" class="tab-btn bg-white text-gray-700 font-semibold text-xs px-3.5 py-2 rounded-full whitespace-nowrap border border-gray-200 shadow-sm transition-all">Mortgages & Loans</button>
+    </div>
+
+    <!-- TOTAL ASSETS SUMMARY BANNER -->
+    <div class="bg-tdGreen/10 border border-tdGreen/20 rounded-2xl p-4 flex items-center justify-between">
+      <div>
+        <p class="text-[11px] font-bold text-tdGreen uppercase tracking-wider">Net Financial Position</p>
+        <p class="text-xs text-gray-600 mt-0.5">Combined Liquid & Credit Assets</p>
+      </div>
+      <div class="text-right">
+        <span class="text-lg font-black text-gray-900 balance-text" id="net-total-display" data-balance="$12,929.54">$12,929.54</span>
+      </div>
+    </div>
+
+    <!-- ACCOUNTS LIST CONTAINER -->
+    <div id="accounts-container" class="space-y-3">
+      <!-- Account items rendered via JS dynamically -->
+    </div>
+
+    <!-- EMPTY STATE IF SEARCH / FILTER MATCHES NOTHING -->
+    <div id="empty-state" class="hidden text-center py-12 space-y-3">
+      <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mx-auto text-gray-400">
+        <i class="fa-solid fa-wallet text-xl"></i>
+      </div>
+      <p class="text-sm font-semibold text-gray-700">No matching accounts found</p>
+      <p class="text-xs text-gray-500">Try adjusting your search query or filter category.</p>
+    </div>
+
+  </main>
+
+  <!-- ACCOUNT DETAIL DRAWER / MODAL -->
+  <div id="account-drawer-backdrop" onclick="closeDrawer()" class="fixed inset-0 bg-black/50 z-50 opacity-0 pointer-events-none transition-opacity duration-300"></div>
+
+  <div id="account-drawer" class="fixed inset-x-0 bottom-0 max-w-md mx-auto bg-white rounded-t-3xl shadow-2xl z-50 max-h-[85vh] flex flex-col translate-y-full drawer-transform">
+    <!-- Drawer Handle Header -->
+    <div class="p-4 border-b border-gray-100 flex items-center justify-between bg-gray-50/50 rounded-t-3xl shrink-0">
+      <div class="flex items-center space-x-2">
+        <div class="w-8 h-1 rounded-full bg-gray-300 mx-auto absolute top-2 left-1/2 -translate-x-1/2"></div>
+        <h2 class="text-base font-bold text-gray-900" id="drawer-title">Account Details</h2>
+      </div>
+      <button onclick="closeDrawer()" class="w-7 h-7 rounded-full bg-gray-200/60 flex items-center justify-center text-gray-500 hover:text-gray-800">
+        <i class="fa-solid fa-xmark text-sm"></i>
+      </button>
+    </div>
+
+    <!-- Drawer Scrollable Content -->
+    <div class="overflow-y-auto p-4 space-y-5 flex-grow">
+      <!-- Top Card Header -->
+      <div class="bg-tdGreen text-white rounded-2xl p-4 space-y-2 shadow-md">
+        <div class="flex justify-between items-start">
+          <div>
+            <p class="text-xs text-green-100 font-medium" id="drawer-account-name">Every Day Checking</p>
+            <p class="text-xs text-green-200 font-mono" id="drawer-account-num">**** 4892</p>
+          </div>
+          <span class="bg-white/20 text-white text-[10px] font-bold px-2.5 py-1 rounded-full" id="drawer-type-badge">Banking</span>
+        </div>
+        <div class="pt-2">
+          <p class="text-[10px] uppercase font-bold text-green-100 tracking-wider">Current Balance</p>
+          <p class="text-2xl font-black balance-text" id="drawer-balance" data-balance="$2,428.52">$2,428.52</p>
+          <p class="text-[11px] text-green-100 mt-0.5" id="drawer-subbalance">Available: $2,428.52</p>
+        </div>
+      </div>
+
+      <!-- Routing / Transit Details (Visible for Banking) -->
+      <div id="transit-info-box" class="bg-gray-50 border border-gray-200 rounded-2xl p-3.5 space-y-2">
+        <p class="text-xs font-bold text-gray-900 flex items-center justify-between">
+          <span>Direct Deposit / Transit Info</span>
+          <i class="fa-solid fa-shield-halved text-tdGreen text-xs"></i>
+        </p>
+        <div class="grid grid-cols-3 gap-2 text-center text-xs pt-1">
+          <div class="bg-white p-2 rounded-xl border border-gray-100">
+            <span class="text-[10px] text-gray-400 block font-medium">Institution</span>
+            <span class="font-bold text-gray-800">004</span>
+          </div>
+          <div class="bg-white p-2 rounded-xl border border-gray-100">
+            <span class="text-[10px] text-gray-400 block font-medium">Transit #</span>
+            <span class="font-bold text-gray-800">18292</span>
+          </div>
+          <div class="bg-white p-2 rounded-xl border border-gray-100">
+            <span class="text-[10px] text-gray-400 block font-medium">Account #</span>
+            <span class="font-bold text-gray-800" id="drawer-raw-num">5294892</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons Row -->
+      <div class="grid grid-cols-3 gap-2">
+        <button onclick="showToast('Downloading Void Cheque PDF...')" class="flex flex-col items-center justify-center bg-white border border-gray-200 p-3 rounded-xl hover:bg-gray-50 transition-colors">
+          <i class="fa-solid fa-file-pdf text-tdGreen text-base mb-1"></i>
+          <span class="text-[11px] font-semibold text-gray-800">Void Cheque</span>
+        </button>
+        <button onclick="showToast('Opening Statements...')" class="flex flex-col items-center justify-center bg-white border border-gray-200 p-3 rounded-xl hover:bg-gray-50 transition-colors">
+          <i class="fa-solid fa-receipt text-tdGreen text-base mb-1"></i>
+          <span class="text-[11px] font-semibold text-gray-800">Statements</span>
+        </button>
+        <button onclick="showToast('Navigating to Transfer...')" class="flex flex-col items-center justify-center bg-tdGreen text-white p-3 rounded-xl hover:bg-tdGreen-dark transition-colors shadow-sm">
+          <i class="fa-solid fa-arrow-right-arrow-left text-base mb-1"></i>
+          <span class="text-[11px] font-bold">Transfer</span>
+        </button>
+      </div>
+
+      <!-- Transactions List -->
+      <div class="space-y-3 pt-1">
+        <h3 class="text-sm font-bold text-gray-900 flex items-center justify-between">
+          <span>Recent Activity</span>
+          <span class="text-xs font-semibold text-tdGreen hover:underline cursor-pointer" onclick="showToast('Loading full transaction history...')">View All</span>
+        </h3>
+
+        <div class="space-y-2" id="drawer-transactions">
+          <!-- Dynamically populated transaction items -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTION TOAST -->
+  <div id="action-toast" class="fixed top-20 left-1/2 -translate-x-1/2 z-50 hidden p-3 bg-gray-900 text-white text-xs rounded-xl shadow-xl flex items-center space-x-2">
+    <i class="fa-solid fa-circle-info text-tdGreen"></i>
+    <span id="toast-message">Action requested</span>
+  </div>
+
+  <!-- BOTTOM MOBILE NAVIGATION BAR -->
+  <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2 z-40">
+    <div class="max-w-md mx-auto flex justify-between items-center text-[10px] text-gray-500 font-medium">
+      <a href="dashboard.html" class="flex flex-col items-center hover:text-tdGreen transition-colors space-y-1">
+        <i class="fa-solid fa-house text-lg"></i>
+        <span>Home</span>
+      </a>
+      <a href="accounts.html" class="flex flex-col items-center text-tdGreen font-bold space-y-1">
+        <i class="fa-solid fa-wallet text-lg"></i>
+        <span>Accounts</span>
+      </a>
+      <a href="move.html" class="flex flex-col items-center hover:text-tdGreen transition-colors space-y-1">
+        <i class="fa-solid fa-arrows-up-down-left-right text-lg"></i>
+        <span>Move</span>
+      </a>
+      <a href="rewards.html" class="flex flex-col items-center hover:text-tdGreen transition-colors space-y-1">
+        <i class="fa-solid fa-gift text-lg"></i>
+        <span>Rewards</span>
+      </a>
+      <button onclick="toggleMoreMenu()" class="flex flex-col items-center hover:text-tdGreen transition-colors space-y-1">
+        <i class="fa-solid fa-bars text-lg"></i>
+        <span>More</span>
+      </button>    
+    </div>
+  </nav>
+
+    <!-- MORE MENU MODAL / DRAWER -->
+    <div id="more-menu-modal" class="hidden fixed inset-0 z-50 flex justify-end bg-black/50 backdrop-blur-sm transition-opacity">
+    <div class="w-4/5 max-w-xs bg-white h-full shadow-2xl flex flex-col justify-between p-5 space-y-4 overflow-y-auto">
+        
+        <div>
+        <div class="flex items-center justify-between border-b pb-3 mb-4">
+            <h2 class="text-base font-bold text-gray-900">More Options</h2>
+            <button onclick="toggleMoreMenu()" class="text-gray-400 hover:text-gray-600">
+            <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+
+        <div class="space-y-1 text-sm font-medium text-gray-700">
+            <a href="#" onclick="quickAction('Card Management')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
+            <i class="fa-solid fa-credit-card text-tdGreen w-5"></i>
+            <span>Card Management</span>
+            </a>
+            <a href="#" onclick="quickAction('Statements & Documents')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
+            <i class="fa-solid fa-file-invoice text-tdGreen w-5"></i>
+            <span>Statements & Documents</span>
+            </a>
+            <a href="#" onclick="quickAction('Settings & Security')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
+            <i class="fa-solid fa-gear text-tdGreen w-5"></i>
+            <span>Settings & Security</span>
+            </a>
+            <a href="#" onclick="quickAction('Find Branch / ATM')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
+            <i class="fa-solid fa-location-dot text-tdGreen w-5"></i>
+            <span>Find Branch or ATM</span>
+            </a>
+            <a href="#" onclick="quickAction('Contact Us')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
+            <i class="fa-solid fa-headset text-tdGreen w-5"></i>
+            <span>Contact TD Support</span>
+            </a>
+        </div>
+        </div>
+
+        <!-- LOG OUT AT THE BOTTOM -->
+        <div class="border-t pt-3">
+        <button onclick="handleLogout()" class="w-full flex items-center justify-center space-x-2 bg-red-50 text-red-600 font-bold p-3 rounded-xl hover:bg-red-100 transition-colors">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Sign Out</span>
+        </button>
+        </div>
+
+    </div>
+    </div>
+
+  <!-- APP SCRIPT & FIREBASE -->
+  <script type="module">
+    import { auth, db } from '../firebase.js';
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { doc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    // Application state
+    let balancesHidden = false;
+    let currentCategory = 'All';
+    let activeAccountsData = [];
+
+    // Fallback Mock Data matching TD standard mobile layout
+    const defaultAccounts = [
+      {
+        id: 'acc-1',
+        name: 'TD Every Day Checking',
+        number: '**** 4892',
+        rawNum: '5294892',
+        type: 'Banking',
+        balance: 2428.52,
+        subBalanceLabel: 'Available Balance',
+        subBalance: 2428.52,
+        transactions: [
+          { name: 'Starbucks Coffee', date: 'Today', amount: '-$5.75', isNegative: true },
+          { name: 'Payroll Deposit - Acme Corp', date: 'Yesterday', amount: '+$1,850.00', isNegative: false },
+          { name: 'Interac e-Transfer Sent', date: 'Oct 14', amount: '-$45.00', isNegative: true },
+          { name: 'TD ATM Withdrawal', date: 'Oct 12', amount: '-$100.00', isNegative: true }
+        ]
+      },
+      {
+        id: 'acc-2',
+        name: 'TD High Interest Savings',
+        number: '**** 9102',
+        rawNum: '8109102',
+        type: 'Banking',
+        balance: 1797.23,
+        subBalanceLabel: 'Interest Rate: 1.75%',
+        subBalance: 1797.23,
+        transactions: [
+          { name: 'Monthly Interest Earned', date: 'Oct 01', amount: '+$2.45', isNegative: false },
+          { name: 'Transfer from Checking', date: 'Sep 28', amount: '+$500.00', isNegative: false }
+        ]
+      },
+      {
+        id: 'acc-3',
+        name: 'TD Rewards Visa* Card',
+        number: '**** 6610',
+        rawNum: '45206610',
+        type: 'Credit',
+        balance: 2656.77,
+        subBalanceLabel: 'Available Credit: $7,343.23',
+        subBalance: 7343.23,
+        transactions: [
+          { name: 'Uber Eats', date: 'Today', amount: '-$28.40', isNegative: true },
+          { name: 'Metro Supermarket', date: 'Oct 15', amount: '-$112.35', isNegative: true },
+          { name: 'Payment - Thank You', date: 'Oct 05', amount: '+$500.00', isNegative: false }
+        ]
+      },
+      {
+        id: 'acc-4',
+        name: 'TD Direct Investing TFSA',
+        number: '**** 3381',
+        rawNum: '9923381',
+        type: 'Investing',
+        balance: 7844.25,
+        subBalanceLabel: "Today's Change: +$124.10",
+        subBalance: 7844.25,
+        transactions: [
+          { name: 'Dividend Received - TD.TO', date: 'Oct 10', amount: '+$42.80', isNegative: false },
+          { name: 'Buy Order Filled - XEQT', date: 'Oct 02', amount: '-$500.00', isNegative: true }
+        ]
+      }
+    ];
+
+    const formatCurrency = (val) => `$${Number(val || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+    function hideLoadingOverlay() {
+      const overlay = document.getElementById('loading-overlay');
+      if (overlay) overlay.classList.add('hidden');
+    }
+
+    // Initialize Auth & Firestore Listener
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        // Fallback to offline mock rendering if not authenticated
+        activeAccountsData = defaultAccounts;
+        renderAccounts();
+        hideLoadingOverlay();
+      } else {
+        const userRef = doc(db, "users", user.uid);
+        onSnapshot(userRef, (docSnap) => {
+          if (docSnap.exists()) {
+            const data = docSnap.data();
+            // Sync balances if available in Firestore
+            activeAccountsData = defaultAccounts.map(acc => {
+              if (acc.type === 'Banking' && acc.id === 'acc-1' && data.balanceBanking !== undefined) {
+                acc.balance = Number(data.balanceBanking);
+                acc.subBalance = acc.balance;
+              }
+              if (acc.type === 'Credit' && data.balanceCredit !== undefined) {
+                acc.balance = Number(data.balanceCredit);
+              }
+              if (acc.type === 'Investing' && data.balanceInvesting !== undefined) {
+                acc.balance = Number(data.balanceInvesting);
+                acc.subBalance = acc.balance;
+              }
+              return acc;
+            });
+          } else {
+            activeAccountsData = defaultAccounts;
+          }
+          renderAccounts();
+          hideLoadingOverlay();
+        }, (err) => {
+          console.error("Firestore listener error:", err);
+          activeAccountsData = defaultAccounts;
+          renderAccounts();
+          hideLoadingOverlay();
+        });
+      }
+    });
+
+    // Render Account Cards
+    window.renderAccounts = function() {
+      const container = document.getElementById('accounts-container');
+      const emptyState = document.getElementById('empty-state');
+      const searchQuery = (document.getElementById('account-search').value || '').toLowerCase().trim();
+
+      const filtered = activeAccountsData.filter(acc => {
+        const matchesCategory = (currentCategory === 'All') || (acc.type === currentCategory);
+        const matchesSearch = acc.name.toLowerCase().includes(searchQuery) || acc.number.toLowerCase().includes(searchQuery);
+        return matchesCategory && matchesSearch;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        return;
+      } else {
+        emptyState.classList.add('hidden');
+      }
+
+      container.innerHTML = filtered.map(acc => {
+        const formattedVal = formatCurrency(acc.balance);
+        const displayVal = balancesHidden ? '••••••••' : formattedVal;
+
+        return `
+          <div onclick="openAccountDetail('${acc.id}')" class="bg-white rounded-2xl border border-gray-200/80 p-4 shadow-sm hover:shadow-md transition-all cursor-pointer space-y-3">
+            <div class="flex items-start justify-between">
+              <div>
+                <h3 class="text-sm font-bold text-gray-900 leading-snug">${acc.name}</h3>
+                <p class="text-xs text-gray-400 font-mono mt-0.5">${acc.number}</p>
+              </div>
+              <div class="text-right">
+                <span class="text-base font-extrabold text-gray-900 balance-text" data-balance="${formattedVal}">${displayVal}</span>
+                <p class="text-[11px] text-gray-500 mt-0.5 font-medium">${acc.subBalanceLabel}</p>
+              </div>
+            </div>
+
+            <div class="pt-2 border-t border-gray-100 flex items-center justify-between text-xs text-tdGreen font-bold">
+              <span class="flex items-center space-x-1">
+                <span>View activity</span>
+                <i class="fa-solid fa-chevron-right text-[10px]"></i>
+              </span>
+              <button onclick="event.stopPropagation(); showToast('Transfer initiated for ${acc.name}')" class="bg-tdGreen/10 hover:bg-tdGreen/20 text-tdGreen px-3 py-1 rounded-full text-[11px] font-semibold transition-colors">
+                Transfer
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Update Net Asset total display
+      const totalAssetSum = activeAccountsData.reduce((acc, curr) => acc + curr.balance, 0);
+      const totalFormatted = formatCurrency(totalAssetSum);
+      const netEl = document.getElementById('net-total-display');
+      netEl.setAttribute('data-balance', totalFormatted);
+      netEl.innerText = balancesHidden ? '••••••••' : totalFormatted;
+    };
+
+    // Filter by Category
+    window.setCategory = function(cat) {
+      currentCategory = cat;
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-tdGreen', 'text-white');
+        btn.classList.add('bg-white', 'text-gray-700', 'border', 'border-gray-200');
+      });
+
+      const activeBtn = document.getElementById(`tab-${cat}`);
+      if (activeBtn) {
+        activeBtn.classList.remove('bg-white', 'text-gray-700', 'border', 'border-gray-200');
+        activeBtn.classList.add('bg-tdGreen', 'text-white');
+      }
+      renderAccounts();
+    };
+
+    // Search Filtering
+    window.filterAccounts = function() {
+      const searchVal = document.getElementById('account-search').value;
+      const clearBtn = document.getElementById('clear-search');
+      if (searchVal.length > 0) clearBtn.classList.remove('hidden');
+      else clearBtn.classList.add('hidden');
+      renderAccounts();
+    };
+
+    window.clearSearch = function() {
+      document.getElementById('account-search').value = '';
+      document.getElementById('clear-search').classList.add('hidden');
+      renderAccounts();
+    };
+
+    // Toggle Balance Privacy
+    window.toggleBalances = function() {
+      balancesHidden = !balancesHidden;
+      const icon = document.getElementById('eye-icon');
+      if (balancesHidden) {
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      } else {
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+      }
+
+      document.querySelectorAll('.balance-text').forEach(el => {
+        el.innerText = balancesHidden ? '••••••••' : (el.getAttribute('data-balance') || '$0.00');
+      });
+    };
+
+    // Account Drawer Modal logic
+    window.openAccountDetail = function(accId) {
+      const acc = activeAccountsData.find(a => a.id === accId);
+      if (!acc) return;
+
+      document.getElementById('drawer-account-name').innerText = acc.name;
+      document.getElementById('drawer-account-num').innerText = acc.number;
+      document.getElementById('drawer-raw-num').innerText = acc.rawNum;
+      document.getElementById('drawer-type-badge').innerText = acc.type;
+
+      const formattedBal = formatCurrency(acc.balance);
+      const drawerBalEl = document.getElementById('drawer-balance');
+      drawerBalEl.setAttribute('data-balance', formattedBal);
+      drawerBalEl.innerText = balancesHidden ? '••••••••' : formattedBal;
+      document.getElementById('drawer-subbalance').innerText = acc.subBalanceLabel;
+
+      // Show routing box only for banking accounts
+      const transitBox = document.getElementById('transit-info-box');
+      if (acc.type === 'Banking') {
+        transitBox.classList.remove('hidden');
+      } else {
+        transitBox.classList.add('hidden');
+      }
+
+      // Populate transactions
+      const txContainer = document.getElementById('drawer-transactions');
+      txContainer.innerHTML = acc.transactions.map(tx => `
+        <div class="flex items-center justify-between p-2.5 bg-gray-50 rounded-xl">
+          <div>
+            <p class="text-xs font-bold text-gray-900">${tx.name}</p>
+            <p class="text-[10px] text-gray-400 font-medium">${tx.date}</p>
+          </div>
+          <span class="text-xs font-extrabold ${tx.isNegative ? 'text-gray-900' : 'text-tdGreen'}">${tx.amount}</span>
+        </div>
+      `).join('');
+
+      // Open Backdrop & Drawer
+      const backdrop = document.getElementById('account-drawer-backdrop');
+      const drawer = document.getElementById('account-drawer');
+      backdrop.classList.remove('opacity-0', 'pointer-events-none');
+      drawer.classList.remove('translate-y-full');
+    };
+
+    window.closeDrawer = function() {
+      const backdrop = document.getElementById('account-drawer-backdrop');
+      const drawer = document.getElementById('account-drawer');
+      backdrop.classList.add('opacity-0', 'pointer-events-none');
+      drawer.classList.add('translate-y-full');
+    };
+
+    // UI Toast Notification helper
+    window.showToast = function(msg) {
+      const toast = document.getElementById('action-toast');
+      const txt = document.getElementById('toast-message');
+      txt.innerText = msg;
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 2500);
+    };
+
+    window.toggleMoreMenu = function() {
+    const modal = document.getElementById('more-menu-modal');
+    if (modal) {
+        modal.classList.toggle('hidden');
+    }
+    };
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>TD Rewards - Mobile Experience</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Font - Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            tdGreen: {
+              DEFAULT: '#008a00',
+              dark: '#006b00',
+              light: '#f2f8f2',
+            },
+            tdGold: {
+              DEFAULT: '#d4af37',
+              dark: '#b89628',
+              light: '#fdf8e6',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'Arial', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      background-color: #f4f6f8;
+      color: #111827;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between pb-20">
+
+  <!-- LOADING OVERLAY -->
+  <div id="loading-overlay" class="fixed inset-0 bg-white z-50 flex flex-col items-center justify-center space-y-3 transition-opacity duration-300">
+    <div class="w-10 h-10 border-4 border-tdGreen border-t-transparent rounded-full animate-spin"></div>
+    <p class="text-xs font-semibold text-gray-600">Loading TD Rewards...</p>
+  </div>
+
+  <!-- TOP APP HEADER -->
+  <header class="bg-tdGreen text-white pt-4 pb-6 px-4 shadow-md rounded-b-2xl">
+    <div class="max-w-md mx-auto space-y-3">
+      <div class="flex items-center justify-between">
+        <h1 class="text-xl font-extrabold tracking-tight">TD Rewards</h1>
+        <div class="flex items-center space-x-2">
+          <button onclick="quickAction('Rewards FAQ')" class="p-1.5 rounded-full hover:bg-white/10 transition-colors" title="Help">
+            <i class="fa-regular fa-circle-question text-lg"></i>
+          </button>
+        </div>
+      </div>
+      <p class="text-xs text-green-100">Redeem points for travel, gift cards, cash back, and Amazon purchases.</p>
+    </div>
+  </header>
+
+  <!-- MAIN APP CONTAINER -->
+  <main class="max-w-md mx-auto px-4 py-5 flex-grow w-full space-y-6">
+
+    <!-- HERO REWARDS BALANCE CARD -->
+    <section class="bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white rounded-2xl p-5 shadow-xl relative overflow-hidden">
+      <!-- Decorative Background Icon -->
+      <div class="absolute -right-4 -bottom-4 text-white/5 text-9xl pointer-events-none">
+        <i class="fa-solid fa-gift"></i>
+      </div>
+
+      <div class="relative z-10 space-y-4">
+        <div class="flex justify-between items-center">
+          <span class="text-[11px] font-bold tracking-widest text-tdGold uppercase">TD Rewards Program</span>
+          <span class="text-[10px] bg-white/10 px-2 py-0.5 rounded-full font-medium">Gold Tier</span>
+        </div>
+
+        <div>
+          <p class="text-xs text-gray-400">Available Balance</p>
+          <div class="flex items-baseline space-x-2 mt-1">
+            <h2 class="text-3xl font-extrabold tracking-tight" id="rewards-points-balance">34,850</h2>
+            <span class="text-xs text-tdGold font-semibold">pts</span>
+          </div>
+          <p class="text-xs text-gray-300 mt-1">≈ <span id="rewards-cash-value">\$174.25</span> CAD in travel or purchases</p>
+        </div>
+
+        <div class="pt-2 border-t border-white/10 flex justify-between items-center text-xs">
+          <div>
+            <span class="text-gray-400">Aeroplan Points:</span>
+            <span class="font-bold ml-1 text-white" id="aeroplan-points-balance">12,400 pts</span>
+          </div>
+          <button onclick="quickAction('Link Aeroplan Account')" class="text-tdGold hover:underline font-semibold text-[11px]">Manage</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUICK REDEEM CATEGORIES GRID -->
+    <section class="space-y-3">
+      <h2 class="text-base font-bold text-gray-900">Redeem Your Points</h2>
+      
+      <div class="grid grid-cols-4 gap-2.5">
+        <button onclick="quickAction('Book Travel with Points')" class="bg-white border border-gray-200/80 p-3 rounded-2xl flex flex-col items-center text-center space-y-2 hover:shadow-md transition-all active:scale-95">
+          <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
+            <i class="fa-solid fa-plane text-sm"></i>
+          </div>
+          <span class="text-[11px] font-bold text-gray-800 leading-tight">Book Travel</span>
+        </button>
+
+        <button onclick="quickAction('Gift Cards Catalogue')" class="bg-white border border-gray-200/80 p-3 rounded-2xl flex flex-col items-center text-center space-y-2 hover:shadow-md transition-all active:scale-95">
+          <div class="w-10 h-10 rounded-full bg-amber-50 flex items-center justify-center text-amber-600">
+            <i class="fa-solid fa-gift text-sm"></i>
+          </div>
+          <span class="text-[11px] font-bold text-gray-800 leading-tight">Gift Cards</span>
+        </button>
+
+        <button onclick="quickAction('Amazon Shop with Points')" class="bg-white border border-gray-200/80 p-3 rounded-2xl flex flex-col items-center text-center space-y-2 hover:shadow-md transition-all active:scale-95">
+          <div class="w-10 h-10 rounded-full bg-orange-50 flex items-center justify-center text-orange-600">
+            <i class="fa-brands fa-amazon text-sm"></i>
+          </div>
+          <span class="text-[11px] font-bold text-gray-800 leading-tight">Amazon</span>
+        </button>
+
+        <button onclick="quickAction('Statement Credit')" class="bg-white border border-gray-200/80 p-3 rounded-2xl flex flex-col items-center text-center space-y-2 hover:shadow-md transition-all active:scale-95">
+          <div class="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center text-tdGreen">
+            <i class="fa-solid fa-receipt text-sm"></i>
+          </div>
+          <span class="text-[11px] font-bold text-gray-800 leading-tight">Pay Credit</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- FEATURED REWARDS & PARTNERS -->
+    <section class="space-y-3">
+      <div class="flex items-center justify-between">
+        <h2 class="text-base font-bold text-gray-900">Featured Deals</h2>
+        <button onclick="quickAction('View All Deals')" class="text-xs font-bold text-tdGreen hover:underline">See All</button>
+      </div>
+
+      <div class="space-y-3">
+        <!-- Deal Card 1 -->
+        <div class="bg-white rounded-2xl border border-gray-200/80 p-4 shadow-sm flex items-center justify-between">
+          <div class="flex items-center space-x-3">
+            <div class="w-12 h-12 rounded-xl bg-tdGreen/10 flex items-center justify-center text-tdGreen shrink-0">
+              <i class="fa-solid fa-hotel text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-xs font-bold text-gray-900">Expedia For TD</h3>
+              <p class="text-[11px] text-gray-500">Earn up to 9x points on hotels & flights</p>
+              <span class="text-[10px] font-bold text-tdGreen inline-block mt-1 bg-tdGreen/10 px-2 py-0.5 rounded-md">Bonus Earn Rate</span>
+            </div>
+          </div>
+          <button onclick="quickAction('Expedia Offer')" class="text-xs font-bold text-tdGreen bg-gray-50 px-3 py-1.5 rounded-full border border-gray-200 hover:bg-tdGreen hover:text-white transition-all">
+            Explore
+          </button>
+        </div>
+
+        <!-- Deal Card 2 -->
+        <div class="bg-white rounded-2xl border border-gray-200/80 p-4 shadow-sm flex items-center justify-between">
+          <div class="flex items-center space-x-3">
+            <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center text-red-600 shrink-0">
+              <i class="fa-solid fa-utensils text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-xs font-bold text-gray-900">Uber Eats Credit</h3>
+              <p class="text-[11px] text-gray-500">Redeem 5,000 pts for a \$25 e-gift card</p>
+              <span class="text-[10px] font-bold text-red-600 inline-block mt-1 bg-red-50 px-2 py-0.5 rounded-md">Popular</span>
+            </div>
+          </div>
+          <button onclick="redeemReward('Uber Eats \$25 Gift Card', 5000)" class="text-xs font-bold text-tdGreen bg-gray-50 px-3 py-1.5 rounded-full border border-gray-200 hover:bg-tdGreen hover:text-white transition-all">
+            Redeem
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- RECENT POINTS ACTIVITY -->
+    <section class="space-y-3">
+      <div class="flex items-center justify-between">
+        <h2 class="text-base font-bold text-gray-900">Points Activity</h2>
+        <button onclick="quickAction('Full Points Statement')" class="text-xs font-bold text-tdGreen hover:underline">History</button>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-gray-200/80 divide-y divide-gray-100 shadow-sm overflow-hidden">
+        <div class="p-3.5 flex items-center justify-between">
+          <div class="flex items-center space-x-3">
+            <div class="w-8 h-8 rounded-full bg-green-100 text-tdGreen flex items-center justify-center text-xs">
+              <i class="fa-solid fa-plus"></i>
+            </div>
+            <div>
+              <p class="text-xs font-bold text-gray-900">Starbucks Purchase</p>
+              <p class="text-[10px] text-gray-400">Oct 14, 2026 • 3x Bonus Earn</p>
+            </div>
+          </div>
+          <span class="text-xs font-extrabold text-tdGreen">+42 pts</span>
+        </div>
+
+        <div class="p-3.5 flex items-center justify-between">
+          <div class="flex items-center space-x-3">
+            <div class="w-8 h-8 rounded-full bg-green-100 text-tdGreen flex items-center justify-center text-xs">
+              <i class="fa-solid fa-plus"></i>
+            </div>
+            <div>
+              <p class="text-xs font-bold text-gray-900">Metro Grocery Store</p>
+              <p class="text-[10px] text-gray-400">Oct 12, 2026 • Regular Earn</p>
+            </div>
+          </div>
+          <span class="text-xs font-extrabold text-tdGreen">+180 pts</span>
+        </div>
+
+        <div class="p-3.5 flex items-center justify-between">
+          <div class="flex items-center space-x-3">
+            <div class="w-8 h-8 rounded-full bg-red-100 text-red-600 flex items-center justify-center text-xs">
+              <i class="fa-solid fa-minus"></i>
+            </div>
+            <div>
+              <p class="text-xs font-bold text-gray-900">Amazon Pay with Points</p>
+              <p class="text-[10px] text-gray-400">Oct 08, 2026 • Redemption</p>
+            </div>
+          </div>
+          <span class="text-xs font-extrabold text-red-600">-2,500 pts</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACTION TOAST -->
+    <div id="action-toast" class="hidden fixed bottom-20 left-1/2 -translate-x-1/2 p-3 px-4 bg-gray-900/95 text-white text-xs rounded-xl shadow-2xl flex items-center space-x-2.5 z-50 backdrop-blur-md transition-all">
+      <i class="fa-solid fa-circle-info text-tdGreen text-sm"></i>
+      <span id="toast-message" class="font-medium">Action requested</span>
+    </div>
+
+  </main>
+
+  <!-- BOTTOM MOBILE NAVIGATION BAR -->
+  <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2 z-40">
+    <div class="max-w-md mx-auto flex justify-between items-center text-[10px] text-gray-500 font-medium">
+      <a href="dashboard.html" class="flex flex-col items-center hover:text-tdGreen transition-colors space-y-1">
+        <i class="fa-solid fa-house text-lg"></i>
+        <span>Home</span>
+      </a>
+      <a href="accounts.html" class="flex flex-col items-center hover:text-tdGreen transition-colors space-y-1">
+        <i class="fa-solid fa-wallet text-lg"></i>
+        <span>Accounts</span>
+      </a>
+      <a href="move.html" class="flex flex-col items-center hover:text-tdGreen transition-colors space-y-1">
+        <i class="fa-solid fa-arrows-up-down-left-right text-lg"></i>
+        <span>Move</span>
+      </a>
+      <a href="rewards.html" class="flex flex-col items-center text-tdGreen font-bold space-y-1">
+        <i class="fa-solid fa-gift text-lg"></i>
+        <span>Rewards</span>
+      </a>
+      <button onclick="toggleMoreMenu()" class="flex flex-col items-center hover:text-tdGreen transition-colors space-y-1">
+        <i class="fa-solid fa-bars text-lg"></i>
+        <span>More</span>
+      </button>    
+    </div>
+  </nav>
+
+    <!-- MORE MENU MODAL / DRAWER -->
+    <div id="more-menu-modal" class="hidden fixed inset-0 z-50 flex justify-end bg-black/50 backdrop-blur-sm transition-opacity">
+    <div class="w-4/5 max-w-xs bg-white h-full shadow-2xl flex flex-col justify-between p-5 space-y-4 overflow-y-auto">
+        
+        <div>
+        <div class="flex items-center justify-between border-b pb-3 mb-4">
+            <h2 class="text-base font-bold text-gray-900">More Options</h2>
+            <button onclick="toggleMoreMenu()" class="text-gray-400 hover:text-gray-600">
+            <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+
+        <div class="space-y-1 text-sm font-medium text-gray-700">
+            <a href="#" onclick="quickAction('Card Management')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
+            <i class="fa-solid fa-credit-card text-tdGreen w-5"></i>
+            <span>Card Management</span>
+            </a>
+            <a href="#" onclick="quickAction('Statements & Documents')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
+            <i class="fa-solid fa-file-invoice text-tdGreen w-5"></i>
+            <span>Statements & Documents</span>
+            </a>
+            <a href="#" onclick="quickAction('Settings & Security')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
+            <i class="fa-solid fa-gear text-tdGreen w-5"></i>
+            <span>Settings & Security</span>
+            </a>
+            <a href="#" onclick="quickAction('Find Branch / ATM')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
+            <i class="fa-solid fa-location-dot text-tdGreen w-5"></i>
+            <span>Find Branch or ATM</span>
+            </a>
+            <a href="#" onclick="quickAction('Contact Us')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
+            <i class="fa-solid fa-headset text-tdGreen w-5"></i>
+            <span>Contact TD Support</span>
+            </a>
+        </div>
+        </div>
+
+        <!-- LOG OUT AT THE BOTTOM -->
+        <div class="border-t pt-3">
+        <button onclick="handleLogout()" class="w-full flex items-center justify-center space-x-2 bg-red-50 text-red-600 font-bold p-3 rounded-xl hover:bg-red-100 transition-colors">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Sign Out</span>
+        </button>
+        </div>
+
+    </div>
+    </div>
+
+  <!-- FIREBASE AUTH & FIRESTORE SCRIPT -->
+  <script type="module">
+    import { auth, db } from '../firebase.js';
+    import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    let currentPoints = 34850;
+
+    function hideLoadingOverlay() {
+      const overlay = document.getElementById('loading-overlay');
+      if (overlay) overlay.classList.add('hidden');
+    }
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        hideLoadingOverlay();
+      } else {
+        try {
+          const userRef = doc(db, "users", user.uid);
+          const snap = await getDoc(userRef);
+          if (snap.exists() && snap.data().rewardsPoints) {
+            currentPoints = snap.data().rewardsPoints;
+            updatePointsDisplay();
+          }
+        } catch (e) {
+          console.error("Error fetching rewards points:", e);
+        } finally {
+          hideLoadingOverlay();
+        }
+      }
+    });
+
+    function updatePointsDisplay() {
+      const ptsEl = document.getElementById('rewards-points-balance');
+      const valEl = document.getElementById('rewards-cash-value');
+      if (ptsEl) ptsEl.innerText = currentPoints.toLocaleString();
+      if (valEl) valEl.innerText = `$${(currentPoints * 0.005).toFixed(2)}`;
+    }
+
+    window.redeemReward = function(rewardName, cost) {
+      if (currentPoints < cost) {
+        window.quickAction(`Insufficient points for ${rewardName}`);
+        return;
+      }
+      currentPoints -= cost;
+      updatePointsDisplay();
+      window.quickAction(`Redeemed ${rewardName}!`);
+    };
+
+    window.quickAction = function(action) {
+      const toast = document.getElementById('action-toast');
+      const msg = document.getElementById('toast-message');
+      msg.innerText = action.includes('Redeemed') || action.includes('Insufficient') ? action : `Opening ${action}...`;
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 2500);
+    };
+
+    window.handleLogout = async function() {
+      try {
+        await signOut(auth);
+        window.location.href = '../login.html';
+      } catch (e) {
+        console.error("Sign out error:", e);
+      }
+    };
+
+    window.toggleMoreMenu = function() {
+      const modal = document.getElementById('more-menu-modal');
+      if (modal) modal.classList.toggle('hidden');
+    };
+
+  </script>
+</body>
+</html>

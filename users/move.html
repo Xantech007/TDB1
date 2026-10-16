@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>TD Canada Trust - Move Money</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Font - Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            tdGreen: {
+              DEFAULT: '#008a00',
+              dark: '#006b00',
+              light: '#f2f8f2',
+            },
+            tdGray: {
+              bg: '#f4f6f8',
+              card: '#ffffff',
+              border: '#e5e7eb',
+              text: '#111827',
+              subtext: '#6b7280'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'Arial', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      background-color: #f4f6f8;
+      color: #111827;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .drawer-transform {
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between pb-20 select-none">
+
+  <!-- LOADING OVERLAY -->
+  <div id="loading-overlay" class="fixed inset-0 bg-white z-50 flex flex-col items-center justify-center space-y-3 transition-opacity duration-300">
+    <div class="w-10 h-10 border-4 border-tdGreen border-t-transparent rounded-full animate-spin"></div>
+    <p class="text-xs font-semibold text-gray-600">Loading Move Money...</p>
+  </div>
+
+  <!-- TOP GREEN HEADER SECTION -->
+  <header class="bg-tdGreen text-white pt-4 pb-4 px-4 shadow-md rounded-b-2xl sticky top-0 z-30">
+    <div class="max-w-md mx-auto space-y-3">
+      
+      <!-- Top Navigation Bar -->
+      <div class="flex items-center justify-between">
+        <a href="dashboard.html" class="p-1.5 -ml-1 rounded-full hover:bg-white/10 transition-colors">
+          <i class="fa-solid fa-chevron-left text-lg"></i>
+        </a>
+        <h1 class="text-lg font-bold">Move Money</h1>
+        <div class="flex items-center space-x-2">
+          <button onclick="showToast('Autodeposit Status: Active (email@domain.com)')" class="p-1.5 rounded-full hover:bg-white/10 transition-colors" title="Autodeposit Settings">
+            <i class="fa-solid fa-shield-halved text-lg"></i>
+          </button>
+          <button onclick="showToast('Opening Help & FAQ...')" class="p-1.5 rounded-full hover:bg-white/10 transition-colors">
+            <i class="fa-regular fa-circle-question text-lg"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- MAIN FEATURE TABS -->
+      <div class="flex space-x-1.5 bg-tdGreen-dark p-1 rounded-xl text-xs font-semibold overflow-x-auto no-scrollbar">
+        <button onclick="switchTab('transfer')" id="tab-btn-transfer" class="flex-1 py-2 px-2.5 rounded-lg text-center transition-all bg-white text-tdGreen font-bold shadow-sm whitespace-nowrap">
+          <i class="fa-solid fa-right-left mr-1"></i> Transfers
+        </button>
+        <button onclick="switchTab('etransfer')" id="tab-btn-etransfer" class="flex-1 py-2 px-2.5 rounded-lg text-center transition-all text-white hover:bg-white/10 whitespace-nowrap">
+          <i class="fa-solid fa-bolt mr-1"></i> e-Transfer
+        </button>
+        <button onclick="switchTab('bills')" id="tab-btn-bills" class="flex-1 py-2 px-2.5 rounded-lg text-center transition-all text-white hover:bg-white/10 whitespace-nowrap">
+          <i class="fa-solid fa-file-invoice-dollar mr-1"></i> Pay Bills
+        </button>
+        <button onclick="switchTab('global')" id="tab-btn-global" class="flex-1 py-2 px-2.5 rounded-lg text-center transition-all text-white hover:bg-white/10 whitespace-nowrap">
+          <i class="fa-solid fa-globe mr-1"></i> Global
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="max-w-md mx-auto px-4 py-4 flex-grow w-full space-y-4">
+
+    <!-- 1. ACCOUNT TRANSFERS SECTION -->
+    <div id="section-transfer" class="space-y-4">
+      <div class="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm space-y-4">
+        <h2 class="text-sm font-bold text-gray-900 border-b border-gray-100 pb-2.5 flex items-center justify-between">
+          <span>Transfer Between Accounts</span>
+          <span class="text-[10px] bg-green-100 text-tdGreen px-2 py-0.5 rounded-full font-semibold">Instant & Fee-Free</span>
+        </h2>
+
+        <!-- From Account Dropdown -->
+        <div class="space-y-1">
+          <label class="text-xs font-semibold text-gray-600 block">From Account</label>
+          <select id="transfer-from" onchange="validateTransferForm()" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-xs rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-tdGreen font-medium">
+            <option value="acc-1">TD Every Day Checking (**** 4892) - $2,428.52</option>
+            <option value="acc-2">TD High Interest Savings (**** 9102) - $1,797.23</option>
+          </select>
+        </div>
+
+        <!-- Swap Icon -->
+        <div class="flex justify-center -my-2">
+          <button onclick="swapTransferAccounts()" class="bg-tdGreen/10 hover:bg-tdGreen/20 text-tdGreen w-8 h-8 rounded-full flex items-center justify-center transition-transform active:rotate-180">
+            <i class="fa-solid fa-arrow-down-up text-xs"></i>
+          </button>
+        </div>
+
+        <!-- To Account Dropdown -->
+        <div class="space-y-1">
+          <label class="text-xs font-semibold text-gray-600 block">To Account</label>
+          <select id="transfer-to" onchange="validateTransferForm()" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-xs rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-tdGreen font-medium">
+            <option value="acc-3">TD Rewards Visa* Card (**** 6610) - Bal: $2,656.77</option>
+            <option value="acc-2">TD High Interest Savings (**** 9102) - $1,797.23</option>
+            <option value="acc-4">TD Direct Investing TFSA (**** 3381) - $7,844.25</option>
+            <option value="acc-1">TD Every Day Checking (**** 4892) - $2,428.52</option>
+          </select>
+        </div>
+
+        <!-- Amount Input -->
+        <div class="space-y-1">
+          <label class="text-xs font-semibold text-gray-600 block">Amount ($ CAD)</label>
+          <div class="relative">
+            <span class="absolute left-3.5 top-3 text-gray-500 font-bold text-sm">$</span>
+            <input type="number" id="transfer-amount" min="0.01" step="0.01" placeholder="0.00" oninput="validateTransferForm()" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm font-bold pl-8 pr-3 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-tdGreen">
+          </div>
+        </div>
+
+        <!-- Frequency Picker -->
+        <div class="space-y-1">
+          <label class="text-xs font-semibold text-gray-600 block">Frequency</label>
+          <select id="transfer-frequency" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-xs rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-tdGreen font-medium">
+            <option value="Now">Once - Immediate</option>
+            <option value="Weekly">Weekly Recurring</option>
+            <option value="Bi-Weekly">Bi-Weekly Recurring</option>
+            <option value="Monthly">Monthly Recurring</option>
+          </select>
+        </div>
+
+        <!-- Action Button -->
+        <button id="btn-submit-transfer" onclick="processAccountTransfer()" disabled class="w-full bg-tdGreen disabled:bg-gray-300 hover:bg-tdGreen-dark text-white font-bold text-xs py-3.5 rounded-xl transition-all shadow-md">
+          Complete Transfer
+        </button>
+      </div>
+    </div>
+
+    <!-- 2. INTERAC E-TRANSFER SECTION -->
+    <div id="section-etransfer" class="hidden space-y-4">
+      
+      <!-- Sub-toggle for Send / Request / Autodeposit -->
+      <div class="flex border-b border-gray-200 text-xs font-bold text-gray-500 space-x-6">
+        <button id="etransfer-subtab-send" onclick="switchEtransferSubtab('send')" class="pb-2 border-b-2 border-tdGreen text-tdGreen">Send Money</button>
+        <button id="etransfer-subtab-request" onclick="switchEtransferSubtab('request')" class="pb-2 border-b-2 border-transparent hover:text-gray-800">Request Money</button>
+      </div>
+
+      <!-- SEND MONEY FORM -->
+      <div id="etransfer-send-view" class="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm space-y-4">
+        
+        <!-- Quick Contacts Selector -->
+        <div class="space-y-2">
+          <div class="flex justify-between items-center">
+            <label class="text-xs font-semibold text-gray-600">Select Recipient</label>
+            <button onclick="openAddContactModal()" class="text-[11px] font-bold text-tdGreen hover:underline">+ New Contact</button>
+          </div>
+          <div class="flex space-x-3 overflow-x-auto no-scrollbar py-1" id="quick-contacts-list">
+            <!-- Populated dynamically via JS -->
+          </div>
+        </div>
+
+        <!-- Source Account -->
+        <div class="space-y-1">
+          <label class="text-xs font-semibold text-gray-600 block">From Account</label>
+          <select id="etransfer-from" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-xs rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-tdGreen font-medium">
+            <option value="acc-1">TD Every Day Checking (**** 4892) - $2,428.52</option>
+            <option value="acc-2">TD High Interest Savings (**** 9102) - $1,797.23</option>
+          </select>
+        </div>
+
+        <!-- Amount Input -->
+        <div class="space-y-1">
+          <label class="text-xs font-semibold text-gray-600 block">Amount ($ CAD)</label>
+          <div class="relative">
+            <span class="absolute left-3.5 top-3 text-gray-500 font-bold text-sm">$</span>
+            <input type="number" id="etransfer-amount" min="1" step="1" placeholder="0.00" oninput="validateEtransferForm()" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm font-bold pl-8 pr-3 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-tdGreen">
+          </div>
+        </div>
+
+        <!-- Optional Memo -->
+        <div class="space-y-1">
+          <label class="text-xs font-semibold text-gray-600 block">Message / Memo (Optional)</label>
+          <input type="text" id="etransfer-memo" placeholder="e.g. Lunch payback or rent" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-xs rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-tdGreen">
+        </div>
+
+        <!-- Send Button -->
+        <button id="btn-submit-etransfer" onclick="processETransfer()" disabled class="w-full bg-tdGreen disabled:bg-gray-300 hover:bg-tdGreen-dark text-white font-bold text-xs py-3.5 rounded-xl transition-all shadow-md">
+          Send Interac e-Transfer
+        </button>
+      </div>
+
+      <!-- REQUEST MONEY FORM -->
+      <div id="etransfer-request-view" class="hidden bg-white rounded-2xl border border-gray-200 p-4 shadow-sm space-y-4">
+        <div class="space-y-1">
+          <label class="text-xs font-semibold text-gray-600 block">Request From (Contact)</label>
+          <input type="text" id="req-contact" placeholder="Name or email address" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-xs rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-tdGreen">
+        </div>
+
+        <div class="space-y-1">
+          <label class="text-xs font-semibold text-gray-600 block">Deposit To Account</label>
+          <select id="req-account" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-xs rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-tdGreen font-medium">
+            <option value="acc-1">TD Every Day Checking (**** 4892)</option>
+            <option value="acc-2">TD High Interest Savings (**** 9102)</option>
+          </select>
+        </div>
+
+        <div class="space-y-1">
+          <label class="text-xs font-semibold text-gray-600 block">Requested Amount ($ CAD)</label>
+          <input type="number" id="req-amount" placeholder="0.00" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-xs font-bold p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-tdGreen">
+        </div>
+
+        <button onclick="processRequestMoney()" class="w-full bg-tdGreen hover:bg-tdGreen-dark text-white font-bold text-xs py-3.5 rounded-xl transition-all shadow-md">
+          Send Money Request
+        </button>
+      </div>
+
+    </div>
+
+    <!-- 3. BILL PAYMENTS SECTION -->
+    <div id="section-bills" class="hidden space-y-4">
+      <div class="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm space-y-4">
+        <div class="flex justify-between items-center border-b border-gray-100 pb-2.5">
+          <h2 class="text-sm font-bold text-gray-900">Pay Bills</h2>
+          <button onclick="openAddPayeeModal()" class="text-xs font-bold text-tdGreen flex items-center space-x-1 hover:underline">
+            <i class="fa-solid fa-plus text-[10px]"></i>
+            <span>Add Payee</span>
+          </button>
+        </div>
+
+        <!-- Payee Selection List -->
+        <div class="space-y-1">
+          <label class="text-xs font-semibold text-gray-600 block">Select Payee</label>
+          <select id="bill-payee" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-xs rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-tdGreen font-medium">
+            <!-- Populated dynamically via JS -->
+          </select>
+        </div>
+
+        <!-- Source Account -->
+        <div class="space-y-1">
+          <label class="text-xs font-semibold text-gray-600 block">Pay From</label>
+          <select id="bill-from-account" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-xs rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-tdGreen font-medium">
+            <option value="acc-1">TD Every Day Checking (**** 4892) - $2,428.52</option>
+            <option value="acc-2">TD High Interest Savings (**** 9102) - $1,797.23</option>
+          </select>
+        </div>
+
+        <!-- Payment Amount -->
+        <div class="space-y-1">
+          <label class="text-xs font-semibold text-gray-600 block">Payment Amount ($ CAD)</label>
+          <div class="relative">
+            <span class="absolute left-3.5 top-3 text-gray-500 font-bold text-sm">$</span>
+            <input type="number" id="bill-amount" min="1" step="0.01" placeholder="0.00" oninput="validateBillForm()" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm font-bold pl-8 pr-3 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-tdGreen">
+          </div>
+        </div>
+
+        <button id="btn-submit-bill" onclick="processBillPayment()" disabled class="w-full bg-tdGreen disabled:bg-gray-300 hover:bg-tdGreen-dark text-white font-bold text-xs py-3.5 rounded-xl transition-all shadow-md">
+          Pay Bill Now
+        </button>
+      </div>
+
+      <!-- Pending & Scheduled Bills -->
+      <div class="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm space-y-3">
+        <h3 class="text-xs font-bold text-gray-900 uppercase tracking-wider text-gray-500">Scheduled Payments</h3>
+        <div id="scheduled-bills-container" class="space-y-2">
+          <!-- Dynamically populated scheduled payments -->
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. TD GLOBAL TRANSFER SECTION -->
+    <div id="section-global" class="hidden space-y-4">
+      <div class="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm space-y-4">
+        <div class="flex items-center space-x-2 border-b border-gray-100 pb-2.5">
+          <i class="fa-solid fa-globe text-tdGreen text-lg"></i>
+          <div>
+            <h2 class="text-sm font-bold text-gray-900">TD Global Transfer</h2>
+            <p class="text-[10px] text-gray-500">Send money directly to bank accounts, cash pickup, or Visa cards worldwide.</p>
+          </div>
+        </div>
+
+        <!-- Destination Country Picker -->
+        <div class="space-y-1">
+          <label class="text-xs font-semibold text-gray-600 block">Destination Country</label>
+          <select id="global-country" onchange="updateGlobalRate()" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-xs rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-tdGreen font-medium">
+            <option value="USD">🇺🇸 United States (USD)</option>
+            <option value="INR">🇮🇳 India (INR)</option>
+            <option value="EUR">🇪🇺 Eurozone (EUR)</option>
+            <option value="GBP">🇬🇧 United Kingdom (GBP)</option>
+            <option value="PHP">🇵🇭 Philippines (PHP)</option>
+          </select>
+        </div>
+
+        <!-- Real-time Rate Conversion Calculator -->
+        <div class="bg-tdGreen/5 border border-tdGreen/20 rounded-xl p-3 space-y-2">
+          <div class="flex justify-between items-center text-xs">
+            <span class="text-gray-600 font-medium">Live Rate:</span>
+            <span class="font-bold text-tdGreen" id="global-rate-display">1 CAD = 0.74 USD</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <span class="text-[10px] text-gray-500 block">You Send (CAD)</span>
+              <input type="number" id="global-send-amount" value="500" oninput="calculateGlobalConversion()" class="w-full bg-white border border-gray-200 text-xs font-bold p-2 rounded-lg text-gray-900">
+            </div>
+            <div>
+              <span class="text-[10px] text-gray-500 block">They Receive</span>
+              <input type="text" id="global-receive-amount" readonly class="w-full bg-gray-100 border border-gray-200 text-xs font-bold p-2 rounded-lg text-gray-900">
+            </div>
+          </div>
+        </div>
+
+        <!-- Transfer Method Radio Group -->
+        <div class="space-y-2">
+          <label class="text-xs font-semibold text-gray-600 block">Transfer Method</label>
+          <div class="grid grid-cols-3 gap-2">
+            <label class="border border-tdGreen bg-tdGreen/5 p-2 rounded-xl text-center cursor-pointer flex flex-col items-center">
+              <i class="fa-solid fa-building-columns text-tdGreen text-xs mb-1"></i>
+              <span class="text-[10px] font-bold text-gray-900">Bank Deposit</span>
+            </label>
+            <label class="border border-gray-200 p-2 rounded-xl text-center cursor-pointer flex flex-col items-center hover:border-tdGreen">
+              <i class="fa-solid fa-[10px] fa-hand-holding-dollar text-gray-500 text-xs mb-1"></i>
+              <span class="text-[10px] font-bold text-gray-700">Cash Pickup</span>
+            </label>
+            <label class="border border-gray-200 p-2 rounded-xl text-center cursor-pointer flex flex-col items-center hover:border-tdGreen">
+              <i class="fa-solid fa-credit-card text-gray-500 text-xs mb-1"></i>
+              <span class="text-[10px] font-bold text-gray-700">Visa Direct</span>
+            </label>
+          </div>
+        </div>
+
+        <button onclick="processGlobalTransfer()" class="w-full bg-tdGreen hover:bg-tdGreen-dark text-white font-bold text-xs py-3.5 rounded-xl transition-all shadow-md">
+          Continue Global Transfer
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- CONFIRMATION RECEIPT MODAL -->
+  <div id="receipt-modal-backdrop" class="fixed inset-0 bg-black/60 z-50 opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center p-4">
+    <div id="receipt-modal" class="bg-white rounded-3xl w-full max-w-sm overflow-hidden shadow-2xl scale-95 transition-transform duration-300 space-y-4 p-5 text-center">
+      <div class="w-12 h-12 bg-green-100 text-tdGreen rounded-full flex items-center justify-center mx-auto text-xl">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+      <div>
+        <h3 class="text-lg font-bold text-gray-900">Transfer Successful</h3>
+        <p class="text-xs text-gray-500 mt-0.5">Your transaction has been processed.</p>
+      </div>
+
+      <div class="bg-gray-50 rounded-2xl p-4 text-left space-y-2 border border-gray-100 text-xs">
+        <div class="flex justify-between border-b border-gray-200 pb-1.5">
+          <span class="text-gray-500">Ref Number:</span>
+          <span class="font-mono font-bold text-gray-900" id="receipt-ref">TD-98420194</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray-500">Type:</span>
+          <span class="font-bold text-gray-800" id="receipt-type">Account Transfer</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray-500">To:</span>
+          <span class="font-bold text-gray-800" id="receipt-target">Visa Card</span>
+        </div>
+        <div class="flex justify-between border-t border-gray-200 pt-1.5">
+          <span class="text-gray-500 font-bold">Total Amount:</span>
+          <span class="font-black text-tdGreen text-sm" id="receipt-amount">$100.00 CAD</span>
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <button onclick="closeReceiptModal()" class="w-full bg-tdGreen text-white font-bold text-xs py-3 rounded-xl">Done</button>
+        <button onclick="showToast('Receipt saved to PDF download folder')" class="w-full bg-gray-100 text-gray-700 font-semibold text-xs py-2.5 rounded-xl hover:bg-gray-200">Save / Print Confirmation</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD PAYEE MODAL -->
+  <div id="add-payee-modal" class="fixed inset-0 bg-black/50 z-50 opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl w-full max-w-sm overflow-hidden shadow-2xl p-5 space-y-4">
+      <div class="flex justify-between items-center">
+        <h3 class="text-sm font-bold text-gray-900">Add New Payee</h3>
+        <button onclick="closeAddPayeeModal()" class="text-gray-400 hover:text-gray-700">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="font-semibold text-gray-600 block mb-1">Search Company Name</label>
+          <input type="text" id="payee-search-input" placeholder="e.g. Rogers, Enbridge, CRA" class="w-full bg-gray-50 border border-gray-200 p-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-tdGreen">
+        </div>
+        <div>
+          <label class="font-semibold text-gray-600 block mb-1">Payee Account Number</label>
+          <input type="text" id="payee-account-input" placeholder="Found on your bill statement" class="w-full bg-gray-50 border border-gray-200 p-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-tdGreen">
+        </div>
+      </div>
+
+      <button onclick="saveNewPayee()" class="w-full bg-tdGreen text-white font-bold text-xs py-3 rounded-xl">Add Payee</button>
+    </div>
+  </div>
+
+  <!-- ACTION TOAST -->
+  <div id="action-toast" class="fixed top-20 left-1/2 -translate-x-1/2 z-50 hidden p-3 bg-gray-900 text-white text-xs rounded-xl shadow-xl flex items-center space-x-2">
+    <i class="fa-solid fa-circle-info text-tdGreen"></i>
+    <span id="toast-message">Action requested</span>
+  </div>
+
+  <!-- BOTTOM MOBILE NAVIGATION BAR -->
+  <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2 z-40">
+    <div class="max-w-md mx-auto flex justify-between items-center text-[10px] text-gray-500 font-medium">
+      <a href="dashboard.html" class="flex flex-col items-center hover:text-tdGreen transition-colors space-y-1">
+        <i class="fa-solid fa-house text-lg"></i>
+        <span>Home</span>
+      </a>
+      <a href="accounts.html" class="flex flex-col items-center hover:text-tdGreen transition-colors space-y-1">
+        <i class="fa-solid fa-wallet text-lg"></i>
+        <span>Accounts</span>
+      </a>
+      <a href="move.html" class="flex flex-col items-center text-tdGreen font-bold space-y-1">
+        <i class="fa-solid fa-arrows-up-down-left-right text-lg"></i>
+        <span>Move</span>
+      </a>
+      <a href="rewards.html" class="flex flex-col items-center hover:text-tdGreen transition-colors space-y-1">
+        <i class="fa-solid fa-gift text-lg"></i>
+        <span>Rewards</span>
+      </a>
+      <button onclick="toggleMoreMenu()" class="flex flex-col items-center hover:text-tdGreen transition-colors space-y-1">
+        <i class="fa-solid fa-bars text-lg"></i>
+        <span>More</span>
+      </button>    
+    </div>
+  </nav>
+
+    <!-- MORE MENU MODAL / DRAWER -->
+    <div id="more-menu-modal" class="hidden fixed inset-0 z-50 flex justify-end bg-black/50 backdrop-blur-sm transition-opacity">
+    <div class="w-4/5 max-w-xs bg-white h-full shadow-2xl flex flex-col justify-between p-5 space-y-4 overflow-y-auto">
+        
+        <div>
+        <div class="flex items-center justify-between border-b pb-3 mb-4">
+            <h2 class="text-base font-bold text-gray-900">More Options</h2>
+            <button onclick="toggleMoreMenu()" class="text-gray-400 hover:text-gray-600">
+            <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+
+        <div class="space-y-1 text-sm font-medium text-gray-700">
+            <a href="#" onclick="quickAction('Card Management')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
+            <i class="fa-solid fa-credit-card text-tdGreen w-5"></i>
+            <span>Card Management</span>
+            </a>
+            <a href="#" onclick="quickAction('Statements & Documents')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
+            <i class="fa-solid fa-file-invoice text-tdGreen w-5"></i>
+            <span>Statements & Documents</span>
+            </a>
+            <a href="#" onclick="quickAction('Settings & Security')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
+            <i class="fa-solid fa-gear text-tdGreen w-5"></i>
+            <span>Settings & Security</span>
+            </a>
+            <a href="#" onclick="quickAction('Find Branch / ATM')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
+            <i class="fa-solid fa-location-dot text-tdGreen w-5"></i>
+            <span>Find Branch or ATM</span>
+            </a>
+            <a href="#" onclick="quickAction('Contact Us')" class="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100">
+            <i class="fa-solid fa-headset text-tdGreen w-5"></i>
+            <span>Contact TD Support</span>
+            </a>
+        </div>
+        </div>
+
+        <!-- LOG OUT AT THE BOTTOM -->
+        <div class="border-t pt-3">
+        <button onclick="handleLogout()" class="w-full flex items-center justify-center space-x-2 bg-red-50 text-red-600 font-bold p-3 rounded-xl hover:bg-red-100 transition-colors">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Sign Out</span>
+        </button>
+        </div>
+
+    </div>
+    </div>
+
+  <!-- APP SCRIPT & FIREBASE -->
+  <script type="module">
+    import { auth, db } from '../firebase.js';
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    // Application state
+    let selectedContact = null;
+    let payees = [
+      { id: 'p1', name: 'Toronto Hydro', accountNum: '91823-11' },
+      { id: 'p2', name: 'Bell Mobility Canada', accountNum: '0129-49291' },
+      { id: 'p3', name: 'CRA (Revenue Canada)', accountNum: 'SIN-***-***-891' }
+    ];
+
+    let scheduledBills = [
+      { id: 'b1', name: 'Toronto Hydro', amount: '$84.50', date: 'Oct 28, 2026' }
+    ];
+
+    const rates = {
+      USD: 0.74,
+      INR: 61.85,
+      EUR: 0.68,
+      GBP: 0.58,
+      PHP: 41.20
+    };
+
+    function hideLoadingOverlay() {
+      const overlay = document.getElementById('loading-overlay');
+      if (overlay) overlay.classList.add('hidden');
+    }
+
+    onAuthStateChanged(auth, (user) => {
+      renderPayeeOptions();
+      renderScheduledBills();
+      renderQuickContacts();
+      hideLoadingOverlay();
+    });
+
+    // Navigation & Tab Switching Logic
+    window.switchTab = function(tab) {
+      const tabs = ['transfer', 'etransfer', 'bills', 'global'];
+      tabs.forEach(t => {
+        const sec = document.getElementById(`section-${t}`);
+        const btn = document.getElementById(`tab-btn-${t}`);
+        if (t === tab) {
+          sec.classList.remove('hidden');
+          btn.className = "flex-1 py-2 px-2.5 rounded-lg text-center transition-all bg-white text-tdGreen font-bold shadow-sm whitespace-nowrap";
+        } else {
+          sec.classList.add('hidden');
+          btn.className = "flex-1 py-2 px-2.5 rounded-lg text-center transition-all text-white hover:bg-white/10 whitespace-nowrap";
+        }
+      });
+    };
+
+    window.switchEtransferSubtab = function(sub) {
+      const sendBtn = document.getElementById('etransfer-subtab-send');
+      const reqBtn = document.getElementById('etransfer-subtab-request');
+      const sendView = document.getElementById('etransfer-send-view');
+      const reqView = document.getElementById('etransfer-request-view');
+
+      if (sub === 'send') {
+        sendView.classList.remove('hidden');
+        reqView.classList.add('hidden');
+        sendBtn.className = "pb-2 border-b-2 border-tdGreen text-tdGreen font-bold";
+        reqBtn.className = "pb-2 border-b-2 border-transparent text-gray-500 font-bold hover:text-gray-800";
+      } else {
+        reqView.classList.remove('hidden');
+        sendView.classList.add('hidden');
+        reqBtn.className = "pb-2 border-b-2 border-tdGreen text-tdGreen font-bold";
+        sendBtn.className = "pb-2 border-b-2 border-transparent text-gray-500 font-bold hover:text-gray-800";
+      }
+    };
+
+    // Contacts management
+    const contacts = [
+      { name: 'Sarah M.', email: 'sarah.m@gmail.com', avatar: 'S' },
+      { name: 'Alex K.', email: 'alex.k@outlook.com', avatar: 'A' },
+      { name: 'David P.', email: 'dave@work.ca', avatar: 'D' }
+    ];
+
+    function renderQuickContacts() {
+      const container = document.getElementById('quick-contacts-list');
+      container.innerHTML = contacts.map((c, i) => `
+        <div onclick="selectContact(${i})" id="contact-chip-${i}" class="flex items-center space-x-2 bg-gray-50 border border-gray-200 px-3 py-1.5 rounded-full cursor-pointer hover:border-tdGreen shrink-0 transition-all">
+          <div class="w-6 h-6 bg-tdGreen text-white text-[10px] font-bold rounded-full flex items-center justify-center">${c.avatar}</div>
+          <span class="text-xs font-semibold text-gray-800">${c.name}</span>
+        </div>
+      `).join('');
+    }
+
+    window.selectContact = function(index) {
+      selectedContact = contacts[index];
+      contacts.forEach((_, i) => {
+        const el = document.getElementById(`contact-chip-${i}`);
+        if (i === index) {
+          el.className = "flex items-center space-x-2 bg-tdGreen/10 border-2 border-tdGreen px-3 py-1.5 rounded-full cursor-pointer shrink-0 transition-all";
+        } else {
+          el.className = "flex items-center space-x-2 bg-gray-50 border border-gray-200 px-3 py-1.5 rounded-full cursor-pointer hover:border-tdGreen shrink-0 transition-all";
+        }
+      });
+      validateEtransferForm();
+    };
+
+    // Form Validations
+    window.validateTransferForm = function() {
+      const amt = parseFloat(document.getElementById('transfer-amount').value || '0');
+      const btn = document.getElementById('btn-submit-transfer');
+      btn.disabled = !(amt > 0);
+    };
+
+    window.validateEtransferForm = function() {
+      const amt = parseFloat(document.getElementById('etransfer-amount').value || '0');
+      const btn = document.getElementById('btn-submit-etransfer');
+      btn.disabled = !(amt > 0 && selectedContact !== null);
+    };
+
+    window.validateBillForm = function() {
+      const amt = parseFloat(document.getElementById('bill-amount').value || '0');
+      const btn = document.getElementById('btn-submit-bill');
+      btn.disabled = !(amt > 0);
+    };
+
+    window.swapTransferAccounts = function() {
+      const fromSel = document.getElementById('transfer-from');
+      const toSel = document.getElementById('transfer-to');
+      const temp = fromSel.value;
+      fromSel.value = toSel.value;
+      toSel.value = temp;
+    };
+
+    // Transactions execution simulations
+    window.processAccountTransfer = function() {
+      const amt = document.getElementById('transfer-amount').value;
+      openReceiptModal("Account Transfer", "Selected Account", `$${amt} CAD`);
+      document.getElementById('transfer-amount').value = '';
+      validateTransferForm();
+    };
+
+    window.processETransfer = function() {
+      const amt = document.getElementById('etransfer-amount').value;
+      openReceiptModal("Interac e-Transfer", selectedContact.name, `$${amt} CAD`);
+      document.getElementById('etransfer-amount').value = '';
+      validateEtransferForm();
+    };
+
+    window.processRequestMoney = function() {
+      const contact = document.getElementById('req-contact').value;
+      const amt = document.getElementById('req-amount').value;
+      if (!contact || !amt) return showToast("Please fill in contact & amount");
+      showToast(`Requested $${amt} from ${contact}`);
+      document.getElementById('req-contact').value = '';
+      document.getElementById('req-amount').value = '';
+    };
+
+    window.processBillPayment = function() {
+      const payeeSelect = document.getElementById('bill-payee');
+      const payeeName = payeeSelect.options[payeeSelect.selectedIndex].text;
+      const amt = document.getElementById('bill-amount').value;
+      openReceiptModal("Bill Payment", payeeName, `$${amt} CAD`);
+      document.getElementById('bill-amount').value = '';
+      validateBillForm();
+    };
+
+    // Payee & Scheduled Bills Rendering
+    function renderPayeeOptions() {
+      const sel = document.getElementById('bill-payee');
+      sel.innerHTML = payees.map(p => `<option value="${p.id}">${p.name} (${p.accountNum})</option>`).join('');
+    }
+
+    function renderScheduledBills() {
+      const container = document.getElementById('scheduled-bills-container');
+      if (scheduledBills.length === 0) {
+        container.innerHTML = `<p class="text-xs text-gray-400">No upcoming bill payments scheduled.</p>`;
+        return;
+      }
+      container.innerHTML = scheduledBills.map(b => `
+        <div class="flex items-center justify-between p-2.5 bg-gray-50 rounded-xl text-xs">
+          <div>
+            <p class="font-bold text-gray-900">${b.name}</p>
+            <p class="text-[10px] text-gray-400">Scheduled for ${b.date}</p>
+          </div>
+          <div class="flex items-center space-x-2">
+            <span class="font-extrabold text-gray-900">${b.amount}</span>
+            <button onclick="cancelScheduledBill('${b.id}')" class="text-red-500 hover:text-red-700 text-xs">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    window.cancelScheduledBill = function(id) {
+      scheduledBills = scheduledBills.filter(b => b.id !== id);
+      renderScheduledBills();
+      showToast("Scheduled payment cancelled");
+    };
+
+    // Global Conversion
+    window.updateGlobalRate = function() {
+      const curr = document.getElementById('global-country').value;
+      const rate = rates[curr];
+      document.getElementById('global-rate-display').innerText = `1 CAD = ${rate} ${curr}`;
+      calculateGlobalConversion();
+    };
+
+    window.calculateGlobalConversion = function() {
+      const curr = document.getElementById('global-country').value;
+      const sendAmt = parseFloat(document.getElementById('global-send-amount').value || '0');
+      const rate = rates[curr];
+      const received = (sendAmt * rate).toFixed(2);
+      document.getElementById('global-receive-amount').value = `${received} ${curr}`;
+    };
+
+    window.processGlobalTransfer = function() {
+      const sendAmt = document.getElementById('global-send-amount').value;
+      const curr = document.getElementById('global-country').value;
+      openReceiptModal("TD Global Transfer", `Recipient in ${curr}`, `$${sendAmt} CAD`);
+    };
+
+    // Modal Helpers
+    function openReceiptModal(type, target, amount) {
+      document.getElementById('receipt-ref').innerText = `TD-${Math.floor(10000000 + Math.random() * 90000000)}`;
+      document.getElementById('receipt-type').innerText = type;
+      document.getElementById('receipt-target').innerText = target;
+      document.getElementById('receipt-amount').innerText = amount;
+
+      const backdrop = document.getElementById('receipt-modal-backdrop');
+      const modal = document.getElementById('receipt-modal');
+      backdrop.classList.remove('opacity-0', 'pointer-events-none');
+      modal.classList.remove('scale-95');
+    }
+
+    window.closeReceiptModal = function() {
+      const backdrop = document.getElementById('receipt-modal-backdrop');
+      const modal = document.getElementById('receipt-modal');
+      backdrop.classList.add('opacity-0', 'pointer-events-none');
+      modal.classList.add('scale-95');
+    };
+
+    window.openAddPayeeModal = function() {
+      const backdrop = document.getElementById('add-payee-modal');
+      backdrop.classList.remove('opacity-0', 'pointer-events-none');
+    };
+
+    window.closeAddPayeeModal = function() {
+      const backdrop = document.getElementById('add-payee-modal');
+      backdrop.classList.add('opacity-0', 'pointer-events-none');
+    };
+
+    window.openAddContactModal = function() {
+      const name = prompt("Enter contact name:");
+      const email = prompt("Enter contact email:");
+      if (name && email) {
+        contacts.push({ name, email, avatar: name[0].toUpperCase() });
+        renderQuickContacts();
+        showToast("Contact added!");
+      }
+    };
+
+    window.saveNewPayee = function() {
+      const name = document.getElementById('payee-search-input').value;
+      const num = document.getElementById('payee-account-input').value;
+      if (!name || !num) return alert("Please fill out both payee details.");
+
+      payees.push({ id: `p${payees.length + 1}`, name, accountNum: num });
+      renderPayeeOptions();
+      closeAddPayeeModal();
+      showToast(`${name} added to Payees!`);
+    };
+
+    window.showToast = function(msg) {
+      const toast = document.getElementById('action-toast');
+      const txt = document.getElementById('toast-message');
+      txt.innerText = msg;
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 2500);
+    };
+
+    // Initialize global conversion rate display
+    updateGlobalRate();
+
+    window.toggleMoreMenu = function() {
+    const modal = document.getElementById('more-menu-modal');
+    if (modal) {
+        modal.classList.toggle('hidden');
+    }
+    };
+
+  </script>
+</body>
+</html>

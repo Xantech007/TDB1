@@ -1,0 +1,537 @@
+:where(body:has(.utility-nav)) {
+    color: #333;
+    background: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+}
+
+:where(body:has(.utility-nav)) *,
+:where(body:has(.utility-nav)) *::before,
+:where(body:has(.utility-nav)) *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:where(body:has(.utility-nav)) img {
+    max-width: 100%;
+    height: auto;
+}
+
+:where(body:has(.utility-nav)) .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+:where(body:has(.utility-nav)) .utility-nav {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: #003300;
+    color: #fff;
+    font-size: 0.85rem;
+}
+
+:where(body:has(.utility-nav)) .utility-nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+:where(body:has(.utility-nav)) .utility-links {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    list-style: none;
+    white-space: nowrap;
+}
+
+:where(body:has(.utility-nav)) .utility-links::-webkit-scrollbar {
+    display: none;
+}
+
+:where(body:has(.utility-nav)) .utility-links a {
+    color: #e0e0e0;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+:where(body:has(.utility-nav)) .utility-links a:hover,
+:where(body:has(.utility-nav)) .utility-links li.active a {
+    color: #fff;
+    font-weight: 600;
+}
+
+:where(body:has(.utility-nav)) .country-selector {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding-left: 15px;
+    color: #fff;
+}
+
+:where(body:has(.utility-nav)) .main-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 15px 0;
+    border-bottom: 1px solid #e0e0e0;
+    background: #fff;
+    color: #008a00;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+:where(body:has(.utility-nav)) .main-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+:where(body:has(.utility-nav)) .logo img {
+    display: block;
+    width: auto;
+    height: 35px;
+}
+
+:where(body:has(.utility-nav)) .main-nav ul {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+}
+
+:where(body:has(.utility-nav)) .main-nav a {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #008a00;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+:where(body:has(.utility-nav)) .main-nav a:hover {
+    color: #005600;
+}
+
+:where(body:has(.utility-nav)) .dropdown {
+    position: relative;
+}
+
+:where(body:has(.utility-nav)) .dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1001;
+    display: none;
+    min-width: 240px;
+    padding: 10px 0;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background: #fff;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+:where(body:has(.utility-nav)) .dropdown-content ul {
+    flex-direction: column;
+    gap: 0;
+}
+
+:where(body:has(.utility-nav)) .dropdown-content a {
+    padding: 10px 20px;
+    color: #333;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+:where(body:has(.utility-nav)) .dropdown-content a:hover {
+    background: #f4f6f8;
+    color: #008a00;
+}
+
+:where(body:has(.utility-nav)) .dropdown:hover .dropdown-content {
+    display: block;
+}
+
+:where(body:has(.utility-nav)) .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+:where(body:has(.utility-nav)) .icon-link {
+    color: #008a00;
+    font-size: 1.1rem;
+    text-decoration: none;
+}
+
+:where(body:has(.utility-nav)) .icon-link:hover {
+    color: #005600;
+}
+
+:where(body:has(.utility-nav)) .divider {
+    width: 1px;
+    height: 24px;
+    background: #d0d0d0;
+}
+
+:where(body:has(.utility-nav)) .login-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    background: #008a00;
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+:where(body:has(.utility-nav)) .login-btn:hover {
+    background: #006600;
+}
+
+:where(body:has(.utility-nav)) .mobile-menu-toggle {
+    display: none;
+    border: 0;
+    background: none;
+    color: #008a00;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+:where(body:has(.utility-nav)) .btn-primary {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 0;
+    border-radius: 4px;
+    background: #008a00;
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+:where(body:has(.utility-nav)) .btn-primary:hover {
+    background: #006600;
+}
+
+:where(body:has(.utility-nav)) footer {
+    padding: 50px 0 30px;
+    border-top: 1px solid #e0e0e0;
+    background: #fff;
+    color: #333;
+    font-size: 0.9rem;
+}
+
+:where(body:has(.utility-nav)) .footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+:where(body:has(.utility-nav)) .footer-heading {
+    color: #333;
+}
+
+:where(body:has(.utility-nav)) .footer-heading a {
+    color: #008a00;
+    font-weight: 600;
+}
+
+:where(body:has(.utility-nav)) .social-links p {
+    margin-bottom: 10px;
+    color: #333;
+    font-weight: 600;
+}
+
+:where(body:has(.utility-nav)) .social-links ul {
+    display: flex;
+    gap: 15px;
+    list-style: none;
+}
+
+:where(body:has(.utility-nav)) .social-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: 1px solid #e0e0e0;
+    border-radius: 50%;
+    background: #f4f6f8;
+    color: #008a00;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+:where(body:has(.utility-nav)) .social-links a:hover {
+    border-color: #008a00;
+    background: #008a00;
+    color: #fff;
+}
+
+:where(body:has(.utility-nav)) .footer-heading a,
+:where(body:has(.utility-nav)) .footer-links a,
+:where(body:has(.utility-nav)) .footer-info a {
+    text-decoration: none;
+}
+
+:where(body:has(.utility-nav)) .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 30px;
+    list-style: none;
+}
+
+:where(body:has(.utility-nav)) .footer-links a {
+    color: #333;
+    font-size: 0.9rem;
+}
+
+:where(body:has(.utility-nav)) .footer-links a:hover,
+:where(body:has(.utility-nav)) .footer-heading a:hover,
+:where(body:has(.utility-nav)) .footer-info a:hover {
+    color: #008a00;
+    text-decoration: underline;
+}
+
+:where(body:has(.utility-nav)) footer hr {
+    border: 0;
+    border-top: 1px solid #e0e0e0;
+    margin: 20px 0;
+}
+
+:where(body:has(.utility-nav)) .footer-info a,
+:where(body:has(.utility-nav)) .securities-notice p,
+:where(body:has(.utility-nav)) .copyright p {
+    color: #555;
+    font-size: 0.85rem;
+    line-height: 1.6;
+}
+
+:where(body:has(.utility-nav)) .footer-info a {
+    color: #008a00;
+}
+
+@media (max-width: 900px) {
+    :where(body:has(.utility-nav)) .utility-nav {
+        display: none;
+    }
+
+    :where(body:has(.utility-nav)) .main-header .container {
+        flex-wrap: wrap;
+    }
+
+    :where(body:has(.utility-nav)) .main-nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        display: none;
+        width: 100%;
+        padding: 20px;
+        border-bottom: 1px solid #e0e0e0;
+        background: #fff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    :where(body:has(.utility-nav)) .main-nav.active {
+        display: block;
+    }
+
+    :where(body:has(.utility-nav)) .main-nav ul {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    :where(body:has(.utility-nav)) .dropdown-content {
+        position: static;
+        display: none;
+        margin-top: 10px;
+        border: 0;
+        background: #f9fbf9;
+        box-shadow: none;
+    }
+
+    :where(body:has(.utility-nav)) .dropdown.open .dropdown-content {
+        display: block;
+    }
+
+    :where(body:has(.utility-nav)) .mobile-menu-toggle {
+        display: block;
+    }
+
+    :where(body:has(.utility-nav)) .header-actions .icon-link:not(:last-child) {
+        display: none;
+    }
+
+    :where(body:has(.utility-nav)) .footer-top {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+body:has(.card) .card::before {
+    background: linear-gradient(90deg, #008a00, #53d253, #005600);
+}
+
+body:has(.card) .inp:focus {
+    border-color: #008a00;
+    box-shadow: 0 0 0 4px rgba(0, 138, 0, 0.1);
+}
+
+body:has(.card) .btn-primary {
+    background: linear-gradient(135deg, #008a00, #005600);
+    box-shadow: 0 4px 20px rgba(0, 86, 0, 0.3);
+}
+
+body:has(.card) .btn-primary:hover {
+    background: linear-gradient(135deg, #006600, #003300);
+    box-shadow: 0 6px 24px rgba(0, 86, 0, 0.4);
+}
+
+:where(body:has(.utility-nav)) section:has(> .hero-image) {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+}
+
+:where(body:has(.utility-nav)) .hero-image {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    opacity: 0.4;
+    filter: brightness(0.72) saturate(0.85);
+    pointer-events: none;
+}
+
+:where(body:has(.utility-nav)) .hero-image ~ * {
+    position: relative;
+    z-index: 1;
+}
+
+:where(body:has(.utility-nav)) .supporting-image {
+    display: block;
+    width: 100%;
+    max-height: 190px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+:where(body:has(.utility-nav)) :is(
+    .access-section-alt,
+    .career-section-alt,
+    .cdic-section-alt,
+    .account-section,
+    .benefits-section,
+    .credit-section,
+    .gic-section,
+    .investing-quick-links,
+    .loan-section,
+    .savings-section,
+    .safety-tips-section,
+    .sb-advice-section
+) {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+}
+
+:where(body:has(.utility-nav)) :is(
+    .access-section-alt,
+    .career-section-alt,
+    .cdic-section-alt,
+    .account-section,
+    .benefits-section,
+    .credit-section,
+    .gic-section,
+    .investing-quick-links,
+    .loan-section,
+    .savings-section,
+    .safety-tips-section,
+    .sb-advice-section
+)::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    width: min(38%, 440px);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    content: "";
+    opacity: 0.14;
+    pointer-events: none;
+    mask-image: linear-gradient(to right, transparent, #000 45%);
+}
+
+:where(body:has(.utility-nav)) .access-section-alt::before,
+:where(body:has(.utility-nav)) .cdic-section-alt::before,
+:where(body:has(.utility-nav)) .account-section::before,
+:where(body:has(.utility-nav)) .gic-section::before,
+:where(body:has(.utility-nav)) .savings-section::before {
+    background-image: url("images/heroimage.png");
+}
+
+:where(body:has(.utility-nav)) .career-section-alt::before,
+:where(body:has(.utility-nav)) .benefits-section::before,
+:where(body:has(.utility-nav)) .sb-advice-section::before {
+    background-image: url("images/homepage-3.2d-200x90px-spot-one.jpeg");
+}
+
+:where(body:has(.utility-nav)) .credit-section::before {
+    background-image: url("images/homepage-3.2d-200x90px-spot-four-en.jpeg");
+}
+
+:where(body:has(.utility-nav)) .investing-quick-links::before {
+    background-image: url("images/homepage-3.2d-200x90px-spot-two.jpeg");
+}
+
+:where(body:has(.utility-nav)) .loan-section::before {
+    background-image: url("images/tdbank-apply-td-fit-personal-loan-en.jpeg");
+}
+
+:where(body:has(.utility-nav)) .safety-tips-section::before {
+    background-image: url("images/homepage-3.2d-200x90px-spot-three.jpeg");
+}
+
+:where(body:has(.utility-nav)) .legal-main-title {
+    padding: 36px 30px;
+    border-radius: 8px;
+    background: linear-gradient(90deg, rgba(0, 51, 0, 0.9), rgba(0, 86, 0, 0.55)), url("images/heroimage.png") center 38% / cover no-repeat;
+    color: #fff;
+}
+
+@media (max-width: 600px) {
+    :where(body:has(.utility-nav)) :is(
+        .access-section-alt,
+        .career-section-alt,
+        .cdic-section-alt,
+        .account-section,
+        .benefits-section,
+        .credit-section,
+        .gic-section,
+        .investing-quick-links,
+        .loan-section,
+        .savings-section,
+        .safety-tips-section,
+        .sb-advice-section
+    )::before {
+        width: 70%;
+        opacity: 0.1;
+    }
+}

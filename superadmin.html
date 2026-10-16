@@ -1,691 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Superadmin Control Center - TD Bank EasyWeb</title>
-    <link rel="stylesheet" href="../styles.css">
-    <link rel="icon" href="../images/favicon.png" type="image/png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        :root {
-            --td-green: #008a00;
-            --td-dark-green: #006600;
-            --td-slate: #232d3d;
-            --td-bg: #f4f6f8;
-            --td-border: #d0d7de;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Admin Dashboard — Create User</title>
 
-        body {
-            background-color: var(--td-bg);
-            margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            color: #222;
-        }
+<!-- Firebase SDK Compat Scripts -->
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
+<script src="firebase.js"></script>
 
-        /* Auth Guard Loader */
-        #auth-guard-loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #ffffff;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.3s ease;
-        }
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid var(--td-green);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="td-theme.css">
 
-        /* Header */
-        .admin-header {
-            background-color: var(--td-slate);
-            color: white;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 4px solid var(--td-green);
-        }
-        .admin-header img {
-            height: 34px;
-        }
-        .admin-header .right-info {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            font-size: 0.95rem;
-        }
-        .logout-btn {
-            background: transparent;
-            border: 1px solid rgba(255,255,255,0.4);
-            color: white;
-            padding: 6px 14px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-        }
-        .logout-btn:hover {
-            background: rgba(255,255,255,0.1);
-        }
-
-        /* Main Container */
-        .admin-container {
-            max-width: 1400px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
-
-        .admin-card {
-            background: #ffffff;
-            border-radius: 8px;
-            border: 1px solid var(--td-border);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-            padding: 25px;
-            margin-bottom: 30px;
-        }
-
-        .card-header-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #eaeaea;
-            padding-bottom: 15px;
-        }
-        .card-header-row h2 {
-            margin: 0;
-            font-size: 1.35rem;
-            color: #111;
-        }
-
-        .btn-primary {
-            background-color: var(--td-green);
-            color: white;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 4px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 0.95rem;
-            transition: background 0.2s;
-        }
-        .btn-primary:hover {
-            background-color: var(--td-dark-green);
-        }
-
-        /* Table styling */
-        .table-responsive {
-            overflow-x: auto;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            font-size: 0.95rem;
-        }
-        th, td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #e1e4e8;
-        }
-        th {
-            background-color: #fafbfc;
-            color: #333;
-            font-weight: 600;
-        }
-        tr:hover {
-            background-color: #f8f9fa;
-        }
-
-        .action-btns {
-            display: flex;
-            gap: 8px;
-        }
-        .btn-sm {
-            padding: 6px 12px;
-            font-size: 0.85rem;
-            border-radius: 4px;
-            border: none;
-            cursor: pointer;
-            font-weight: 500;
-        }
-        .btn-edit { background-color: #0066cc; color: white; }
-        .btn-edit:hover { background-color: #004d99; }
-        .btn-delete { background-color: #dc3545; color: white; }
-        .btn-delete:hover { background-color: #b02a37; }
-
-        /* Modal Overlay */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            display: none;
-        }
-        .modal-card {
-            background: white;
-            width: 100%;
-            max-width: 650px;
-            border-radius: 8px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-            padding: 30px;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #eaeaea;
-            padding-bottom: 10px;
-        }
-        .modal-header h3 {
-            margin: 0;
-            font-size: 1.2rem;
-            color: #111;
-        }
-        .close-modal {
-            background: none;
-            border: none;
-            font-size: 1.4rem;
-            cursor: pointer;
-            color: #666;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group.full-width {
-            grid-column: span 2;
-        }
-        .form-group label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 6px;
-            font-size: 0.9rem;
-            color: #333;
-        }
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 0.95rem;
-            box-sizing: border-box;
-        }
-        .form-group input:focus {
-            border-color: var(--td-green);
-            outline: none;
-            box-shadow: 0 0 4px rgba(0,138,0,0.2);
-        }
-
-        .section-subtitle {
-            font-size: 1.05rem;
-            font-weight: bold;
-            color: #232d3d;
-            margin: 20px 0 10px 0;
-            border-bottom: 1px solid #e1e4e8;
-            padding-bottom: 5px;
-        }
-
-        .alert-box {
-            padding: 10px 15px;
-            border-radius: 4px;
-            margin-bottom: 15px;
-            font-size: 0.9rem;
-            display: none;
-        }
-        .alert-error { background-color: #ffe6e6; color: #cc0000; border-left: 4px solid #cc0000; }
-        .alert-success { background-color: #e6f9e6; color: #006600; border-left: 4px solid #006600; }
-    </style>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#f8fafc;color:#1e293b;min-height:100vh;}
+.card{background:#fff;border-radius:24px;padding:32px;border:1px solid #f1f5f9;box-shadow:0 4px 24px rgba(0,0,0,0.06);width:100%;max-width:540px;position:relative;overflow:hidden;}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#6366f1,#8b5cf6,#ec4899);}
+.inp{width:100%;padding:14px 18px;border-radius:16px;background:#f8fafc;border:2px solid #e2e8f0;color:#1e293b;font-size:15px;font-weight:600;outline:none;transition:all 0.3s;}
+.inp:focus{border-color:#6366f1;box-shadow:0 0 0 4px rgba(99,102,241,0.1);background:#fff;}
+.lbl{display:block;font-size:12px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
+.btn-primary{width:100%;padding:16px;border-radius:18px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;font-size:16px;font-weight:800;border:none;cursor:pointer;transition:all 0.3s;box-shadow:0 4px 20px rgba(99,102,241,0.3);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(99,102,241,0.4);}
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-80px);background:#1e293b;color:#fff;padding:14px 24px;border-radius:16px;display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;z-index:200;transition:all 0.4s;box-shadow:0 10px 40px rgba(0,0,0,0.15);}
+.toast.show{transform:translateX(-50%) translateY(0);}
+.toast i{color:#10b981;}
+.toast.error i{color:#ef4444;}
+</style>
 </head>
-<body>
+<body class="flex items-center justify-center p-6">
 
-    <!-- Auth Guard Loader -->
-    <div id="auth-guard-loader">
-        <div class="spinner"></div>
-        <p style="font-weight: 600; color: #333;">Verifying Superadmin Privileges...</p>
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"><i class="fa-solid fa-circle-check"></i><span id="toastMsg">Success</span></div>
+
+  <div class="card">
+    <div class="flex items-center gap-3 mb-6">
+      <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#6366f1] to-[#8b5cf6] flex items-center justify-center shadow-lg shadow-indigo-200">
+        <i class="fa-solid fa-user-plus text-white text-lg"></i>
+      </div>
+      <div>
+        <h1 class="text-xl font-extrabold text-[#1e293b]">Admin Portal</h1>
+        <p class="text-xs text-[#64748b] font-medium">Create a new user account</p>
+      </div>
     </div>
 
-    <!-- Header -->
-    <header class="admin-header">
-        <div class="logo-area">
-            <img src="../images/cdic-logo-white-en.png" alt="TD Canada Trust">
-            <span style="margin-left: 15px; font-weight: 500; font-size: 1.1rem; border-left: 1px solid rgba(255,255,255,0.3); padding-left: 15px;">Superadmin Portal</span>
-        </div>
-        <div class="right-info">
-            <span><i class="fas fa-user-shield" style="color: #28a745; margin-right: 5px;"></i> <strong id="adminEmail">Admin</strong></span>
-            <button id="logoutBtn" class="logout-btn">Log Out</button>
-        </div>
-    </header>
+    <form id="createUserForm" class="space-y-4">
+      <div>
+        <label class="lbl">Full Name</label>
+        <input type="text" id="fullName" placeholder="John Doe" class="inp" required />
+      </div>
 
-    <!-- Main Content Area -->
-    <div class="admin-container">
-        
-        <!-- User Management Card -->
-        <div class="admin-card">
-            <div class="card-header-row">
-                <h2>Customer Accounts Management</h2>
-                <button id="openCreateUserModal" class="btn-primary"><i class="fas fa-user-plus" style="margin-right: 6px;"></i> Create New User</button>
-            </div>
+      <div>
+        <label class="lbl">Phone Number (11 Digits)</label>
+        <input type="text" id="phone" placeholder="08012345678" class="inp" maxlength="11" required />
+      </div>
 
-            <div id="mainAlert" class="alert-box"></div>
+      <div>
+        <label class="lbl">Gmail Address</label>
+        <input type="email" id="profileEmail" placeholder="johndoe@gmail.com" class="inp" required />
+      </div>
 
-            <div class="table-responsive">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Customer Name / Email</th>
-                            <th>UID</th>
-                            <th>Chequing Balance</th>
-                            <th>Savings Balance</th>
-                            <th>Credit Card Bal.</th>
-                            <th>Actions</th>
-                        </tr>
-                    <thead id="userTableBody">
-                        <!-- Dynamic rows populated via Firestore realtime listener -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
+      <div>
+        <label class="lbl">Password (Min 6 Characters)</label>
+        <input type="password" id="password" placeholder="••••••••" class="inp" minlength="6" required />
+      </div>
 
-    </div>
+      <div>
+        <label class="lbl">Initial Account Balance (₦)</label>
+        <input type="number" id="balance" placeholder="0.00" class="inp" value="0" required />
+      </div>
 
-    <!-- Create / Edit User Modal -->
-    <div id="userModal" class="modal-overlay">
-        <div class="modal-card">
-            <div class="modal-header">
-                <h3 id="modalTitle">Create New Bank User</h3>
-                <button class="close-modal" id="closeModalBtn">&times;</button>
-            </div>
+      <div class="pt-3">
+        <button type="submit" id="submitBtn" class="btn-primary">
+          <span>Create User Account</span>
+          <i class="fa-solid fa-arrow-right ml-2"></i>
+        </button>
+      </div>
+    </form>
+  </div>
 
-            <div id="modalAlert" class="alert-box"></div>
+  <script>
+    function showToast(msg, type = 'success') {
+      const t = document.getElementById('toast');
+      const msgEl = document.getElementById('toastMsg');
+      const icon = t.querySelector('i');
 
-            <form id="userForm">
-                <input type="hidden" id="editUserId">
-                
-                <div class="section-subtitle" style="margin-top:0;">Authentication Credentials</div>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="formEmail">Email Address</label>
-                        <input type="email" id="formEmail" required placeholder="user@tdtrust.local">
-                    </div>
-                    <div class="form-group">
-                        <label for="formPassword">Password <span id="pwdHint" style="font-weight:normal; color:#666; font-size:0.8rem;">(Required for new user)</span></label>
-                        <input type="password" id="formPassword" placeholder="Min 6 characters">
-                    </div>
-                    <div class="form-group full-width">
-                        <label for="formDisplayName">Full Name / Display Name</label>
-                        <input type="text" id="formDisplayName" required placeholder="John Doe">
-                    </div>
-                </div>
+      msgEl.textContent = msg;
+      if (type === 'error') {
+        icon.className = 'fa-solid fa-circle-xmark';
+        icon.style.color = '#ef4444';
+      } else {
+        icon.className = 'fa-solid fa-circle-check';
+        icon.style.color = '#10b981';
+      }
 
-                <div class="section-subtitle">Account Balances & Numbers</div>
-                <div class="form-grid">
-                    <!-- Account 1 -->
-                    <div class="form-group">
-                        <label>Chequing Account Name</label>
-                        <input type="text" id="acc1Name" value="TD Every Day Chequing Account">
-                    </div>
-                    <div class="form-group">
-                        <label>Chequing Number</label>
-                        <input type="text" id="acc1Number" value="CC 5521-********-4920">
-                    </div>
-                    <div class="form-group">
-                        <label>Chequing Balance (\$)</label>
-                        <input type="number" step="0.01" id="acc1Balance" value="0.00">
-                    </div>
-                    <div class="form-group">
-                        <label>Chequing Available (\$)</label>
-                        <input type="number" step="0.01" id="acc1Available" value="0.00">
-                    </div>
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3000);
+    }
 
-                    <!-- Account 2 -->
-                    <div class="form-group full-width" style="border-top: 1px dashed #e1e4e8; padding-top: 10px;"></div>
-                    <div class="form-group">
-                        <label>Savings Account Name</label>
-                        <input type="text" id="acc2Name" value="TD High Interest Savings Account">
-                    </div>
-                    <div class="form-group">
-                        <label>Savings Number</label>
-                        <input type="text" id="acc2Number" value="SV 8812-********-1045">
-                    </div>
-                    <div class="form-group">
-                        <label>Savings Balance (\$)</label>
-                        <input type="number" step="0.01" id="acc2Balance" value="0.00">
-                    </div>
-                    <div class="form-group">
-                        <label>Savings Available (\$)</label>
-                        <input type="number" step="0.01" id="acc2Available" value="0.00">
-                    </div>
+    document.getElementById('createUserForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
 
-                    <!-- Credit Card -->
-                    <div class="form-group full-width" style="border-top: 1px dashed #e1e4e8; padding-top: 10px;"></div>
-                    <div class="form-group">
-                        <label>Credit Card Name</label>
-                        <input type="text" id="cc1Name" value="TD First Class Travel Visa Infinite*">
-                    </div>
-                    <div class="form-group">
-                        <label>Credit Card Number</label>
-                        <input type="text" id="cc1Number" value="VI 4532-********-9011">
-                    </div>
-                    <div class="form-group">
-                        <label>Credit Card Balance / Owed (\$)</label>
-                        <input type="number" step="0.01" id="cc1Balance" value="0.00">
-                    </div>
-                    <div class="form-group">
-                        <label>Credit Limit (\$)</label>
-                        <input type="number" step="0.01" id="cc1Limit" value="10000.00">
-                    </div>
+      const fullName = document.getElementById('fullName').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const profileEmail = document.getElementById('profileEmail').value.trim().toLowerCase();
+      const password = document.getElementById('password').value.trim();
+      const balance = parseFloat(document.getElementById('balance').value) || 0;
 
-                    <!-- Investment -->
-                    <div class="form-group full-width" style="border-top: 1px dashed #e1e4e8; padding-top: 10px;"></div>
-                    <div class="form-group">
-                        <label>Investment Account Name</label>
-                        <input type="text" id="inv1Name" value="TD Direct Investing TFSA">
-                    </div>
-                    <div class="form-group">
-                        <label>Investment Number</label>
-                        <input type="text" id="inv1Number" value="TF 9920-********-3310">
-                    </div>
-                    <div class="form-group full-width">
-                        <label>Investment Market Value (\$)</label>
-                        <input type="number" step="0.01" id="inv1Balance" value="0.00">
-                    </div>
-                </div>
+      // Validation
+      if (!/^\d{11}$/.test(phone)) {
+        showToast('Phone number must be exactly 11 digits.', 'error');
+        return;
+      }
+      if (!profileEmail.endsWith('@gmail.com')) {
+        showToast('Must be a valid @gmail.com address.', 'error');
+        return;
+      }
+      if (password.length < 6) {
+        showToast('Password must be at least 6 characters long.', 'error');
+        return;
+      }
 
-                <div style="margin-top: 25px; text-align: right;">
-                    <button type="button" class="btn-sm" id="cancelModalBtn" style="background:#e1e4e8; color:#333; padding: 10px 16px; margin-right: 10px;">Cancel</button>
-                    <button type="submit" class="btn-primary" id="saveUserBtn">Save User Account</button>
-                </div>
-            </form>
-        </div>
-    </div>
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Creating User...';
 
-    <!-- Firebase SDK Scripts -->
-    <script type="module">
-        import { auth, db } from '../firebase.js';
-        import { onAuthStateChanged, signOut, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { collection, doc, setDoc, getDoc, onSnapshot, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-        import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+      const userData = {
+        fullName,
+        phone,
+        profileEmail,
+        password,
+        balance,
+        createdAt: new Date().toISOString()
+      };
 
-        let allUsersMap = {};
-
-        // 1. Authentication Guard
-        onAuthStateChanged(auth, (user) => {
-            if (!user) {
-                window.location.replace('../login.html');
-            } else {
-                document.getElementById('auth-guard-loader').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('auth-guard-loader').style.display = 'none';
-                }, 300);
-                document.getElementById('adminEmail').textContent = user.email;
-
-                // Load users list from Firestore in realtime
-                fetchUsersRealtime();
-            }
-        });
-
-        document.getElementById('logoutBtn').addEventListener('click', async () => {
-            await signOut(auth);
-            window.location.replace('../login.html');
-        });
-
-        // Modal Controls
-        const userModal = document.getElementById('userModal');
-        const openCreateBtn = document.getElementById('openCreateUserModal');
-        const closeModalBtn = document.getElementById('closeModalBtn');
-        const cancelModalBtn = document.getElementById('cancelModalBtn');
-
-        openCreateBtn.addEventListener('click', () => {
-            document.getElementById('modalTitle').textContent = 'Create New Bank User';
-            document.getElementById('editUserId').value = '';
-            document.getElementById('formEmail').value = '';
-            document.getElementById('formEmail').disabled = false;
-            document.getElementById('formPassword').value = '';
-            document.getElementById('formPassword').required = true;
-            document.getElementById('pwdHint').textContent = '(Required)';
-            document.getElementById('formDisplayName').value = '';
-            
-            // Reset default balances
-            document.getElementById('acc1Balance').value = '1500.00';
-            document.getElementById('acc1Available').value = '1500.00';
-            document.getElementById('acc2Balance').value = '5000.00';
-            document.getElementById('acc2Available').value = '5000.00';
-            document.getElementById('cc1Balance').value = '245.50';
-            document.getElementById('cc1Limit').value = '10000.00';
-            document.getElementById('inv1Balance').value = '12500.00';
-
-            document.getElementById('modalAlert').style.display = 'none';
-            userModal.style.display = 'flex';
-        });
-
-        const closeModal = () => { userModal.style.display = 'none'; };
-        closeModalBtn.addEventListener('click', closeModal);
-        cancelModalBtn.addEventListener('click', closeModal);
-
-        // Realtime Firestore Sync for Users list
-        function fetchUsersRealtime() {
-            const usersCollectionRef = collection(db, "users");
-            onSnapshot(usersCollectionRef, (snapshot) => {
-                const tbody = document.getElementById('userTableBody');
-                tbody.innerHTML = '';
-                allUsersMap = {};
-
-                if (snapshot.empty) {
-                    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#666; padding: 25px;">No user documents found in Firestore yet. Click "Create New User" above.</td></tr>`;
-                    return;
-                }
-
-                snapshot.forEach((docSnap) => {
-                    const data = docSnap.data();
-                    const uid = docSnap.id;
-                    allUsersMap[uid] = data;
-
-                    const name = data.displayName || data.email || 'Unnamed Customer';
-                    const email = data.email || 'N/A';
-                    const acc1Bal = data.account1 ? Number(data.account1.balance || 0).toLocaleString('en-CA', {style: 'currency', currency: 'CAD'}) : '\$0.00';
-                    const acc2Bal = data.account2 ? Number(data.account2.balance || 0).toLocaleString('en-CA', {style: 'currency', currency: 'CAD'}) : '\$0.00';
-                    const ccBal = data.creditCard1 ? Number(data.creditCard1.balance || 0).toLocaleString('en-CA', {style: 'currency', currency: 'CAD'}) : '\$0.00';
-
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td><strong>${name}</strong><br><small style="color:#666;">${email}</small></td>
-                        <td><code style="font-size:0.8rem; background:#eee; padding:2px 4px; border-radius:3px;">${uid}</code></td>
-                        <td>${acc1Bal}</td>
-                        <td>${acc2Bal}</td>
-                        <td>${ccBal}</td>
-                        <td>
-                            <div class="action-btns">
-                                <button class="btn-sm btn-edit" onclick="window.editUser('${uid}')"><i class="fas fa-edit"></i> Edit</button>
-                                <button class="btn-sm btn-delete" onclick="window.deleteUser('${uid}', '${email}')"><i class="fas fa-trash"></i> Delete</button>
-                            </div>
-                        </div>
-                    `;
-                    tbody.appendChild(tr);
-                });
-            }, (error) => {
-                console.error("Error listening to users:", error);
-            });
+      try {
+        let dbSaved = false;
+        // Check if Firebase Firestore is available
+        if (window._9jaCash && window._9jaCash.db) {
+          const db = window._9jaCash.db;
+          // Save document using phone number as the unique document ID
+          await db.collection('users').doc(phone).set(userData);
+          dbSaved = true;
+        } else if (typeof firebase !== 'undefined' && firebase.apps.length) {
+          const db = firebase.firestore();
+          await db.collection('users').doc(phone).set(userData);
+          dbSaved = true;
         }
 
-        // Edit User Global Hook
-        window.editUser = (uid) => {
-            const data = allUsersMap[uid];
-            if (!data) return;
+        // Also save to localStorage as a backup / fallback
+        localStorage.setItem('9jaCashUser', JSON.stringify(userData));
 
-            document.getElementById('modalTitle').textContent = 'Edit User Details & Balances';
-            document.getElementById('editUserId').value = uid;
-            document.getElementById('formEmail').value = data.email || '';
-            document.getElementById('formEmail').disabled = true; // Email cannot be changed directly in auth client easily
-            document.getElementById('formPassword').value = '';
-            document.getElementById('formPassword').required = false;
-            document.getElementById('pwdHint').textContent = '(Leave blank to keep existing password)';
-            document.getElementById('formDisplayName').value = data.displayName || '';
-
-            if (data.account1) {
-                document.getElementById('acc1Name').value = data.account1.name || '';
-                document.getElementById('acc1Number').value = data.account1.number || '';
-                document.getElementById('acc1Balance').value = data.account1.balance || 0;
-                document.getElementById('acc1Available').value = data.account1.available || 0;
-            }
-            if (data.account2) {
-                document.getElementById('acc2Name').value = data.account2.name || '';
-                document.getElementById('acc2Number').value = data.account2.number || '';
-                document.getElementById('acc2Balance').value = data.account2.balance || 0;
-                document.getElementById('acc2Available').value = data.account2.available || 0;
-            }
-            if (data.creditCard1) {
-                document.getElementById('cc1Name').value = data.creditCard1.name || '';
-                document.getElementById('cc1Number').value = data.creditCard1.number || '';
-                document.getElementById('cc1Balance').value = data.creditCard1.balance || 0;
-                document.getElementById('cc1Limit').value = data.creditCard1.creditLimit || 10000;
-            }
-            if (data.investment1) {
-                document.getElementById('inv1Name').value = data.investment1.name || '';
-                document.getElementById('inv1Number').value = data.investment1.number || '';
-                document.getElementById('inv1Balance').value = data.investment1.balance || 0;
-            }
-
-            document.getElementById('modalAlert').style.display = 'none';
-            userModal.style.display = 'flex';
-        };
-
-        // Delete User Global Hook
-        window.deleteUser = async (uid, email) => {
-            if (confirm(`Are you sure you want to delete user account for ${email}?\nNote: Firestore record will be removed.`)) {
-                try {
-                    await deleteDoc(doc(db, "users", uid));
-                    showAlert("User document deleted successfully from Firestore.", "success");
-                } catch (error) {
-                    console.error("Delete error:", error);
-                    showAlert("Error deleting user: " + error.message, "error");
-                }
-            }
-        };
-
-        function showAlert(msg, type) {
-            const box = document.getElementById('mainAlert');
-            box.className = `alert-box alert-${type}`;
-            box.textContent = msg;
-            box.style.display = 'block';
-            setTimeout(() => { box.style.display = 'none'; }, 5000);
-        }
-
-        // Handle Form Submission (Create or Update)
-        document.getElementById('userForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const modalAlert = document.getElementById('modalAlert');
-            modalAlert.style.display = 'none';
-
-            const editUid = document.getElementById('editUserId').value;
-            const email = document.getElementById('formEmail').value.trim();
-            const password = document.getElementById('formPassword').value;
-            const displayName = document.getElementById('formDisplayName').value.trim();
-
-            const userData = {
-                displayName,
-                email,
-                account1: {
-                    name: document.getElementById('acc1Name').value,
-                    number: document.getElementById('acc1Number').value,
-                    balance: parseFloat(document.getElementById('acc1Balance').value) || 0,
-                    available: parseFloat(document.getElementById('acc1Available').value) || 0
-                },
-                account2: {
-                    name: document.getElementById('acc2Name').value,
-                    number: document.getElementById('acc2Number').value,
-                    balance: parseFloat(document.getElementById('acc2Balance').value) || 0,
-                    available: parseFloat(document.getElementById('acc2Available').value) || 0
-                },
-                creditCard1: {
-                    name: document.getElementById('cc1Name').value,
-                    number: document.getElementById('cc1Number').value,
-                    balance: parseFloat(document.getElementById('cc1Balance').value) || 0,
-                    creditLimit: parseFloat(document.getElementById('cc1Limit').value) || 10000
-                },
-                investment1: {
-                    name: document.getElementById('inv1Name').value,
-                    number: document.getElementById('inv1Number').value,
-                    balance: parseFloat(document.getElementById('inv1Balance').value) || 0
-                },
-                updatedAt: new Date().toISOString()
-            };
-
-            const saveBtn = document.getElementById('saveUserBtn');
-            saveBtn.disabled = true;
-            saveBtn.textContent = 'Saving...';
-
-            try {
-                if (!editUid) {
-                    // Creating new user in Firebase Auth using a temporary secondary Firebase app instance
-                    // This prevents logging out the current Superadmin user during creation.
-                    const currentConfig = auth.app.options;
-                    const secondaryAppName = 'SecondaryApp_' + Date.now();
-                    const secondaryApp = initializeApp(currentConfig, secondaryAppName);
-                    
-                    // Dynamically import auth for secondary app
-                    const { getAuth: getSecondaryAuth, createUserWithEmailAndPassword: createSecondaryUser, signOut: secondarySignOut } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js");
-                    const secondaryAuth = getSecondaryAuth(secondaryApp);
-
-                    const userCred = await createSecondaryUser(secondaryAuth, email, password);
-                    const newUid = userCred.user.uid;
-
-                    // Sign out secondary auth immediately so it doesn't conflict
-                    await secondarySignOut(secondaryAuth);
-
-                    // Save user document in Firestore under users/{newUid}
-                    await setDoc(doc(db, "users", newUid), {
-                        ...userData,
-                        createdAt: new Date().toISOString()
-                    });
-
-                    showAlert(`Successfully created user ${email}`, "success");
-                } else {
-                    // Updating existing user data in Firestore
-                    await setDoc(doc(db, "users", editUid), userData, { merge: true });
-                    showAlert(`Successfully updated user ${email}`, "success");
-                }
-
-                closeModal();
-            } catch (error) {
-                console.error("Error saving user:", error);
-                modalAlert.className = 'alert-box alert-error';
-                modalAlert.textContent = 'Error: ' + error.message;
-                modalAlert.style.display = 'block';
-            } finally {
-                saveBtn.disabled = false;
-                saveBtn.textContent = 'Save User Account';
-            }
-        });
-    </script>
+        showToast('User created successfully in database!');
+        document.getElementById('createUserForm').reset();
+      } catch (err) {
+        console.error('Error creating user:', err);
+        showToast('Failed to save user to database: ' + err.message, 'error');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<span>Create User Account</span><i class="fa-solid fa-arrow-right ml-2"></i>';
+      }
+    });
+  </script>
 </body>
 </html>
