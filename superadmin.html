@@ -141,6 +141,32 @@
 
     </div>
 
+    <!-- WHATSAPP SUPPORT CONTACT -->
+    <section class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200/80 space-y-4">
+      <div>
+        <h2 class="text-base font-bold text-gray-900 flex items-center space-x-2">
+          <i class="fa-brands fa-whatsapp text-tdGreen"></i>
+          <span>WhatsApp Support Contact</span>
+        </h2>
+        <p class="text-xs text-gray-500 mt-1">Manage the number stored in <code>admin/support.whatsapp</code>.</p>
+      </div>
+      <div class="flex flex-col sm:flex-row gap-3">
+        <div class="flex-1">
+          <label for="support-whatsapp" class="block text-xs font-bold text-gray-700 mb-1">WhatsApp number</label>
+          <input type="tel" id="support-whatsapp" placeholder="e.g. +1 416 555 0123" autocomplete="tel" class="w-full p-3 rounded-xl border border-gray-300 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-medium">
+          <p id="support-whatsapp-status" class="text-xs text-gray-500 mt-2" aria-live="polite">Loading WhatsApp support number...</p>
+        </div>
+        <div class="flex sm:items-end gap-2">
+          <button onclick="saveSupportWhatsApp()" class="bg-tdGreen text-white font-bold text-xs px-4 py-3 rounded-xl hover:bg-tdGreen-dark transition-colors">
+            <i class="fa-solid fa-floppy-disk mr-1"></i> Save Number
+          </button>
+          <button onclick="deleteSupportWhatsApp()" class="bg-red-50 text-red-600 border border-red-200 font-bold text-xs px-4 py-3 rounded-xl hover:bg-red-100 transition-colors">
+            <i class="fa-solid fa-trash-can mr-1"></i> Delete Number
+          </button>
+        </div>
+      </div>
+    </section>
+
     <!-- EDITOR FORM CONTAINER -->
     <section id="editor-card" class="hidden bg-white rounded-2xl p-6 shadow-sm border border-gray-200/80 space-y-8">
 
@@ -257,7 +283,8 @@
       doc,
       getDoc,
       setDoc,
-      deleteDoc
+      deleteDoc,
+      deleteField
     } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     let currentSelectedUid = null;
@@ -268,6 +295,7 @@
       if (isAuth === 'true') {
         document.getElementById('adminAuthOverlay').classList.add('hidden');
         loadUserDropdown();
+        loadSupportWhatsApp();
       }
     });
 
@@ -295,6 +323,7 @@
           sessionStorage.setItem('td_admin_auth', 'true');
           document.getElementById('adminAuthOverlay').classList.add('hidden');
           loadUserDropdown();
+          loadSupportWhatsApp();
           showToast("Admin authenticated successfully!");
         } else {
           alert("Invalid admin username or password.");
@@ -308,6 +337,57 @@
     window.adminSignOut = function() {
       sessionStorage.removeItem('td_admin_auth');
       location.reload();
+    };
+
+    async function loadSupportWhatsApp() {
+      const input = document.getElementById('support-whatsapp');
+      const status = document.getElementById('support-whatsapp-status');
+
+      try {
+        const supportSnap = await getDoc(doc(db, "admin", "support"));
+        input.value = supportSnap.exists() ? supportSnap.data().whatsapp || "" : "";
+        status.textContent = input.value
+          ? "Current WhatsApp support number"
+          : "No WhatsApp support number is configured.";
+      } catch (err) {
+        console.error("Error loading WhatsApp support number:", err);
+        status.textContent = "Unable to load the WhatsApp support number.";
+        showToast("Failed to load WhatsApp support settings.");
+      }
+    }
+
+    window.saveSupportWhatsApp = async function() {
+      const input = document.getElementById('support-whatsapp');
+      const number = input.value.trim();
+      const digits = number.replace(/\D/g, '');
+
+      if (!/^\d{8,15}$/.test(digits)) {
+        showToast("Enter a valid WhatsApp number with 8 to 15 digits.");
+        return;
+      }
+
+      try {
+        await setDoc(doc(db, "admin", "support"), { whatsapp: number }, { merge: true });
+        document.getElementById('support-whatsapp-status').textContent = "WhatsApp support number saved.";
+        showToast("WhatsApp support number saved successfully.");
+      } catch (err) {
+        console.error("Error saving WhatsApp support number:", err);
+        showToast("Failed to save WhatsApp support number.");
+      }
+    };
+
+    window.deleteSupportWhatsApp = async function() {
+      if (!confirm("Delete the WhatsApp number from admin/support?")) return;
+
+      try {
+        await setDoc(doc(db, "admin", "support"), { whatsapp: deleteField() }, { merge: true });
+        document.getElementById('support-whatsapp').value = "";
+        document.getElementById('support-whatsapp-status').textContent = "No WhatsApp support number is configured.";
+        showToast("WhatsApp support number deleted.");
+      } catch (err) {
+        console.error("Error deleting WhatsApp support number:", err);
+        showToast("Failed to delete WhatsApp support number.");
+      }
     };
 
     // Load users list into selector

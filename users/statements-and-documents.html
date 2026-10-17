@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>TD Canada Trust - Statements &amp; Documents</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            tdGreen: { DEFAULT: '#008a00', dark: '#006b00', light: '#f2f8f2' }
+          },
+          fontFamily: { sans: ['Inter', 'Arial', 'sans-serif'] }
+        }
+      }
+    };
+  </script>
+  <style>
+    body { font-family: 'Inter', Arial, sans-serif; background: #f4f6f8; color: #111827; -webkit-tap-highlight-color: transparent; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between pb-20">
+  <div id="loading-overlay" class="fixed inset-0 z-50 flex flex-col items-center justify-center space-y-3 bg-white">
+    <div class="w-10 h-10 border-4 border-tdGreen border-t-transparent rounded-full animate-spin"></div>
+    <p class="text-xs font-semibold text-gray-600">Loading statements...</p>
+  </div>
+
+  <header class="sticky top-0 z-30 rounded-b-2xl bg-tdGreen px-4 py-4 text-white shadow-md">
+    <div class="mx-auto flex max-w-md items-center justify-between">
+      <a href="dashboard.html" class="rounded-full p-1.5 hover:bg-white/10" aria-label="Back to dashboard"><i class="fa-solid fa-chevron-left text-lg"></i></a>
+      <h1 class="text-lg font-bold">Statements &amp; Documents</h1>
+      <button type="button" onclick="toggleMoreMenu()" class="rounded-full p-1.5 hover:bg-white/10" aria-label="More options"><i class="fa-solid fa-ellipsis text-lg"></i></button>
+    </div>
+  </header>
+
+  <main class="mx-auto w-full max-w-md flex-grow space-y-4 px-4 py-5">
+    <section class="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+      <div class="flex items-start gap-3">
+        <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-tdGreen/10 text-tdGreen"><i class="fa-solid fa-file-lines text-lg"></i></div>
+        <div><h2 class="text-sm font-bold text-gray-900">Your account activity</h2><p class="mt-1 text-xs leading-relaxed text-gray-600">Review recent transactions associated with your profile. Official statements and documents can be requested from TD Support.</p></div>
+      </div>
+    </section>
+
+    <section class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+      <div class="flex items-center justify-between border-b border-gray-100 p-4">
+        <h2 class="text-sm font-bold text-gray-900">Recent activity</h2>
+        <span id="activity-count" class="text-[10px] font-semibold text-gray-500">Loading...</span>
+      </div>
+      <div id="transaction-list" class="divide-y divide-gray-100">
+        <p class="p-5 text-center text-xs text-gray-500">Loading account activity...</p>
+      </div>
+    </section>
+
+    <section class="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+      <h2 class="text-sm font-bold text-gray-900">Need a statement or document?</h2>
+      <p class="mt-1 text-xs leading-relaxed text-gray-600">Our support team can help you locate or request account documents.</p>
+      <a href="#" data-contact-support class="mt-3 flex w-full items-center justify-center gap-2 rounded-xl bg-tdGreen py-3 text-xs font-bold text-white hover:bg-tdGreen-dark">
+        <i class="fa-brands fa-whatsapp"></i><span>Contact TD Support</span>
+      </a>
+    </section>
+  </main>
+
+  <div id="action-toast" class="fixed bottom-20 left-1/2 z-50 hidden -translate-x-1/2 items-center gap-2 rounded-xl bg-gray-900/95 px-4 py-3 text-xs text-white shadow-2xl">
+    <i class="fa-solid fa-circle-info text-tdGreen"></i><span id="toast-message"></span>
+  </div>
+
+  <nav class="fixed bottom-0 left-0 right-0 z-40 border-t border-gray-200 bg-white px-4 py-2">
+    <div class="mx-auto flex max-w-md items-center justify-between text-[10px] font-medium text-gray-500">
+      <a href="dashboard.html" class="flex flex-col items-center space-y-1 hover:text-tdGreen"><i class="fa-solid fa-house text-lg"></i><span>Home</span></a>
+      <a href="accounts.html" class="flex flex-col items-center space-y-1 hover:text-tdGreen"><i class="fa-solid fa-wallet text-lg"></i><span>Accounts</span></a>
+      <a href="move.html" class="flex flex-col items-center space-y-1 hover:text-tdGreen"><i class="fa-solid fa-arrows-up-down-left-right text-lg"></i><span>Move</span></a>
+      <a href="rewards.html" class="flex flex-col items-center space-y-1 hover:text-tdGreen"><i class="fa-solid fa-gift text-lg"></i><span>Rewards</span></a>
+      <button type="button" onclick="toggleMoreMenu()" class="flex flex-col items-center space-y-1 hover:text-tdGreen"><i class="fa-solid fa-bars text-lg"></i><span>More</span></button>
+    </div>
+  </nav>
+
+  <div id="more-menu-modal" class="fixed inset-0 z-50 hidden flex justify-end bg-black/50 backdrop-blur-sm">
+    <aside class="flex h-full w-4/5 max-w-xs flex-col justify-between space-y-4 overflow-y-auto bg-white p-5 shadow-2xl">
+      <div>
+        <div class="mb-4 flex items-center justify-between border-b pb-3"><h2 class="text-base font-bold">More Options</h2><button type="button" onclick="toggleMoreMenu()" aria-label="Close menu" class="text-gray-400"><i class="fa-solid fa-xmark text-lg"></i></button></div>
+        <div class="space-y-1 text-sm font-medium text-gray-700">
+          <a href="card-management.html" class="flex items-center gap-3 rounded-xl p-3 hover:bg-gray-100"><i class="fa-solid fa-credit-card w-5 text-tdGreen"></i><span>Card Management</span></a>
+          <a href="statements-and-documents.html" class="flex items-center gap-3 rounded-xl bg-gray-100 p-3 text-tdGreen"><i class="fa-solid fa-file-invoice w-5"></i><span>Statements &amp; Documents</span></a>
+          <a href="settings-and-security.html" class="flex items-center gap-3 rounded-xl p-3 hover:bg-gray-100"><i class="fa-solid fa-gear w-5 text-tdGreen"></i><span>Settings &amp; Security</span></a>
+          <a href="../branch-locator.html" class="flex items-center gap-3 rounded-xl p-3 hover:bg-gray-100"><i class="fa-solid fa-location-dot w-5 text-tdGreen"></i><span>Find Branch or ATM</span></a>
+          <a href="#" data-contact-support class="flex items-center gap-3 rounded-xl p-3 hover:bg-gray-100"><i class="fa-solid fa-headset w-5 text-tdGreen"></i><span>Contact TD Support</span></a>
+        </div>
+      </div>
+      <button type="button" onclick="handleLogout()" class="flex w-full items-center justify-center gap-2 rounded-xl bg-red-50 p-3 font-bold text-red-600 hover:bg-red-100"><i class="fa-solid fa-right-from-bracket"></i><span>Sign Out</span></button>
+    </aside>
+  </div>
+
+  <script type="module">
+    import { auth, db } from '../firebase.js';
+    import { onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
+    import { collection, getDocs, query, where } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+
+    const list = document.getElementById('transaction-list');
+    const overlay = document.getElementById('loading-overlay');
+    function showToast(message) {
+      document.getElementById('toast-message').textContent = message;
+      const toast = document.getElementById('action-toast');
+      toast.classList.remove('hidden');
+      toast.classList.add('flex');
+      setTimeout(() => { toast.classList.add('hidden'); toast.classList.remove('flex'); }, 3000);
+    }
+    window.showToast = showToast;
+    window.toggleMoreMenu = () => document.getElementById('more-menu-modal').classList.toggle('hidden');
+    window.handleLogout = async () => {
+      try { await signOut(auth); window.location.href = '../login.html'; }
+      catch (error) { console.error('Unable to sign out:', error); showToast('Unable to sign out. Please try again.'); }
+    };
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        document.getElementById('activity-count').textContent = 'Sign in required';
+        list.innerHTML = '<p class="p-5 text-center text-xs text-gray-600">Sign in to view recent account activity.</p>';
+        overlay.classList.add('hidden');
+        return;
+      }
+      try {
+        const activityQuery = query(collection(db, 'transactions'), where('userId', '==', user.uid));
+        const snapshot = await getDocs(activityQuery);
+        const activities = snapshot.docs.map((entry) => entry.data()).sort((a, b) => {
+          const dateA = a.timestamp?.toMillis?.() || 0;
+          const dateB = b.timestamp?.toMillis?.() || 0;
+          return dateB - dateA;
+        });
+        document.getElementById('activity-count').textContent = `${activities.length} records`;
+        list.replaceChildren();
+        if (!activities.length) {
+          list.innerHTML = '<p class="p-5 text-center text-xs text-gray-500">No recent activity is available.</p>';
+          return;
+        }
+        activities.slice(0, 30).forEach((activity) => {
+          const row = document.createElement('div');
+          row.className = 'flex items-center justify-between gap-3 p-4';
+          const details = document.createElement('div');
+          const title = document.createElement('p');
+          title.className = 'text-xs font-bold text-gray-900';
+          title.textContent = activity.payee || activity.type || activity.description || 'Account activity';
+          const date = document.createElement('p');
+          date.className = 'mt-1 text-[10px] text-gray-500';
+          date.textContent = activity.timestamp?.toDate ? activity.timestamp.toDate().toLocaleDateString() : 'Date unavailable';
+          details.append(title, date);
+          const amount = document.createElement('span');
+          amount.className = 'shrink-0 text-xs font-bold text-gray-900';
+          amount.textContent = activity.amount == null ? '' : `$${Number(activity.amount).toLocaleString('en-CA', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+          row.append(details, amount);
+          list.append(row);
+        });
+      } catch (error) {
+        console.error('Unable to load account activity:', error);
+        document.getElementById('activity-count').textContent = 'Unavailable';
+        list.innerHTML = '<p class="p-5 text-center text-xs text-red-600">We could not load your activity. Please try again later.</p>';
+      } finally {
+        overlay.classList.add('hidden');
+      }
+    });
+  </script>
+  <script type="module" src="support-contact.js"></script>
+</body>
+</html>
