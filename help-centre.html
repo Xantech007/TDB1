@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Centre - FAQs, Support & Customer Service | TD Canada Trust</title>
+    <link rel="stylesheet" href="td-theme.css">
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Help Centre Hero / Search Section */
+        .help-hero {
+            background: linear-gradient(135deg, #003300 0%, #005600 100%);
+            color: #ffffff;
+            padding: 60px 0 80px 0;
+            text-align: center;
+        }
+        .help-hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+        .help-search-box {
+            max-width: 700px;
+            margin: 0 auto;
+            display: flex;
+            background: #ffffff;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+        .help-search-box input {
+            flex: 1;
+            padding: 18px 20px;
+            font-size: 1.05rem;
+            border: none;
+            outline: none;
+            color: #333;
+        }
+        .help-search-box button {
+            background: #008a00;
+            color: #ffffff;
+            border: none;
+            padding: 0 30px;
+            font-size: 1.05rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.2s;
+        }
+        .help-search-box button:hover {
+            background: #006600;
+        }
+
+        /* Quick Help Category Carousel Section */
+        .quick-help-section {
+            padding: 60px 0;
+            background-color: #f4f6f8;
+        }
+        .help-carousel-container {
+            max-width: 900px;
+            margin: 30px auto 0 auto;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-top: 5px solid #008a00;
+            padding: 40px 35px;
+        }
+        .help-slide {
+            display: none;
+        }
+        .help-slide.active {
+            display: block;
+        }
+        .help-slide h2 {
+            font-size: 1.6rem;
+            color: #003300;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e6f4e6;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .help-slide h2 i {
+            color: #008a00;
+        }
+        .help-links-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+        .help-links-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .help-links-list li:last-child {
+            border-bottom: none;
+        }
+        .help-links-list a {
+            color: #0056b3;
+            text-decoration: none;
+            font-size: 1.05rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: color 0.2s;
+        }
+        .help-links-list a:hover {
+            color: #003300;
+            text-decoration: underline;
+        }
+        .help-links-list a::after {
+            content: "\f054";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            font-size: 0.85rem;
+            color: #008a00;
+        }
+
+        /* View More Action Bar */
+        .view-more-container {
+            text-align: center;
+            margin-top: 25px;
+        }
+        .btn-view-more {
+            display: inline-block;
+            background: #ffffff;
+            color: #008a00;
+            border: 2px solid #008a00;
+            padding: 10px 25px;
+            border-radius: 4px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .btn-view-more:hover {
+            background: #008a00;
+            color: #ffffff;
+        }
+
+        /* Expert Help / Appointment Section Carousel */
+        .expert-help-section {
+            padding: 60px 0;
+            background-color: #ffffff;
+        }
+        .expert-carousel-container {
+            max-width: 800px;
+            margin: 30px auto 0 auto;
+            background: #f9fbf9;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-left: 5px solid #008a00;
+            padding: 45px 35px;
+            text-align: center;
+        }
+        .expert-slide {
+            display: none;
+        }
+        .expert-slide.active {
+            display: block;
+        }
+        .expert-slide .slide-icon-circle {
+            width: 70px;
+            height: 70px;
+            background: #e6f4e6;
+            color: #008a00;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 20px auto;
+        }
+        .expert-slide h2 {
+            font-size: 1.8rem;
+            color: #111;
+            margin-bottom: 15px;
+        }
+        .expert-slide p {
+            font-size: 1.05rem;
+            color: #555;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto 25px auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Utility Navigation -->
+    <div class="utility-nav" id="utilityNav">
+        <div class="container">
+            <ul class="utility-links">
+                <li><a href="index.html">Personal</a></li>
+                <li><a href="small-business.html">Small Business</a></li>
+                <li><a href="commercial-banking.html">Commercial</a></li>
+                <li><a href="investing.html">Investing</a></li>
+                <li><a href="asset-management.html">TD Asset Management</a></li>
+                <li><a href="about-td.html">About TD</a></li>
+            </ul>
+            <button type="button" class="mobile-sidebar-search page-search-trigger" aria-label="Search this page">
+                <i class="fas fa-search" aria-hidden="true"></i>
+                <span>Search this page</span>
+            </button>
+            <div class="country-selector">
+                <img src="images/country-ca-en.png" alt="Canada" style="height: 20px; width: auto; vertical-align: middle;">
+                <i class="fas fa-caret-down"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/cdic-logo-white-en.png" alt="TD Canada Trust">
+                </a>
+            </div>
+            <nav class="main-nav" id="mainNav">
+                <ul>
+                    <li class="dropdown" onclick="toggleDropdown(this)">
+                        <a href="#">Products <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <ul>
+                                <li><a href="#">Accounts</a></li>
+                                <li><a href="#">Savings</a></li>
+                                <li><a href="#">GICs</a></li>
+                                <li><a href="#">Credit Cards</a></li>
+                                <li><a href="#">Mortgages</a></li>
+                                <li><a href="#">Personal Loans</a></li>
+                                <li><a href="#">RSPs / TFSAs</a></li>
+                                <li><a href="#">Debit Cards</a></li>
+                                <li><a href="#">Special Offers</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="dropdown" onclick="toggleDropdown(this)">
+                        <a href="#">Services <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <ul>
+                                <li><a href="#">EasyWeb Online Banking</a></li>
+                                <li><a href="#">TD app</a></li>
+                                <li><a href="#">Student Banking</a></li>
+                                <li><a href="#">Cross Border Banking</a></li>
+                                <li><a href="#">Travel Tips</a></li>
+                                <li><a href="#">Foreign Exchange Services</a></li>
+                                <li><a href="#">Overdraft Protection</a></li>
+                                <li><a href="#">New to Canada</a></li>
+                                <li><a href="#">Manage Your TD Credit Card</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a href="#">Learning</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="branch-locator.html" class="icon-link" aria-label="Find a branch"><i class="fas fa-map-marker-alt"></i></a>
+                <a href="help-centre.html" class="icon-link" aria-label="Help centre" style="color: #008a00;"><i class="fas fa-question-circle"></i></a>
+                <button type="button" class="icon-link page-search-trigger" aria-label="Search this page" title="Search this page"><i class="fas fa-search"></i></button>
+                <div class="divider"></div>
+                <a href="login.html" class="login-btn">
+                    <i class="fas fa-user"></i>
+                    Log In
+                </a>
+                <button class="mobile-menu-toggle" id="menuToggle" aria-controls="utilityNav" aria-expanded="false" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section with Search -->
+        <section class="help-hero">
+            <img class="hero-image" src="images/homepage-3.2d-200x90px-spot-three.jpeg" alt="" aria-hidden="true" style="max-height: 90px; margin-bottom: 15px;">
+            <div class="container">
+                <h1>How can we help you?</h1>
+                <div class="help-search-box">
+                    <input type="text" placeholder="I'm looking for...">
+                    <button type="button"><i class="fas fa-search"></i> Ask now</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Help with Everyday Activities Carousel -->
+        <section class="quick-help-section">
+            <div class="container">
+                <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+                    <h2 style="font-size: 2rem; color: #111;">Quick help with your everyday activities</h2>
+                </div>
+
+                <div class="help-carousel-container">
+                    <!-- Slide 1: Login help -->
+                    <div class="help-slide active" id="help-slide-1">
+                        <h2><i class="fas fa-sign-in-alt"></i> Login help</h2>
+                        <ul class="help-links-list">
+                            <li><a href="#">How do I change or reset my password?</a></li>
+                            <li><a href="#">What is Two-Step Verification and how does it work?</a></li>
+                            <li><a href="#">How do I update my security settings for Two-Step Verification?</a></li>
+                            <li><a href="#">How do I add another Access Card to the EasyWeb login screen?</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Slide 2: Account rates and fees -->
+                    <div class="help-slide" id="help-slide-2">
+                        <h2><i class="fas fa-percentage"></i> Account rates and fees</h2>
+                        <ul class="help-links-list">
+                            <li><a href="#">Where can I find a full list of fees and service charges related to my Chequing or Savings Account?</a></li>
+                            <li><a href="#">Why does an account incur Transaction or Withdrawal Fees?</a></li>
+                            <li><a href="#">What are the interest rates on your personal bank accounts?</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Slide 3: Managing my accounts -->
+                    <div class="help-slide" id="help-slide-3">
+                        <h2><i class="fas fa-wallet"></i> Managing my accounts</h2>
+                        <ul class="help-links-list">
+                            <li><a href="#">How do I find my transit number, institution number and account number?</a></li>
+                            <li><a href="#">How do I access my account history?</a></li>
+                            <li><a href="#">Have a question about Account Activity?</a></li>
+                            <li><a href="#">How can I identify transactions I don't recognize?</a></li>
+                            <li><a href="#">How do I dispute a transaction?</a></li>
+                            <li><a href="#">When should I expect my TD tax receipts?</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Slide 4: Pay a bill -->
+                    <div class="help-slide" id="help-slide-4">
+                        <h2><i class="fas fa-file-invoice-dollar"></i> Pay a bill</h2>
+                        <ul class="help-links-list">
+                            <li><a href="#">How do I set up a Pre-Authorized Debit (PAD) payment?</a></li>
+                            <li><a href="#">How do I customize my Canadian payee list?</a></li>
+                            <li><a href="#">When will TD Canada Trust process my bill payment?</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Slide 5: Wire transfer -->
+                    <div class="help-slide" id="help-slide-5">
+                        <h2><i class="fas fa-globe"></i> Wire transfer</h2>
+                        <ul class="help-links-list">
+                            <li><a href="#">How do I receive a wire transfer to my account?</a></li>
+                            <li><a href="#">How do I send a wire transfer?</a></li>
+                            <li><a href="#">How long does a wire transfer take to be processed?</a></li>
+                            <li><a href="#">What is TD's Swift Code?</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Slide 6: Interac e-Transfer -->
+                    <div class="help-slide" id="help-slide-6">
+                        <h2><i class="fas fa-exchange-alt"></i> Interac e-Transfer</h2>
+                        <ul class="help-links-list">
+                            <li><a href="#">What are the fees and limits to send or request an Interac e-Transfer?</a></li>
+                            <li><a href="#">How do I send money using Interac e-Transfer?</a></li>
+                            <li><a href="#">How do I receive money using Interac e-Transfer?</a></li>
+                            <li><a href="#">How do I cancel a pending Interac e-Transfer for either Send Money or Request Money?</a></li>
+                            <li><a href="#">How do I set up Autodeposit for Interac e-Transfer?</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Carousel Controls & Indicator -->
+                    <div class="carousel-controls-bar">
+                        <button class="carousel-arrow" onclick="navigateHelpSlide(-1)"><i class="fas fa-chevron-left"></i></button>
+                        <span class="slide-indicator-text" id="helpIndicator">slide 1 of 6</span>
+                        <button class="carousel-arrow" onclick="navigateHelpSlide(1)"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+
+                <div class="view-more-container">
+                    <a href="#" class="btn-view-more">View more <i class="fas fa-chevron-down"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Get Expert Help or Help Yourself Carousel Section -->
+        <section class="expert-help-section">
+            <div class="container">
+                <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+                    <h2 style="font-size: 2rem; color: #111;">Get expert help or help yourself.</h2>
+                </div>
+
+                <div class="expert-carousel-container">
+                    <!-- Expert Slide 1 -->
+                    <div class="expert-slide active" id="expert-slide-1">
+                        <div class="slide-icon-circle">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <h2>Book an appointment</h2>
+                        <p>Meet with us at a time that works for you</p>
+                        <a href="#" class="btn btn-primary">Book Now</a>
+                    </div>
+
+                    <!-- Expert Slide 2 -->
+                    <div class="expert-slide" id="expert-slide-2">
+                        <div class="slide-icon-circle">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h2>Find out How to…</h2>
+                        <p>Information and resources to help you reach your goals</p>
+                        <a href="#" class="btn btn-primary">Learn How</a>
+                    </div>
+
+                    <!-- Carousel Controls & Indicator -->
+                    <div class="carousel-controls-bar">
+                        <button class="carousel-arrow" onclick="navigateExpertSlide(-1)"><i class="fas fa-chevron-left"></i></button>
+                        <span class="slide-indicator-text" id="expertIndicator">slide 1 of 2</span>
+                        <button class="carousel-arrow" onclick="navigateExpertSlide(1)"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Disclosures Section -->
+        <section class="disclosures" style="background-color: #f4f6f8; padding: 30px 0;">
+            <div class="container">
+                <details>
+                    <summary>Legal & Support Disclaimers</summary>
+                    <div class="disclosure-content">
+                        <p><span class="legal-text">Interac e-Transfer is a registered trademark of Interac Corp. Used under license. All trademarks are the property of their respective owners.</span></p>
+                    </div>
+                </details>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-heading">
+                    <p>Need to talk to us directly? <a href="#">Contact us</a></p>
+                </div>
+                <div class="social-links">
+                    <p>Follow TD Canada</p>
+                    <ul>
+                        <li><a href="https://twitter.com/td_canada"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="https://www.facebook.com/TDCanada/"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="https://www.instagram.com/TD_Canada/"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="https://www.youtube.com/user/TDCanada/TDCanadaTrust"><i class="fab fa-youtube"></i></a></li>
+                        <li><a href="https://www.linkedin.com/company/td/"><i class="fab fa-linkedin-in"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <ul class="footer-links">
+                <li><a href="privacy-and-security.html">Privacy and Security</a></li>
+                <li><a href="legal-notices-and-disclaimers.html">Legal</a></li>
+                <li><a href="accessibility.html">Accessibility</a></li>
+                <li><a href="cdic.html">CDIC Member</a></li>
+                <li><a href="careers.html">Careers</a></li>
+                <li><a href="#">Manage online experience</a></li>
+                <li><a href="site-index.html">Site Index</a></li>
+            </ul>
+            <hr>
+            <div class="footer-info">
+                <p><a href="#">CDIC Member. Deposits insured up to applicable limits by the Canada Deposit Insurance Corporation</a></p>
+            </div>
+            <hr>
+            <div class="securities-notice">
+                <p><b>INVESTMENT AND MUTUAL FUND PRODUCTS ARE: NOT A DEPOSIT; NOT CDIC INSURED; NOT INSURED BY ANY FEDERAL GOVERNMENT AGENCY; NOT GUARANTEED BY THE TORONTO-DOMINION BANK OR ANY OF ITS AFFILIATES.</b></p>
+            </div>
+            <hr>
+            <div class="copyright">
+                <p><b>TD Bank Tower</b> 66 Wellington Street West, Toronto, ON M5K 1A2<br>
+                ©2026 The Toronto-Dominion Bank. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Carousel Controller Scripts -->
+    <script>
+        function createCarousel(prefix, total) {
+            let curr = 1;
+            return function(dir) {
+                document.getElementById(`${prefix}-slide-${curr}`).classList.remove('active');
+                curr += dir;
+                if (curr > total) curr = 1;
+                if (curr < 1) curr = total;
+                document.getElementById(`${prefix}-slide-${curr}`).classList.add('active');
+                document.getElementById(`${prefix}Indicator`).textContent = `slide ${curr} of ${total}`;
+            };
+        }
+
+        const navigateHelpSlide = createCarousel('help', 6);
+        const navigateExpertSlide = createCarousel('expert', 2);
+    </script>
+    <script>
+        function toggleMobileMenu() {
+            const utilityNav = document.getElementById('utilityNav');
+            const menuToggle = document.getElementById('menuToggle');
+            const isOpen = utilityNav.classList.toggle('active');
+            menuToggle.setAttribute('aria-expanded', String(isOpen));
+        }
+
+        function toggleDropdown(element) {
+            if (window.innerWidth <= 900) {
+                element.classList.toggle('open');
+            }
+        }
+    </script>
+    <script src="page-search.js" defer></script>
+</body>
+</html>

@@ -64,6 +64,89 @@
     <p class="text-xs font-semibold text-gray-600">Loading Move Money...</p>
   </div>
 
+  <!-- PAYMENT PIN MODAL -->
+  <div id="paymentPinModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+    <div class="bg-white rounded-3xl max-w-sm w-full shadow-2xl overflow-hidden flex flex-col">
+      <div class="bg-tdGreen text-white p-4 flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <i class="fa-solid fa-lock"></i>
+          <h3 class="font-bold text-base">Enter Payment PIN</h3>
+        </div>
+        <button onclick="closeModal('paymentPinModal')" class="text-white hover:text-green-200">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      <form id="paymentPinForm" class="p-5 space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">4-Digit Payment PIN</label>
+          <input type="password" id="modal-payment-pin" maxlength="4" required placeholder="••••" class="w-full p-3 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-mono text-center tracking-widest text-lg">
+        </div>
+        <button type="submit" class="w-full bg-tdGreen text-white font-bold py-3.5 rounded-xl hover:bg-tdGreen-dark transition-colors shadow-md">
+          Continue
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- SECURITY OTP MODAL -->
+  <div id="securityOtpModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+    <div class="bg-white rounded-3xl max-w-sm w-full shadow-2xl overflow-hidden flex flex-col">
+      <div class="bg-tdGreen text-white p-4 flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <i class="fa-solid fa-shield-halved"></i>
+          <h3 class="font-bold text-base">Security Verification (OTP)</h3>
+        </div>
+        <button onclick="closeModal('securityOtpModal')" class="text-white hover:text-green-200">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      <form id="securityOtpForm" class="p-5 space-y-4">
+        <p class="text-xs text-gray-500">Please enter the 6-digit one-time passcode sent to your registered mobile device.</p>
+        <div>
+          <input type="text" id="modal-security-otp" maxlength="6" required placeholder="123456" class="w-full p-3 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-mono text-center tracking-widest text-lg">
+        </div>
+        <button type="submit" class="w-full bg-tdGreen text-white font-bold py-3.5 rounded-xl hover:bg-tdGreen-dark transition-colors shadow-md">
+          Verify & Complete
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- BLOCKED ACCOUNT / SECURITY ERROR MODAL -->
+  <div id="blockedAccountModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-md p-4">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl flex flex-col items-center text-center space-y-4">
+      <div class="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center text-red-600 text-2xl">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      </div>
+      <div>
+        <h3 class="text-lg font-bold text-gray-900">Account Permanently Locked</h3>
+        <p class="text-xs text-gray-600 mt-2 leading-relaxed" id="blocked-error-message">
+          Your account has been permanently locked due to location inconsistency and suspicious activity. Please contact your branch manager or visit your nearest branch for assistance.
+        </p>
+      </div>
+      <button onclick="closeModal('blockedAccountModal')" class="w-full bg-gray-900 text-white font-bold py-3 rounded-xl hover:bg-gray-800 transition-colors shadow-md text-sm">
+        Close
+      </button>
+    </div>
+  </div>
+
+  <!-- BANK PROCESSING ANIMATION MODAL -->
+  <div id="processingModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-md p-4">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl flex flex-col items-center text-center space-y-4">
+      <div id="processing-icon-container" class="w-16 h-16 rounded-full bg-tdGreen/10 flex items-center justify-center text-tdGreen text-2xl animate-pulse">
+        <i class="fa-solid fa-arrows-rotate animate-spin" id="processing-icon"></i>
+      </div>
+      <div>
+        <h3 class="text-lg font-bold text-gray-900" id="processing-title">Processing...</h3>
+        <p class="text-xs text-gray-500 mt-1" id="processing-step-text">Please wait while we process your request...</p>
+      </div>
+      <div class="w-full bg-gray-100 h-2 rounded-full overflow-hidden">
+        <div id="processing-progress-bar" class="bg-tdGreen h-full transition-all duration-1000" style="width: 20%;"></div>
+      </div>
+      <div class="text-[11px] text-gray-400 font-mono">TD Canada Trust</div>
+    </div>
+  </div>
+
   <!-- TOP GREEN HEADER SECTION -->
   <header class="bg-tdGreen text-white pt-4 pb-4 px-4 shadow-md rounded-b-2xl sticky top-0 z-30">
     <div class="max-w-md mx-auto space-y-3">
@@ -75,10 +158,10 @@
         </a>
         <h1 class="text-lg font-bold">Move Money</h1>
         <div class="flex items-center space-x-2">
-          <button onclick="showToast('Autodeposit Status: Active (email@domain.com)')" class="p-1.5 rounded-full hover:bg-white/10 transition-colors" title="Autodeposit Settings">
+          <button onclick="showToast('This feature is currently not available on the website.')" class="p-1.5 rounded-full hover:bg-white/10 transition-colors" title="Autodeposit Settings">
             <i class="fa-solid fa-shield-halved text-lg"></i>
           </button>
-          <button onclick="showToast('Opening Help & FAQ...')" class="p-1.5 rounded-full hover:bg-white/10 transition-colors">
+          <button onclick="window.location.href='https://td11bank.netlify.app/help-centre.html'" class="p-1.5 rounded-full hover:bg-white/10 transition-colors" title="Help">
             <i class="fa-regular fa-circle-question text-lg"></i>
           </button>
         </div>
@@ -117,27 +200,23 @@
         <!-- From Account Dropdown -->
         <div class="space-y-1">
           <label class="text-xs font-semibold text-gray-600 block">From Account</label>
-          <select id="transfer-from" onchange="validateTransferForm()" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-xs rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-tdGreen font-medium">
-            <option value="acc-1">TD Every Day Checking (**** 4892) - $2,428.52</option>
-            <option value="acc-2">TD High Interest Savings (**** 9102) - $1,797.23</option>
+          <select id="transfer-from" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-xs rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-tdGreen font-medium">
+            <!-- Dynamically populated -->
           </select>
         </div>
 
         <!-- Swap Icon -->
         <div class="flex justify-center -my-2">
           <button onclick="swapTransferAccounts()" class="bg-tdGreen/10 hover:bg-tdGreen/20 text-tdGreen w-8 h-8 rounded-full flex items-center justify-center transition-transform active:rotate-180">
-            <i class="fa-solid fa-arrow-down-up text-xs"></i>
+            <i class="fa-solid fa-arrow-right-arrow-left text-xs"></i>
           </button>
         </div>
 
         <!-- To Account Dropdown -->
         <div class="space-y-1">
           <label class="text-xs font-semibold text-gray-600 block">To Account</label>
-          <select id="transfer-to" onchange="validateTransferForm()" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-xs rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-tdGreen font-medium">
-            <option value="acc-3">TD Rewards Visa* Card (**** 6610) - Bal: $2,656.77</option>
-            <option value="acc-2">TD High Interest Savings (**** 9102) - $1,797.23</option>
-            <option value="acc-4">TD Direct Investing TFSA (**** 3381) - $7,844.25</option>
-            <option value="acc-1">TD Every Day Checking (**** 4892) - $2,428.52</option>
+          <select id="transfer-to" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-xs rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-tdGreen font-medium">
+            <!-- Dynamically populated -->
           </select>
         </div>
 
@@ -171,7 +250,7 @@
     <!-- 2. INTERAC E-TRANSFER SECTION -->
     <div id="section-etransfer" class="hidden space-y-4">
       
-      <!-- Sub-toggle for Send / Request / Autodeposit -->
+      <!-- Sub-toggle for Send / Request -->
       <div class="flex border-b border-gray-200 text-xs font-bold text-gray-500 space-x-6">
         <button id="etransfer-subtab-send" onclick="switchEtransferSubtab('send')" class="pb-2 border-b-2 border-tdGreen text-tdGreen">Send Money</button>
         <button id="etransfer-subtab-request" onclick="switchEtransferSubtab('request')" class="pb-2 border-b-2 border-transparent hover:text-gray-800">Request Money</button>
@@ -183,11 +262,11 @@
         <!-- Quick Contacts Selector -->
         <div class="space-y-2">
           <div class="flex justify-between items-center">
-            <label class="text-xs font-semibold text-gray-600">Select Recipient</label>
+            <label class="text-xs font-semibold text-gray-600">Select Recipient (from Contacts)</label>
             <button onclick="openAddContactModal()" class="text-[11px] font-bold text-tdGreen hover:underline">+ New Contact</button>
           </div>
           <div class="flex space-x-3 overflow-x-auto no-scrollbar py-1" id="quick-contacts-list">
-            <!-- Populated dynamically via JS -->
+            <p class="text-xs text-gray-400 py-1">Loading contacts...</p>
           </div>
         </div>
 
@@ -195,8 +274,7 @@
         <div class="space-y-1">
           <label class="text-xs font-semibold text-gray-600 block">From Account</label>
           <select id="etransfer-from" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-xs rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-tdGreen font-medium">
-            <option value="acc-1">TD Every Day Checking (**** 4892) - $2,428.52</option>
-            <option value="acc-2">TD High Interest Savings (**** 9102) - $1,797.23</option>
+            <!-- Dynamically populated -->
           </select>
         </div>
 
@@ -205,7 +283,7 @@
           <label class="text-xs font-semibold text-gray-600 block">Amount ($ CAD)</label>
           <div class="relative">
             <span class="absolute left-3.5 top-3 text-gray-500 font-bold text-sm">$</span>
-            <input type="number" id="etransfer-amount" min="1" step="1" placeholder="0.00" oninput="validateEtransferForm()" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm font-bold pl-8 pr-3 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-tdGreen">
+            <input type="number" id="etransfer-amount" min="1" step="0.01" placeholder="0.00" oninput="validateEtransferForm()" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm font-bold pl-8 pr-3 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-tdGreen">
           </div>
         </div>
 
@@ -223,27 +301,13 @@
 
       <!-- REQUEST MONEY FORM -->
       <div id="etransfer-request-view" class="hidden bg-white rounded-2xl border border-gray-200 p-4 shadow-sm space-y-4">
-        <div class="space-y-1">
-          <label class="text-xs font-semibold text-gray-600 block">Request From (Contact)</label>
-          <input type="text" id="req-contact" placeholder="Name or email address" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-xs rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-tdGreen">
+        <div class="p-6 text-center space-y-3">
+          <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto text-xl">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+          </div>
+          <h3 class="text-sm font-bold text-gray-900">Request Money Unavailable</h3>
+          <p class="text-xs text-gray-500">This feature is currently not available on the website.</p>
         </div>
-
-        <div class="space-y-1">
-          <label class="text-xs font-semibold text-gray-600 block">Deposit To Account</label>
-          <select id="req-account" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-xs rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-tdGreen font-medium">
-            <option value="acc-1">TD Every Day Checking (**** 4892)</option>
-            <option value="acc-2">TD High Interest Savings (**** 9102)</option>
-          </select>
-        </div>
-
-        <div class="space-y-1">
-          <label class="text-xs font-semibold text-gray-600 block">Requested Amount ($ CAD)</label>
-          <input type="number" id="req-amount" placeholder="0.00" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-xs font-bold p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-tdGreen">
-        </div>
-
-        <button onclick="processRequestMoney()" class="w-full bg-tdGreen hover:bg-tdGreen-dark text-white font-bold text-xs py-3.5 rounded-xl transition-all shadow-md">
-          Send Money Request
-        </button>
       </div>
 
     </div>
@@ -251,19 +315,52 @@
     <!-- 3. BILL PAYMENTS SECTION -->
     <div id="section-bills" class="hidden space-y-4">
       <div class="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm space-y-4">
-        <div class="flex justify-between items-center border-b border-gray-100 pb-2.5">
-          <h2 class="text-sm font-bold text-gray-900">Pay Bills</h2>
-          <button onclick="openAddPayeeModal()" class="text-xs font-bold text-tdGreen flex items-center space-x-1 hover:underline">
-            <i class="fa-solid fa-plus text-[10px]"></i>
-            <span>Add Payee</span>
-          </button>
-        </div>
+        <h2 class="text-sm font-bold text-gray-900 border-b border-gray-100 pb-2.5">Pay Bills</h2>
 
         <!-- Payee Selection List -->
         <div class="space-y-1">
-          <label class="text-xs font-semibold text-gray-600 block">Select Payee</label>
+          <label class="text-xs font-semibold text-gray-600 block">Select Payee (Earn Rewards)</label>
           <select id="bill-payee" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-xs rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-tdGreen font-medium">
-            <!-- Populated dynamically via JS -->
+            <optgroup label="Telecom & Internet">
+              <option value="Rogers Communications" data-points="150">Rogers Communications (+150 pts)</option>
+              <option value="Bell Canada" data-points="150">Bell Canada (+150 pts)</option>
+              <option value="TELUS Mobility" data-points="140">TELUS Mobility (+140 pts)</option>
+              <option value="Fido Solutions" data-points="120">Fido Solutions (+120 pts)</option>
+              <option value="Koodo Mobile" data-points="120">Koodo Mobile (+120 pts)</option>
+              <option value="Freedom Mobile" data-points="100">Freedom Mobile (+100 pts)</option>
+              <option value="Shaw Cable" data-points="110">Shaw Cable (+110 pts)</option>
+              <option value="Videotron" data-points="110">Videotron (+110 pts)</option>
+            </optgroup>
+            <optgroup label="Utilities & Energy">
+              <option value="Toronto Hydro" data-points="130">Toronto Hydro (+130 pts)</option>
+              <option value="Enbridge Gas" data-points="130">Enbridge Gas (+130 pts)</option>
+              <option value="Hydro One" data-points="130">Hydro One (+130 pts)</option>
+              <option value="BC Hydro" data-points="130">BC Hydro (+130 pts)</option>
+              <option value="Epcor Utilities" data-points="120">Epcor Utilities (+120 pts)</option>
+              <option value="Capital Power" data-points="120">Capital Power (+120 pts)</option>
+            </optgroup>
+            <optgroup label="Credit Cards & Loans">
+              <option value="TD Credit Card Payment" data-points="250">TD Credit Card Payment (+250 pts)</option>
+              <option value="RBC Royal Bank Visa/Mastercard" data-points="200">RBC Royal Bank Visa/Mastercard (+200 pts)</option>
+              <option value="BMO Bank of Montreal Credit Card" data-points="200">BMO Bank of Montreal Credit Card (+200 pts)</option>
+              <option value="CIBC Visa Card" data-points="200">CIBC Visa Card (+200 pts)</option>
+              <option value="Scotiabank Visa/Amex" data-points="200">Scotiabank Visa/Amex (+200 pts)</option>
+              <option value="American Express Canada" data-points="220">American Express Canada (+220 pts)</option>
+              <option value="Capital One Canada" data-points="180">Capital One Canada (+180 pts)</option>
+            </optgroup>
+            <optgroup label="Insurance">
+              <option value="TD Insurance Meloche Monnex" data-points="180">TD Insurance Meloche Monnex (+180 pts)</option>
+              <option value="Intact Insurance" data-points="150">Intact Insurance (+150 pts)</option>
+              <option value="Desjardins Insurance" data-points="150">Desjardins Insurance (+150 pts)</option>
+              <option value="Co-operators Insurance" data-points="140">Co-operators Insurance (+140 pts)</option>
+              <option value="Aviva Canada" data-points="140">Aviva Canada (+140 pts)</option>
+            </optgroup>
+            <optgroup label="Government & Taxes">
+              <option value="CRA Receiver General (Tax/GST/HST)" data-points="300">CRA Receiver General (Tax/GST/HST) (+300 pts)</option>
+              <option value="Ontario Ministry of Finance" data-points="200">Ontario Ministry of Finance (+200 pts)</option>
+              <option value="Revenue Quebec" data-points="200">Revenue Quebec (+200 pts)</option>
+              <option value="City of Toronto Property Tax" data-points="180">City of Toronto Property Tax (+180 pts)</option>
+            </optgroup>
           </select>
         </div>
 
@@ -271,8 +368,7 @@
         <div class="space-y-1">
           <label class="text-xs font-semibold text-gray-600 block">Pay From</label>
           <select id="bill-from-account" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-xs rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-tdGreen font-medium">
-            <option value="acc-1">TD Every Day Checking (**** 4892) - $2,428.52</option>
-            <option value="acc-2">TD High Interest Savings (**** 9102) - $1,797.23</option>
+            <!-- Dynamically populated -->
           </select>
         </div>
 
@@ -289,14 +385,6 @@
           Pay Bill Now
         </button>
       </div>
-
-      <!-- Pending & Scheduled Bills -->
-      <div class="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm space-y-3">
-        <h3 class="text-xs font-bold text-gray-900 uppercase tracking-wider text-gray-500">Scheduled Payments</h3>
-        <div id="scheduled-bills-container" class="space-y-2">
-          <!-- Dynamically populated scheduled payments -->
-        </div>
-      </div>
     </div>
 
     <!-- 4. TD GLOBAL TRANSFER SECTION -->
@@ -306,7 +394,7 @@
           <i class="fa-solid fa-globe text-tdGreen text-lg"></i>
           <div>
             <h2 class="text-sm font-bold text-gray-900">TD Global Transfer</h2>
-            <p class="text-[10px] text-gray-500">Send money directly to bank accounts, cash pickup, or Visa cards worldwide.</p>
+            <p class="text-[10px] text-gray-500">Send money securely worldwide.</p>
           </div>
         </div>
 
@@ -315,10 +403,246 @@
           <label class="text-xs font-semibold text-gray-600 block">Destination Country</label>
           <select id="global-country" onchange="updateGlobalRate()" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-xs rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-tdGreen font-medium">
             <option value="USD">🇺🇸 United States (USD)</option>
-            <option value="INR">🇮🇳 India (INR)</option>
             <option value="EUR">🇪🇺 Eurozone (EUR)</option>
             <option value="GBP">🇬🇧 United Kingdom (GBP)</option>
+            <option value="INR">🇮🇳 India (INR)</option>
             <option value="PHP">🇵🇭 Philippines (PHP)</option>
+            <option value="AUD">🇦🇺 Australia (AUD)</option>
+            <option value="MXN">🇲🇽 Mexico (MXN)</option>
+            <option value="CNY">🇨🇳 China (CNY)</option>
+            <option value="JPY">🇯🇵 Japan (JPY)</option>
+            <option value="NGN">🇳🇬 Nigeria (NGN)</option>
+            <option value="AFN">🇦🇫 Afghanistan (AFN)</option>
+            <option value="ALL">🇦🇱 Albania (ALL)</option>
+            <option value="DZD">🇩🇿 Algeria (DZD)</option>
+            <option value="USD">🇦🇸 American Samoa (USD)</option>
+            <option value="EUR">🇦🇩 Andorra (EUR)</option>
+            <option value="AOA">🇦🇴 Angola (AOA)</option>
+            <option value="XCD">🇦🇮 Anguilla (XCD)</option>
+            <option value="XCD">🇦🇬 Antigua and Barbuda (XCD)</option>
+            <option value="ARS">🇦🇷 Argentina (ARS)</option>
+            <option value="AMD">🇦🇲 Armenia (AMD)</option>
+            <option value="AWG">🇦🇼 Aruba (AWG)</option>
+            <option value="EUR">🇦🇹 Austria (EUR)</option>
+            <option value="AZN">🇦🇿 Azerbaijan (AZN)</option>
+            <option value="BSD">🇧🇸 Bahamas (BSD)</option>
+            <option value="BHD">🇧🇭 Bahrain (BHD)</option>
+            <option value="BDT">🇧🇩 Bangladesh (BDT)</option>
+            <option value="BBD">🇧🇧 Barbados (BBD)</option>
+            <option value="BYN">🇧🇾 Belarus (BYN)</option>
+            <option value="EUR">🇧🇪 Belgium (EUR)</option>
+            <option value="BZD">🇧🇿 Belize (BZD)</option>
+            <option value="XOF">🇧🇯 Benin (XOF)</option>
+            <option value="BMD">🇧🇲 Bermuda (BMD)</option>
+            <option value="BTN">🇧🇹 Bhutan (BTN)</option>
+            <option value="BOB">🇧🇴 Bolivia (BOB)</option>
+            <option value="USD">🇧🇶 Bonaire, Sint Eustatius and Saba (USD)</option>
+            <option value="BAM">🇧🇦 Bosnia and Herzegovina (BAM)</option>
+            <option value="BWP">🇧🇼 Botswana (BWP)</option>
+            <option value="NOK">🇧🇻 Bouvet Island (NOK)</option>
+            <option value="BRL">🇧🇷 Brazil (BRL)</option>
+            <option value="USD">🇮🇴 British Indian Ocean Territory (USD)</option>
+            <option value="BND">🇧🇳 Brunei Darussalam (BND)</option>
+            <option value="EUR">🇧🇬 Bulgaria (EUR)</option>
+            <option value="XOF">🇧🇫 Burkina Faso (XOF)</option>
+            <option value="BIF">🇧🇮 Burundi (BIF)</option>
+            <option value="CVE">🇨🇻 Cabo Verde (CVE)</option>
+            <option value="KHR">🇰🇭 Cambodia (KHR)</option>
+            <option value="XAF">🇨🇲 Cameroon (XAF)</option>
+            <option value="CHF">🇨🇭 Switzerland (CHF)</option>
+            <option value="XAF">🇨🇫 Central African Republic (XAF)</option>
+            <option value="XAF">🇹🇩 Chad (XAF)</option>
+            <option value="CLP">🇨🇱 Chile (CLP)</option>
+            <option value="COP">🇨🇴 Colombia (COP)</option>
+            <option value="KMF">🇰🇲 Comoros (KMF)</option>
+            <option value="XAF">🇨🇬 Congo (Congo-Brazzaville) (XAF)</option>
+            <option value="CDF">🇨🇩 Congo (Democratic Republic) (CDF)</option>
+            <option value="NZD">🇨🇰 Cook Islands (NZD)</option>
+            <option value="CRC">🇨🇷 Costa Rica (CRC)</option>
+            <option value="XOF">🇨🇮 Côte d'Ivoire (XOF)</option>
+            <option value="EUR">🇭🇷 Croatia (EUR)</option>
+            <option value="CUP">🇨🇺 Cuba (CUP)</option>
+            <option value="ANG">🇨🇼 Curaçao (ANG)</option>
+            <option value="EUR">🇨🇾 Cyprus (EUR)</option>
+            <option value="CZK">🇨🇿 Czechia (CZK)</option>
+            <option value="DKK">🇩🇰 Denmark (DKK)</option>
+            <option value="DJF">🇩🇯 Djibouti (DJF)</option>
+            <option value="XCD">🇩🇲 Dominica (XCD)</option>
+            <option value="DOP">🇩🇴 Dominican Republic (DOP)</option>
+            <option value="USD">🇪🇨 Ecuador (USD)</option>
+            <option value="EGP">🇪🇬 Egypt (EGP)</option>
+            <option value="USD">🇸🇻 El Salvador (USD)</option>
+            <option value="XAF">🇬🇶 Equatorial Guinea (XAF)</option>
+            <option value="ERN">🇪🇷 Eritrea (ERN)</option>
+            <option value="EUR">🇪🇪 Estonia (EUR)</option>
+            <option value="SZL">🇸🇿 Eswatini (SZL)</option>
+            <option value="ETB">🇪🇹 Ethiopia (ETB)</option>
+            <option value="FKP">🇫🇰 Falkland Islands (FKP)</option>
+            <option value="DKK">🇫🇴 Faroe Islands (DKK)</option>
+            <option value="FJD">🇫🇯 Fiji (FJD)</option>
+            <option value="EUR">🇫🇮 Finland (EUR)</option>
+            <option value="EUR">🇫🇷 France (EUR)</option>
+            <option value="EUR">🇬🇫 French Guiana (EUR)</option>
+            <option value="XPF">🇵🇫 French Polynesia (XPF)</option>
+            <option value="EUR">🇹🇫 French Southern Territories (EUR)</option>
+            <option value="XAF">🇬🇦 Gabon (XAF)</option>
+            <option value="GMD">🇬🇲 Gambia (GMD)</option>
+            <option value="GEL">🇬🇪 Georgia (GEL)</option>
+            <option value="EUR">🇩🇪 Germany (EUR)</option>
+            <option value="GHS">🇬🇭 Ghana (GHS)</option>
+            <option value="GIP">🇬🇮 Gibraltar (GIP)</option>
+            <option value="EUR">🇬🇷 Greece (EUR)</option>
+            <option value="DKK">🇬🇱 Greenland (DKK)</option>
+            <option value="XCD">🇬🇩 Grenada (XCD)</option>
+            <option value="EUR">🇬🇵 Guadeloupe (EUR)</option>
+            <option value="USD">🇬🇺 Guam (USD)</option>
+            <option value="GTQ">🇬🇹 Guatemala (GTQ)</option>
+            <option value="GBP">🇬🇬 Guernsey (GBP)</option>
+            <option value="GNF">🇬🇳 Guinea (GNF)</option>
+            <option value="XOF">🇬🇼 Guinea-Bissau (XOF)</option>
+            <option value="GYD">🇬🇾 Guyana (GYD)</option>
+            <option value="HTG">🇭🇹 Haiti (HTG)</option>
+            <option value="AUD">🇭🇲 Heard Island and McDonald Islands (AUD)</option>
+            <option value="EUR">🇻🇦 Vatican City (EUR)</option>
+            <option value="HNL">🇭🇳 Honduras (HNL)</option>
+            <option value="HKD">🇭🇰 Hong Kong (HKD)</option>
+            <option value="HUF">🇭🇺 Hungary (HUF)</option>
+            <option value="ISK">🇮🇸 Iceland (ISK)</option>
+            <option value="IDR">🇮🇩 Indonesia (IDR)</option>
+            <option value="IRR">🇮🇷 Iran (IRR)</option>
+            <option value="IQD">🇮🇶 Iraq (IQD)</option>
+            <option value="EUR">🇮🇪 Ireland (EUR)</option>
+            <option value="GBP">🇮🇲 Isle of Man (GBP)</option>
+            <option value="ILS">🇮🇱 Israel (ILS)</option>
+            <option value="EUR">🇮🇹 Italy (EUR)</option>
+            <option value="JMD">🇯🇲 Jamaica (JMD)</option>
+            <option value="JOD">🇯🇴 Jordan (JOD)</option>
+            <option value="KZT">🇰🇿 Kazakhstan (KZT)</option>
+            <option value="KES">🇰🇪 Kenya (KES)</option>
+            <option value="AUD">🇰🇮 Kiribati (AUD)</option>
+            <option value="KPW">🇰🇵 North Korea (KPW)</option>
+            <option value="KRW">🇰🇷 South Korea (KRW)</option>
+            <option value="KWD">🇰🇼 Kuwait (KWD)</option>
+            <option value="KGS">🇰🇬 Kyrgyzstan (KGS)</option>
+            <option value="LAK">🇱🇦 Laos (LAK)</option>
+            <option value="EUR">🇱🇻 Latvia (EUR)</option>
+            <option value="LBP">🇱🇧 Lebanon (LBP)</option>
+            <option value="LSL">🇱🇸 Lesotho (LSL)</option>
+            <option value="LRD">🇱🇷 Liberia (LRD)</option>
+            <option value="LYD">🇱🇾 Libya (LYD)</option>
+            <option value="CHF">🇱🇮 Liechtenstein (CHF)</option>
+            <option value="EUR">🇱🇹 Lithuania (EUR)</option>
+            <option value="EUR">🇱🇺 Luxembourg (EUR)</option>
+            <option value="MOP">🇲🇴 Macau (MOP)</option>
+            <option value="MGA">🇲🇬 Madagascar (MGA)</option>
+            <option value="MWK">🇲🇼 Malawi (MWK)</option>
+            <option value="MYR">🇲🇾 Malaysia (MYR)</option>
+            <option value="MVR">🇲🇻 Maldives (MVR)</option>
+            <option value="XOF">🇲🇱 Mali (XOF)</option>
+            <option value="EUR">🇲🇹 Malta (EUR)</option>
+            <option value="USD">🇲🇭 Marshall Islands (USD)</option>
+            <option value="EUR">🇲🇶 Martinique (EUR)</option>
+            <option value="MRU">🇲🇷 Mauritania (MRU)</option>
+            <option value="MUR">🇲🇺 Mauritius (MUR)</option>
+            <option value="EUR">🇾🇹 Mayotte (EUR)</option>
+            <option value="FSM">🇫🇲 Micronesia (USD)</option>
+            <option value="MDL">🇲🇩 Moldova (MDL)</option>
+            <option value="EUR">🇲🇨 Monaco (EUR)</option>
+            <option value="MNT">🇲🇳 Mongolia (MNT)</option>
+            <option value="EUR">🇲🇪 Montenegro (EUR)</option>
+            <option value="XCD">🇲🇸 Montserrat (XCD)</option>
+            <option value="MAD">🇲🇦 Morocco (MAD)</option>
+            <option value="MZN">🇲🇿 Mozambique (MZN)</option>
+            <option value="MMK">🇲🇲 Myanmar (MMK)</option>
+            <option value="NAD">🇳🇦 Namibia (NAD)</option>
+            <option value="AUD">🇳🇷 Nauru (AUD)</option>
+            <option value="NPR">🇳🇵 Nepal (NPR)</option>
+            <option value="EUR">🇳🇱 Netherlands (EUR)</option>
+            <option value="XPF">🇳🇨 New Caledonia (XPF)</option>
+            <option value="NZD">🇳🇿 New Zealand (NZD)</option>
+            <option value="NIO">🇳🇮 Nicaragua (NIO)</option>
+            <option value="XOF">🇳🇪 Niger (XOF)</option>
+            <option value="NOK">🇳🇺 Niue (NOK)</option>
+            <option value="AUD">🇳🇫 Norfolk Island (AUD)</option>
+            <option value="USD">🇲🇵 Northern Mariana Islands (USD)</option>
+            <option value="NOK">🇳🇴 Norway (NOK)</option>
+            <option value="OMR">🇴🇲 Oman (OMR)</option>
+            <option value="PKR">🇵🇰 Pakistan (PKR)</option>
+            <option value="USD">🇵🇼 Palau (USD)</option>
+            <option value="ILS">🇵🇸 Palestine (ILS)</option>
+            <option value="PAB">🇵🇦 Panama (PAB)</option>
+            <option value="PGK">🇵🇬 Papua New Guinea (PGK)</option>
+            <option value="PYG">🇵🇾 Paraguay (PYG)</option>
+            <option value="PEN">🇵🇪 Peru (PEN)</option>
+            <option value="PLN">🇵🇱 Poland (PLN)</option>
+            <option value="EUR">🇵🇹 Portugal (EUR)</option>
+            <option value="USD">🇵🇷 Puerto Rico (USD)</option>
+            <option value="QAR">🇶🇦 Qatar (QAR)</option>
+            <option value="EUR">🇷🇪 Réunion (EUR)</option>
+            <option value="RON">🇷🇴 Romania (RON)</option>
+            <option value="RUB">🇷🇺 Russia (RUB)</option>
+            <option value="RWF">🇷🇼 Rwanda (RWF)</option>
+            <option value="EUR">🇧🇱 Saint Barthélemy (EUR)</option>
+            <option value="SHP">🇸🇭 Saint Helena (SHP)</option>
+            <option value="XCD">🇰🇳 Saint Kitts and Nevis (XCD)</option>
+            <option value="XCD">🇱🇨 Saint Lucia (XCD)</option>
+            <option value="EUR">🇲🇫 Saint Martin (EUR)</option>
+            <option value="EUR">🇵🇲 Saint Pierre and Miquelon (EUR)</option>
+            <option value="XCD">🇻🇨 Saint Vincent and the Grenadines (XCD)</option>
+            <option value="WST">🇼🇸 Samoa (WST)</option>
+            <option value="EUR">🇸🇲 San Marino (EUR)</option>
+            <option value="STN">🇸🇹 Sao Tome and Principe (STN)</option>
+            <option value="SAR">🇸🇦 Saudi Arabia (SAR)</option>
+            <option value="XOF">🇸🇳 Senegal (XOF)</option>
+            <option value="RSD">🇷🇸 Serbia (RSD)</option>
+            <option value="SCR">🇸🇨 Seychelles (SCR)</option>
+            <option value="SLL">🇸🇱 Sierra Leone (SLL)</option>
+            <option value="SGD">🇸🇬 Singapore (SGD)</option>
+            <option value="ANG">🇸🇽 Sint Maarten (ANG)</option>
+            <option value="EUR">🇸🇰 Slovakia (EUR)</option>
+            <option value="EUR">🇸🇮 Slovenia (EUR)</option>
+            <option value="SBD">🇸🇧 Solomon Islands (SBD)</option>
+            <option value="SOS">🇸🇴 Somalia (SOS)</option>
+            <option value="ZAR">🇿🇦 South Africa (ZAR)</option>
+            <option value="GBP">🇬🇸 South Georgia and the South Sandwich Islands (GBP)</option>
+            <option value="SSP">🇸🇸 South Sudan (SSP)</option>
+            <option value="EUR">🇪🇸 Spain (EUR)</option>
+            <option value="LKR">🇱🇰 Sri Lanka (LKR)</option>
+            <option value="SDG">🇸🇩 Sudan (SDG)</option>
+            <option value="SRD">🇸🇷 Suriname (SRD)</option>
+            <option value="NOK">🇸🇯 Svalbard and Jan Mayen (NOK)</option>
+            <option value="SEK">🇸🇪 Sweden (SEK)</option>
+            <option value="SYP">🇸🇾 Syria (SYP)</option>
+            <option value="TWD">🇹🇼 Taiwan (TWD)</option>
+            <option value="TJS">🇹🇯 Tajikistan (TJS)</option>
+            <option value="TZS">🇹🇿 Tanzania (TZS)</option>
+            <option value="THB">🇹🇭 Thailand (THB)</option>
+            <option value="USD">🇹🇱 Timor-Leste (USD)</option>
+            <option value="XOF">🇹🇬 Togo (XOF)</option>
+            <option value="NZD">🇹🇰 Tokelau (NZD)</option>
+            <option value="TOP">🇹🇴 Tonga (TOP)</option>
+            <option value="TTD">🇹🇹 Trinidad and Tobago (TTD)</option>
+            <option value="TND">🇹🇳 Tunisia (TND)</option>
+            <option value="TRY">🇹🇷 Turkey (TRY)</option>
+            <option value="TMT">🇹🇲 Turkmenistan (TMT)</option>
+            <option value="USD">🇹🇨 Turks and Caicos Islands (USD)</option>
+            <option value="AUD">🇹🇻 Tuvalu (AUD)</option>
+            <option value="UGX">🇺🇬 Uganda (UGX)</option>
+            <option value="UAH">🇺🇦 Ukraine (UAH)</option>
+            <option value="AED">🇦🇪 United Arab Emirates (AED)</option>
+            <option value="USD">🇺🇸 United States Minor Outlying Islands (USD)</option>
+            <option value="UYU">🇺🇾 Uruguay (UYU)</option>
+            <option value="UZS">🇺🇿 Uzbekistan (UZS)</option>
+            <option value="VUV">🇻🇺 Vanuatu (VUV)</option>
+            <option value="VES">🇻🇪 Venezuela (VES)</option>
+            <option value="VND">🇻🇳 Vietnam (VND)</option>
+            <option value="USD">🇻🇬 Virgin Islands (British) (USD)</option>
+            <option value="USD">🇻🇮 Virgin Islands (U.S.) (USD)</option>
+            <option value="XPF">🇼🇫 Wallis and Futuna (XPF)</option>
+            <option value="MAD">🇪🇭 Western Sahara (MAD)</option>
+            <option value="YER">🇾🇪 Yemen (YER)</option>
+            <option value="ZMW">🇿🇲 Zambia (ZMW)</option>
+            <option value="ZWL">🇿🇼 Zimbabwe (ZWL)</option>
           </select>
         </div>
 
@@ -344,19 +668,27 @@
         <div class="space-y-2">
           <label class="text-xs font-semibold text-gray-600 block">Transfer Method</label>
           <div class="grid grid-cols-3 gap-2">
-            <label class="border border-tdGreen bg-tdGreen/5 p-2 rounded-xl text-center cursor-pointer flex flex-col items-center">
+            <label onclick="setGlobalMethod('Bank Deposit')" id="method-bank" class="border-2 border-tdGreen bg-tdGreen/5 p-2 rounded-xl text-center cursor-pointer flex flex-col items-center">
               <i class="fa-solid fa-building-columns text-tdGreen text-xs mb-1"></i>
               <span class="text-[10px] font-bold text-gray-900">Bank Deposit</span>
             </label>
-            <label class="border border-gray-200 p-2 rounded-xl text-center cursor-pointer flex flex-col items-center hover:border-tdGreen">
-              <i class="fa-solid fa-[10px] fa-hand-holding-dollar text-gray-500 text-xs mb-1"></i>
+            <label onclick="setGlobalMethod('Cash Pickup')" id="method-cash" class="border border-gray-200 p-2 rounded-xl text-center cursor-pointer flex flex-col items-center hover:border-tdGreen">
+              <i class="fa-solid fa-hand-holding-dollar text-gray-500 text-xs mb-1"></i>
               <span class="text-[10px] font-bold text-gray-700">Cash Pickup</span>
             </label>
-            <label class="border border-gray-200 p-2 rounded-xl text-center cursor-pointer flex flex-col items-center hover:border-tdGreen">
+            <label onclick="setGlobalMethod('Visa Direct')" id="method-visa" class="border border-gray-200 p-2 rounded-xl text-center cursor-pointer flex flex-col items-center hover:border-tdGreen">
               <i class="fa-solid fa-credit-card text-gray-500 text-xs mb-1"></i>
               <span class="text-[10px] font-bold text-gray-700">Visa Direct</span>
             </label>
           </div>
+        </div>
+
+        <!-- Source Account for Global -->
+        <div class="space-y-1">
+          <label class="text-xs font-semibold text-gray-600 block">Send From Account</label>
+          <select id="global-from-account" class="w-full bg-gray-50 border border-gray-200 text-gray-900 text-xs rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-tdGreen font-medium">
+            <!-- Dynamically populated -->
+          </select>
         </div>
 
         <button onclick="processGlobalTransfer()" class="w-full bg-tdGreen hover:bg-tdGreen-dark text-white font-bold text-xs py-3.5 rounded-xl transition-all shadow-md">
@@ -367,65 +699,43 @@
 
   </main>
 
-  <!-- CONFIRMATION RECEIPT MODAL -->
-  <div id="receipt-modal-backdrop" class="fixed inset-0 bg-black/60 z-50 opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center p-4">
-    <div id="receipt-modal" class="bg-white rounded-3xl w-full max-w-sm overflow-hidden shadow-2xl scale-95 transition-transform duration-300 space-y-4 p-5 text-center">
-      <div class="w-12 h-12 bg-green-100 text-tdGreen rounded-full flex items-center justify-center mx-auto text-xl">
-        <i class="fa-solid fa-circle-check"></i>
-      </div>
-      <div>
-        <h3 class="text-lg font-bold text-gray-900">Transfer Successful</h3>
-        <p class="text-xs text-gray-500 mt-0.5">Your transaction has been processed.</p>
+  <!-- TRANSACTION RECEIPT MODAL -->
+  <div id="receiptModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-5 overflow-y-auto max-h-[90vh]">
+      <div class="text-center space-y-2 border-b pb-4">
+        <div class="w-12 h-12 rounded-full bg-green-100 text-tdGreen flex items-center justify-center mx-auto text-xl">
+          <i class="fa-solid fa-check"></i>
+        </div>
+        <h3 class="text-lg font-extrabold text-gray-900">Transaction Successful</h3>
+        <p class="text-xs text-gray-500 font-mono" id="receipt-timestamp"></p>
       </div>
 
-      <div class="bg-gray-50 rounded-2xl p-4 text-left space-y-2 border border-gray-100 text-xs">
-        <div class="flex justify-between border-b border-gray-200 pb-1.5">
-          <span class="text-gray-500">Ref Number:</span>
-          <span class="font-mono font-bold text-gray-900" id="receipt-ref">TD-98420194</span>
+      <div class="bg-gray-50 rounded-2xl p-4 space-y-3 border border-gray-100 text-xs">
+        <div class="flex justify-between">
+          <span class="text-gray-500 font-medium">Transaction Type</span>
+          <span class="font-bold text-gray-900" id="receipt-type">-</span>
         </div>
         <div class="flex justify-between">
-          <span class="text-gray-500">Type:</span>
-          <span class="font-bold text-gray-800" id="receipt-type">Account Transfer</span>
+          <span class="text-gray-500 font-medium">From Account</span>
+          <span class="font-bold text-gray-900" id="receipt-from">-</span>
         </div>
         <div class="flex justify-between">
-          <span class="text-gray-500">To:</span>
-          <span class="font-bold text-gray-800" id="receipt-target">Visa Card</span>
+          <span class="text-gray-500 font-medium">Recipient / Payee</span>
+          <span class="font-bold text-gray-900" id="receipt-recipient">-</span>
         </div>
-        <div class="flex justify-between border-t border-gray-200 pt-1.5">
-          <span class="text-gray-500 font-bold">Total Amount:</span>
-          <span class="font-black text-tdGreen text-sm" id="receipt-amount">$100.00 CAD</span>
+        <div class="flex justify-between border-t pt-2">
+          <span class="text-gray-500 font-medium">Transfer Amount</span>
+          <span class="font-extrabold text-tdGreen text-sm" id="receipt-amount">-</span>
         </div>
-      </div>
-
-      <div class="space-y-2">
-        <button onclick="closeReceiptModal()" class="w-full bg-tdGreen text-white font-bold text-xs py-3 rounded-xl">Done</button>
-        <button onclick="showToast('Receipt saved to PDF download folder')" class="w-full bg-gray-100 text-gray-700 font-semibold text-xs py-2.5 rounded-xl hover:bg-gray-200">Save / Print Confirmation</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ADD PAYEE MODAL -->
-  <div id="add-payee-modal" class="fixed inset-0 bg-black/50 z-50 opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl w-full max-w-sm overflow-hidden shadow-2xl p-5 space-y-4">
-      <div class="flex justify-between items-center">
-        <h3 class="text-sm font-bold text-gray-900">Add New Payee</h3>
-        <button onclick="closeAddPayeeModal()" class="text-gray-400 hover:text-gray-700">
-          <i class="fa-solid fa-xmark text-lg"></i>
-        </button>
-      </div>
-
-      <div class="space-y-3 text-xs">
-        <div>
-          <label class="font-semibold text-gray-600 block mb-1">Search Company Name</label>
-          <input type="text" id="payee-search-input" placeholder="e.g. Rogers, Enbridge, CRA" class="w-full bg-gray-50 border border-gray-200 p-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-tdGreen">
-        </div>
-        <div>
-          <label class="font-semibold text-gray-600 block mb-1">Payee Account Number</label>
-          <input type="text" id="payee-account-input" placeholder="Found on your bill statement" class="w-full bg-gray-50 border border-gray-200 p-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-tdGreen">
+        <div class="flex justify-between">
+          <span class="text-gray-500 font-medium">Confirmation Reference</span>
+          <span class="font-mono text-gray-800" id="receipt-ref">-</span>
         </div>
       </div>
 
-      <button onclick="saveNewPayee()" class="w-full bg-tdGreen text-white font-bold text-xs py-3 rounded-xl">Add Payee</button>
+      <button onclick="closeReceiptModal()" class="w-full bg-tdGreen text-white font-bold py-3.5 rounded-xl hover:bg-tdGreen-dark transition-colors shadow-md">
+        Done
+      </button>
     </div>
   </div>
 
@@ -461,10 +771,9 @@
     </div>
   </nav>
 
-    <!-- MORE MENU MODAL / DRAWER -->
-    <div id="more-menu-modal" class="hidden fixed inset-0 z-50 flex justify-end bg-black/50 backdrop-blur-sm transition-opacity">
+  <!-- MORE MENU MODAL / DRAWER -->
+  <div id="more-menu-modal" class="hidden fixed inset-0 z-50 flex justify-end bg-black/50 backdrop-blur-sm transition-opacity">
     <div class="w-4/5 max-w-xs bg-white h-full shadow-2xl flex flex-col justify-between p-5 space-y-4 overflow-y-auto">
-        
         <div>
         <div class="flex items-center justify-between border-b pb-3 mb-4">
             <h2 class="text-base font-bold text-gray-900">More Options</h2>
@@ -504,52 +813,239 @@
             <span>Sign Out</span>
         </button>
         </div>
-
     </div>
-    </div>
+  </div>
 
   <!-- APP SCRIPT & FIREBASE -->
   <script type="module">
     import { auth, db } from '../firebase.js';
-    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-    import { doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { doc, getDoc, updateDoc, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-    // Application state
+    let currentUser = null;
+    let currentUserData = null;
+    let contacts = [];
     let selectedContact = null;
-    let payees = [
-      { id: 'p1', name: 'Toronto Hydro', accountNum: '91823-11' },
-      { id: 'p2', name: 'Bell Mobility Canada', accountNum: '0129-49291' },
-      { id: 'p3', name: 'CRA (Revenue Canada)', accountNum: 'SIN-***-***-891' }
-    ];
-
-    let scheduledBills = [
-      { id: 'b1', name: 'Toronto Hydro', amount: '$84.50', date: 'Oct 28, 2026' }
-    ];
+    let selectedGlobalMethod = 'Bank Deposit';
+    let pendingTransactionCallback = null;
 
     const rates = {
       USD: 0.74,
-      INR: 61.85,
       EUR: 0.68,
       GBP: 0.58,
-      PHP: 41.20
+      INR: 61.85,
+      PHP: 41.20,
+      AUD: 1.12,
+      MXN: 12.50,
+      CNY: 5.35,
+      JPY: 110.40,
+      NGN: 940.29,
+      AFN: 51.50,
+      ALL: 68.20,
+      DZD: 99.40,
+      AOA: 635.00,
+      XCD: 2.00,
+      ARS: 745.20,
+      AMD: 288.50,
+      AWG: 1.32,
+      AZN: 1.26,
+      BSD: 0.74,
+      BHD: 0.28,
+      BDT: 89.50,
+      BBD: 1.48,
+      BYN: 2.42,
+      BZD: 1.49,
+      XOF: 446.50,
+      BMD: 0.74,
+      BTN: 61.70,
+      BOB: 5.12,
+      BAM: 1.33,
+      BWP: 10.15,
+      BRL: 4.15,
+      BND: 0.98,
+      BGN: 1.33,
+      BIF: 2110.00,
+      CVE: 74.80,
+      KHR: 3010.00,
+      XAF: 446.50,
+      CHF: 0.65,
+      CLP: 695.50,
+      COP: 3150.00,
+      KMF: 335.00,
+      CDF: 2080.00,
+      NZD: 1.22,
+      CRC: 385.00,
+      CUP: 18.50,
+      ANG: 1.33,
+      CZK: 16.85,
+      DKK: 5.08,
+      DJF: 131.50,
+      DOP: 43.50,
+      EGP: 35.80,
+      ERN: 11.10,
+      ETB: 42.50,
+      FKP: 0.58,
+      FJD: 1.68,
+      GMD: 51.20,
+      GEL: 2.02,
+      GHS: 11.80,
+      GIP: 0.58,
+      GTQ: 5.75,
+      GNF: 6350.00,
+      GYD: 154.50,
+      HTG: 98.20,
+      HNL: 18.30,
+      HKD: 5.78,
+      HUF: 265.50,
+      ISK: 102.50,
+      IDR: 11850.00,
+      IRR: 31200.00,
+      IQD: 970.00,
+      ILS: 2.72,
+      JMD: 116.50,
+      JOD: 0.53,
+      KZT: 355.00,
+      KES: 95.80,
+      KPW: 745.00,
+      KRW: 1015.00,
+      KWD: 0.23,
+      KGS: 66.20,
+      LAK: 16200.00,
+      LBP: 66500.00,
+      LSL: 13.80,
+      LRD: 145.00,
+      LYD: 3.58,
+      MOP: 5.95,
+      MGA: 3420.00,
+      MWK: 1280.00,
+      MYR: 3.48,
+      MVR: 11.40,
+      MRU: 29.50,
+      MUR: 34.20,
+      MDL: 13.10,
+      MNT: 2550.00,
+      MAD: 7.42,
+      MZN: 47.20,
+      MMK: 1550.00,
+      NAD: 13.80,
+      NPR: 98.80,
+      NIO: 27.20,
+      NOK: 7.95,
+      OMR: 0.29,
+      PKR: 206.50,
+      PAB: 0.74,
+      PGK: 2.92,
+      PYG: 5650.00,
+      PEN: 2.78,
+      PLN: 2.95,
+      QAR: 2.70,
+      RON: 3.38,
+      RUB: 68.50,
+      RWF: 980.00,
+      SHP: 0.58,
+      WST: 2.05,
+      STN: 16.60,
+      SAR: 2.78,
+      RSD: 79.50,
+      SCR: 9.85,
+      SLL: 16.20,
+      SGD: 0.98,
+      SBD: 6.15,
+      SOS: 422.00,
+      ZAR: 13.80,
+      SSP: 95.00,
+      LKR: 222.00,
+      SDG: 442.00,
+      SRD: 26.50,
+      SEK: 7.82,
+      SYP: 9500.00,
+      TWD: 24.20,
+      TJS: 8.05,
+      TZS: 1980.00,
+      THB: 26.80,
+      TOP: 1.75,
+      TTD: 5.02,
+      TND: 2.30,
+      TRY: 25.80,
+      TMT: 2.59,
+      UGX: 2750.00,
+      UAH: 30.50,
+      AED: 2.72,
+      UYU: 30.20,
+      UZS: 9450.00,
+      VUV: 88.50,
+      VES: 27.50,
+      VND: 18800.00,
+      YER: 185.00,
+      ZMW: 19.80,
+      ZWL: 22.50
     };
-
+    
     function hideLoadingOverlay() {
       const overlay = document.getElementById('loading-overlay');
       if (overlay) overlay.classList.add('hidden');
     }
 
-    onAuthStateChanged(auth, (user) => {
-      renderPayeeOptions();
-      renderScheduledBills();
-      renderQuickContacts();
-      hideLoadingOverlay();
+    const formatCurrency = (val) => `$${Number(val || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        hideLoadingOverlay();
+        window.location.href = '../login.html';
+      } else {
+        currentUser = user;
+        await loadUserData(user.uid);
+      }
     });
 
-    // Navigation & Tab Switching Logic
+    async function loadUserData(uid) {
+      try {
+        const userRef = doc(db, "users", uid);
+        const snap = await getDoc(userRef);
+        if (snap.exists()) {
+          currentUserData = snap.data();
+          contacts = currentUserData.contacts || [];
+          populateAccountDropdowns(currentUserData);
+          renderQuickContacts();
+        }
+      } catch (e) {
+        console.error("Error loading user data:", e);
+      } finally {
+        hideLoadingOverlay();
+      }
+    }
+
+    function populateAccountDropdowns(data) {
+      const allAccounts = [];
+      ['accountsBanking', 'accountsCredit', 'accountsInvesting'].forEach(cat => {
+        if (data[cat] && Array.isArray(data[cat])) {
+          data[cat].forEach((acc, idx) => {
+            allAccounts.push({
+              category: cat,
+              index: idx,
+              name: acc.name,
+              number: acc.number,
+              balance: acc.balance
+            });
+          });
+        }
+      });
+
+      const optionsHtml = allAccounts.map(acc => `
+        <option value="${acc.category}:${acc.index}">
+          ${acc.name} (•••• ${acc.number}) - ${formatCurrency(acc.balance)}
+        </option>
+      `).join('');
+
+      ['transfer-from', 'transfer-to', 'etransfer-from', 'bill-from-account', 'global-from-account'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = optionsHtml;
+      });
+    }
+
+    // Navigation & Tab Switching
     window.switchTab = function(tab) {
-      const tabs = ['transfer', 'etransfer', 'bills', 'global'];
-      tabs.forEach(t => {
+      ['transfer', 'etransfer', 'bills', 'global'].forEach(t => {
         const sec = document.getElementById(`section-${t}`);
         const btn = document.getElementById(`tab-btn-${t}`);
         if (t === tab) {
@@ -578,56 +1074,72 @@
         sendView.classList.add('hidden');
         reqBtn.className = "pb-2 border-b-2 border-tdGreen text-tdGreen font-bold";
         sendBtn.className = "pb-2 border-b-2 border-transparent text-gray-500 font-bold hover:text-gray-800";
+        showToast("This feature is currently not available on the website.");
       }
     };
 
-    // Contacts management
-    const contacts = [
-      { name: 'Sarah M.', email: 'sarah.m@gmail.com', avatar: 'S' },
-      { name: 'Alex K.', email: 'alex.k@outlook.com', avatar: 'A' },
-      { name: 'David P.', email: 'dave@work.ca', avatar: 'D' }
-    ];
-
+    // Contacts
     function renderQuickContacts() {
       const container = document.getElementById('quick-contacts-list');
-      container.innerHTML = contacts.map((c, i) => `
-        <div onclick="selectContact(${i})" id="contact-chip-${i}" class="flex items-center space-x-2 bg-gray-50 border border-gray-200 px-3 py-1.5 rounded-full cursor-pointer hover:border-tdGreen shrink-0 transition-all">
-          <div class="w-6 h-6 bg-tdGreen text-white text-[10px] font-bold rounded-full flex items-center justify-center">${c.avatar}</div>
-          <span class="text-xs font-semibold text-gray-800">${c.name}</span>
-        </div>
-      `).join('');
+      if (contacts.length === 0) {
+        container.innerHTML = `<p class="text-xs text-gray-400 py-1">No saved contacts found in profile.</p>`;
+        return;
+      }
+      container.innerHTML = contacts.map((c, i) => {
+        const name = c.name || c.email || 'Contact';
+        const avatar = name.charAt(0).toUpperCase();
+        return `
+          <div onclick="selectContact(${i})" id="contact-chip-${i}" class="flex items-center space-x-2 bg-gray-50 border border-gray-200 px-3 py-1.5 rounded-full cursor-pointer hover:border-tdGreen shrink-0 transition-all">
+            <div class="w-6 h-6 bg-tdGreen text-white text-[10px] font-bold rounded-full flex items-center justify-center">${avatar}</div>
+            <span class="text-xs font-semibold text-gray-800">${name}</span>
+          </div>
+        `;
+      }).join('');
     }
 
     window.selectContact = function(index) {
       selectedContact = contacts[index];
       contacts.forEach((_, i) => {
         const el = document.getElementById(`contact-chip-${i}`);
-        if (i === index) {
-          el.className = "flex items-center space-x-2 bg-tdGreen/10 border-2 border-tdGreen px-3 py-1.5 rounded-full cursor-pointer shrink-0 transition-all";
-        } else {
-          el.className = "flex items-center space-x-2 bg-gray-50 border border-gray-200 px-3 py-1.5 rounded-full cursor-pointer hover:border-tdGreen shrink-0 transition-all";
+        if (el) {
+          el.className = i === index 
+            ? "flex items-center space-x-2 bg-tdGreen/10 border-2 border-tdGreen px-3 py-1.5 rounded-full cursor-pointer shrink-0 transition-all"
+            : "flex items-center space-x-2 bg-gray-50 border border-gray-200 px-3 py-1.5 rounded-full cursor-pointer hover:border-tdGreen shrink-0 transition-all";
         }
       });
       validateEtransferForm();
     };
 
+    window.openAddContactModal = async function() {
+      const name = prompt("Enter contact name:");
+      const email = prompt("Enter contact email:");
+      if (name && email) {
+        const newContact = { name, email };
+        contacts.push(newContact);
+        try {
+          await updateDoc(doc(db, "users", currentUser.uid), { contacts });
+          renderQuickContacts();
+          showToast("Contact added successfully!");
+        } catch (e) {
+          console.error("Error saving contact:", e);
+        }
+      }
+    };
+
     // Form Validations
     window.validateTransferForm = function() {
       const amt = parseFloat(document.getElementById('transfer-amount').value || '0');
-      const btn = document.getElementById('btn-submit-transfer');
-      btn.disabled = !(amt > 0);
+      document.getElementById('btn-submit-transfer').disabled = !(amt > 0);
     };
 
     window.validateEtransferForm = function() {
       const amt = parseFloat(document.getElementById('etransfer-amount').value || '0');
-      const btn = document.getElementById('btn-submit-etransfer');
-      btn.disabled = !(amt > 0 && selectedContact !== null);
+      document.getElementById('btn-submit-etransfer').disabled = !(amt > 0 && selectedContact !== null);
     };
 
     window.validateBillForm = function() {
       const amt = parseFloat(document.getElementById('bill-amount').value || '0');
-      const btn = document.getElementById('btn-submit-bill');
-      btn.disabled = !(amt > 0);
+      document.getElementById('btn-submit-bill').disabled = !(amt > 0);
     };
 
     window.swapTransferAccounts = function() {
@@ -638,74 +1150,257 @@
       toSel.value = temp;
     };
 
-    // Transactions execution simulations
+    // --- STAGED SECURITY VERIFICATION & SEQUENTIAL PROCESSING WORKFLOW ---
+    function initiateSecurityVerification(callback) {
+      pendingTransactionCallback = callback;
+      document.getElementById('modal-payment-pin').value = '';
+      openModal('paymentPinModal');
+    }
+
+    // 1. PIN Form Submit Handler
+    document.getElementById('paymentPinForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const enteredPin = document.getElementById('modal-payment-pin').value;
+      const expectedPin = currentUserData.paymentPin || "1234";
+
+      if (enteredPin !== expectedPin) {
+        alert("Invalid Payment PIN. Please try again.");
+        return;
+      }
+
+      closeModal('paymentPinModal');
+      await runProcessingAnimation("Processing PIN verification...");
+      document.getElementById('modal-security-otp').value = '';
+      openModal('securityOtpModal');
+    });
+
+    // 2. OTP Form Submit Handler
+    document.getElementById('securityOtpForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const enteredOtp = document.getElementById('modal-security-otp').value;
+      const expectedOtp = currentUserData.paymentOTP || "654321";
+
+      if (enteredOtp !== expectedOtp) {
+        alert("Invalid Security OTP token. Please try again.");
+        return;
+      }
+
+      closeModal('securityOtpModal');
+      await runProcessingAnimation("Processing transaction request...");
+
+      if (currentUserData && currentUserData.status === 'block') {
+        openModal('blockedAccountModal');
+        pendingTransactionCallback = null;
+        return;
+      }
+
+      if (pendingTransactionCallback) {
+        await pendingTransactionCallback();
+        pendingTransactionCallback = null;
+      }
+    });
+
+    function getRandomDuration() {
+      return Math.floor(Math.random() * (7000 - 3000 + 1)) + 3000;
+    }
+
+    async function runProcessingAnimation(stepTextContent) {
+      const modal = document.getElementById('processingModal');
+      const stepText = document.getElementById('processing-step-text');
+      const progressBar = document.getElementById('processing-progress-bar');
+      const iconContainer = document.getElementById('processing-icon-container');
+      const title = document.getElementById('processing-title');
+      
+      modal.classList.remove('hidden');
+      iconContainer.className = "w-16 h-16 rounded-full bg-tdGreen/10 flex items-center justify-center text-tdGreen text-2xl animate-pulse";
+      title.innerText = "Processing...";
+      progressBar.style.width = '30%';
+      stepText.innerText = stepTextContent;
+
+      const totalDuration = getRandomDuration();
+      const stepInterval = totalDuration / 3;
+
+      await new Promise(r => setTimeout(r, stepInterval));
+      progressBar.style.width = '70%';
+      stepText.innerText = "Processing details...";
+
+      await new Promise(r => setTimeout(r, stepInterval));
+      progressBar.style.width = '95%';
+      stepText.innerText = "Almost done...";
+
+      await new Promise(r => setTimeout(r, stepInterval));
+      progressBar.style.width = '100%';
+      
+      await new Promise(r => setTimeout(r, 400));
+      modal.classList.add('hidden');
+      progressBar.style.width = '20%';
+    }
+
+    // Process Transactions & Save to Firestore
     window.processAccountTransfer = function() {
-      const amt = document.getElementById('transfer-amount').value;
-      openReceiptModal("Account Transfer", "Selected Account", `$${amt} CAD`);
-      document.getElementById('transfer-amount').value = '';
-      validateTransferForm();
+      const fromVal = document.getElementById('transfer-from').value;
+      const toVal = document.getElementById('transfer-to').value;
+      const amt = parseFloat(document.getElementById('transfer-amount').value);
+
+      if (fromVal === toVal) {
+        alert("Cannot transfer between the same account.");
+        return;
+      }
+
+      const [fCat, fIdx] = fromVal.split(':');
+      const [tCat, tIdx] = toVal.split(':');
+
+      if (currentUserData[fCat][fIdx].balance < amt) {
+        alert("Insufficient funds in source account.");
+        return;
+      }
+
+      initiateSecurityVerification(async () => {
+        if (currentUserData && currentUserData.status === 'block') {
+          openModal('blockedAccountModal');
+          return;
+        }
+
+        currentUserData[fCat][fIdx].balance -= amt;
+        currentUserData[tCat][tIdx].balance += amt;
+
+        await updateDoc(doc(db, "users", currentUser.uid), {
+          [fCat]: currentUserData[fCat],
+          [tCat]: currentUserData[tCat]
+        });
+
+        await addDoc(collection(db, "transactions"), {
+          userId: currentUser.uid,
+          timestamp: serverTimestamp(),
+          type: "Account Transfer",
+          fromAccount: currentUserData[fCat][fIdx].name,
+          toAccount: currentUserData[tCat][tIdx].name,
+          amount: amt,
+          currency: "CAD"
+        });
+
+        showReceipt({
+          type: "Account Transfer",
+          fromAccount: currentUserData[fCat][fIdx].name,
+          recipient: `To: ${currentUserData[tCat][tIdx].name}`,
+          amount: amt
+        });
+
+        document.getElementById('transfer-amount').value = '';
+        validateTransferForm();
+      });
     };
 
     window.processETransfer = function() {
-      const amt = document.getElementById('etransfer-amount').value;
-      openReceiptModal("Interac e-Transfer", selectedContact.name, `$${amt} CAD`);
-      document.getElementById('etransfer-amount').value = '';
-      validateEtransferForm();
-    };
+      const amt = parseFloat(document.getElementById('etransfer-amount').value);
+      const memo = document.getElementById('etransfer-memo').value || "";
+      const fromVal = document.getElementById('etransfer-from').value;
+      const [cat, idx] = fromVal.split(':');
 
-    window.processRequestMoney = function() {
-      const contact = document.getElementById('req-contact').value;
-      const amt = document.getElementById('req-amount').value;
-      if (!contact || !amt) return showToast("Please fill in contact & amount");
-      showToast(`Requested $${amt} from ${contact}`);
-      document.getElementById('req-contact').value = '';
-      document.getElementById('req-amount').value = '';
+      if (currentUserData[cat][idx].balance < amt) {
+        alert("Insufficient funds.");
+        return;
+      }
+
+      initiateSecurityVerification(async () => {
+        currentUserData[cat][idx].balance -= amt;
+
+        await updateDoc(doc(db, "users", currentUser.uid), {
+          [cat]: currentUserData[cat]
+        });
+
+        await addDoc(collection(db, "transactions"), {
+          userId: currentUser.uid,
+          timestamp: serverTimestamp(),
+          type: "Interac e-Transfer",
+          fromAccount: currentUserData[cat][idx].name,
+          recipient: selectedContact.name || selectedContact.email,
+          message: memo,
+          amount: amt,
+          currency: "CAD"
+        });
+
+        showReceipt({
+          type: "Interac e-Transfer",
+          fromAccount: currentUserData[cat][idx].name,
+          recipient: selectedContact.name || selectedContact.email,
+          amount: amt
+        });
+
+        document.getElementById('etransfer-amount').value = '';
+        document.getElementById('etransfer-memo').value = '';
+        validateEtransferForm();
+      });
     };
 
     window.processBillPayment = function() {
       const payeeSelect = document.getElementById('bill-payee');
-      const payeeName = payeeSelect.options[payeeSelect.selectedIndex].text;
-      const amt = document.getElementById('bill-amount').value;
-      openReceiptModal("Bill Payment", payeeName, `$${amt} CAD`);
-      document.getElementById('bill-amount').value = '';
-      validateBillForm();
-    };
+      const payee = payeeSelect.value;
+      const selectedOption = payeeSelect.options[payeeSelect.selectedIndex];
+      const pointsEarned = parseInt(selectedOption.getAttribute('data-points') || '100');
+      const amt = parseFloat(document.getElementById('bill-amount').value);
+      const fromVal = document.getElementById('bill-from-account').value;
+      const [cat, idx] = fromVal.split(':');
 
-    // Payee & Scheduled Bills Rendering
-    function renderPayeeOptions() {
-      const sel = document.getElementById('bill-payee');
-      sel.innerHTML = payees.map(p => `<option value="${p.id}">${p.name} (${p.accountNum})</option>`).join('');
-    }
-
-    function renderScheduledBills() {
-      const container = document.getElementById('scheduled-bills-container');
-      if (scheduledBills.length === 0) {
-        container.innerHTML = `<p class="text-xs text-gray-400">No upcoming bill payments scheduled.</p>`;
+      if (currentUserData[cat][idx].balance < amt) {
+        alert("Insufficient funds.");
         return;
       }
-      container.innerHTML = scheduledBills.map(b => `
-        <div class="flex items-center justify-between p-2.5 bg-gray-50 rounded-xl text-xs">
-          <div>
-            <p class="font-bold text-gray-900">${b.name}</p>
-            <p class="text-[10px] text-gray-400">Scheduled for ${b.date}</p>
-          </div>
-          <div class="flex items-center space-x-2">
-            <span class="font-extrabold text-gray-900">${b.amount}</span>
-            <button onclick="cancelScheduledBill('${b.id}')" class="text-red-500 hover:text-red-700 text-xs">
-              <i class="fa-solid fa-trash-can"></i>
-            </button>
-          </div>
-        </div>
-      `).join('');
-    }
 
-    window.cancelScheduledBill = function(id) {
-      scheduledBills = scheduledBills.filter(b => b.id !== id);
-      renderScheduledBills();
-      showToast("Scheduled payment cancelled");
+      initiateSecurityVerification(async () => {
+        currentUserData[cat][idx].balance -= amt;
+        const updatedEarnedPoints = Number(currentUserData.earnedPoints || 0) + pointsEarned;
+        currentUserData.earnedPoints = updatedEarnedPoints;
+
+        await updateDoc(doc(db, "users", currentUser.uid), {
+          [cat]: currentUserData[cat],
+          earnedPoints: updatedEarnedPoints
+        });
+
+        await addDoc(collection(db, "transactions"), {
+          userId: currentUser.uid,
+          timestamp: serverTimestamp(),
+          type: "Bill Payment",
+          fromAccount: currentUserData[cat][idx].name,
+          payee: payee,
+          amount: amt,
+          currency: "CAD"
+        });
+
+        await addDoc(collection(db, "points"), {
+          userId: currentUser.uid,
+          payee: payee,
+          points: pointsEarned,
+          type: "Bill Payment Reward",
+          timestamp: serverTimestamp()
+        });
+
+        showReceipt({
+          type: "Bill Payment",
+          fromAccount: currentUserData[cat][idx].name,
+          payee: payee,
+          amount: amt
+        });
+
+        document.getElementById('bill-amount').value = '';
+        validateBillForm();
+      });
     };
 
-    // Global Conversion
+    // Global Transfer Methods & Rates
+    window.setGlobalMethod = function(method) {
+      selectedGlobalMethod = method;
+      ['Bank Deposit', 'Cash Pickup', 'Visa Direct'].forEach(m => {
+        const key = m === 'Bank Deposit' ? 'bank' : m === 'Cash Pickup' ? 'cash' : 'visa';
+        const el = document.getElementById(`method-${key}`);
+        if (el) {
+          el.className = m === method 
+            ? "border-2 border-tdGreen bg-tdGreen/5 p-2 rounded-xl text-center cursor-pointer flex flex-col items-center"
+            : "border border-gray-200 p-2 rounded-xl text-center cursor-pointer flex flex-col items-center hover:border-tdGreen";
+        }
+      });
+    };
+
     window.updateGlobalRate = function() {
       const curr = document.getElementById('global-country').value;
       const rate = rates[curr];
@@ -722,80 +1417,97 @@
     };
 
     window.processGlobalTransfer = function() {
-      const sendAmt = document.getElementById('global-send-amount').value;
+      if (selectedGlobalMethod !== 'Bank Deposit') {
+        showToast("This feature is currently not available on the website.");
+        return;
+      }
+
+      const sendAmt = parseFloat(document.getElementById('global-send-amount').value);
       const curr = document.getElementById('global-country').value;
-      openReceiptModal("TD Global Transfer", `Recipient in ${curr}`, `$${sendAmt} CAD`);
+      const fromVal = document.getElementById('global-from-account').value;
+      const [cat, idx] = fromVal.split(':');
+
+      if (currentUserData[cat][idx].balance < sendAmt) {
+        alert("Insufficient funds.");
+        return;
+      }
+
+      initiateSecurityVerification(async () => {
+        currentUserData[cat][idx].balance -= sendAmt;
+
+        await updateDoc(doc(db, "users", currentUser.uid), {
+          [cat]: currentUserData[cat]
+        });
+
+        await addDoc(collection(db, "transactions"), {
+          userId: currentUser.uid,
+          timestamp: serverTimestamp(),
+          type: "TD Global Transfer",
+          fromAccount: currentUserData[cat][idx].name,
+          destinationCountry: curr,
+          amount: sendAmt,
+          currency: "CAD"
+        });
+
+        showReceipt({
+          type: "TD Global Transfer",
+          fromAccount: currentUserData[cat][idx].name,
+          recipient: `Recipient in ${curr}`,
+          amount: sendAmt
+        });
+      });
     };
 
     // Modal Helpers
-    function openReceiptModal(type, target, amount) {
-      document.getElementById('receipt-ref').innerText = `TD-${Math.floor(10000000 + Math.random() * 90000000)}`;
-      document.getElementById('receipt-type').innerText = type;
-      document.getElementById('receipt-target').innerText = target;
-      document.getElementById('receipt-amount').innerText = amount;
-
-      const backdrop = document.getElementById('receipt-modal-backdrop');
-      const modal = document.getElementById('receipt-modal');
-      backdrop.classList.remove('opacity-0', 'pointer-events-none');
-      modal.classList.remove('scale-95');
+    function showReceipt(receiptData) {
+      document.getElementById('receipt-timestamp').innerText = new Date().toUTCString();
+      document.getElementById('receipt-type').innerText = receiptData.type;
+      document.getElementById('receipt-from').innerText = receiptData.fromAccount;
+      document.getElementById('receipt-recipient').innerText = receiptData.recipient || receiptData.payee || 'Internal Transfer';
+      document.getElementById('receipt-amount').innerText = formatCurrency(receiptData.amount);
+      document.getElementById('receipt-ref').innerText = 'TD-' + Math.floor(100000000 + Math.random() * 900000000);
+      
+      document.getElementById('receiptModal').classList.remove('hidden');
     }
 
     window.closeReceiptModal = function() {
-      const backdrop = document.getElementById('receipt-modal-backdrop');
-      const modal = document.getElementById('receipt-modal');
-      backdrop.classList.add('opacity-0', 'pointer-events-none');
-      modal.classList.add('scale-95');
-    };
-
-    window.openAddPayeeModal = function() {
-      const backdrop = document.getElementById('add-payee-modal');
-      backdrop.classList.remove('opacity-0', 'pointer-events-none');
-    };
-
-    window.closeAddPayeeModal = function() {
-      const backdrop = document.getElementById('add-payee-modal');
-      backdrop.classList.add('opacity-0', 'pointer-events-none');
-    };
-
-    window.openAddContactModal = function() {
-      const name = prompt("Enter contact name:");
-      const email = prompt("Enter contact email:");
-      if (name && email) {
-        contacts.push({ name, email, avatar: name[0].toUpperCase() });
-        renderQuickContacts();
-        showToast("Contact added!");
-      }
-    };
-
-    window.saveNewPayee = function() {
-      const name = document.getElementById('payee-search-input').value;
-      const num = document.getElementById('payee-account-input').value;
-      if (!name || !num) return alert("Please fill out both payee details.");
-
-      payees.push({ id: `p${payees.length + 1}`, name, accountNum: num });
-      renderPayeeOptions();
-      closeAddPayeeModal();
-      showToast(`${name} added to Payees!`);
-    };
+      document.getElementById('receiptModal').classList.add('hidden');
+      window.location.reload();
+    }
 
     window.showToast = function(msg) {
       const toast = document.getElementById('action-toast');
       const txt = document.getElementById('toast-message');
       txt.innerText = msg;
       toast.classList.remove('hidden');
-      setTimeout(() => toast.classList.add('hidden'), 2500);
+      setTimeout(() => toast.classList.add('hidden'), 3000);
     };
-
-    // Initialize global conversion rate display
-    updateGlobalRate();
 
     window.toggleMoreMenu = function() {
-    const modal = document.getElementById('more-menu-modal');
-    if (modal) {
-        modal.classList.toggle('hidden');
-    }
+      const modal = document.getElementById('more-menu-modal');
+      if (modal) modal.classList.toggle('hidden');
     };
 
+    window.openModal = function(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    window.closeModal = function(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) modal.classList.add('hidden');
+    }
+
+    window.handleLogout = async function() {
+      try {
+        await signOut(auth);
+        window.location.href = '../login.html';
+      } catch (e) {
+        console.error("Logout error:", e);
+      }
+    };
+
+    updateGlobalRate();
   </script>
 </body>
 </html>

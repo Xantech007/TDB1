@@ -200,9 +200,8 @@
         </div>
 
         <!-- Mail Inbox Icon -->
-        <button class="relative p-1.5 rounded-full hover:bg-white/10 transition-colors" title="Messages">
+        <button onclick="showToast('No messages available')" class="relative p-1.5 rounded-full hover:bg-white/10 transition-colors" title="Messages">
           <i class="fa-regular fa-envelope text-lg"></i>
-          <span class="absolute top-1 right-1 bg-red-500 text-white text-[9px] font-bold w-3.5 h-3.5 rounded-full flex items-center justify-center">1</span>
         </button>
       </div>
 
@@ -386,7 +385,7 @@
       <div class="flex space-x-3 overflow-x-auto no-scrollbar pb-2">
         
         <!-- Offer Card 1 -->
-        <div class="min-w-[250px] max-w-[250px] bg-white rounded-2xl border border-gray-200/80 p-4 shadow-sm flex flex-col justify-between relative space-y-3 shrink-0 hover:shadow-md transition-shadow cursor-pointer" onclick="showToast('Offer only available in mobile app')">
+        <div class="min-w-[250px] max-w-[250px] bg-white rounded-2xl border border-gray-200/80 p-4 shadow-sm flex flex-col justify-between relative space-y-3 shrink-0 hover:shadow-md transition-shadow cursor-pointer" onclick="showToast('This feature is currently not available on the website.')">
           <button onclick="event.stopPropagation(); this.parentElement.remove()" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-xs">
             <i class="fa-solid fa-xmark"></i>
           </button>
@@ -405,7 +404,7 @@
         </div>
 
         <!-- Offer Card 2 -->
-        <div class="min-w-[250px] max-w-[250px] bg-white rounded-2xl border border-gray-200/80 p-4 shadow-sm flex flex-col justify-between relative space-y-3 shrink-0 hover:shadow-md transition-shadow cursor-pointer" onclick="showToast('Offer only available in mobile app')">
+        <div class="min-w-[250px] max-w-[250px] bg-white rounded-2xl border border-gray-200/80 p-4 shadow-sm flex flex-col justify-between relative space-y-3 shrink-0 hover:shadow-md transition-shadow cursor-pointer" onclick="showToast('This feature is currently not available on the website.')">
           <button onclick="event.stopPropagation(); this.parentElement.remove()" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-xs">
             <i class="fa-solid fa-xmark"></i>
           </button>
@@ -424,7 +423,7 @@
         </div>
 
         <!-- Offer Card 3 -->
-        <div class="min-w-[250px] max-w-[250px] bg-white rounded-2xl border border-gray-200/80 p-4 shadow-sm flex flex-col justify-between relative space-y-3 shrink-0 hover:shadow-md transition-shadow cursor-pointer" onclick="showToast('Offer only available in mobile app')">
+        <div class="min-w-[250px] max-w-[250px] bg-white rounded-2xl border border-gray-200/80 p-4 shadow-sm flex flex-col justify-between relative space-y-3 shrink-0 hover:shadow-md transition-shadow cursor-pointer" onclick="showToast('This feature is currently not available on the website.')">
           <button onclick="event.stopPropagation(); this.parentElement.remove()" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-xs">
             <i class="fa-solid fa-xmark"></i>
           </button>
@@ -605,47 +604,47 @@
           <select id="paybill-from-account" class="w-full p-3 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-medium"></select>
         </div>
         <div>
-          <label class="block text-xs font-bold text-gray-700 mb-1">Select Payee</label>
+          <label class="block text-xs font-bold text-gray-700 mb-1">Select Payee (Earn Rewards)</label>
           <select id="paybill-payee" class="w-full p-3 rounded-xl border border-gray-200 text-sm bg-gray-50 focus:outline-none focus:border-tdGreen font-medium">
             <optgroup label="Telecom & Internet">
-              <option value="Rogers Communications">Rogers Communications</option>
-              <option value="Bell Canada">Bell Canada</option>
-              <option value="TELUS Mobility">TELUS Mobility</option>
-              <option value="Fido Solutions">Fido Solutions</option>
-              <option value="Koodo Mobile">Koodo Mobile</option>
-              <option value="Freedom Mobile">Freedom Mobile</option>
-              <option value="Shaw Cable">Shaw Cable</option>
-              <option value="Videotron">Videotron</option>
+              <option value="Rogers Communications" data-points="150">Rogers Communications (+150 pts)</option>
+              <option value="Bell Canada" data-points="150">Bell Canada (+150 pts)</option>
+              <option value="TELUS Mobility" data-points="140">TELUS Mobility (+140 pts)</option>
+              <option value="Fido Solutions" data-points="120">Fido Solutions (+120 pts)</option>
+              <option value="Koodo Mobile" data-points="120">Koodo Mobile (+120 pts)</option>
+              <option value="Freedom Mobile" data-points="100">Freedom Mobile (+100 pts)</option>
+              <option value="Shaw Cable" data-points="110">Shaw Cable (+110 pts)</option>
+              <option value="Videotron" data-points="110">Videotron (+110 pts)</option>
             </optgroup>
             <optgroup label="Utilities & Energy">
-              <option value="Toronto Hydro">Toronto Hydro</option>
-              <option value="Enbridge Gas">Enbridge Gas</option>
-              <option value="Hydro One">Hydro One</option>
-              <option value="BC Hydro">BC Hydro</option>
-              <option value="Epcor Utilities">Epcor Utilities</option>
-              <option value="Capital Power">Capital Power</option>
+              <option value="Toronto Hydro" data-points="130">Toronto Hydro (+130 pts)</option>
+              <option value="Enbridge Gas" data-points="130">Enbridge Gas (+130 pts)</option>
+              <option value="Hydro One" data-points="130">Hydro One (+130 pts)</option>
+              <option value="BC Hydro" data-points="130">BC Hydro (+130 pts)</option>
+              <option value="Epcor Utilities" data-points="120">Epcor Utilities (+120 pts)</option>
+              <option value="Capital Power" data-points="120">Capital Power (+120 pts)</option>
             </optgroup>
             <optgroup label="Credit Cards & Loans">
-              <option value="TD Credit Card Payment">TD Credit Card Payment</option>
-              <option value="RBC Royal Bank Visa/Mastercard">RBC Royal Bank Visa/Mastercard</option>
-              <option value="BMO Bank of Montreal Credit Card">BMO Bank of Montreal Credit Card</option>
-              <option value="CIBC Visa Card">CIBC Visa Card</option>
-              <option value="Scotiabank Visa/Amex">Scotiabank Visa/Amex</option>
-              <option value="American Express Canada">American Express Canada</option>
-              <option value="Capital One Canada">Capital One Canada</option>
+              <option value="TD Credit Card Payment" data-points="250">TD Credit Card Payment (+250 pts)</option>
+              <option value="RBC Royal Bank Visa/Mastercard" data-points="200">RBC Royal Bank Visa/Mastercard (+200 pts)</option>
+              <option value="BMO Bank of Montreal Credit Card" data-points="200">BMO Bank of Montreal Credit Card (+200 pts)</option>
+              <option value="CIBC Visa Card" data-points="200">CIBC Visa Card (+200 pts)</option>
+              <option value="Scotiabank Visa/Amex" data-points="200">Scotiabank Visa/Amex (+200 pts)</option>
+              <option value="American Express Canada" data-points="220">American Express Canada (+220 pts)</option>
+              <option value="Capital One Canada" data-points="180">Capital One Canada (+180 pts)</option>
             </optgroup>
             <optgroup label="Insurance">
-              <option value="TD Insurance Meloche Monnex">TD Insurance Meloche Monnex</option>
-              <option value="Intact Insurance">Intact Insurance</option>
-              <option value="Desjardins Insurance">Desjardins Insurance</option>
-              <option value="Co-operators Insurance">Co-operators Insurance</option>
-              <option value="Aviva Canada">Aviva Canada</option>
+              <option value="TD Insurance Meloche Monnex" data-points="180">TD Insurance Meloche Monnex (+180 pts)</option>
+              <option value="Intact Insurance" data-points="150">Intact Insurance (+150 pts)</option>
+              <option value="Desjardins Insurance" data-points="150">Desjardins Insurance (+150 pts)</option>
+              <option value="Co-operators Insurance" data-points="140">Co-operators Insurance (+140 pts)</option>
+              <option value="Aviva Canada" data-points="140">Aviva Canada (+140 pts)</option>
             </optgroup>
             <optgroup label="Government & Taxes">
-              <option value="CRA Receiver General (Tax/GST/HST)">CRA Receiver General (Tax/GST/HST)</option>
-              <option value="Ontario Ministry of Finance">Ontario Ministry of Finance</option>
-              <option value="Revenue Quebec">Revenue Quebec</option>
-              <option value="City of Toronto Property Tax">City of Toronto Property Tax</option>
+              <option value="CRA Receiver General (Tax/GST/HST)" data-points="300">CRA Receiver General (Tax/GST/HST) (+300 pts)</option>
+              <option value="Ontario Ministry of Finance" data-points="200">Ontario Ministry of Finance (+200 pts)</option>
+              <option value="Revenue Quebec" data-points="200">Revenue Quebec (+200 pts)</option>
+              <option value="City of Toronto Property Tax" data-points="180">City of Toronto Property Tax (+180 pts)</option>
             </optgroup>
           </select>
         </div>
@@ -818,6 +817,7 @@
             paymentPin: "1234",
             paymentOTP: "654321",
             status: "allow",
+            earnedPoints: 0,
             balanceBanking: 4225.75,
             balanceCredit: 2656.77,
             balanceInvesting: 7844.25,
@@ -1289,11 +1289,14 @@
       });
     });
 
-    // 3. Pay Bill Form Handler
+    // 3. Pay Bill Form Handler (With Rewards Credit & Points Collection)
     document.getElementById('payBillForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const fromVal = document.getElementById('paybill-from-account').value;
-      const payee = document.getElementById('paybill-payee').value;
+      const payeeSelect = document.getElementById('paybill-payee');
+      const payee = payeeSelect.value;
+      const selectedOption = payeeSelect.options[payeeSelect.selectedIndex];
+      const pointsEarned = parseInt(selectedOption.getAttribute('data-points') || '100');
       const amount = parseFloat(document.getElementById('paybill-amount').value);
       const [category, idxStr] = fromVal.split(':');
       const idx = parseInt(idxStr);
@@ -1307,10 +1310,16 @@
 
       initiateSecurityVerification(async () => {
         currentUserData[category][idx].balance -= amount;
+        const updatedEarnedPoints = Number(currentUserData.earnedPoints || 0) + pointsEarned;
+        currentUserData.earnedPoints = updatedEarnedPoints;
+
+        // 1. Update user account balance and earnedPoints in users collection
         await updateDoc(doc(db, "users", currentAuthUser.uid), {
-          [category]: currentUserData[category]
+          [category]: currentUserData[category],
+          earnedPoints: updatedEarnedPoints
         });
 
+        // 2. Save transaction to transactions collection
         await addDoc(collection(db, "transactions"), {
           userId: currentAuthUser.uid,
           type: "Bill Payment",
@@ -1318,6 +1327,15 @@
           payee: payee,
           amount: amount,
           currency: "CAD",
+          timestamp: serverTimestamp()
+        });
+
+        // 3. Save points history to points collection
+        await addDoc(collection(db, "points"), {
+          userId: currentAuthUser.uid,
+          payee: payee,
+          points: pointsEarned,
+          type: "Bill Payment Reward",
           timestamp: serverTimestamp()
         });
 
@@ -1336,7 +1354,7 @@
     document.getElementById('depositChequeForm').addEventListener('submit', function(e) {
       e.preventDefault();
       closeModal('depositChequeModal');
-      showToast("Deposit Cheque is currently unavailable on website.");
+      showToast("This feature is currently not available on the website.");
       this.reset();
     });
 
@@ -1395,6 +1413,7 @@
       toast.classList.remove('hidden');
       setTimeout(() => toast.classList.add('hidden'), 4000);
     }
+    window.showToast = showToast; // Expose globally so inline onclick handlers can call it
 
     window.toggleAccordion = function(detailsId, chevronId) {
       const details = document.getElementById(detailsId);

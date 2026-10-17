@@ -59,13 +59,78 @@
     <p class="text-xs font-semibold text-gray-600">Loading TD Rewards...</p>
   </div>
 
+  <!-- FEATURED DEALS MODAL -->
+  <div id="dealsModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4 max-h-[85vh] flex flex-col">
+      <div class="flex items-center justify-between border-b pb-3">
+        <h3 class="text-base font-bold text-gray-900">All Featured Deals & Offers</h3>
+        <button onclick="closeModal('dealsModal')" class="text-gray-400 hover:text-gray-600">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      <div class="space-y-3 overflow-y-auto flex-grow pr-1">
+        <div class="bg-gray-50 rounded-2xl p-4 border border-gray-100 flex items-center justify-between">
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-xl bg-tdGreen/10 flex items-center justify-center text-tdGreen shrink-0">
+              <i class="fa-solid fa-hotel text-lg"></i>
+            </div>
+            <div>
+              <h4 class="text-xs font-bold text-gray-900">Expedia For TD</h4>
+              <p class="text-[11px] text-gray-500">Earn up to 9x points on hotels & flights</p>
+            </div>
+          </div>
+          <button onclick="window.location.href='https://www.tdrewards.com/expedia-for-td'" class="text-xs font-bold text-tdGreen bg-white px-3 py-1.5 rounded-full border border-gray-200 hover:bg-tdGreen hover:text-white transition-all">Visit</button>
+        </div>
+        <div class="bg-gray-50 rounded-2xl p-4 border border-gray-100 flex items-center justify-between">
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-600 shrink-0">
+              <i class="fa-brands fa-amazon text-lg"></i>
+            </div>
+            <div>
+              <h4 class="text-xs font-bold text-gray-900">Amazon Shop with Points</h4>
+              <p class="text-[11px] text-gray-500">Use points directly at checkout</p>
+            </div>
+          </div>
+          <button onclick="window.location.href='https://www.amazon.ca/dp/B098R9TNCM'" class="text-xs font-bold text-tdGreen bg-white px-3 py-1.5 rounded-full border border-gray-200 hover:bg-tdGreen hover:text-white transition-all">Shop</button>
+        </div>
+        <div class="bg-gray-50 rounded-2xl p-4 border border-gray-100 flex items-center justify-between">
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-600 shrink-0">
+              <i class="fa-solid fa-plane text-lg"></i>
+            </div>
+            <div>
+              <h4 class="text-xs font-bold text-gray-900">Book Any Way Travel</h4>
+              <p class="text-[11px] text-gray-500">Redeem points for any travel expense</p>
+            </div>
+          </div>
+          <button onclick="window.location.href='https://www.tdrewards.com/book-any-way'" class="text-xs font-bold text-tdGreen bg-white px-3 py-1.5 rounded-full border border-gray-200 hover:bg-tdGreen hover:text-white transition-all">Explore</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POINTS HISTORY MODAL -->
+  <div id="historyModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4 max-h-[85vh] flex flex-col">
+      <div class="flex items-center justify-between border-b pb-3">
+        <h3 class="text-base font-bold text-gray-900">Points History Statement</h3>
+        <button onclick="closeModal('historyModal')" class="text-gray-400 hover:text-gray-600">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      <div id="full-history-container" class="space-y-2 overflow-y-auto flex-grow divide-y divide-gray-100 pr-1">
+        <p class="text-xs text-gray-400 text-center py-4">Loading history...</p>
+      </div>
+    </div>
+  </div>
+
   <!-- TOP APP HEADER -->
   <header class="bg-tdGreen text-white pt-4 pb-6 px-4 shadow-md rounded-b-2xl">
     <div class="max-w-md mx-auto space-y-3">
       <div class="flex items-center justify-between">
         <h1 class="text-xl font-extrabold tracking-tight">TD Rewards</h1>
         <div class="flex items-center space-x-2">
-          <button onclick="quickAction('Rewards FAQ')" class="p-1.5 rounded-full hover:bg-white/10 transition-colors" title="Help">
+          <button onclick="window.location.href='https://td11bank.netlify.app/help-centre.html'" class="p-1.5 rounded-full hover:bg-white/10 transition-colors" title="Help">
             <i class="fa-regular fa-circle-question text-lg"></i>
           </button>
         </div>
@@ -93,10 +158,10 @@
         <div>
           <p class="text-xs text-gray-400">Available Balance</p>
           <div class="flex items-baseline space-x-2 mt-1">
-            <h2 class="text-3xl font-extrabold tracking-tight" id="rewards-points-balance">34,850</h2>
+            <h2 class="text-3xl font-extrabold tracking-tight" id="rewards-points-balance">0</h2>
             <span class="text-xs text-tdGold font-semibold">pts</span>
           </div>
-          <p class="text-xs text-gray-300 mt-1">≈ <span id="rewards-cash-value">\$174.25</span> CAD in travel or purchases</p>
+          <p class="text-xs text-gray-300 mt-1">≈ <span id="rewards-cash-value">\$0.00</span> CAD in travel or purchases</p>
         </div>
 
         <div class="pt-2 border-t border-white/10 flex justify-between items-center text-xs">
@@ -104,7 +169,7 @@
             <span class="text-gray-400">Aeroplan Points:</span>
             <span class="font-bold ml-1 text-white" id="aeroplan-points-balance">12,400 pts</span>
           </div>
-          <button onclick="quickAction('Link Aeroplan Account')" class="text-tdGold hover:underline font-semibold text-[11px]">Manage</button>
+          <button onclick="quickAction('This feature is currently not available on the website.')" class="text-tdGold hover:underline font-semibold text-[11px]">Manage</button>
         </div>
       </div>
     </section>
@@ -114,32 +179,32 @@
       <h2 class="text-base font-bold text-gray-900">Redeem Your Points</h2>
       
       <div class="grid grid-cols-4 gap-2.5">
-        <button onclick="quickAction('Book Travel with Points')" class="bg-white border border-gray-200/80 p-3 rounded-2xl flex flex-col items-center text-center space-y-2 hover:shadow-md transition-all active:scale-95">
+        <button onclick="window.location.href='https://www.tdrewards.com/book-any-way'" class="bg-white border border-gray-200/80 p-3 rounded-2xl flex flex-col items-center text-center space-y-2 hover:shadow-md transition-all active:scale-95">
           <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
             <i class="fa-solid fa-plane text-sm"></i>
           </div>
           <span class="text-[11px] font-bold text-gray-800 leading-tight">Book Travel</span>
         </button>
 
-        <button onclick="quickAction('Gift Cards Catalogue')" class="bg-white border border-gray-200/80 p-3 rounded-2xl flex flex-col items-center text-center space-y-2 hover:shadow-md transition-all active:scale-95">
+        <button onclick="window.location.href='https://www.tdrewards.com/shop/category/3'" class="bg-white border border-gray-200/80 p-3 rounded-2xl flex flex-col items-center text-center space-y-2 hover:shadow-md transition-all active:scale-95">
           <div class="w-10 h-10 rounded-full bg-amber-50 flex items-center justify-center text-amber-600">
             <i class="fa-solid fa-gift text-sm"></i>
           </div>
           <span class="text-[11px] font-bold text-gray-800 leading-tight">Gift Cards</span>
         </button>
 
-        <button onclick="quickAction('Amazon Shop with Points')" class="bg-white border border-gray-200/80 p-3 rounded-2xl flex flex-col items-center text-center space-y-2 hover:shadow-md transition-all active:scale-95">
+        <button onclick="window.location.href='https://www.amazon.ca/dp/B098R9TNCM'" class="bg-white border border-gray-200/80 p-3 rounded-2xl flex flex-col items-center text-center space-y-2 hover:shadow-md transition-all active:scale-95">
           <div class="w-10 h-10 rounded-full bg-orange-50 flex items-center justify-center text-orange-600">
             <i class="fa-brands fa-amazon text-sm"></i>
           </div>
           <span class="text-[11px] font-bold text-gray-800 leading-tight">Amazon</span>
         </button>
 
-        <button onclick="quickAction('Statement Credit')" class="bg-white border border-gray-200/80 p-3 rounded-2xl flex flex-col items-center text-center space-y-2 hover:shadow-md transition-all active:scale-95">
+        <button onclick="window.location.href='https://www.tdrewards.com/cash-offer'" class="bg-white border border-gray-200/80 p-3 rounded-2xl flex flex-col items-center text-center space-y-2 hover:shadow-md transition-all active:scale-95">
           <div class="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center text-tdGreen">
-            <i class="fa-solid fa-receipt text-sm"></i>
+            <i class="fa-solid fa-dollar-sign text-sm"></i>
           </div>
-          <span class="text-[11px] font-bold text-gray-800 leading-tight">Pay Credit</span>
+          <span class="text-[11px] font-bold text-gray-800 leading-tight">Cash Back</span>
         </button>
       </div>
     </section>
@@ -148,7 +213,7 @@
     <section class="space-y-3">
       <div class="flex items-center justify-between">
         <h2 class="text-base font-bold text-gray-900">Featured Deals</h2>
-        <button onclick="quickAction('View All Deals')" class="text-xs font-bold text-tdGreen hover:underline">See All</button>
+        <button onclick="openModal('dealsModal')" class="text-xs font-bold text-tdGreen hover:underline">See All</button>
       </div>
 
       <div class="space-y-3">
@@ -164,7 +229,7 @@
               <span class="text-[10px] font-bold text-tdGreen inline-block mt-1 bg-tdGreen/10 px-2 py-0.5 rounded-md">Bonus Earn Rate</span>
             </div>
           </div>
-          <button onclick="quickAction('Expedia Offer')" class="text-xs font-bold text-tdGreen bg-gray-50 px-3 py-1.5 rounded-full border border-gray-200 hover:bg-tdGreen hover:text-white transition-all">
+          <button onclick="window.location.href='https://www.tdrewards.com/expedia-for-td'" class="text-xs font-bold text-tdGreen bg-gray-50 px-3 py-1.5 rounded-full border border-gray-200 hover:bg-tdGreen hover:text-white transition-all">
             Explore
           </button>
         </div>
@@ -181,7 +246,7 @@
               <span class="text-[10px] font-bold text-red-600 inline-block mt-1 bg-red-50 px-2 py-0.5 rounded-md">Popular</span>
             </div>
           </div>
-          <button onclick="redeemReward('Uber Eats \$25 Gift Card', 5000)" class="text-xs font-bold text-tdGreen bg-gray-50 px-3 py-1.5 rounded-full border border-gray-200 hover:bg-tdGreen hover:text-white transition-all">
+          <button onclick="quickAction('This feature is currently not available on the website.')" class="text-xs font-bold text-tdGreen bg-gray-50 px-3 py-1.5 rounded-full border border-gray-200 hover:bg-tdGreen hover:text-white transition-all">
             Redeem
           </button>
         </div>
@@ -192,48 +257,11 @@
     <section class="space-y-3">
       <div class="flex items-center justify-between">
         <h2 class="text-base font-bold text-gray-900">Points Activity</h2>
-        <button onclick="quickAction('Full Points Statement')" class="text-xs font-bold text-tdGreen hover:underline">History</button>
+        <button onclick="openHistoryModal()" class="text-xs font-bold text-tdGreen hover:underline">History</button>
       </div>
 
-      <div class="bg-white rounded-2xl border border-gray-200/80 divide-y divide-gray-100 shadow-sm overflow-hidden">
-        <div class="p-3.5 flex items-center justify-between">
-          <div class="flex items-center space-x-3">
-            <div class="w-8 h-8 rounded-full bg-green-100 text-tdGreen flex items-center justify-center text-xs">
-              <i class="fa-solid fa-plus"></i>
-            </div>
-            <div>
-              <p class="text-xs font-bold text-gray-900">Starbucks Purchase</p>
-              <p class="text-[10px] text-gray-400">Oct 14, 2026 • 3x Bonus Earn</p>
-            </div>
-          </div>
-          <span class="text-xs font-extrabold text-tdGreen">+42 pts</span>
-        </div>
-
-        <div class="p-3.5 flex items-center justify-between">
-          <div class="flex items-center space-x-3">
-            <div class="w-8 h-8 rounded-full bg-green-100 text-tdGreen flex items-center justify-center text-xs">
-              <i class="fa-solid fa-plus"></i>
-            </div>
-            <div>
-              <p class="text-xs font-bold text-gray-900">Metro Grocery Store</p>
-              <p class="text-[10px] text-gray-400">Oct 12, 2026 • Regular Earn</p>
-            </div>
-          </div>
-          <span class="text-xs font-extrabold text-tdGreen">+180 pts</span>
-        </div>
-
-        <div class="p-3.5 flex items-center justify-between">
-          <div class="flex items-center space-x-3">
-            <div class="w-8 h-8 rounded-full bg-red-100 text-red-600 flex items-center justify-center text-xs">
-              <i class="fa-solid fa-minus"></i>
-            </div>
-            <div>
-              <p class="text-xs font-bold text-gray-900">Amazon Pay with Points</p>
-              <p class="text-[10px] text-gray-400">Oct 08, 2026 • Redemption</p>
-            </div>
-          </div>
-          <span class="text-xs font-extrabold text-red-600">-2,500 pts</span>
-        </div>
+      <div id="recent-activity-container" class="bg-white rounded-2xl border border-gray-200/80 divide-y divide-gray-100 shadow-sm overflow-hidden">
+        <div class="p-3.5 text-center text-xs text-gray-400">Loading activity...</div>
       </div>
     </section>
 
@@ -271,10 +299,9 @@
     </div>
   </nav>
 
-    <!-- MORE MENU MODAL / DRAWER -->
-    <div id="more-menu-modal" class="hidden fixed inset-0 z-50 flex justify-end bg-black/50 backdrop-blur-sm transition-opacity">
+  <!-- MORE MENU MODAL / DRAWER -->
+  <div id="more-menu-modal" class="hidden fixed inset-0 z-50 flex justify-end bg-black/50 backdrop-blur-sm transition-opacity">
     <div class="w-4/5 max-w-xs bg-white h-full shadow-2xl flex flex-col justify-between p-5 space-y-4 overflow-y-auto">
-        
         <div>
         <div class="flex items-center justify-between border-b pb-3 mb-4">
             <h2 class="text-base font-bold text-gray-900">More Options</h2>
@@ -316,15 +343,16 @@
         </div>
 
     </div>
-    </div>
+  </div>
 
   <!-- FIREBASE AUTH & FIRESTORE SCRIPT -->
   <script type="module">
     import { auth, db } from '../firebase.js';
     import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-    import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { doc, getDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-    let currentPoints = 34850;
+    let currentPoints = 0;
+    let currentUser = null;
 
     function hideLoadingOverlay() {
       const overlay = document.getElementById('loading-overlay');
@@ -335,20 +363,118 @@
       if (!user) {
         hideLoadingOverlay();
       } else {
+        currentUser = user;
         try {
           const userRef = doc(db, "users", user.uid);
           const snap = await getDoc(userRef);
-          if (snap.exists() && snap.data().rewardsPoints) {
-            currentPoints = snap.data().rewardsPoints;
+          if (snap.exists() && typeof snap.data().earnedPoints === 'number') {
+            currentPoints = snap.data().earnedPoints;
             updatePointsDisplay();
           }
+
+          await fetchPointsHistory(user.uid);
         } catch (e) {
-          console.error("Error fetching rewards points:", e);
+          console.error("Error fetching user data:", e);
         } finally {
           hideLoadingOverlay();
         }
       }
     });
+
+    async function fetchPointsHistory(uid) {
+      try {
+        const q = query(collection(db, "points"), where("userId", "==", uid));
+        const querySnapshot = await getDocs(q);
+        const historyList = [];
+
+        querySnapshot.forEach((doc) => {
+          historyList.push(doc.data());
+        });
+
+        renderActivity(historyList);
+      } catch (e) {
+        console.error("Error fetching points history:", e);
+      }
+    }
+
+    function renderActivity(history) {
+      const recentContainer = document.getElementById('recent-activity-container');
+      if (!recentContainer) return;
+
+      if (history.length === 0) {
+        recentContainer.innerHTML = `<div class="p-4 text-center text-xs text-gray-400">No points activity recorded yet.</div>`;
+        return;
+      }
+
+      history.sort((a, b) => {
+        const timeA = a.timestamp ? a.timestamp.toMillis() : 0;
+        const timeB = b.timestamp ? b.timestamp.toMillis() : 0;
+        return timeB - timeA;
+      });
+
+      recentContainer.innerHTML = history.slice(0, 3).map(item => {
+        const dateStr = item.timestamp ? new Date(item.timestamp.toDate()).toLocaleDateString() : 'Recent';
+        return `
+          <div class="p-3.5 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <div class="w-8 h-8 rounded-full bg-green-100 text-tdGreen flex items-center justify-center text-xs">
+                <i class="fa-solid fa-plus"></i>
+              </div>
+              <div>
+                <p class="text-xs font-bold text-gray-900">${item.payee || item.type || 'Points Earned'}</p>
+                <p class="text-[10px] text-gray-400">${dateStr} • ${item.type || 'Reward'}</p>
+              </div>
+            </div>
+            <span class="text-xs font-extrabold text-tdGreen">+${Number(item.points || 0).toLocaleString()} pts</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    window.openHistoryModal = async function() {
+      openModal('historyModal');
+      const container = document.getElementById('full-history-container');
+      container.innerHTML = `<p class="text-xs text-gray-400 text-center py-4">Loading full history...</p>`;
+
+      if (!currentUser) return;
+
+      try {
+        const q = query(collection(db, "points"), where("userId", "==", currentUser.uid));
+        const querySnapshot = await getDocs(q);
+        const historyList = [];
+
+        querySnapshot.forEach((doc) => {
+          historyList.push(doc.data());
+        });
+
+        if (historyList.length === 0) {
+          container.innerHTML = `<p class="text-xs text-gray-400 text-center py-4">No points history found.</p>`;
+          return;
+        }
+
+        historyList.sort((a, b) => {
+          const timeA = a.timestamp ? a.timestamp.toMillis() : 0;
+          const timeB = b.timestamp ? b.timestamp.toMillis() : 0;
+          return timeB - timeA;
+        });
+
+        container.innerHTML = historyList.map(item => {
+          const dateStr = item.timestamp ? new Date(item.timestamp.toDate()).toUTCString() : 'Recent';
+          return `
+            <div class="p-3.5 flex items-center justify-between">
+              <div>
+                <p class="text-xs font-bold text-gray-900">${item.payee || item.type || 'Points Earned'}</p>
+                <p class="text-[10px] text-gray-400">${dateStr}</p>
+              </div>
+              <span class="text-xs font-extrabold text-tdGreen">+${Number(item.points || 0).toLocaleString()} pts</span>
+            </div>
+          `;
+        }).join('');
+      } catch (e) {
+        console.error("Error loading full history:", e);
+        container.innerHTML = `<p class="text-xs text-red-500 text-center py-4">Failed to load history.</p>`;
+      }
+    };
 
     function updatePointsDisplay() {
       const ptsEl = document.getElementById('rewards-points-balance');
@@ -357,22 +483,12 @@
       if (valEl) valEl.innerText = `$${(currentPoints * 0.005).toFixed(2)}`;
     }
 
-    window.redeemReward = function(rewardName, cost) {
-      if (currentPoints < cost) {
-        window.quickAction(`Insufficient points for ${rewardName}`);
-        return;
-      }
-      currentPoints -= cost;
-      updatePointsDisplay();
-      window.quickAction(`Redeemed ${rewardName}!`);
-    };
-
     window.quickAction = function(action) {
       const toast = document.getElementById('action-toast');
       const msg = document.getElementById('toast-message');
-      msg.innerText = action.includes('Redeemed') || action.includes('Insufficient') ? action : `Opening ${action}...`;
+      msg.innerText = action;
       toast.classList.remove('hidden');
-      setTimeout(() => toast.classList.add('hidden'), 2500);
+      setTimeout(() => toast.classList.add('hidden'), 3000);
     };
 
     window.handleLogout = async function() {
@@ -387,6 +503,16 @@
     window.toggleMoreMenu = function() {
       const modal = document.getElementById('more-menu-modal');
       if (modal) modal.classList.toggle('hidden');
+    };
+
+    window.openModal = function(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) modal.classList.remove('hidden');
+    };
+
+    window.closeModal = function(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) modal.classList.add('hidden');
     };
 
   </script>

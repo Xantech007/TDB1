@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find a Branch or ATM Near You | TD Canada Trust & TD Bank US</title>
+    <link rel="stylesheet" href="td-theme.css">
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Locator Layout Styles */
+        .locator-main-container {
+            display: flex;
+            min-height: calc(100vh - 160px);
+            background-color: #f4f6f8;
+            position: relative;
+        }
+
+        /* Left Sidebar Panel */
+        .locator-sidebar {
+            width: 450px;
+            background: #ffffff;
+            box-shadow: 4px 0 15px rgba(0,0,0,0.08);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            max-height: calc(100vh - 160px);
+        }
+
+        .locator-search-header {
+            padding: 25px 25px 15px 25px;
+            background: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .locator-search-header h1 {
+            font-size: 1.8rem;
+            color: #003300;
+            margin-bottom: 15px;
+        }
+
+        .locator-input-group {
+            display: flex;
+            background: #f9fbf9;
+            border: 2px solid #008a00;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .locator-input-group input {
+            flex: 1;
+            padding: 14px 15px;
+            font-size: 1rem;
+            border: none;
+            outline: none;
+            background: transparent;
+            color: #333;
+        }
+
+        .locator-input-group button {
+            background: #008a00;
+            color: #ffffff;
+            border: none;
+            padding: 0 20px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background 0.2s;
+        }
+
+        .locator-input-group button:hover {
+            background: #006600;
+        }
+
+        /* Filter Checkboxes & Action Bar */
+        .locator-filters {
+            padding: 15px 25px;
+            background: #f4f6f8;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .filter-checkboxes {
+            display: flex;
+            gap: 20px;
+        }
+
+        .filter-checkboxes label {
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+        }
+
+        .filter-checkboxes input[type="checkbox"] {
+            accent-color: #008a00;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .existing-bookings-link {
+            font-size: 0.9rem;
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .existing-bookings-link:hover {
+            text-decoration: underline;
+            color: #003300;
+        }
+
+        /* Results / Empty Notice Section */
+        .locator-results-body {
+            padding: 30px 25px;
+            flex: 1;
+        }
+
+        .refine-search-card {
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-left: 5px solid #d9534f;
+            border-radius: 6px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            margin-bottom: 25px;
+        }
+
+        .refine-search-card h2 {
+            font-size: 1.2rem;
+            color: #111;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .refine-search-card h2 i {
+            color: #d9534f;
+        }
+
+        .refine-search-card p {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .holiday-schedule-banner {
+            background: #e6f4e6;
+            border: 1px solid #c8e6c9;
+            border-radius: 6px;
+            padding: 15px 20px;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .holiday-schedule-banner a {
+            color: #003300;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+        }
+
+        .holiday-schedule-banner a:hover {
+            text-decoration: underline;
+            color: #008a00;
+        }
+
+        /* Right Map Container */
+        .locator-map-container {
+            flex: 1;
+            position: relative;
+            background: #e5e3df;
+        }
+
+        .locator-map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 900px) {
+            .locator-main-container {
+                flex-direction: column;
+            }
+            .locator-sidebar {
+                width: 100%;
+                max-height: none;
+            }
+            .locator-map-container {
+                height: 450px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Utility Navigation -->
+    <div class="utility-nav" id="utilityNav">
+        <div class="container">
+            <ul class="utility-links">
+                <li><a href="index.html">Personal</a></li>
+                <li><a href="small-business.html">Small Business</a></li>
+                <li><a href="commercial-banking.html">Commercial</a></li>
+                <li><a href="investing.html">Investing</a></li>
+                <li><a href="asset-management.html">TD Asset Management</a></li>
+                <li><a href="about-td.html">About TD</a></li>
+            </ul>
+            <button type="button" class="mobile-sidebar-search page-search-trigger" aria-label="Search this page">
+                <i class="fas fa-search" aria-hidden="true"></i>
+                <span>Search this page</span>
+            </button>
+            <div class="country-selector">
+                <img src="images/country-ca-en.png" alt="Canada" style="height: 20px; width: auto; vertical-align: middle;">
+                <i class="fas fa-caret-down"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/cdic-logo-white-en.png" alt="TD Canada Trust">
+                </a>
+            </div>
+            <nav class="main-nav" id="mainNav">
+                <ul>
+                    <li class="dropdown" onclick="toggleDropdown(this)">
+                        <a href="#">Products <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <ul>
+                                <li><a href="#">Accounts</a></li>
+                                <li><a href="#">Savings</a></li>
+                                <li><a href="#">GICs</a></li>
+                                <li><a href="#">Credit Cards</a></li>
+                                <li><a href="#">Mortgages</a></li>
+                                <li><a href="#">Personal Loans</a></li>
+                                <li><a href="#">RSPs / TFSAs</a></li>
+                                <li><a href="#">Debit Cards</a></li>
+                                <li><a href="#">Special Offers</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="dropdown" onclick="toggleDropdown(this)">
+                        <a href="#">Services <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <ul>
+                                <li><a href="#">EasyWeb Online Banking</a></li>
+                                <li><a href="#">TD app</a></li>
+                                <li><a href="#">Student Banking</a></li>
+                                <li><a href="#">Cross Border Banking</a></li>
+                                <li><a href="#">Travel Tips</a></li>
+                                <li><a href="#">Foreign Exchange Services</a></li>
+                                <li><a href="#">Overdraft Protection</a></li>
+                                <li><a href="#">New to Canada</a></li>
+                                <li><a href="#">Manage Your TD Credit Card</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a href="#">Learning</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="branch-locator.html" class="icon-link" aria-label="Find a branch" style="color: #008a00;"><i class="fas fa-map-marker-alt"></i></a>
+                <a href="help-centre.html" class="icon-link" aria-label="Help centre"><i class="fas fa-question-circle"></i></a>
+                <button type="button" class="icon-link page-search-trigger" aria-label="Search this page" title="Search this page"><i class="fas fa-search"></i></button>
+                <div class="divider"></div>
+                <a href="login.html" class="login-btn">
+                    <i class="fas fa-user"></i>
+                    Log In
+                </a>
+                <button class="mobile-menu-toggle" id="menuToggle" aria-controls="utilityNav" aria-expanded="false" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Branch Locator Split Screen Interface -->
+    <div class="locator-main-container">
+        <!-- Left Sidebar Panel -->
+        <div class="locator-sidebar">
+            <div class="locator-search-header">
+                <h1>Find a branch</h1>
+                <div class="locator-input-group">
+                    <input type="text" placeholder="Search street, city, province, postal code or transit #" id="locationSearchInput">
+                    <button type="button" onclick="performSearch()"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+
+            <div class="locator-filters">
+                <div class="filter-checkboxes">
+                    <label><input type="checkbox" checked id="filterBranch"> Branch</label>
+                    <label><input type="checkbox" checked id="filterAtm"> ATM</label>
+                </div>
+                <a href="#" class="existing-bookings-link">View existing bookings</a>
+            </div>
+
+            <div class="locator-results-body">
+                <!-- Refine Your Search Notice Card -->
+                <div class="refine-search-card">
+                    <h2><i class="fas fa-exclamation-circle"></i> Refine Your Search</h2>
+                    <p>We could not find a TD Canada Trust branch or TD Green Machine ATM.</p>
+                    <p style="margin-top: 12px;">Try to zoom out from your current location or search a new a street, city, province, postal code or transit #.</p>
+                </div>
+
+                <div class="holiday-schedule-banner">
+                    <a href="#"><i class="fas fa-calendar-alt"></i> See the TD Canada Trust 2026 Holiday Schedule</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Embedded Google Map (Canada & USA Coverage) -->
+        <div class="locator-map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11548.157834589832!2d-79.3871!3d43.6481!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b34d2f7823f61%3A0x8670d8591ef52db8!2sTD%20Bank%20Tower%2C%20Toronto%2C%20ON!5e0!3m2!1sen!2sca!4v1650000000000!5m2!1sen!2sca" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade"
+                title="TD Branch and ATM Locator Map">
+            </iframe>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-heading">
+                    <p>Need to talk to us directly? <a href="#">Contact us</a></p>
+                </div>
+                <div class="social-links">
+                    <p>Follow TD Canada</p>
+                    <ul>
+                        <li><a href="https://twitter.com/td_canada"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="https://www.facebook.com/TDCanada/"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="https://www.instagram.com/TD_Canada/"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="https://www.youtube.com/user/TDCanada/TDCanadaTrust"><i class="fab fa-youtube"></i></a></li>
+                        <li><a href="https://www.linkedin.com/company/td/"><i class="fab fa-linkedin-in"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <ul class="footer-links">
+                <li><a href="privacy-and-security.html">Privacy and Security</a></li>
+                <li><a href="legal-notices-and-disclaimers.html">Legal</a></li>
+                <li><a href="accessibility.html">Accessibility</a></li>
+                <li><a href="cdic.html">CDIC Member</a></li>
+                <li><a href="careers.html">Careers</a></li>
+                <li><a href="#">Manage online experience</a></li>
+                <li><a href="site-index.html">Site Index</a></li>
+            </ul>
+            <hr>
+            <div class="footer-info">
+                <p><a href="#">CDIC Member. Deposits insured up to applicable limits by the Canada Deposit Insurance Corporation</a></p>
+            </div>
+            <hr>
+            <div class="securities-notice">
+                <p><b>INVESTMENT AND MUTUAL FUND PRODUCTS ARE: NOT A DEPOSIT; NOT CDIC INSURED; NOT INSURED BY ANY FEDERAL GOVERNMENT AGENCY; NOT GUARANTEED BY THE TORONTO-DOMINION BANK OR ANY OF ITS AFFILIATES.</b></p>
+            </div>
+            <hr>
+            <div class="copyright">
+                <p><b>TD Bank Tower</b> 66 Wellington Street West, Toronto, ON M5K 1A2<br>
+                ©2026 The Toronto-Dominion Bank. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        function performSearch() {
+            const query = document.getElementById('locationSearchInput').value.trim();
+            if (query !== '') {
+                // Interactive simulation alert for searching locations across CA & USA
+                alert('Searching for TD branches and ATMs near: ' + query);
+            }
+        }
+
+        function toggleMobileMenu() {
+            const utilityNav = document.getElementById('utilityNav');
+            const menuToggle = document.getElementById('menuToggle');
+            const isOpen = utilityNav.classList.toggle('active');
+            menuToggle.setAttribute('aria-expanded', String(isOpen));
+        }
+
+        function toggleDropdown(element) {
+            if (window.innerWidth <= 900) {
+                element.classList.toggle('open');
+            }
+        }
+    </script>
+    <script src="page-search.js" defer></script>
+</body>
+</html>
